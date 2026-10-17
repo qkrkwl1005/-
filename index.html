@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="퀀트프로 37" />
-  <title>QUANT PRO 37 V19 · 주식·환율·비트코인·금 24시 실시간 퀀트</title>
+  <title>QUANT PRO 37 V20 · 실시간 웹소켓 & 37지표 통합</title>
   <style>
     :root {
       --bg: #0B0E14;
@@ -62,19 +62,37 @@
       border-radius: 8px; padding: 5px 7px; font-size: 11px; font-weight: 800;
     }
 
-    /* 6칸 매크로 & 24시 실시간 바 (클릭 시 차트 연동) */
+    /* 6칸 매크로 & 24시 실시간 바 */
     .macro-bar {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
       margin: 10px 0;
     }
     .macro-item {
       background: var(--card); border: 1px solid var(--border); border-radius: 10px;
-      padding: 7px 8px; text-align: center; cursor: pointer; transition: border-color 0.15s;
+      padding: 7px 8px; text-align: center; cursor: pointer; transition: background-color 0.25s, border-color 0.2s;
     }
-    .macro-item:hover, .macro-item:active { border-color: #3B82F6; background: var(--card-2); }
+    .macro-item:hover, .macro-item:active { border-color: #3B82F6; }
     .macro-item .m-k { color: var(--sub); font-size: 10px; display: flex; justify-content: center; align-items: center; gap: 4px; }
     .macro-item .m-v { font-weight: 900; font-size: 11.5px; margin-top: 3px; display: block; font-variant-numeric: tabular-nums; }
-    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; display: inline-block; box-shadow: 0 0 6px #10B981; }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.8); }
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; display: inline-block; box-shadow: 0 0 6px #10B981; animation: pulseDot 1.2s infinite; }
+    .closed-dot { width: 6px; height: 6px; border-radius: 50%; background: #64748B; display: inline-block; }
+
+    /* 실시간 틱 발생 시 가격 깜빡임 효과 */
+    @keyframes tickUpFlash {
+      0% { background-color: rgba(242, 54, 69, 0.38); }
+      100% { background-color: transparent; }
+    }
+    @keyframes tickDownFlash {
+      0% { background-color: rgba(41, 98, 255, 0.38); }
+      100% { background-color: transparent; }
+    }
+    .flash-up { animation: tickUpFlash 0.55s ease-out; border-radius: 6px; }
+    .flash-down { animation: tickDownFlash 0.55s ease-out; border-radius: 6px; }
 
     /* 공통 카드 */
     .card {
@@ -128,7 +146,7 @@
 
     /* 관심종목 리스트 */
     .stock-row {
-      display: grid; grid-template-columns: 22px 32px 1fr 50px 102px 42px;
+      display: grid; grid-template-columns: 22px 32px 1fr 50px 106px 42px;
       align-items: center; gap: 6px; padding: 10px 2px;
       border-bottom: 1px solid var(--border); cursor: pointer;
     }
@@ -140,7 +158,7 @@
     }
     .s-ticker { font-size: 13px; font-weight: 900; color: #FFF; }
     .s-krname { font-size: 10.5px; color: var(--sub); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .s-price-col { text-align: right; font-variant-numeric: tabular-nums; }
+    .s-price-col { text-align: right; font-variant-numeric: tabular-nums; padding: 2px 4px; }
     .s-price { font-size: 13px; font-weight: 900; color: #FFF; }
     .s-pct { font-size: 11px; font-weight: 800; margin-top: 2px; }
     .s-ctrl { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
@@ -255,7 +273,7 @@
   <div class="brand-logo" onclick="showPane('home')">
     <span class="logo-circle"></span>
     <span>QUANT PRO 37</span>
-    <span class="pro-tag">24/7 LIVE V19</span>
+    <span class="pro-tag">WS LIVE V20</span>
   </div>
   <div class="top-actions">
     <select id="timeframeSelect" class="tf-select" onchange="onChangeTimeframe()">
@@ -273,39 +291,39 @@
 </header>
 
 <div class="container">
-  <!-- 🌐 상단 6칸 실시간 매크로 & 24시간 자산 보드 (클릭 시 즉시 해당 차트 이동) -->
+  <!-- 🌐 상단 6칸 실시간 매크로 & 24시간 웹소켓 자산 보드 -->
   <div class="macro-bar">
-    <div class="macro-item" onclick="selectStockFromHome('KRW=X')">
-      <span class="m-k"><i class="live-dot"></i>달러/원 환율</span>
-      <span class="m-v" id="mcFX" style="color:#FFF;">1,334.7원</span>
+    <div class="macro-item" id="mcBoxFX" onclick="selectStockFromHome('KRW-USDT')">
+      <span class="m-k"><i class="live-dot"></i>24시 실시간환율</span>
+      <span class="m-v" id="mcFX" style="color:#FFF;">1,334.2원</span>
     </div>
-    <div class="macro-item" onclick="selectStockFromHome('KRW-BTC')">
-      <span class="m-k"><i class="live-dot"></i>비트코인(24시)</span>
+    <div class="macro-item" id="mcBoxBTC" onclick="selectStockFromHome('KRW-BTC')">
+      <span class="m-k"><i class="live-dot"></i>비트코인(실시간)</span>
       <span class="m-v" id="mcBTC" style="color:var(--up);">연동중..</span>
     </div>
-    <div class="macro-item" onclick="selectStockFromHome('PAXGUSDT')">
-      <span class="m-k"><i class="live-dot"></i>국제 금(24시)</span>
+    <div class="macro-item" id="mcBoxGOLD" onclick="selectStockFromHome('PAXGUSDT')">
+      <span class="m-k"><i class="live-dot"></i>국제 금(실시간)</span>
       <span class="m-v" id="mcGOLD" style="color:var(--amber);">연동중..</span>
     </div>
-    <div class="macro-item" onclick="selectStockFromHome('QQQ')">
-      <span class="m-k">나스닥(QQQ)</span>
+    <div class="macro-item" id="mcBoxETH" onclick="selectStockFromHome('KRW-ETH')">
+      <span class="m-k"><i class="live-dot"></i>이더리움(실시간)</span>
+      <span class="m-v" id="mcETH" style="color:var(--up);">연동중..</span>
+    </div>
+    <div class="macro-item" id="mcBoxQQQ" onclick="selectStockFromHome('QQQ')">
+      <span class="m-k"><i id="dotQQQ" class="closed-dot"></i>나스닥(QQQ)</span>
       <span class="m-v" id="mcQQQ" style="color:var(--down);">$743.57 (-0.33%)</span>
     </div>
-    <div class="macro-item" onclick="selectStockFromHome('SPY')">
-      <span class="m-k">S&P500(SPY)</span>
+    <div class="macro-item" id="mcBoxSPY" onclick="selectStockFromHome('SPY')">
+      <span class="m-k"><i id="dotSPY" class="closed-dot"></i>S&P500(SPY)</span>
       <span class="m-v" id="mcSPY" style="color:var(--down);">$778.01 (-0.01%)</span>
-    </div>
-    <div class="macro-item" onclick="selectStockFromHome('KRW-ETH')">
-      <span class="m-k"><i class="live-dot"></i>이더리움(24시)</span>
-      <span class="m-v" id="mcETH" style="color:var(--up);">연동중..</span>
     </div>
   </div>
 
   <!-- 검색바 -->
   <div class="search-wrap">
     <div style="display:flex; justify-content:space-between; align-items:center; font-size: 11px; color: var(--sub); margin-bottom: 6px;">
-      <span>📡 코인·금 3초 실시간 / 주식 전일종가 검증 · <b style="color:#FFF;" id="countdownTxt">5초</b></span>
-      <span id="feedSourceBadge" style="color:var(--green); font-weight:800; cursor:pointer;" onclick="syncAllRealtime()">🔄 즉시 전체갱신</span>
+      <span id="marketGlobalStatusTxt">🟢 코인·금·환율 0.1초 웹소켓 체결중</span>
+      <span id="feedSourceBadge" style="color:var(--green); font-weight:800; cursor:pointer;" onclick="syncAllRealtime()">🔄 전체 시세갱신</span>
     </div>
 
     <div class="ask-box">
@@ -323,13 +341,13 @@
     <div class="card">
       <div class="card-header">
         <div class="card-title">📊 실시간 시세 & 37지표 채점 보드</div>
-        <span style="font-size:10.5px; color:var(--green); font-weight:800;" id="homeSyncStatus">● 24/7 실시간 가동</span>
+        <span style="font-size:10.5px; color:var(--green); font-weight:800;" id="homeSyncStatus">● 웹소켓 실시간 가동</span>
       </div>
 
       <!-- 카테고리 필터 탭 -->
       <div class="cat-tabs">
         <button class="cat-btn active" id="cat-ALL" onclick="setCategoryFilter('ALL')">전체보기</button>
-        <button class="cat-btn" id="cat-24H" onclick="setCategoryFilter('24H')">🪙 24시 코인·금·환율</button>
+        <button class="cat-btn" id="cat-24H" onclick="setCategoryFilter('24H')">🪙 24시 코인·금·환율 (실시간 작동중)</button>
         <button class="cat-btn" id="cat-KR" onclick="setCategoryFilter('KR')">🇰🇷 국내주식</button>
         <button class="cat-btn" id="cat-US" onclick="setCategoryFilter('US')">🇺🇸 미국주식</button>
       </div>
@@ -344,13 +362,13 @@
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
         <div>
           <span style="font-size:18px; font-weight:900;" id="dtFullName">비트코인 (KRW-BTC)</span>
-          <div style="font-size:11px; color:var(--sub); margin-top:2px;" id="dtSourceMeta">UPBIT 24/7 · 실시간 시세</div>
+          <div style="font-size:11px; color:var(--sub); margin-top:2px;" id="dtSourceMeta">UPBIT 24/7 · 실시간 웹소켓 체결</div>
         </div>
         <span class="tag tag-good" id="dtConsensusBadge">매수 우위</span>
       </div>
 
       <div style="margin: 10px 0; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px;">
-        <div>
+        <div id="dtPriceWrap" style="padding: 2px 6px; margin-left: -6px;">
           <span style="font-size:26px; font-weight:900; font-variant-numeric:tabular-nums;" id="dtMainPrice">-</span>
           <span style="font-size:13.5px; font-weight:800; margin-left:6px;" id="dtMainChange">-</span>
         </div>
@@ -535,31 +553,30 @@
 </nav>
 
 <script>
-  const STORAGE_KEY = "QUANT_PRO_37_V19_LIVE24";
-  let fxKrwPerUsd = 1334.74;
+  const STORAGE_KEY = "QUANT_PRO_37_V20_WS_LIVE";
+  let fxKrwPerUsd = 1334.20;
   let currencyMode = "AUTO";
   let currentTf = "1d";
   let currentTicker = "KRW-BTC";
-  let categoryFilter = "ALL"; // ALL, 24H, KR, US
-  let countdownSec = 5;
+  let categoryFilter = "ALL";
   let lastEvaluated = null;
+  let upbitWs = null;
+  let binanceWs = null;
 
   // ==================== 1. 국내주식 · 미국주식 · 24시간 자산(코인/금/환율) 통합 DB ====================
   const MASTER_STOCK_DB = [
-    // 🪙 [24시간 실시간] 암호화폐 · 국제 금 · 실시간 환율 (주말/야간에도 1초 단위로 작동)
-    { ticker: "KRW-BTC", krName: "비트코인 (업비트 원화)", exchange: "UPBIT 24H", basePrice: 128500000, prevClose: 127200000, pct: 1.02, cat: "24H", aliases: ["BTC", "비트", "BITCOIN"] },
-    { ticker: "KRW-ETH", krName: "이더리움 (업비트 원화)", exchange: "UPBIT 24H", basePrice: 4120000, prevClose: 4050000, pct: 1.73, cat: "24H", aliases: ["ETH", "이더", "ETHEREUM"] },
-    { ticker: "KRW-XRP", krName: "리플 (XRP 원화)", exchange: "UPBIT 24H", basePrice: 3150, prevClose: 3100, pct: 1.61, cat: "24H", aliases: ["XRP", "리플"] },
-    { ticker: "KRW-SOL", krName: "솔라나 (SOL 원화)", exchange: "UPBIT 24H", basePrice: 278000, prevClose: 272000, pct: 2.21, cat: "24H", aliases: ["SOL", "솔라나", "SOLANA"] },
-    { ticker: "KRW-DOGE", krName: "도지코인 (DOGE 원화)", exchange: "UPBIT 24H", basePrice: 415, prevClose: 402, pct: 3.23, cat: "24H", aliases: ["DOGE", "도지"] },
-    { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 실시간 Gold)", exchange: "GOLD 24H", basePrice: 2715.40, prevClose: 2692.10, pct: 0.87, cat: "24H", aliases: ["금", "GOLD", "국제금", "금시세", "XAU"] },
-    { ticker: "GC=F", krName: "국제 금 선물 (COMEX Gold)", exchange: "COMEX", basePrice: 2718.00, prevClose: 2695.00, pct: 0.85, cat: "24H", aliases: ["금선물"] },
-    { ticker: "SI=F", krName: "국제 은 선물 (COMEX Silver)", exchange: "COMEX", basePrice: 32.45, prevClose: 31.80, pct: 2.04, cat: "24H", aliases: ["은", "은선물", "SILVER"] },
-    { ticker: "KRW=X", krName: "달러/원 실시간 환율 (USD/KRW)", exchange: "FX 24H", basePrice: 1334.74, prevClose: 1338.50, pct: -0.28, cat: "24H", aliases: ["환율", "달러", "달러환율", "USDKRW"] },
-    { ticker: "KRW-USDT", krName: "테더 원화환율 (24시 체감환율)", exchange: "UPBIT 24H", basePrice: 1348, prevClose: 1350, pct: -0.15, cat: "24H", aliases: ["테더", "USDT", "김프환율"] },
-    { ticker: "BTCUSDT", krName: "비트코인 달러 (Binance 24H)", exchange: "BINANCE 24H", basePrice: 95400, prevClose: 94200, pct: 1.27, cat: "24H", aliases: ["비트달러"] },
+    // 🪙 [24시간 실시간 웹소켓] 암호화폐 · 국제 금 · 테더 실시간 환율
+    { ticker: "KRW-BTC", krName: "비트코인 (24시)", exchange: "UPBIT 24H", basePrice: 109840000, prevClose: 110310000, pct: -0.43, cat: "24H", aliases: ["BTC", "비트", "BITCOIN"] },
+    { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 Gold)", exchange: "GOLD 24H", basePrice: 4164.53, prevClose: 4173.32, pct: -0.21, cat: "24H", aliases: ["금", "GOLD", "국제금", "금시세", "XAU"] },
+    { ticker: "KRW-ETH", krName: "이더리움 (24시)", exchange: "UPBIT 24H", basePrice: 3264000, prevClose: 3280000, pct: -0.49, cat: "24H", aliases: ["ETH", "이더", "ETHEREUM"] },
+    { ticker: "KRW-USDT", krName: "실시간 달러/원 체감환율 (24시 USDT)", exchange: "FX 24H", basePrice: 1334.20, prevClose: 1336.00, pct: -0.13, cat: "24H", aliases: ["환율", "달러", "테더", "USDT"] },
+    { ticker: "KRW-XRP", krName: "리플 (24시 XRP)", exchange: "UPBIT 24H", basePrice: 3150, prevClose: 3100, pct: 1.61, cat: "24H", aliases: ["XRP", "리플"] },
+    { ticker: "KRW-SOL", krName: "솔라나 (24시 SOL)", exchange: "UPBIT 24H", basePrice: 278000, prevClose: 272000, pct: 2.21, cat: "24H", aliases: ["SOL", "솔라나", "SOLANA"] },
+    { ticker: "KRW-DOGE", krName: "도지코인 (24시 DOGE)", exchange: "UPBIT 24H", basePrice: 415, prevClose: 402, pct: 3.23, cat: "24H", aliases: ["DOGE", "도지"] },
+    { ticker: "BTCUSDT", krName: "비트코인 달러 (24시 Binance)", exchange: "BINANCE 24H", basePrice: 82297.26, prevClose: 82650.00, pct: -0.43, cat: "24H", aliases: ["비트달러"] },
+    { ticker: "KRW=X", krName: "은행 고시 달러/원 환율", exchange: "FX", basePrice: 1334.20, prevClose: 1346.90, pct: -0.94, cat: "24H", aliases: ["고시환율", "USDKRW"] },
 
-    // 🇰🇷 [국내 상장사] (실제 현재가 및 전일종가 검증 완료)
+    // 🇰🇷 [국내 상장사]
     { ticker: "009150.KS", krName: "삼성전기", exchange: "KOSPI", basePrice: 1188000, prevClose: 1163000, pct: 2.15, cat: "KR", aliases: ["삼전전기", "009150"] },
     { ticker: "047040.KS", krName: "대우건설", exchange: "KOSPI", basePrice: 14730, prevClose: 14670, pct: 0.41, cat: "KR", aliases: ["대우", "047040"] },
     { ticker: "016360.KS", krName: "삼성증권", exchange: "KOSPI", basePrice: 79000, prevClose: 76300, pct: 3.54, cat: "KR", aliases: ["016360"] },
@@ -572,13 +589,8 @@
     { ticker: "010950.KS", krName: "S-Oil", exchange: "KOSPI", basePrice: 64800, prevClose: 64100, pct: 1.09, cat: "KR", aliases: ["에쓰오일", "에스오일", "010950"] },
     { ticker: "373220.KS", krName: "LG에너지솔루션", exchange: "KOSPI", basePrice: 403500, prevClose: 398000, pct: 1.38, cat: "KR", aliases: ["엔솔", "373220"] },
     { ticker: "196170.KQ", krName: "알테오젠", exchange: "KOSDAQ", basePrice: 234000, prevClose: 213500, pct: 9.60, cat: "KR", aliases: ["196170"] },
-    { ticker: "086520.KQ", krName: "에코프로", exchange: "KOSDAQ", basePrice: 88500, prevClose: 87200, pct: 1.49, cat: "KR", aliases: ["086520"] },
-    { ticker: "247540.KQ", krName: "에코프로비엠", exchange: "KOSDAQ", basePrice: 168000, prevClose: 165500, pct: 1.51, cat: "KR", aliases: ["247540"] },
-    { ticker: "068270.KS", krName: "셀트리온", exchange: "KOSPI", basePrice: 194500, prevClose: 192000, pct: 1.30, cat: "KR", aliases: ["068270"] },
-    { ticker: "035420.KS", krName: "NAVER", exchange: "KOSPI", basePrice: 189000, prevClose: 187500, pct: 0.80, cat: "KR", aliases: ["네이버", "035420"] },
-    { ticker: "035720.KS", krName: "카카오", exchange: "KOSPI", basePrice: 42500, prevClose: 42100, pct: 0.95, cat: "KR", aliases: ["035720"] },
 
-    // 🇺🇸 [미국 상장사] (전일종가 및 실제 등락률 100% 일치 검증)
+    // 🇺🇸 [미국 상장사]
     { ticker: "NVDA", krName: "엔비디아", exchange: "NASDAQ", basePrice: 214.13, prevClose: 217.23, pct: -1.43, cat: "US", aliases: ["NVIDIA"] },
     { ticker: "TSLA", krName: "테슬라", exchange: "NASDAQ", basePrice: 354.72, prevClose: 362.44, pct: -2.13, cat: "US", aliases: ["TESLA"] },
     { ticker: "SOXL", krName: "SOXL · 반도체 3배 ETF", exchange: "NYSE", basePrice: 93.67, prevClose: 107.35, pct: -12.74, cat: "US", aliases: ["속슬", "반도체3배"] },
@@ -593,8 +605,6 @@
     { ticker: "META", krName: "메타 플랫폼스", exchange: "NASDAQ", basePrice: 718.67, prevClose: 720.90, pct: -0.31, cat: "US", aliases: ["메타", "페이스북"] },
     { ticker: "AVGO", krName: "브로드컴", exchange: "NASDAQ", basePrice: 330.10, prevClose: 344.29, pct: -4.12, cat: "US", aliases: ["BROADCOM"] },
     { ticker: "AMD", krName: "AMD", exchange: "NASDAQ", basePrice: 570.82, prevClose: 539.88, pct: 5.73, cat: "US", aliases: ["에이엠디"] },
-    { ticker: "PLTR", krName: "팔란티어 테크놀로지스", exchange: "NASDAQ", basePrice: 189.05, prevClose: 186.40, pct: 1.42, cat: "US", aliases: ["팔란티어"] },
-    { ticker: "MU", krName: "마이크론 테크놀로지", exchange: "NASDAQ", basePrice: 914.13, prevClose: 878.29, pct: 4.08, cat: "US", aliases: ["마이크론"] },
     { ticker: "QQQ", krName: "QQQ · 나스닥 100 ETF", exchange: "NASDAQ", basePrice: 743.57, prevClose: 746.04, pct: -0.33, cat: "US", aliases: ["나스닥"] },
     { ticker: "SPY", krName: "SPY · S&P 500 ETF", exchange: "NYSE", basePrice: 778.01, prevClose: 778.10, pct: -0.01, cat: "US", aliases: ["S&P500"] }
   ];
@@ -644,21 +654,20 @@
     { id: "RSI", name: "RSI (상대강도지수 14)", desc: "과매도(30)·과매수(70) 핵심 오실레이터", defOn: true }
   ];
 
-  // 초기 기본 관심종목 (24시 자산 + 국내 대표주 + 미국 대표주 균형 배치)
   const defaultWatchlist = [
     { ticker: "KRW-BTC", krName: "비트코인 (24시)", exchange: "UPBIT 24H", pinned: true },
     { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 Gold)", exchange: "GOLD 24H", pinned: true },
-    { ticker: "KRW=X", krName: "달러/원 실시간 환율", exchange: "FX 24H", pinned: true },
+    { ticker: "KRW-ETH", krName: "이더리움 (24시)", exchange: "UPBIT 24H", pinned: true },
+    { ticker: "KRW-USDT", krName: "실시간 달러/원 체감환율 (24시)", exchange: "FX 24H", pinned: true },
     { ticker: "009150.KS", krName: "삼성전기", exchange: "KOSPI", pinned: true },
-    { ticker: "047040.KS", krName: "대우건설", exchange: "KOSPI", pinned: true },
+    { ticker: "047040.KS", krName: "대우건설", exchange: "KOSPI", pinned: false },
     { ticker: "016360.KS", krName: "삼성증권", exchange: "KOSPI", pinned: false },
     { ticker: "SOXL", krName: "SOXL · 반도체 3배 ETF", exchange: "NYSE", pinned: false },
     { ticker: "IREN", krName: "아이렌", exchange: "NASDAQ", pinned: false },
     { ticker: "LAES", krName: "실스크", exchange: "NASDAQ", pinned: false },
     { ticker: "NVDA", krName: "엔비디아", exchange: "NASDAQ", pinned: false },
     { ticker: "005930.KS", krName: "삼성전자", exchange: "KOSPI", pinned: false },
-    { ticker: "000660.KS", krName: "SK하이닉스", exchange: "KOSPI", pinned: false },
-    { ticker: "TSLA", krName: "테슬라", exchange: "NASDAQ", pinned: false }
+    { ticker: "000660.KS", krName: "SK하이닉스", exchange: "KOSPI", pinned: false }
   ];
 
   let appState = loadAppState();
@@ -707,13 +716,42 @@
     return "US";
   }
 
+  // ==================== 2. 한국시간(KST) 기준 장 운영 시간 자동 판별기 ====================
+  function getMarketSessionStatus(ticker) {
+    const cat = getAssetCategory(ticker);
+    if (cat === "24H" && ticker !== "KRW=X") {
+      return { open: true, label: "🟢 24H 실시간 체결중", color: "#34D399" };
+    }
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const kst = new Date(utc + (9 * 3600000));
+    const day = kst.getDay(); // 0: 일, 6: 토
+    const hm = kst.getHours() * 100 + kst.getMinutes();
+
+    if (cat === "KR") {
+      if (day === 0 || day === 6) return { open: false, label: "⚪ 주말휴장 (금요일 종가)", color: "#94A3B8" };
+      if (hm >= 900 && hm <= 1530) return { open: true, label: "🟢 정규장 실시간", color: "#34D399" };
+      if (hm >= 800 && hm <= 2000) return { open: true, label: "🟡 대체·시간외 거래", color: "#FBBF24" };
+      return { open: false, label: "⚪ 장마감 (종가)", color: "#94A3B8" };
+    }
+
+    // 미국 주식 (KST 기준: 월요일 17:00 ~ 토요일 09:00까지 프리/정규/애프터 가동, 토요일 09:00 ~ 월요일 17:00 주말 휴장)
+    if (day === 0 || (day === 6 && hm >= 900) || (day === 1 && hm < 1700)) {
+      return { open: false, label: "⚪ 주말휴장 (토요일 새벽 종가)", color: "#94A3B8" };
+    }
+    if (hm >= 2230 || hm < 500) return { open: true, label: "🟢 미 증시 정규장 실시간", color: "#34D399" };
+    if (hm >= 1700 && hm < 2230) return { open: true, label: "🟡 프리마켓 실시간", color: "#FBBF24" };
+    if (hm >= 500 && hm < 900) return { open: true, label: "🟡 애프터마켓 실시간", color: "#FBBF24" };
+    return { open: false, label: "⚪ 장외 대기 (종가)", color: "#94A3B8" };
+  }
+
   function formatDisplayTitle(krName, ticker) {
     const cleanT = ticker.replace(".KS", "").replace(".KQ", "");
     if (krName.toUpperCase().includes(cleanT.toUpperCase())) return krName;
     return `${krName} (${cleanT})`;
   }
 
-  // ==================== 2. 실제 현재가와 전일종가에 100% 맞춘 캔들 초기화 ====================
+  // ==================== 3. 캔들 초기화 & 모든 시간프레임(1d/1h/15m/5m) 동시 실시간 업데이트 ====================
   function buildAnchoredCandles(targetClose, targetPrevClose, tickerStr) {
     const raw = [];
     let seed = 0;
@@ -730,7 +768,7 @@
       p = c;
     }
     const scale = targetClose / raw[raw.length - 1].c;
-    const isKRW = isKrwNativeAsset(tickerStr) && tickerStr !== "KRW=X";
+    const isKRW = isKrwNativeAsset(tickerStr) && tickerStr !== "KRW=X" && tickerStr !== "KRW-USDT";
     const fmt = (val) => isKRW ? Math.round(val) : +(val.toFixed(targetClose < 10 ? 3 : 2));
 
     const candles = raw.map(bar => ({
@@ -746,8 +784,8 @@
       candles[candles.length - 1].o = fmt(targetPrevClose);
     }
     candles[candles.length - 1].c = fmt(targetClose);
-    candles[candles.length - 1].h = fmt(Math.max(candles[candles.length - 1].o, targetClose) * 1.005);
-    candles[candles.length - 1].l = fmt(Math.min(candles[candles.length - 1].o, targetClose) * 0.995);
+    candles[candles.length - 1].h = fmt(Math.max(candles[candles.length - 1].o, targetClose) * 1.004);
+    candles[candles.length - 1].l = fmt(Math.min(candles[candles.length - 1].o, targetClose) * 0.996);
     return candles;
   }
 
@@ -760,7 +798,7 @@
       const pct = ((cur - prev) / prev) * 100;
       const candles = buildAnchoredCandles(cur, prev, ticker);
       candleCache[key] = {
-        source: "검증 시세 스냅샷",
+        source: "실시간 스냅샷",
         isLive: false,
         candles,
         livePrice: cur,
@@ -771,13 +809,67 @@
     return candleCache[key];
   }
 
-  majorStocks.forEach(st => ensureStockInitialized(st.ticker));
-  if (majorStocks.length > 0) currentTicker = majorStocks[0].ticker;
+  // 🚨 핵심 해결: 실시간 체결틱이 들어올 때 1d뿐 아니라 1h, 15m, 5m 모든 시간프레임 캐시를 동시에 갱신!
+  function applyRealtimeTickToAllTimeframes(ticker, newPrice, prevClose, changePct, sourceName) {
+    const pack1d = ensureStockInitialized(ticker);
+    const oldPrice = pack1d.livePrice || newPrice;
+    const tickDir = newPrice > oldPrice ? "up" : (newPrice < oldPrice ? "down" : "same");
 
-  // ==================== 3. 통화 포맷터 ====================
+    ["1d", "1h", "15m", "5m"].forEach(tf => {
+      const p = candleCache[`${ticker}_${tf}`];
+      if (p && p.candles && p.candles.length > 0) {
+        p.livePrice = newPrice;
+        if (prevClose) p.prevClose = prevClose;
+        if (changePct != null) p.changePct = changePct;
+        else if (p.prevClose) p.changePct = ((newPrice - p.prevClose) / p.prevClose) * 100;
+        p.isLive = true;
+        if (sourceName) p.source = sourceName;
+        const lastBar = p.candles[p.candles.length - 1];
+        lastBar.c = newPrice;
+        if (newPrice > lastBar.h) lastBar.h = newPrice;
+        if (newPrice < lastBar.l) lastBar.l = newPrice;
+      }
+    });
+
+    if (ticker === "KRW-USDT" && newPrice > 900) {
+      fxKrwPerUsd = newPrice;
+    }
+
+    if (tickDir !== "same") {
+      triggerVisualTickFlash(ticker, tickDir);
+    }
+  }
+
+  function triggerVisualTickFlash(ticker, dir) {
+    const cls = dir === "up" ? "flash-up" : "flash-down";
+    const rowEl = document.getElementById(`row_price_${ticker}`);
+    if (rowEl) {
+      rowEl.classList.remove("flash-up", "flash-down");
+      void rowEl.offsetWidth;
+      rowEl.classList.add(cls);
+    }
+    if (ticker === currentTicker) {
+      const dtWrap = document.getElementById("dtPriceWrap");
+      if (dtWrap) {
+        dtWrap.classList.remove("flash-up", "flash-down");
+        void dtWrap.offsetWidth;
+        dtWrap.classList.add(cls);
+      }
+      renderDetail();
+    }
+    updateHomeRowQuick(ticker);
+  }
+
+  majorStocks.forEach(st => ensureStockInitialized(st.ticker));
+  ["QQQ", "SPY", "KRW-BTC", "KRW-ETH", "PAXGUSDT", "KRW-USDT"].forEach(tk => ensureStockInitialized(tk));
+
+  // ==================== 4. 통화 포맷터 ====================
   function fmtPrice(rawVal, ticker = currentTicker) {
     if (rawVal == null || isNaN(rawVal)) return "-";
-    if (ticker === "KRW=X") return `${rawVal.toFixed(2)}원`;
+    if (ticker === "KRW=X" || ticker === "KRW-USDT") {
+      if (currencyMode === "USD") return `$${(rawVal / fxKrwPerUsd).toFixed(4)}`;
+      return `${rawVal.toFixed(2)}원`;
+    }
     const isKRW = isKrwNativeAsset(ticker);
 
     if (currencyMode === "AUTO") {
@@ -797,6 +889,7 @@
     document.getElementById("btnCurAUTO").classList.toggle("active", mode === "AUTO");
     document.getElementById("btnCurKRW").classList.toggle("active", mode === "KRW");
     document.getElementById("btnCurUSD").classList.toggle("active", mode === "USD");
+    updateMacroBarUI();
     renderAll();
   }
 
@@ -808,7 +901,86 @@
     renderHome();
   }
 
-  // ==================== 4. 24시간 직결 API (Upbit·Binance 무프록시) + 검증형 주식 프록시 ====================
+  // ==================== 5. 초고속 실시간 웹소켓(WebSocket) 엔진 (Upbit & Binance 0.1초 체결) ====================
+  function startRealtimeWebSockets() {
+    // 1) 업비트 실시간 웹소켓 연결 (KRW-BTC, KRW-ETH, KRW-XRP, KRW-SOL, KRW-DOGE, KRW-USDT)
+    try {
+      if (upbitWs) upbitWs.close();
+      upbitWs = new WebSocket("wss://api.upbit.com/websocket/v1");
+      upbitWs.binaryType = "arraybuffer";
+      upbitWs.onopen = () => {
+        const subMsg = [
+          { ticket: "quant_pro_v20" },
+          { type: "ticker", codes: ["KRW-BTC", "KRW-ETH", "KRW-XRP", "KRW-SOL", "KRW-DOGE", "KRW-USDT"] }
+        ];
+        upbitWs.send(JSON.stringify(subMsg));
+      };
+      upbitWs.onmessage = (evt) => {
+        try {
+          const dec = new TextDecoder("utf-8");
+          const data = JSON.parse(dec.decode(evt.data));
+          if (data && data.code && data.trade_price) {
+            const tk = data.code;
+            const cur = data.trade_price;
+            const prev = data.prev_closing_price;
+            const pct = data.signed_change_rate * 100;
+            applyRealtimeTickToAllTimeframes(tk, cur, prev, pct, "업비트 WebSocket 0.1초 실시간");
+            updateMacroBarUI();
+          }
+        } catch (e) {}
+      };
+      upbitWs.onclose = () => { setTimeout(startRealtimeWebSockets, 4000); };
+    } catch (e) {}
+
+    // 2) 바이낸스 실시간 웹소켓 연결 (국제 금 PAXGUSDT, 비트코인 달러 BTCUSDT)
+    try {
+      if (binanceWs) binanceWs.close();
+      binanceWs = new WebSocket("wss://stream.binance.com:9443/ws/paxgusdt@ticker/btcusdt@ticker");
+      binanceWs.onmessage = (evt) => {
+        try {
+          const d = JSON.parse(evt.data);
+          if (d && d.s && d.c) {
+            const tk = d.s;
+            const cur = parseFloat(d.c);
+            const prev = parseFloat(d.o);
+            const pct = parseFloat(d.P);
+            applyRealtimeTickToAllTimeframes(tk, cur, prev, pct, "글로벌 WebSocket 0.1초 실시간");
+            updateMacroBarUI();
+          }
+        } catch (e) {}
+      };
+    } catch (e) {}
+  }
+
+  function updateMacroBarUI() {
+    const setMacroCard = (elId, ticker) => {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      const p = ensureStockInitialized(ticker);
+      const cur = p.livePrice;
+      const pct = p.changePct || 0;
+      const isUp = pct >= 0;
+      if (ticker === "KRW-USDT") {
+        el.textContent = `${cur.toFixed(1)}원 (${isUp ? '+' : ''}${pct.toFixed(2)}%)`;
+      } else {
+        el.textContent = `${fmtPrice(cur, ticker)} (${isUp ? '+' : ''}${pct.toFixed(2)}%)`;
+      }
+      el.style.color = isUp ? "var(--up)" : "var(--down)";
+    };
+
+    setMacroCard("mcFX", "KRW-USDT");
+    setMacroCard("mcBTC", "KRW-BTC");
+    setMacroCard("mcGOLD", "PAXGUSDT");
+    setMacroCard("mcETH", "KRW-ETH");
+    setMacroCard("mcQQQ", "QQQ");
+    setMacroCard("mcSPY", "SPY");
+
+    const qqqSt = getMarketSessionStatus("QQQ");
+    document.getElementById("dotQQQ").className = qqqSt.open ? "live-dot" : "closed-dot";
+    document.getElementById("dotSPY").className = qqqSt.open ? "live-dot" : "closed-dot";
+  }
+
+  // ==================== 6. HTTP REST 폴백 & 국내/미국 주식 정규·프리·애프터마켓 실시간 연동 ====================
   async function fetchVerified(targetUrl, validatorFn, timeoutMs = 4500) {
     const encoded = encodeURIComponent(targetUrl);
     const candidates = [
@@ -842,79 +1014,42 @@
     return Promise.any(tasks);
   }
 
-  // [핵심 A] 24시간 실시간 업비트(KRW 코인/테더) & 바이낸스(국제 금 PAXG / 달러 코인) 직결 동기화 (프록시 불필요, 0.1초 응답)
-  async function sync24HourAssetsFast() {
-    // 1) 업비트 원화 마켓 일괄 시세 (비트코인, 이더리움, 리플, 솔라나, 도지, 테더환율)
+  async function sync24HourAssetsRest() {
     try {
       const upbitMarkets = ["KRW-BTC", "KRW-ETH", "KRW-XRP", "KRW-SOL", "KRW-DOGE", "KRW-USDT"];
       const res = await fetch(`https://api.upbit.com/v1/ticker?markets=${upbitMarkets.join(",")}`);
       if (res.ok) {
         const arr = await res.json();
         arr.forEach(item => {
-          const tk = item.market;
-          const cur = item.trade_price;
-          const prev = item.prev_closing_price;
-          const pct = item.signed_change_rate * 100;
-          const pack = ensureStockInitialized(tk);
-          pack.livePrice = cur;
-          pack.prevClose = prev;
-          pack.changePct = pct;
-          pack.isLive = true;
-          pack.source = "업비트 24H 실시간";
-          pack.candles[pack.candles.length - 1].c = cur;
-          if (cur > pack.candles[pack.candles.length - 1].h) pack.candles[pack.candles.length - 1].h = cur;
-          if (cur < pack.candles[pack.candles.length - 1].l) pack.candles[pack.candles.length - 1].l = cur;
-
-          if (tk === "KRW-BTC") {
-            const el = document.getElementById("mcBTC");
-            if (el) {
-              el.textContent = `${(cur / 10000).toFixed(0)}만 (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`;
-              el.style.color = pct >= 0 ? "var(--up)" : "var(--down)";
-            }
-          }
-          if (tk === "KRW-ETH") {
-            const el = document.getElementById("mcETH");
-            if (el) {
-              el.textContent = `${(cur / 10000).toFixed(1)}만 (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`;
-              el.style.color = pct >= 0 ? "var(--up)" : "var(--down)";
-            }
-          }
+          applyRealtimeTickToAllTimeframes(
+            item.market,
+            item.trade_price,
+            item.prev_closing_price,
+            item.signed_change_rate * 100,
+            "업비트 24H 실시간"
+          );
         });
       }
     } catch (e) {}
 
-    // 2) 바이낸스 24시간 국제 금(PAXGUSDT) & 비트코인 달러(BTCUSDT) 실시간 직결
     try {
       const bRes = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbols=["PAXGUSDT","BTCUSDT"]`);
       if (bRes.ok) {
         const bArr = await bRes.json();
         bArr.forEach(item => {
-          const tk = item.symbol;
-          const cur = parseFloat(item.lastPrice);
-          const prev = parseFloat(item.openPrice);
-          const pct = parseFloat(item.priceChangePercent);
-          if (!cur) return;
-          const pack = ensureStockInitialized(tk);
-          pack.livePrice = cur;
-          pack.prevClose = prev;
-          pack.changePct = pct;
-          pack.isLive = true;
-          pack.source = "글로벌 24H 실시간";
-          pack.candles[pack.candles.length - 1].c = cur;
-
-          if (tk === "PAXGUSDT") {
-            const el = document.getElementById("mcGOLD");
-            if (el) {
-              el.textContent = `$${cur.toFixed(1)} (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`;
-              el.style.color = pct >= 0 ? "var(--up)" : "var(--down)";
-            }
-          }
+          applyRealtimeTickToAllTimeframes(
+            item.symbol,
+            parseFloat(item.lastPrice),
+            parseFloat(item.openPrice),
+            parseFloat(item.priceChangePercent),
+            "글로벌 24H 실시간"
+          );
         });
       }
     } catch (e) {}
+    updateMacroBarUI();
   }
 
-  // [핵심 B] 국내 주식 일괄 실시간 체결가 동기화
   async function batchSyncDomesticQuotes() {
     const krCodes = majorStocks
       .filter(s => s.ticker.endsWith(".KS") || s.ticker.endsWith(".KQ"))
@@ -939,22 +1074,13 @@
         const diff = parseFloat(String(d.compareToPreviousClosePrice || "0").replace(/,/g, ""));
         const pct = parseFloat(String(d.fluctuationsRatio || "0").replace(/,/g, ""));
         if (!cur || isNaN(cur)) return;
-
-        const prev = cur - diff;
-        const pack = ensureStockInitialized(tk);
-        pack.livePrice = cur;
-        pack.prevClose = prev > 0 ? prev : pack.prevClose;
-        pack.changePct = pct;
-        pack.isLive = true;
-        pack.source = "네이버 실시간";
-        pack.candles[pack.candles.length - 1].c = cur;
+        applyRealtimeTickToAllTimeframes(tk, cur, cur - diff, pct, "네이버 금융 실시간");
       });
     } catch (e) {}
   }
 
-  // [핵심 C] 개별 종목 정밀 OHLCV 캔들 + 정확한 전일종가(`prevClose`) 추출
   async function fetchLiveStockCandles(ticker, tf = "1d") {
-    // 1. 업비트 24시간 암호화폐/테더 캔들 (무프록시 직결)
+    // 1. 업비트 24시간 암호화폐/테더 캔들
     if (ticker.startsWith("KRW-")) {
       try {
         const upTfUrl = tf === "1d"
@@ -993,7 +1119,7 @@
       } catch (e) {}
     }
 
-    // 2. 바이낸스 24시간 국제 금(PAXGUSDT) & 달러 코인 캔들 (무프록시 직결)
+    // 2. 바이낸스 24시간 국제 금(PAXGUSDT) & 달러 코인 캔들
     if (ticker.endsWith("USDT")) {
       try {
         const bInterval = tf === "1d" ? "1d" : tf;
@@ -1066,11 +1192,10 @@
       } catch (e) {}
     }
 
-    // 4. 미국 주식 · 환율(KRW=X) · 원자재 선물(GC=F, SI=F): Yahoo Finance v8 API
-    // 🚨 핵심 수정: meta.chartPreviousClose(6개월 전 가격)를 절대 쓰지 않고, 날짜별 중복 제거된 실제 직전 일봉 종가(candles[N-2].c)를 전일종가로 사용!
+    // 4. 미국 주식 (includePrePost=true 적용 -> 프리마켓·애프터마켓 실시간 가격까지 반영)
     try {
       const range = (tf === "5m" || tf === "15m") ? "5d" : (tf === "1h" ? "1mo" : "6mo");
-      const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=${tf}&range=${range}`;
+      const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=${tf}&range=${range}&includePrePost=true`;
       const pack = await fetchVerified(yUrl, (txt) => {
         const data = JSON.parse(txt);
         const res = data && data.chart && data.chart.result && data.chart.result[0];
@@ -1093,31 +1218,20 @@
               c: q.close[i],
               v: q.volume[i] || 500000
             };
-            if (tf === "1d") {
-              // 동일 날짜 중복 봉(장 마감 직후 Yahoo 마지막 틱 중복)을 덮어써서 정확한 일봉 배열 유지
-              seenDates.set(bar.dateKey, bar);
-            } else {
-              rawCandles.push(bar);
-            }
+            if (tf === "1d") seenDates.set(bar.dateKey, bar);
+            else rawCandles.push(bar);
           }
         }
         const candles = tf === "1d" ? Array.from(seenDates.values()) : rawCandles;
         if (candles.length < 12) return null;
 
-        const cur = meta.regularMarketPrice || candles[candles.length - 1].c;
+        // 프리마켓/애프터마켓 시간대면 해당 실시간 가격을 우선 반영
+        const cur = meta.postMarketPrice || meta.preMarketPrice || meta.regularMarketPrice || candles[candles.length - 1].c;
         candles[candles.length - 1].c = cur;
 
-        // 일봉이면 직전 거래일 봉(candles[candles.length - 2].c)이 100% 정확한 전일종가!
-        // 분봉이면 이미 저장된 일봉 캐시의 prevClose를 우선 사용
         let prev = candles[candles.length - 2].c;
         if (tf !== "1d" && candleCache[`${ticker}_1d`] && candleCache[`${ticker}_1d`].prevClose) {
           prev = candleCache[`${ticker}_1d`].prevClose;
-        }
-
-        if (ticker === "KRW=X" && cur > 900) {
-          fxKrwPerUsd = cur;
-          const fxEl = document.getElementById("mcFX");
-          if (fxEl) fxEl.textContent = `${cur.toFixed(1)}원`;
         }
 
         return {
@@ -1132,13 +1246,14 @@
 
       candleCache[`${ticker}_${tf}`] = pack;
       if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
+      updateMacroBarUI();
       return pack;
     } catch (e) {}
 
     return ensureStockInitialized(ticker);
   }
 
-  // ==================== 5. 전 종목 검색 & 자동완성 ====================
+  // ==================== 7. 전 종목 검색 & 자동완성 ====================
   function findLocalMatches(query) {
     const q = query.trim().toUpperCase();
     if (!q) return [];
@@ -1246,7 +1361,7 @@
     renderAll();
   }
 
-  // ==================== 6. 37개 기술적 지표 수학 엔진 ====================
+  // ==================== 8. 37개 기술적 지표 수학 엔진 ====================
   const MathUtils = {
     sma(arr, p) {
       if (!arr || arr.length === 0) return 0;
@@ -1652,7 +1767,6 @@
     }
     const backtestWinRate = totalSignals > 0 ? Math.min(94, Math.max(62, Math.round((winSignals / totalSignals) * 100))) : 78;
 
-    // 🚨 개선: 급락/고변동성 종목에서도 현재가 대비 최소 0.85 ATR 이상 여유 있는 지지선에 1차/2차 매수타점 산출
     const supportAvg = (vwapVal + sma20 + tenkan) / 3;
     const buyTarget1 = Math.min(curC - 0.85 * atr14, supportAvg);
     const buyTarget2 = Math.min(buyTarget1 - 1.15 * atr14, Math.max(bbLower, pocPrice * 0.98));
@@ -1683,7 +1797,7 @@
     };
   }
 
-  // ==================== 7. 화면 렌더링 ====================
+  // ==================== 9. 화면 렌더링 ====================
   function drawMiniSparkline(canvasId, prices, isUp) {
     const cv = document.getElementById(canvasId);
     if (!cv || !prices || prices.length < 2) return;
@@ -1702,6 +1816,20 @@
       else ctx.lineTo(x, y);
     });
     ctx.stroke();
+  }
+
+  function updateHomeRowQuick(ticker) {
+    const p = ensureStockInitialized(ticker);
+    const cur = p.livePrice;
+    const pct = p.changePct || 0;
+    const isUp = pct >= 0;
+    const pEl = document.getElementById(`val_price_${ticker}`);
+    const pctEl = document.getElementById(`val_pct_${ticker}`);
+    if (pEl) pEl.textContent = fmtPrice(cur, ticker);
+    if (pctEl) {
+      pctEl.textContent = `${isUp ? '+' : ''}${pct.toFixed(2)}%`;
+      pctEl.style.color = isUp ? "var(--up)" : "var(--down)";
+    }
   }
 
   function renderHome() {
@@ -1724,7 +1852,7 @@
       const sparkId = `spark_${idx}`;
       sparkQueue.push({ id: sparkId, data: candles.slice(-20).map(x => x.c), isUp });
       const cleanCode = st.ticker.replace(".KS", "").replace(".KQ", "");
-      const is24 = getAssetCategory(st.ticker) === "24H";
+      const mktSt = getMarketSessionStatus(st.ticker);
 
       return `
         <div class="stock-row" onclick="selectStockFromHome('${st.ticker}')">
@@ -1735,12 +1863,12 @@
               <span class="s-ticker">${st.krName}</span>
               <span class="tag ${ev.buyScore >= 65 ? 'tag-buy' : (ev.sellScore >= 65 ? 'tag-sell' : 'tag-neutral')}">매수 ${ev.buyScore}점</span>
             </div>
-            <div class="s-krname">${cleanCode} · ${is24 ? '<span style="color:#34D399;">● 24H 실시간</span>' : (pack.isLive ? '<span style="color:#60A5FA;">실시간</span>' : '전일종가 기준')} · 적중 ${ev.backtestWinRate}%</div>
+            <div class="s-krname"><span style="color:${mktSt.color}; font-weight:700;">${mktSt.label}</span> · 적중 ${ev.backtestWinRate}%</div>
           </div>
           <canvas id="${sparkId}" width="48" height="24"></canvas>
-          <div class="s-price-col">
-            <div class="s-price">${fmtPrice(cur, st.ticker)}</div>
-            <div class="s-pct" style="color:${isUp ? 'var(--up)' : 'var(--down)'};">${isUp ? '+' : ''}${pct.toFixed(2)}%</div>
+          <div class="s-price-col" id="row_price_${st.ticker}">
+            <div class="s-price" id="val_price_${st.ticker}">${fmtPrice(cur, st.ticker)}</div>
+            <div class="s-pct" id="val_pct_${st.ticker}" style="color:${isUp ? 'var(--up)' : 'var(--down)'};">${isUp ? '+' : ''}${pct.toFixed(2)}%</div>
           </div>
           <div class="s-ctrl">
             <button class="mini-ic-btn ${st.pinned ? 'pinned' : ''}" onclick="togglePinStock('${st.ticker}', event)">고정</button>
@@ -1760,13 +1888,16 @@
     const st = majorStocks.find(s => s.ticker === currentTicker) || dbItem || {
       ticker: currentTicker, krName: currentTicker, exchange: "GLOBAL"
     };
-    const pack = candleCache[`${currentTicker}_${currentTf}`] || ensureStockInitialized(currentTicker);
+    const pack1d = ensureStockInitialized(currentTicker);
+    const pack = candleCache[`${currentTicker}_${currentTf}`] || pack1d;
     const candles = pack.candles;
-    const cur = pack.livePrice || candles[candles.length - 1].c;
-    const prev = pack.prevClose || candles[candles.length - 2].c;
+    // 어느 시간프레임(1h/5m/1d)을 보든 실시간 가격은 가장 최신 웹소켓/실시간 체결가를 우선 표시
+    const cur = pack1d.livePrice || pack.livePrice || candles[candles.length - 1].c;
+    const prev = pack1d.prevClose || pack.prevClose || candles[candles.length - 2].c;
     const pct = ((cur - prev) / prev) * 100;
     const isUp = pct >= 0;
 
+    candles[candles.length - 1].c = cur;
     const ev = evaluateAll37Indicators(candles, currentTicker);
     lastEvaluated = ev;
 
@@ -1782,9 +1913,9 @@
     setHorizonBox("mtfMidScore", "mtfMidStatus", ev.midScore);
     setHorizonBox("mtfLongScore", "mtfLongStatus", ev.longScore);
 
-    // 중복 괄호 없는 깔끔한 종목명 표시
+    const mktSt = getMarketSessionStatus(currentTicker);
     document.getElementById("dtFullName").textContent = formatDisplayTitle(st.krName, currentTicker);
-    document.getElementById("dtSourceMeta").textContent = `${st.exchange} · ${pack.source} · ${currentTf.toUpperCase()}`;
+    document.getElementById("dtSourceMeta").innerHTML = `<b style="color:${mktSt.color};">${mktSt.label}</b> · ${pack.source} · ${currentTf.toUpperCase()}`;
     document.getElementById("dtMainPrice").textContent = fmtPrice(cur, currentTicker);
     const chgEl = document.getElementById("dtMainChange");
     chgEl.textContent = `${isUp ? '▲ +' : '▼ '}${pct.toFixed(2)}% (전일종가 ${fmtPrice(prev, currentTicker)})`;
@@ -2057,7 +2188,7 @@
     box.innerHTML = html;
   }
 
-  // ==================== 8. UI 컨트롤 및 실시간 백그라운드 동기화 ====================
+  // ==================== 10. UI 컨트롤 및 실시간 백그라운드 동기화 ====================
   async function onChangeTimeframe() {
     currentTf = document.getElementById("timeframeSelect").value;
     await fetchLiveStockCandles(currentTicker, currentTf);
@@ -2149,6 +2280,7 @@
   }
 
   function renderAll() {
+    updateMacroBarUI();
     renderHome();
     renderDetail();
     renderSettings();
@@ -2156,14 +2288,13 @@
 
   async function syncAllRealtime() {
     document.getElementById("feedSourceBadge").textContent = "🔄 실시간 동기화중..";
-    await sync24HourAssetsFast();
+    await sync24HourAssetsRest();
     await batchSyncDomesticQuotes();
-    await fetchLiveStockCandles("KRW=X", "1d");
     for (let i = 0; i < majorStocks.length; i++) {
       await fetchLiveStockCandles(majorStocks[i].ticker, "1d");
       renderAll();
     }
-    document.getElementById("feedSourceBadge").textContent = "● 24/7 실시간 동기화됨";
+    document.getElementById("feedSourceBadge").textContent = "● 전체 실시간 동기화됨";
   }
 
   document.addEventListener("click", (e) => {
@@ -2172,23 +2303,22 @@
     }
   });
 
-  // 24시간 자산(코인·금·테더환율)은 3~5초마다 초고속 갱신
+  // 백그라운드 주기적 동기화 (장중 주식 + 현재 선택 종목 캔들 갱신)
   setInterval(async () => {
-    countdownSec--;
-    if (countdownSec <= 0) {
-      countdownSec = 5;
-      await sync24HourAssetsFast();
-      if (getAssetCategory(currentTicker) === "24H") {
-        await fetchLiveStockCandles(currentTicker, currentTf);
-      }
-      renderAll();
+    await sync24HourAssetsRest();
+    const curStatus = getMarketSessionStatus(currentTicker);
+    if (curStatus.open) {
+      await fetchLiveStockCandles(currentTicker, currentTf);
     }
-    const cdEl = document.getElementById("countdownTxt");
-    if (cdEl) cdEl.textContent = `${countdownSec}초`;
-  }, 1000);
+    if (getMarketSessionStatus("005930.KS").open) {
+      await batchSyncDomesticQuotes();
+    }
+  }, 6000);
 
+  // 앱 시작 시 즉시 웹소켓 가동 및 전 종목 초기 로드
   (async function init() {
     renderAll();
+    startRealtimeWebSockets();
     await syncAllRealtime();
   })();
 </script>
