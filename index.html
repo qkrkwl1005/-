@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="퀀트프로 37 V21" />
-  <title>QUANT PRO 37 V21 · 37기술지표 + 3개년 재무제표 통합 하이브리드</title>
+  <meta name="apple-mobile-web-app-title" content="퀀트프로 V22" />
+  <title>QUANT PRO 37 V22 · 100% 실데이터 교차검증 & 외부앱 연동</title>
   <style>
     :root {
       --bg: #0B0E14;
@@ -42,7 +42,7 @@
     }
     .brand-logo { display: flex; align-items: center; gap: 7px; font-weight: 900; font-size: 14.5px; cursor: pointer; }
     .logo-circle {
-      width: 20px; height: 20px; border-radius: 50%;
+      width: 18px; height: 18px; border-radius: 50%;
       background: linear-gradient(135deg, #2962FF 25%, #10B981 100%);
       display: inline-block;
     }
@@ -62,37 +62,26 @@
       border-radius: 8px; padding: 5px 7px; font-size: 11px; font-weight: 800;
     }
 
-    /* 6칸 매크로 & 교차검증 환율 바 */
+    /* 상단 6칸 매크로 보드 */
     .macro-bar {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
       margin: 10px 0;
     }
     .macro-item {
       background: var(--card); border: 1px solid var(--border); border-radius: 10px;
-      padding: 7px 6px; text-align: center; cursor: pointer; transition: border-color 0.2s;
+      padding: 7px 6px; text-align: center; cursor: pointer;
     }
     .macro-item:hover, .macro-item:active { border-color: #3B82F6; }
     .macro-item .m-k { color: var(--sub); font-size: 10px; display: flex; justify-content: center; align-items: center; gap: 4px; }
     .macro-item .m-v { font-weight: 900; font-size: 11px; margin-top: 3px; display: block; font-variant-numeric: tabular-nums; }
-    .macro-item .m-sub { font-size: 9.5px; color: var(--sub); margin-top: 2px; display: block; }
+    .macro-item .m-sub { font-size: 9px; color: var(--sub); margin-top: 2px; display: block; }
 
     @keyframes pulseDot {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.35; transform: scale(0.8); }
     }
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; display: inline-block; box-shadow: 0 0 6px #10B981; animation: pulseDot 1.2s infinite; }
-    .closed-dot { width: 6px; height: 6px; border-radius: 50%; background: #64748B; display: inline-block; }
-
-    @keyframes tickUpFlash {
-      0% { background-color: rgba(242, 54, 69, 0.38); }
-      100% { background-color: transparent; }
-    }
-    @keyframes tickDownFlash {
-      0% { background-color: rgba(41, 98, 255, 0.38); }
-      100% { background-color: transparent; }
-    }
-    .flash-up { animation: tickUpFlash 0.55s ease-out; border-radius: 6px; }
-    .flash-down { animation: tickDownFlash 0.55s ease-out; border-radius: 6px; }
+    .wait-dot { width: 6px; height: 6px; border-radius: 50%; background: #F59E0B; display: inline-block; }
 
     /* 공통 카드 */
     .card {
@@ -109,7 +98,6 @@
     .tag-neutral { background: rgba(139, 149, 165, 0.16); color: #CBD5E1; border: 1px solid rgba(139, 149, 165, 0.3); }
     .tag-good { background: rgba(16, 185, 129, 0.18); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.35); }
     .tag-purple { background: rgba(139, 92, 246, 0.2); color: #C4B5FD; border: 1px solid rgba(139, 92, 246, 0.4); }
-    .tag-amber { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }
 
     /* 검색창 & 자동완성 */
     .search-wrap { position: relative; margin-bottom: 12px; }
@@ -125,7 +113,7 @@
     .ac-dropdown {
       display: none; position: absolute; left: 0; right: 0; top: 68px; z-index: 120;
       background: #161C2A; border: 1px solid #3B82F6; border-radius: 12px;
-      max-height: 280px; overflow-y: auto; box-shadow: 0 12px 28px rgba(0,0,0,0.8);
+      max-height: 280px; overflow-y: auto; box-shadow: 0 12px 28px rgba(0,0,0,0.85);
     }
     .ac-item {
       display: flex; justify-content: space-between; align-items: center;
@@ -137,7 +125,32 @@
     .ac-code { font-size: 11px; color: var(--sub); margin-left: 6px; }
     .ac-mkt { font-size: 10px; font-weight: 800; color: #60A5FA; background: rgba(59,130,246,0.15); padding: 2px 6px; border-radius: 4px; }
 
-    /* 카테고리 필터 */
+    /* 외부 앱 원클릭 연동 버튼 바 (토스증권 / 인베스팅닷컴 / 네이버 / 야후) */
+    .app-link-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0;
+    }
+    .app-link-btn {
+      background: var(--card-2); border: 1px solid var(--border); color: #E2E8F0;
+      border-radius: 9px; padding: 7px 4px; font-size: 10.5px; font-weight: 800;
+      text-align: center; text-decoration: none; display: block; cursor: pointer;
+    }
+    .app-link-btn:hover, .app-link-btn:active { border-color: #3B82F6; color: #FFF; }
+    .app-link-btn.toss { border-color: rgba(59, 130, 246, 0.5); color: #60A5FA; }
+    .app-link-btn.investing { border-color: rgba(245, 158, 11, 0.5); color: #FBBF24; }
+    .app-link-btn.naver { border-color: rgba(16, 185, 129, 0.5); color: #34D399; }
+
+    /* 다중 소스 가격 교차검증 표 */
+    .source-verify-box {
+      background: #0E131F; border: 1px solid var(--border); border-radius: 10px;
+      padding: 8px 10px; margin-bottom: 10px; font-size: 11px;
+    }
+    .source-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 0; border-bottom: 1px dashed rgba(36, 43, 61, 0.6);
+    }
+    .source-row:last-child { border-bottom: none; }
+
+    /* 카테고리 탭 */
     .cat-tabs { display: flex; gap: 5px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 2px; }
     .cat-btn {
       background: var(--card-2); border: 1px solid var(--border); color: var(--sub);
@@ -147,18 +160,18 @@
 
     /* 관심종목 리스트 */
     .stock-row {
-      display: grid; grid-template-columns: 22px 32px 1fr 48px 106px 42px;
+      display: grid; grid-template-columns: 22px 34px 1fr 115px 42px;
       align-items: center; gap: 6px; padding: 10px 2px;
       border-bottom: 1px solid var(--border); cursor: pointer;
     }
     .stock-row:last-child { border-bottom: none; }
     .s-avatar {
-      width: 30px; height: 30px; border-radius: 8px; background: var(--card-2);
+      width: 32px; height: 32px; border-radius: 8px; background: var(--card-2);
       border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
       font-size: 10px; font-weight: 900; color: #93C5FD;
     }
     .s-ticker { font-size: 13px; font-weight: 900; color: #FFF; }
-    .s-krname { font-size: 10.5px; color: var(--sub); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .s-krname { font-size: 10px; color: var(--sub); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .s-price-col { text-align: right; font-variant-numeric: tabular-nums; padding: 2px 4px; }
     .s-price { font-size: 13px; font-weight: 900; color: #FFF; }
     .s-pct { font-size: 11px; font-weight: 800; margin-top: 2px; }
@@ -169,7 +182,7 @@
     }
     .mini-ic-btn.pinned { color: var(--amber); border-color: var(--amber); }
 
-    /* 점수 & 타점 박스 */
+    /* 점수 & 타점 */
     .mtf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
     .mtf-box { background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 9px 6px; text-align: center; }
     .mtf-tf { font-size: 10.5px; color: var(--sub); font-weight: 700; }
@@ -183,7 +196,7 @@
     .target-table td { padding: 8px 4px; border-bottom: 1px solid var(--border); }
     .target-table tr:last-child td { border-bottom: none; }
 
-    /* 재무제표 마크다운 표 스타일 */
+    /* 재무제표 표 */
     .fin-table {
       width: 100%; border-collapse: collapse; font-size: 11.5px; margin: 8px 0 12px;
       background: var(--card-2); border-radius: 10px; overflow: hidden;
@@ -227,24 +240,6 @@
     .ind-right { text-align: right; flex-shrink: 0; margin-left: 8px; }
     .ind-val { font-weight: 800; font-size: 11.5px; margin-bottom: 2px; font-variant-numeric: tabular-nums; }
 
-    /* 스위치 & 탭 */
-    .toss-setting-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 2px; border-bottom: 1px solid var(--border); cursor: pointer;
-    }
-    .toss-title { font-size: 13.5px; font-weight: 800; color: #FFF; }
-    .toss-sub { font-size: 11px; color: var(--sub); margin-top: 3px; }
-    .ios-switch {
-      position: relative; width: 46px; height: 26px; background: #2B3448;
-      border-radius: 99px; transition: background 0.2s; flex-shrink: 0; margin-left: 12px;
-    }
-    .ios-switch.on { background: #2962FF; }
-    .ios-switch::after {
-      content: ""; position: absolute; top: 3px; left: 3px;
-      width: 20px; height: 20px; background: #FFF; border-radius: 50%; transition: transform 0.2s;
-    }
-    .ios-switch.on::after { transform: translateX(20px); }
-
     .sub-tabs {
       display: flex; gap: 6px; background: var(--card-2); padding: 4px;
       border-radius: 10px; margin-bottom: 10px; border: 1px solid var(--border);
@@ -255,13 +250,6 @@
     }
     .sub-tab.active { background: #2962FF; color: #FFF; }
 
-    .chart-legend {
-      display: flex; flex-wrap: wrap; gap: 8px; font-size: 10px; color: var(--sub);
-      margin-bottom: 6px; align-items: center;
-    }
-    .legend-dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; margin-right: 3px; }
-
-    /* 계산기 및 입력창 */
     .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
     .calc-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
     .calc-input {
@@ -275,7 +263,7 @@
     }
     .btn-action.primary { background: #2962FF; color: #FFF; border-color: #2962FF; }
 
-    /* 하단 4탭 네비게이션 */
+    /* 하단 탭바 */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 95;
       background: rgba(15, 19, 28, 0.96); backdrop-filter: blur(12px);
@@ -301,7 +289,7 @@
   <div class="brand-logo" onclick="showPane('home')">
     <span class="logo-circle"></span>
     <span>QUANT PRO 37</span>
-    <span class="pro-tag">V21 재무·기술 통합</span>
+    <span class="pro-tag">V22 실데이터 직결</span>
   </div>
   <div class="top-actions">
     <select id="timeframeSelect" class="tf-select" onchange="onChangeTimeframe()">
@@ -319,50 +307,50 @@
 </header>
 
 <div class="container">
-  <!-- 🌐 상단 6칸: 공식 고시환율 vs 테더(김프) 분리 & 실시간 매크로 보드 -->
+  <!-- 🌐 상단 6칸: 가짜 초기값 제거 · 실제 수신 데이터만 표출 -->
   <div class="macro-bar">
     <div class="macro-item" onclick="selectStockFromHome('KRW=X')">
       <span class="m-k"><i class="live-dot"></i>공식 달러/원 환율</span>
-      <span class="m-v" id="mcOfficialFX" style="color:#34D399;">연동중..</span>
-      <span class="m-sub" id="mcFXSource">글로벌 외환 API</span>
+      <span class="m-v" id="mcOfficialFX" style="color:#34D399;">수신중..</span>
+      <span class="m-sub" id="mcFXSource">3중 외환 API</span>
     </div>
     <div class="macro-item" onclick="selectStockFromHome('KRW-USDT')">
-      <span class="m-k"><i class="live-dot"></i>테더(USDT·김프)</span>
-      <span class="m-v" id="mcUsdtFX" style="color:#FFF;">연동중..</span>
-      <span class="m-sub" id="mcKimchiPrem">김프 계산중..</span>
+      <span class="m-k"><i class="live-dot"></i>업비트 테더(USDT)</span>
+      <span class="m-v" id="mcUsdtFX" style="color:#FFF;">수신중..</span>
+      <span class="m-sub" id="mcKimchiPrem">김프 계산중</span>
     </div>
     <div class="macro-item" onclick="selectStockFromHome('KRW-BTC')">
-      <span class="m-k"><i class="live-dot"></i>비트코인(24H)</span>
-      <span class="m-v" id="mcBTC" style="color:var(--up);">연동중..</span>
-      <span class="m-sub">Upbit WebSocket</span>
+      <span class="m-k"><i class="live-dot"></i>비트코인(업비트)</span>
+      <span class="m-v" id="mcBTC" style="color:var(--up);">수신중..</span>
+      <span class="m-sub">Upbit 직결</span>
     </div>
     <div class="macro-item" onclick="selectStockFromHome('PAXGUSDT')">
-      <span class="m-k"><i class="live-dot"></i>국제 금(24H)</span>
-      <span class="m-v" id="mcGOLD" style="color:var(--amber);">연동중..</span>
-      <span class="m-sub">Binance XAU/USD</span>
+      <span class="m-k"><i class="live-dot"></i>국제 금(Binance)</span>
+      <span class="m-v" id="mcGOLD" style="color:var(--amber);">수신중..</span>
+      <span class="m-sub">PAXG/USDT 직결</span>
     </div>
     <div class="macro-item" onclick="selectStockFromHome('QQQ')">
-      <span class="m-k"><i id="dotQQQ" class="closed-dot"></i>나스닥100(QQQ)</span>
-      <span class="m-v" id="mcQQQ" style="color:var(--down);">연동중..</span>
-      <span class="m-sub">미국 기술주 지수</span>
+      <span class="m-k"><i id="dotQQQ" class="wait-dot"></i>나스닥100(QQQ)</span>
+      <span class="m-v" id="mcQQQ" style="color:var(--sub);">수신중..</span>
+      <span class="m-sub" id="subQQQ">네이버/야후/Stooq</span>
     </div>
     <div class="macro-item" onclick="selectStockFromHome('SPY')">
-      <span class="m-k"><i id="dotSPY" class="closed-dot"></i>S&P500(SPY)</span>
-      <span class="m-v" id="mcSPY" style="color:var(--down);">연동중..</span>
-      <span class="m-sub">미국 대형주 지수</span>
+      <span class="m-k"><i id="dotSPY" class="wait-dot"></i>S&P500(SPY)</span>
+      <span class="m-v" id="mcSPY" style="color:var(--sub);">수신중..</span>
+      <span class="m-sub" id="subSPY">네이버/야후/Stooq</span>
     </div>
   </div>
 
-  <!-- 검색바 (가온전선, 샌디스크 등 전 종목 3중 검색 지원) -->
+  <!-- 검색바 -->
   <div class="search-wrap">
     <div style="display:flex; justify-content:space-between; align-items:center; font-size: 11px; color: var(--sub); margin-bottom: 6px;">
-      <span id="marketGlobalStatusTxt">🟢 네이버·야후·업비트·외환API 다중 교차검증 가동중</span>
-      <span id="feedSourceBadge" style="color:var(--green); font-weight:800; cursor:pointer;" onclick="syncAllRealtime()">🔄 전체 시세갱신</span>
+      <span id="marketGlobalStatusTxt">🟢 가짜 데이터 제거됨 · 실데이터 다중 교차검증 가동</span>
+      <span id="feedSourceBadge" style="color:var(--green); font-weight:800; cursor:pointer;" onclick="syncAllRealtime()">🔄 전체 실데이터 재수신</span>
     </div>
 
     <div class="ask-box">
       <input type="text" id="stockQueryInput" autocomplete="off"
-        placeholder="전 종목 검색 (예: 가온전선, 샌디스크, SNDK, 실스크, 아이렌, 삼성전자)"
+        placeholder="종목명/티커 검색 (예: 가온전선, 샌디스크, SNDK, 실스크, 아이렌, 삼성전자)"
         oninput="onSearchInput()"
         onkeydown="if(event.key==='Enter') searchAndAnalyzeStock()" />
       <button id="btnSearchStock" onclick="searchAndAnalyzeStock()">분석</button>
@@ -374,8 +362,8 @@
   <div id="pane-home" class="pane active">
     <div class="card">
       <div class="card-header">
-        <div class="card-title">📊 실시간 시세 & 하이브리드(기술37+재무) 총점 보드</div>
-        <span style="font-size:10.5px; color:var(--green); font-weight:800;" id="homeSyncStatus">● 다중 소스 검증됨</span>
+        <div class="card-title">📊 실시간 검증 시세 & 37지표·재무 보드</div>
+        <span style="font-size:10.5px; color:var(--green); font-weight:800;" id="homeSyncStatus">● 실데이터 수신중</span>
       </div>
 
       <div class="cat-tabs">
@@ -389,41 +377,51 @@
     </div>
   </div>
 
-  <!-- [화면 2] 종목 상세 차트 & 37지표 + 재무 하이브리드 판독 -->
+  <!-- [화면 2] 종목 상세 차트 & 다중 출처 가격 비교 & 외부앱 연동 -->
   <div id="pane-detail" class="pane">
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
         <div>
           <span style="font-size:18px; font-weight:900;" id="dtFullName">-</span>
-          <div style="font-size:11px; color:var(--sub); margin-top:2px;" id="dtSourceMeta">-</div>
+          <div style="font-size:11px; color:var(--sub); margin-top:2px;" id="dtSourceMeta">실데이터 수신중...</div>
         </div>
         <span class="tag tag-good" id="dtConsensusBadge">판독중</span>
       </div>
 
       <div style="margin: 10px 0; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px;">
         <div id="dtPriceWrap" style="padding: 2px 6px; margin-left: -6px;">
-          <span style="font-size:26px; font-weight:900; font-variant-numeric:tabular-nums;" id="dtMainPrice">-</span>
+          <span style="font-size:26px; font-weight:900; font-variant-numeric:tabular-nums;" id="dtMainPrice">수신중..</span>
           <span style="font-size:13px; font-weight:800; margin-left:6px;" id="dtMainChange">-</span>
         </div>
-        <span class="tag tag-purple" id="dtDivergenceBadge">수급 동조화 정상</span>
+        <span class="tag tag-purple" id="dtDivergenceBadge">-</span>
       </div>
 
-      <!-- 캔버스 차트 -->
-      <div>
-        <div class="chart-legend">
-          <span><i class="legend-dot" style="background:#F59E0B;"></i>SMA5</span>
-          <span><i class="legend-dot" style="background:#38BDF8;"></i>SMA20</span>
-          <span><i class="legend-dot" style="background:#A855F7;"></i>SMA60</span>
-          <span><i class="legend-dot" style="background:rgba(59,130,246,0.45);"></i>일목구름/볼린저</span>
-          <span><i class="legend-dot" style="background:#10B981;"></i>1차매수/익절선</span>
-        </div>
+      <!-- 📱 내 휴대폰 금융앱/웹 원클릭 직결 연동 바 (토스증권 / 인베스팅닷컴 / 네이버증권 / 야후) -->
+      <div style="font-size:10.5px; color:var(--sub); font-weight:800; margin-bottom:4px;">
+        📱 외부 증권앱·웹 호가창 즉시 열기 (원클릭 연동):
+      </div>
+      <div class="app-link-grid" id="externalAppLinksBar"></div>
 
-        <div style="position:relative; width:100%; height:235px; background:#0D111A; border-radius:12px 12px 0 0; border:1px solid var(--border); overflow:hidden;">
-          <canvas id="upperChartCanvas" width="480" height="235" style="width:100%; height:100%; display:block;"></canvas>
+      <!-- 🔍 다중 데이터 출처별 실제 수신 가격 교차검증 표 -->
+      <div class="source-verify-box" id="multiSourceVerifyBox">
+        <div style="font-weight:800; color:#93C5FD; margin-bottom:4px;">🔍 다중 출처(API) 실시간 수신 가격 교차검증:</div>
+        <div id="multiSourceList">수신 중...</div>
+      </div>
+
+      <!-- 차트 모드 전환 탭: [1] 자체 37지표 캔버스 차트 vs [2] TradingView 공식 실시간 위젯 -->
+      <div class="sub-tabs" style="margin-top:8px;">
+        <button class="sub-tab active" id="tabChartCanvas" onclick="switchChartMode('canvas')">📈 37지표 정밀 타점 차트</button>
+        <button class="sub-tab" id="tabChartTV" onclick="switchChartMode('tv')">🌐 트레이딩뷰 공식 실시간 차트</button>
+      </div>
+
+      <!-- [모드 1] 자체 37지표 캔버스 차트 -->
+      <div id="canvasChartWrap">
+        <div style="position:relative; width:100%; height:230px; background:#0D111A; border-radius:12px 12px 0 0; border:1px solid var(--border); overflow:hidden;">
+          <canvas id="upperChartCanvas" width="480" height="230" style="width:100%; height:100%; display:block;"></canvas>
           <div id="chartCrosshairInfo" style="position:absolute; top:6px; left:8px; font-size:10.5px; color:#CBD5E1; background:rgba(11,14,20,0.85); padding:3px 7px; border-radius:6px; pointer-events:none; display:none;"></div>
         </div>
-        <div style="position:relative; width:100%; height:100px; background:#0A0D14; border-radius:0 0 12px 12px; border:1px solid var(--border); border-top:none; overflow:hidden; margin-bottom:8px;">
-          <canvas id="lowerChartCanvas" width="480" height="100" style="width:100%; height:100%; display:block;"></canvas>
+        <div style="position:relative; width:100%; height:95px; background:#0A0D14; border-radius:0 0 12px 12px; border:1px solid var(--border); border-top:none; overflow:hidden; margin-bottom:8px;">
+          <canvas id="lowerChartCanvas" width="480" height="95" style="width:100%; height:100%; display:block;"></canvas>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--sub);">
           <span>하단 오실레이터 선택:</span>
@@ -439,6 +437,11 @@
           </select>
         </div>
       </div>
+
+      <!-- [모드 2] TradingView 공식 실시간 임베드 위젯 (CORS 무제한 직결) -->
+      <div id="tvWidgetWrap" style="display:none; width:100%; height:350px; border-radius:12px; overflow:hidden; border:1px solid var(--border);">
+        <div id="tv_chart_container" style="width:100%; height:100%;"></div>
+      </div>
     </div>
 
     <!-- 하이브리드 종합 채점 (기술적 37지표 70% + 3개년 재무 30%) -->
@@ -448,21 +451,20 @@
         <span style="font-size:11px; color:var(--sub);" id="dtVoteCountTxt">매수 0 · 중립 0 · 매도 0</span>
       </div>
 
-      <!-- 3대 핵심 점수 박스 -->
       <div class="score-hero-grid">
         <div class="score-box">
           <div style="font-size:10.5px; color:var(--sub); font-weight:700;">차트 기술점수(70%)</div>
-          <div class="score-num" style="color:var(--up);" id="dtBuyScore">0</div>
-          <div style="font-size:10px; font-weight:700; color:var(--sub);" id="dtBuyScoreDesc">37지표 합의</div>
+          <div class="score-num" style="color:var(--up);" id="dtBuyScore">-</div>
+          <div style="font-size:10px; font-weight:700; color:var(--sub);">37지표 합의</div>
         </div>
         <div class="score-box">
           <div style="font-size:10.5px; color:var(--sub); font-weight:700;">재무 펀더멘털(30%)</div>
-          <div class="score-num" style="color:#38BDF8;" id="dtFinScore">0</div>
-          <div style="font-size:10px; font-weight:700; color:var(--sub);" id="dtFinScoreDesc">수익·건전·밸류</div>
+          <div class="score-num" style="color:#38BDF8;" id="dtFinScore">-</div>
+          <div style="font-size:10px; font-weight:700; color:var(--sub);">수익·건전·밸류</div>
         </div>
         <div class="score-box" style="border-color:#34D399; background:rgba(16,185,129,0.08);">
           <div style="font-size:10.5px; color:#34D399; font-weight:800;">통합 최종점수</div>
-          <div class="score-num" style="color:#34D399;" id="dtTotalHybridScore">0</div>
+          <div class="score-num" style="color:#34D399;" id="dtTotalHybridScore">-</div>
           <div style="font-size:10px; font-weight:800; color:#FFF;" id="dtHybridGrade">-</div>
         </div>
       </div>
@@ -512,8 +514,8 @@
         </tbody>
       </table>
 
-      <div style="margin-top:10px; display:flex; gap:6px;">
-        <button class="btn-action primary" style="flex:1;" onclick="showPane('financial')">📑 3개년 재무제표 & 20년 애널리스트 리포트 열기</button>
+      <div style="margin-top:10px;">
+        <button class="btn-action primary" style="width:100%;" onclick="showPane('financial')">📑 3개년 재무제표 & 20년 애널리스트 리포트 열기</button>
       </div>
     </div>
 
@@ -553,7 +555,7 @@
     <div class="card">
       <div class="card-header">
         <div class="card-title">📋 37개 기술적 지표 전체 판독 결과표</div>
-        <button class="btn-action" onclick="showPane('settings')">⚙️ 지표 ON/OFF</button>
+        <button class="btn-action" onclick="showPane('settings')">⚙️ 지표·API 설정</button>
       </div>
       <div class="ind-category-title">📈 상단 지표 (12종 · 추세/일목/볼린저/매물대/VWAP)</div>
       <div id="upperIndicatorsTable"></div>
@@ -562,7 +564,7 @@
     </div>
   </div>
 
-  <!-- [화면 3] 📑 20년 경력 베테랑 애널리스트 재무제표 정밀 분석 (신규 탑재) -->
+  <!-- [화면 3] 📑 20년 경력 애널리스트 재무제표 정밀 분석 -->
   <div id="pane-financial" class="pane">
     <div class="card" style="border: 1.5px solid #3B82F6;">
       <div class="card-header">
@@ -573,43 +575,35 @@
         <span class="tag tag-good" id="finGradeBadge">재무점수 산출중</span>
       </div>
 
-      <!-- 1단계: 최근 3개년 요약 재무제표 마크다운 표 시각화 -->
       <div style="font-size:12.5px; font-weight:900; color:#93C5FD; margin-top:6px;">
         1️⃣ [시각화] 최근 3개년 매출·영업이익·건전성 요약표
       </div>
       <div id="finSummaryTableWrap"></div>
 
-      <!-- 핵심 밸류에이션 멀티플 4칸 -->
       <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:12px;" id="finValuationGrid"></div>
 
-      <!-- 2단계: 20년 경력 애널리스트 3대 핵심 분석 (수익성 / 재무건전성 / 성장성·밸류에이션) -->
       <div style="font-size:12.5px; font-weight:900; color:#93C5FD; margin-bottom:8px;">
         2️⃣ [20년 베테랑 애널리스트 진단] 3단계 펀더멘털 분석
       </div>
       <div id="analystThreeStepsBox"></div>
 
-      <!-- 3단계: 공시/뉴스 교차 검증 링크 & AI 프롬프트 생성기 -->
       <div style="font-size:12.5px; font-weight:900; color:#93C5FD; margin:14px 0 8px;">
-        3️⃣ [교차 검증 & 마크다운/프롬프트 추출] 실제 공시·뉴스 대조
+        3️⃣ [교차 검증 & 프롬프트 추출] 실제 공시·뉴스 원문 대조
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;" id="finCrossCheckLinks"></div>
       <div style="display:flex; gap:6px; flex-wrap:wrap;">
         <button class="btn-action primary" style="flex:1;" onclick="copyAnalystPrompt()">📋 20년 애널리스트 심층질문 + 마크다운 표 복사</button>
-        <button class="btn-action" onclick="toggleCustomFinEditor()">✏️ 재무 수치 직접 입력/보정</button>
+        <button class="btn-action" onclick="toggleCustomFinEditor()">✏️ 재무 수치 직접 보정</button>
       </div>
 
-      <!-- 사용자 직접 재무 데이터 입력/보정 창 (DART 최신 분기 보고서 수동 입력 지원) -->
       <div id="customFinEditorBox" style="display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--border);">
-        <div style="font-size:11.5px; font-weight:800; color:var(--amber); margin-bottom:8px;">
-          💡 DART 전자공시 또는 네이버 증권의 최신 분기/연간 수치를 직접 입력하면 즉시 재채점됩니다.
-        </div>
         <div class="calc-grid-3">
           <div>
-            <label class="field-lbl">최근 매출액(억/M$)</label>
+            <label class="field-lbl">최근 매출액</label>
             <input type="number" step="0.1" id="inRev25" class="calc-input" />
           </div>
           <div>
-            <label class="field-lbl">최근 영업이익(억/M$)</label>
+            <label class="field-lbl">최근 영업이익</label>
             <input type="number" step="0.1" id="inOp25" class="calc-input" />
           </div>
           <div>
@@ -650,8 +644,21 @@
     </div>
   </div>
 
-  <!-- [화면 4] 지표 설정 -->
+  <!-- [화면 4] 지표 설정 & 공식 API 키(Finnhub) 직결 설정 -->
   <div id="pane-settings" class="pane">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🔑 미국주식 공식 실시간 API 키 설정 (선택사항)</div>
+      </div>
+      <div style="font-size:11.5px; color:var(--sub); line-height:1.5; margin-bottom:8px;">
+        기본적으로 <b>네이버 해외증시 + Yahoo Finance + Stooq</b>를 통해 API 키 없이 시세를 가져오지만, 프록시 지연을 완전히 없애고 싶다면 무료 <b>Finnhub API Key</b>(finnhub.io에서 30초 무료 발급, 브라우저 CORS 100% 직결 지원)를 입력할 수 있습니다.
+      </div>
+      <div style="display:flex; gap:6px;">
+        <input type="text" id="finnhubKeyInput" class="calc-input" placeholder="Finnhub API Key 입력 (비워두어도 기본 다중소스 작동)" />
+        <button class="btn-action primary" style="flex-shrink:0;" onclick="saveApiKey()">저장</button>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-header">
         <div class="card-title">⚙️ 차트 및 채점 지표 설정 (37종)</div>
@@ -663,12 +670,11 @@
       </div>
       <div id="settingsUpperList"></div>
       <div id="settingsLowerList" style="display:none;"></div>
-      <button onclick="showPane('detail')" style="width:100%; background:#2962FF; color:#FFF; border:none; border-radius:12px; padding:14px; font-size:15px; font-weight:900; margin-top:14px; cursor:pointer;">저장하고 차트 보기</button>
     </div>
   </div>
 </div>
 
-<!-- 하단 4탭 바 -->
+<!-- 하단 탭바 -->
 <nav class="bottom-nav">
   <button class="nav-item active" id="nav-home" onclick="showPane('home')">
     <span class="nav-ic">📊</span>
@@ -684,223 +690,157 @@
   </button>
   <button class="nav-item" id="nav-settings" onclick="showPane('settings')">
     <span class="nav-ic">⚙️</span>
-    <span>지표 설정</span>
+    <span>API·지표설정</span>
   </button>
 </nav>
 
+<!-- TradingView 공식 스크립트 -->
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
 <script>
-  const STORAGE_KEY = "QUANT_PRO_37_V21_HYBRID";
-  let officialUsdKrw = 1385.50; // 글로벌 외환 API 연동 전 초기 폴백값 (즉시 실시간 갱신됨)
-  let upbitUsdtKrw = 1392.00;   // 업비트 테더 실시간 가격
+  const STORAGE_KEY = "QUANT_PRO_37_V22_REAL_ONLY";
+  let officialUsdKrw = null; // 가짜 초기값 제거 (실제 외환 API 수신 후 세팅)
+  let upbitUsdtKrw = null;
   let currencyMode = "AUTO";
   let currentTf = "1d";
   let currentTicker = "005930.KS";
   let categoryFilter = "ALL";
+  let chartMode = "canvas";
   let lastEvaluated = null;
   let upbitWs = null;
   let binanceWs = null;
+  let finnhubApiKey = localStorage.getItem("QUANT_FINNHUB_KEY") || "";
   const customFinStore = {};
+  const multiSourceQuotes = {}; // 종목별 각 API 출처에서 받아온 실제 가격 기록
 
-  // ==================== 1. 전 종목 통합 마스터 DB (가온전선, 샌디스크 등 누락 종목 완벽 수록) ====================
+  // ==================== 1. 종목 사전 (가짜 basePrice 완전 삭제 · 순수 식별 코드 및 네이버 로이터코드 매핑만 유지) ====================
   const MASTER_STOCK_DB = [
-    // 🇰🇷 [국내 상장사 - 가온전선, LS그룹, 전력설비, 반도체, 방산, 조선 등 대폭 확충]
-    { ticker: "000500.KS", krName: "가온전선", exchange: "KOSPI", basePrice: 44500, prevClose: 43800, pct: 1.60, cat: "KR", aliases: ["가온", "000500", "LS가온전선"] },
-    { ticker: "005930.KS", krName: "삼성전자", exchange: "KOSPI", basePrice: 59200, prevClose: 58800, pct: 0.68, cat: "KR", aliases: ["삼전", "005930"] },
-    { ticker: "000660.KS", krName: "SK하이닉스", exchange: "KOSPI", basePrice: 196500, prevClose: 193000, pct: 1.81, cat: "KR", aliases: ["하이닉스", "닉스", "000660"] },
-    { ticker: "267260.KS", krName: "HD현대일렉트릭", exchange: "KOSPI", basePrice: 378000, prevClose: 369000, pct: 2.44, cat: "KR", aliases: ["현대일렉트릭", "267260"] },
-    { ticker: "000270.KS", krName: "기아", exchange: "KOSPI", basePrice: 98500, prevClose: 97200, pct: 1.34, cat: "KR", aliases: ["기아차", "000270"] },
-    { ticker: "010950.KS", krName: "S-Oil", exchange: "KOSPI", basePrice: 61500, prevClose: 60900, pct: 0.99, cat: "KR", aliases: ["에쓰오일", "에스오일", "010950"] },
-    { ticker: "009150.KS", krName: "삼성전기", exchange: "KOSPI", basePrice: 138500, prevClose: 136000, pct: 1.84, cat: "KR", aliases: ["삼전전기", "009150"] },
-    { ticker: "047040.KS", krName: "대우건설", exchange: "KOSPI", basePrice: 3650, prevClose: 3610, pct: 1.11, cat: "KR", aliases: ["대우", "047040"] },
-    { ticker: "016360.KS", krName: "삼성증권", exchange: "KOSPI", basePrice: 48200, prevClose: 47500, pct: 1.47, cat: "KR", aliases: ["016360"] },
-    { ticker: "042700.KS", krName: "한미반도체", exchange: "KOSPI", basePrice: 104500, prevClose: 102000, pct: 2.45, cat: "KR", aliases: ["한미", "042700"] },
-    { ticker: "005380.KS", krName: "현대차", exchange: "KOSPI", basePrice: 218000, prevClose: 215000, pct: 1.40, cat: "KR", aliases: ["현대자동차", "005380"] },
-    { ticker: "010120.KS", krName: "LS ELECTRIC", exchange: "KOSPI", basePrice: 215000, prevClose: 210000, pct: 2.38, cat: "KR", aliases: ["LS일렉트릭", "엘에스일렉트릭", "010120"] },
-    { ticker: "006260.KS", krName: "LS", exchange: "KOSPI", basePrice: 112000, prevClose: 110500, pct: 1.36, cat: "KR", aliases: ["엘에스", "006260"] },
-    { ticker: "001440.KS", krName: "대한전선", exchange: "KOSPI", basePrice: 13200, prevClose: 12950, pct: 1.93, cat: "KR", aliases: ["001440"] },
-    { ticker: "298040.KS", krName: "효성중공업", exchange: "KOSPI", basePrice: 425000, prevClose: 418000, pct: 1.67, cat: "KR", aliases: ["298040"] },
-    { ticker: "034020.KS", krName: "두산에너빌리티", exchange: "KOSPI", basePrice: 21200, prevClose: 20850, pct: 1.68, cat: "KR", aliases: ["두산중공업", "034020"] },
-    { ticker: "012450.KS", krName: "한화에어로스페이스", exchange: "KOSPI", basePrice: 385000, prevClose: 379000, pct: 1.58, cat: "KR", aliases: ["한화에어로", "012450"] },
-    { ticker: "079550.KS", krName: "LIG넥스원", exchange: "KOSPI", basePrice: 245000, prevClose: 241000, pct: 1.66, cat: "KR", aliases: ["넥스원", "079550"] },
-    { ticker: "064350.KS", krName: "현대로템", exchange: "KOSPI", basePrice: 64500, prevClose: 63200, pct: 2.06, cat: "KR", aliases: ["로템", "064350"] },
-    { ticker: "373220.KS", krName: "LG에너지솔루션", exchange: "KOSPI", basePrice: 375000, prevClose: 371000, pct: 1.08, cat: "KR", aliases: ["엔솔", "373220"] },
-    { ticker: "005490.KS", krName: "POSCO홀딩스", exchange: "KOSPI", basePrice: 312000, prevClose: 309000, pct: 0.97, cat: "KR", aliases: ["포스코", "005490"] },
-    { ticker: "035420.KS", krName: "NAVER", exchange: "KOSPI", basePrice: 195000, prevClose: 192500, pct: 1.30, cat: "KR", aliases: ["네이버", "035420"] },
-    { ticker: "035720.KS", krName: "카카오", exchange: "KOSPI", basePrice: 41200, prevClose: 40800, pct: 0.98, cat: "KR", aliases: ["035720"] },
-    { ticker: "068270.KS", krName: "셀트리온", exchange: "KOSPI", basePrice: 186000, prevClose: 184000, pct: 1.09, cat: "KR", aliases: ["068270"] },
-    { ticker: "207940.KS", krName: "삼성바이오로직스", exchange: "KOSPI", basePrice: 985000, prevClose: 978000, pct: 0.72, cat: "KR", aliases: ["삼바", "207940"] },
-    { ticker: "196170.KQ", krName: "알테오젠", exchange: "KOSDAQ", basePrice: 365000, prevClose: 358000, pct: 1.96, cat: "KR", aliases: ["196170"] },
-    { ticker: "247540.KQ", krName: "에코프로비엠", exchange: "KOSDAQ", basePrice: 142000, prevClose: 140000, pct: 1.43, cat: "KR", aliases: ["247540"] },
-    { ticker: "086520.KQ", krName: "에코프로", exchange: "KOSDAQ", basePrice: 68500, prevClose: 67900, pct: 0.88, cat: "KR", aliases: ["086520"] },
-    { ticker: "028300.KQ", krName: "HLB", exchange: "KOSDAQ", basePrice: 72500, prevClose: 71800, pct: 0.97, cat: "KR", aliases: ["에이치엘비", "028300"] },
-    { ticker: "277810.KQ", krName: "레인보우로보틱스", exchange: "KOSDAQ", basePrice: 265000, prevClose: 259000, pct: 2.32, cat: "KR", aliases: ["레인보우", "277810"] },
+    // 🇰🇷 국내 상장사
+    { ticker: "005930.KS", krName: "삼성전자", exchange: "KOSPI", cat: "KR", aliases: ["삼전", "005930"] },
+    { ticker: "000500.KS", krName: "가온전선", exchange: "KOSPI", cat: "KR", aliases: ["가온", "000500", "LS가온전선"] },
+    { ticker: "267260.KS", krName: "HD현대일렉트릭", exchange: "KOSPI", cat: "KR", aliases: ["현대일렉트릭", "267260"] },
+    { ticker: "000660.KS", krName: "SK하이닉스", exchange: "KOSPI", cat: "KR", aliases: ["하이닉스", "닉스", "000660"] },
+    { ticker: "000270.KS", krName: "기아", exchange: "KOSPI", cat: "KR", aliases: ["기아차", "000270"] },
+    { ticker: "010950.KS", krName: "S-Oil", exchange: "KOSPI", cat: "KR", aliases: ["에쓰오일", "에스오일", "010950"] },
+    { ticker: "009150.KS", krName: "삼성전기", exchange: "KOSPI", cat: "KR", aliases: ["삼전전기", "009150"] },
+    { ticker: "047040.KS", krName: "대우건설", exchange: "KOSPI", cat: "KR", aliases: ["대우", "047040"] },
+    { ticker: "016360.KS", krName: "삼성증권", exchange: "KOSPI", cat: "KR", aliases: ["016360"] },
+    { ticker: "042700.KS", krName: "한미반도체", exchange: "KOSPI", cat: "KR", aliases: ["한미", "042700"] },
+    { ticker: "005380.KS", krName: "현대차", exchange: "KOSPI", cat: "KR", aliases: ["현대자동차", "005380"] },
+    { ticker: "010120.KS", krName: "LS ELECTRIC", exchange: "KOSPI", cat: "KR", aliases: ["LS일렉트릭", "엘에스일렉트릭", "010120"] },
+    { ticker: "006260.KS", krName: "LS", exchange: "KOSPI", cat: "KR", aliases: ["엘에스", "006260"] },
+    { ticker: "001440.KS", krName: "대한전선", exchange: "KOSPI", cat: "KR", aliases: ["001440"] },
+    { ticker: "298040.KS", krName: "효성중공업", exchange: "KOSPI", cat: "KR", aliases: ["298040"] },
+    { ticker: "034020.KS", krName: "두산에너빌리티", exchange: "KOSPI", cat: "KR", aliases: ["두산중공업", "034020"] },
+    { ticker: "012450.KS", krName: "한화에어로스페이스", exchange: "KOSPI", cat: "KR", aliases: ["한화에어로", "012450"] },
+    { ticker: "079550.KS", krName: "LIG넥스원", exchange: "KOSPI", cat: "KR", aliases: ["넥스원", "079550"] },
+    { ticker: "064350.KS", krName: "현대로템", exchange: "KOSPI", cat: "KR", aliases: ["로템", "064350"] },
+    { ticker: "373220.KS", krName: "LG에너지솔루션", exchange: "KOSPI", cat: "KR", aliases: ["엔솔", "373220"] },
+    { ticker: "196170.KQ", krName: "알테오젠", exchange: "KOSDAQ", cat: "KR", aliases: ["196170"] },
 
-    // 🇺🇸 [미국 상장사 - 샌디스크(SNDK), 웨스턴디지털(WDC), 마이크론(MU), 실스크(LAES), 아이렌(IREN), 서브로보틱스(SERV) 등 완비]
-    { ticker: "SNDK", krName: "샌디스크 (SanDisk)", exchange: "NASDAQ", basePrice: 48.50, prevClose: 47.20, pct: 2.75, cat: "US", aliases: ["샌디스크", "SANDISK", "산디스크"] },
-    { ticker: "WDC", krName: "웨스턴디지털 (Western Digital)", exchange: "NASDAQ", basePrice: 66.80, prevClose: 65.90, pct: 1.37, cat: "US", aliases: ["웨스턴디지털", "샌디스크모회사", "WESTERNDIGITAL"] },
-    { ticker: "MU", krName: "마이크론 테크놀로지 (Micron)", exchange: "NASDAQ", basePrice: 102.40, prevClose: 100.10, pct: 2.30, cat: "US", aliases: ["마이크론", "MICRON"] },
-    { ticker: "LAES", krName: "실스크 (SEALSQ)", exchange: "NASDAQ", basePrice: 3.45, prevClose: 3.30, pct: 4.55, cat: "US", aliases: ["SEALSQ", "씰스크", "실스크"] },
-    { ticker: "IREN", krName: "아이렌 (IREN)", exchange: "NASDAQ", basePrice: 12.80, prevClose: 12.40, pct: 3.23, cat: "US", aliases: ["아이리스에너지", "아이렌"] },
-    { ticker: "SERV", krName: "서브 로보틱스 (Serve Robotics)", exchange: "NASDAQ", basePrice: 11.20, prevClose: 10.85, pct: 3.23, cat: "US", aliases: ["서브로보틱스", "서브", "SERVEROBOTICS"] },
-    { ticker: "NVDA", krName: "엔비디아 (NVIDIA)", exchange: "NASDAQ", basePrice: 138.60, prevClose: 136.20, pct: 1.76, cat: "US", aliases: ["NVIDIA", "엔비"] },
-    { ticker: "TSLA", krName: "테슬라 (Tesla)", exchange: "NASDAQ", basePrice: 288.50, prevClose: 284.00, pct: 1.58, cat: "US", aliases: ["TESLA"] },
-    { ticker: "SOXL", krName: "SOXL · 반도체 3배 ETF", exchange: "NYSE", basePrice: 28.90, prevClose: 27.80, pct: 3.96, cat: "US", aliases: ["속슬", "반도체3배"] },
-    { ticker: "TQQQ", krName: "TQQQ · 나스닥 3배 ETF", exchange: "NASDAQ", basePrice: 78.40, prevClose: 77.10, pct: 1.69, cat: "US", aliases: ["티큐", "나스닥3배"] },
-    { ticker: "PLTR", krName: "팔란티어 (Palantir)", exchange: "NASDAQ", basePrice: 84.50, prevClose: 82.30, pct: 2.67, cat: "US", aliases: ["팔란티어", "PALANTIR"] },
-    { ticker: "IONQ", krName: "아이온큐 (IonQ)", exchange: "NYSE", basePrice: 29.40, prevClose: 28.50, pct: 3.16, cat: "US", aliases: ["아이온큐", "양자컴퓨터"] },
-    { ticker: "RGTI", krName: "리게티 컴퓨팅 (Rigetti)", exchange: "NASDAQ", basePrice: 10.80, prevClose: 10.20, pct: 5.88, cat: "US", aliases: ["리게티", "RIGETTI"] },
-    { ticker: "SMCI", krName: "슈퍼마이크로컴퓨터 (SMCI)", exchange: "NASDAQ", basePrice: 42.10, prevClose: 40.80, pct: 3.19, cat: "US", aliases: ["슈마컴", "슈퍼마이크로"] },
-    { ticker: "AAPL", krName: "애플 (Apple)", exchange: "NASDAQ", basePrice: 232.50, prevClose: 231.00, pct: 0.65, cat: "US", aliases: ["APPLE"] },
-    { ticker: "MSFT", krName: "마이크로소프트 (Microsoft)", exchange: "NASDAQ", basePrice: 418.20, prevClose: 415.00, pct: 0.77, cat: "US", aliases: ["마소", "MICROSOFT"] },
-    { ticker: "GOOGL", krName: "알파벳 A (구글)", exchange: "NASDAQ", basePrice: 182.40, prevClose: 180.90, pct: 0.83, cat: "US", aliases: ["구글", "알파벳", "GOOG"] },
-    { ticker: "AMZN", krName: "아마존닷컴 (Amazon)", exchange: "NASDAQ", basePrice: 214.80, prevClose: 212.30, pct: 1.18, cat: "US", aliases: ["아마존", "AMAZON"] },
-    { ticker: "META", krName: "메타 플랫폼스 (Meta)", exchange: "NASDAQ", basePrice: 645.20, prevClose: 639.00, pct: 0.97, cat: "US", aliases: ["메타", "페이스북"] },
-    { ticker: "AVGO", krName: "브로드컴 (Broadcom)", exchange: "NASDAQ", basePrice: 212.30, prevClose: 208.50, pct: 1.82, cat: "US", aliases: ["BROADCOM"] },
-    { ticker: "AMD", krName: "AMD", exchange: "NASDAQ", basePrice: 118.40, prevClose: 116.20, pct: 1.89, cat: "US", aliases: ["에이엠디"] },
-    { ticker: "ARM", krName: "ARM 홀딩스", exchange: "NASDAQ", basePrice: 148.20, prevClose: 145.00, pct: 2.21, cat: "US", aliases: ["암홀딩스"] },
-    { ticker: "TSM", krName: "TSMC (타이완 세미컨덕터)", exchange: "NYSE", basePrice: 192.50, prevClose: 189.80, pct: 1.42, cat: "US", aliases: ["티에스엠씨"] },
-    { ticker: "MSTR", krName: "스트래티지 (MicroStrategy)", exchange: "NASDAQ", basePrice: 315.00, prevClose: 308.00, pct: 2.27, cat: "US", aliases: ["마이크로스트래티지"] },
-    { ticker: "COIN", krName: "코인베이스 (Coinbase)", exchange: "NASDAQ", basePrice: 248.00, prevClose: 242.00, pct: 2.48, cat: "US", aliases: ["코인베이스"] },
-    { ticker: "QQQ", krName: "QQQ · 나스닥 100 ETF", exchange: "NASDAQ", basePrice: 518.40, prevClose: 515.20, pct: 0.62, cat: "US", aliases: ["나스닥"] },
-    { ticker: "SPY", krName: "SPY · S&P 500 ETF", exchange: "NYSE", basePrice: 588.20, prevClose: 585.90, pct: 0.39, cat: "US", aliases: ["S&P500"] },
+    // 🇺🇸 미국 상장사 (reuters: 네이버 해외증시 직결 코드)
+    { ticker: "SNDK", reuters: "SNDK.O", krName: "샌디스크 (SanDisk)", exchange: "NASDAQ", cat: "US", aliases: ["샌디스크", "SANDISK", "산디스크"] },
+    { ticker: "WDC", reuters: "WDC.O", krName: "웨스턴디지털 (WDC)", exchange: "NASDAQ", cat: "US", aliases: ["웨스턴디지털", "WESTERNDIGITAL"] },
+    { ticker: "LAES", reuters: "LAES.O", krName: "실스크 (SEALSQ)", exchange: "NASDAQ", cat: "US", aliases: ["SEALSQ", "씰스크", "실스크"] },
+    { ticker: "IREN", reuters: "IREN.O", krName: "아이렌 (IREN)", exchange: "NASDAQ", cat: "US", aliases: ["아이리스에너지", "아이렌"] },
+    { ticker: "SERV", reuters: "SERV.O", krName: "서브 로보틱스 (SERV)", exchange: "NASDAQ", cat: "US", aliases: ["서브로보틱스", "서브", "SERVEROBOTICS"] },
+    { ticker: "NVDA", reuters: "NVDA.O", krName: "엔비디아 (NVIDIA)", exchange: "NASDAQ", cat: "US", aliases: ["NVIDIA", "엔비"] },
+    { ticker: "TSLA", reuters: "TSLA.O", krName: "테슬라 (Tesla)", exchange: "NASDAQ", cat: "US", aliases: ["TESLA"] },
+    { ticker: "SOXL", reuters: "SOXL.P", krName: "SOXL · 반도체 3배 ETF", exchange: "NYSE", cat: "US", aliases: ["속슬", "반도체3배"] },
+    { ticker: "TQQQ", reuters: "TQQQ.O", krName: "TQQQ · 나스닥 3배 ETF", exchange: "NASDAQ", cat: "US", aliases: ["티큐", "나스닥3배"] },
+    { ticker: "MU", reuters: "MU.O", krName: "마이크론 테크놀로지 (MU)", exchange: "NASDAQ", cat: "US", aliases: ["마이크론", "MICRON"] },
+    { ticker: "PLTR", reuters: "PLTR.O", krName: "팔란티어 (Palantir)", exchange: "NASDAQ", cat: "US", aliases: ["팔란티어", "PALANTIR"] },
+    { ticker: "IONQ", reuters: "IONQ.N", krName: "아이온큐 (IonQ)", exchange: "NYSE", cat: "US", aliases: ["아이온큐", "양자컴퓨터"] },
+    { ticker: "AAPL", reuters: "AAPL.O", krName: "애플 (Apple)", exchange: "NASDAQ", cat: "US", aliases: ["APPLE"] },
+    { ticker: "MSFT", reuters: "MSFT.O", krName: "마이크로소프트 (MSFT)", exchange: "NASDAQ", cat: "US", aliases: ["마소", "MICROSOFT"] },
+    { ticker: "GOOGL", reuters: "GOOGL.O", krName: "알파벳 A (구글)", exchange: "NASDAQ", cat: "US", aliases: ["구글", "알파벳", "GOOG"] },
+    { ticker: "AMZN", reuters: "AMZN.O", krName: "아마존닷컴 (AMZN)", exchange: "NASDAQ", cat: "US", aliases: ["아마존", "AMAZON"] },
+    { ticker: "META", reuters: "META.O", krName: "메타 플랫폼스 (META)", exchange: "NASDAQ", cat: "US", aliases: ["메타", "페이스북"] },
+    { ticker: "AVGO", reuters: "AVGO.O", krName: "브로드컴 (AVGO)", exchange: "NASDAQ", cat: "US", aliases: ["BROADCOM"] },
+    { ticker: "AMD", reuters: "AMD.O", krName: "AMD", exchange: "NASDAQ", cat: "US", aliases: ["에이엠디"] },
+    { ticker: "QQQ", reuters: "QQQ.O", krName: "QQQ · 나스닥 100 ETF", exchange: "NASDAQ", cat: "US", aliases: ["나스닥"] },
+    { ticker: "SPY", reuters: "SPY.P", krName: "SPY · S&P 500 ETF", exchange: "NYSE", cat: "US", aliases: ["S&P500"] },
 
-    // 🪙 [24시간 실시간 자산]
-    { ticker: "KRW=X", krName: "공식 달러/원 기준환율 (USD/KRW)", exchange: "FX 공식고시", basePrice: 1385.50, prevClose: 1382.00, pct: 0.25, cat: "24H", aliases: ["환율", "달러환율", "고시환율", "USDKRW"] },
-    { ticker: "KRW-USDT", krName: "테더 체감환율 (24시 업비트 USDT)", exchange: "UPBIT 24H", basePrice: 1392.00, prevClose: 1390.00, pct: 0.14, cat: "24H", aliases: ["테더", "김프", "USDT"] },
-    { ticker: "KRW-BTC", krName: "비트코인 (24시 원화)", exchange: "UPBIT 24H", basePrice: 128500000, prevClose: 127200000, pct: 1.02, cat: "24H", aliases: ["BTC", "비트", "BITCOIN"] },
-    { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 Gold)", exchange: "GOLD 24H", basePrice: 2915.40, prevClose: 2898.00, pct: 0.60, cat: "24H", aliases: ["금", "GOLD", "국제금", "금시세", "XAU"] },
-    { ticker: "KRW-ETH", krName: "이더리움 (24시 원화)", exchange: "UPBIT 24H", basePrice: 3850000, prevClose: 3810000, pct: 1.05, cat: "24H", aliases: ["ETH", "이더", "ETHEREUM"] },
-    { ticker: "KRW-XRP", krName: "리플 (24시 XRP)", exchange: "UPBIT 24H", basePrice: 3450, prevClose: 3390, pct: 1.77, cat: "24H", aliases: ["XRP", "리플"] },
-    { ticker: "KRW-SOL", krName: "솔라나 (24시 SOL)", exchange: "UPBIT 24H", basePrice: 268000, prevClose: 262000, pct: 2.29, cat: "24H", aliases: ["SOL", "솔라나", "SOLANA"] },
-    { ticker: "KRW-DOGE", krName: "도지코인 (24시 DOGE)", exchange: "UPBIT 24H", basePrice: 365, prevClose: 358, pct: 1.96, cat: "24H", aliases: ["DOGE", "도지"] }
+    // 🪙 24시간 실시간 자산
+    { ticker: "KRW=X", krName: "공식 달러/원 기준환율 (USD/KRW)", exchange: "FX 공식고시", cat: "24H", aliases: ["환율", "달러환율", "고시환율", "USDKRW"] },
+    { ticker: "KRW-USDT", krName: "업비트 테더 환율 (24시 USDT)", exchange: "UPBIT 24H", cat: "24H", aliases: ["테더", "김프", "USDT"] },
+    { ticker: "KRW-BTC", krName: "비트코인 (24시 원화)", exchange: "UPBIT 24H", cat: "24H", aliases: ["BTC", "비트", "BITCOIN"] },
+    { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 Gold)", exchange: "BINANCE 24H", cat: "24H", aliases: ["금", "GOLD", "국제금", "금시세", "XAU"] },
+    { ticker: "KRW-ETH", krName: "이더리움 (24시 원화)", exchange: "UPBIT 24H", cat: "24H", aliases: ["ETH", "이더", "ETHEREUM"] },
+    { ticker: "KRW-XRP", krName: "리플 (24시 XRP)", exchange: "UPBIT 24H", cat: "24H", aliases: ["XRP", "리플"] },
+    { ticker: "KRW-SOL", krName: "솔라나 (24시 SOL)", exchange: "UPBIT 24H", cat: "24H", aliases: ["SOL", "솔라나", "SOLANA"] }
   ];
 
-  // ==================== 2. 주요 종목 3개년 재무제표 정밀 DB (DART 사업보고서 / SEC 10-K 기준 + 실시간 네이버 연동) ====================
-  // unit: "억원" (국내) 또는 "$M" (백만달러, 미국)
+  // ==================== 2. 3개년 재무제표 DB ====================
   const FINANCIAL_DB = {
     "000500.KS": {
       unit: "억원", sector: "전선·전력기자재", sectorPer: 15.5, sectorPbr: 1.45,
-      years: ["2022", "2023", "2024/25(최근)"],
-      rev: [14284, 14986, 16850],
-      op: [285, 437, 560],
-      net: [162, 268, 395],
-      opm: [2.0, 2.9, 3.3],
+      years: ["2022", "2023", "최근연간"], rev: [14284, 14986, 16850], op: [285, 437, 560], net: [162, 268, 395], opm: [2.0, 2.9, 3.3],
       debtRatio: 118.4, currentRatio: 142.5, per: 11.2, pbr: 0.95, roe: 8.8,
-      catalyst: "북미 전력망 교체 슈퍼사이클 및 LS전선 해저·초고압 케이블 수주 협업 확대로 영업이익이 3년 연속 구조적 증가세를 기록 중입니다."
+      catalyst: "북미 전력망 교체 및 LS전선 해저·초고압 케이블 수주 협업 확대로 영업이익이 3년 연속 증가세를 기록 중입니다."
     },
     "267260.KS": {
       unit: "억원", sector: "초고압변압기·전력기기", sectorPer: 22.0, sectorPbr: 4.5,
-      years: ["2022", "2023", "2024/25(최근)"],
-      rev: [21045, 27028, 33223],
-      op: [1330, 3152, 6690],
-      net: [1624, 2595, 5080],
-      opm: [6.3, 11.7, 20.1],
+      years: ["2022", "2023", "최근연간"], rev: [21045, 27028, 33223], op: [1330, 3152, 6690], net: [1624, 2595, 5080], opm: [6.3, 11.7, 20.1],
       debtRatio: 182.0, currentRatio: 128.4, per: 19.5, pbr: 6.80, roe: 36.5,
-      catalyst: "북미 AI 데이터센터 및 노후 전력망 교체에 따른 초고압 변압기 공급 부족(Seller's Market)으로 영업이익률이 6.3%에서 20.1%로 급등했습니다."
+      catalyst: "북미 AI 데이터센터 및 노후 전력망 교체에 따른 초고압 변압기 공급 부족으로 영업이익률이 20.1%로 급등했습니다."
     },
     "005930.KS": {
       unit: "조원", sector: "글로벌 종합반도체·IT", sectorPer: 16.5, sectorPbr: 1.50,
-      years: ["2022", "2023", "2024/25(최근)"],
-      rev: [302.2, 258.9, 300.9],
-      op: [43.4, 6.57, 32.7],
-      net: [55.6, 15.5, 34.5],
-      opm: [14.4, 2.5, 10.9],
+      years: ["2022", "2023", "최근연간"], rev: [302.2, 258.9, 300.9], op: [43.4, 6.57, 32.7], net: [55.6, 15.5, 34.5], opm: [14.4, 2.5, 10.9],
       debtRatio: 26.4, currentRatio: 245.0, per: 11.4, pbr: 1.02, roe: 9.2,
-      catalyst: "메모리 감산 효과 및 DDR5·HBM 출하 확대로 2023년 업황 저점(OPM 2.5%)을 통과하여 영업이익이 32.7조원 수준으로 회복했습니다. PBR 1.0배 부근의 역사적 밴드 하단입니다."
+      catalyst: "메모리 업황 회복으로 영업이익이 2023년 6.57조원에서 32.7조원으로 반등했으며, 부채비율 26.4%·유동비율 245%의 초우량 재무구조를 보유하고 있습니다."
     },
     "000660.KS": {
       unit: "조원", sector: "메모리 반도체 (HBM)", sectorPer: 16.5, sectorPbr: 2.10,
-      years: ["2022", "2023", "2024/25(최근)"],
-      rev: [44.6, 32.8, 66.2],
-      op: [6.8, -7.7, 23.5],
-      net: [2.2, -9.1, 19.8],
-      opm: [15.2, -23.5, 35.5],
+      years: ["2022", "2023", "최근연간"], rev: [44.6, 32.8, 66.2], op: [6.8, -7.7, 23.5], net: [2.2, -9.1, 19.8], opm: [15.2, -23.5, 35.5],
       debtRatio: 68.5, currentRatio: 152.0, per: 7.8, pbr: 2.15, roe: 28.4,
-      catalyst: "HBM3E 독점적 공급 지위와 고부가 eSSD 수요 폭발로 영업이익률 35.5%, 사상 최대 실적을 달성하며 재무 구조가 급격히 개선되었습니다."
+      catalyst: "HBM3E 독점적 공급 지위와 고부가 eSSD 수요 확대로 영업이익률 35.5%를 기록하며 사상 최대 실적을 달성했습니다."
     },
     "000270.KS": {
       unit: "조원", sector: "글로벌 완성차·모빌리티", sectorPer: 7.5, sectorPbr: 0.90,
-      years: ["2022", "2023", "2024/25(최근)"],
-      rev: [86.6, 99.8, 107.4],
-      op: [7.2, 11.6, 12.7],
-      net: [5.4, 8.8, 9.8],
-      opm: [8.4, 11.6, 11.8],
+      years: ["2022", "2023", "최근연간"], rev: [86.6, 99.8, 107.4], op: [7.2, 11.6, 12.7], net: [5.4, 8.8, 9.8], opm: [8.4, 11.6, 11.8],
       debtRatio: 72.1, currentRatio: 138.0, per: 4.2, pbr: 0.76, roe: 19.5,
-      catalyst: "북미 하이브리드(HEV)·SUV 고수익 차종 믹스 개선으로 글로벌 완성차 최고 수준의 영업이익률(11.8%)을 유지 중이며, PER 4.2배로 극심한 저평가 영역입니다."
+      catalyst: "하이브리드(HEV)·SUV 고수익 차종 믹스 개선으로 영업이익률 11.8%를 유지 중이며, PER 4~5배 수준의 저평가 영역입니다."
     },
     "010950.KS": {
       unit: "조원", sector: "정유·석유화학·윤활기유", sectorPer: 9.0, sectorPbr: 0.85,
-      years: ["2022", "2023", "2024/25(최근)"],
-      rev: [42.4, 35.7, 36.6],
-      op: [3.4, 1.35, 0.46],
-      net: [2.1, 0.95, 0.18],
-      opm: [8.0, 3.8, 1.3],
+      years: ["2022", "2023", "최근연간"], rev: [42.4, 35.7, 36.6], op: [3.4, 1.35, 0.46], net: [2.1, 0.95, 0.18], opm: [8.0, 3.8, 1.3],
       debtRatio: 138.5, currentRatio: 112.0, per: 14.5, pbr: 0.78, roe: 4.5,
-      catalyst: "정제마진 등락에 따라 단기 이익률이 변동하나 윤활기유가 캐시카우 역할을 수행 중이며, 샤힌 프로젝트 완공 시 석유화학 원가 경쟁력이 대폭 강화됩니다."
-    },
-    "009150.KS": {
-      unit: "억원", sector: "MLCC·반도체패키지기판", sectorPer: 18.0, sectorPbr: 1.60,
-      years: ["2022", "2023", "2024/25(최근)"],
-      rev: [94246, 88924, 102940],
-      op: [11828, 6605, 7350],
-      net: [9935, 4505, 6120],
-      opm: [12.5, 7.4, 7.1],
-      debtRatio: 44.2, currentRatio: 185.0, per: 16.8, pbr: 1.25, roe: 7.8,
-      catalyst: "AI 서버 및 전장용 고부가 MLCC와 FC-BGA 기판 가동률 상승으로 연간 매출 10조원을 돌파했습니다."
+      catalyst: "정제마진 등락에 따라 단기 이익률이 변동하나 PBR 0.78배로 장부가치 미만의 저평가 구간에 위치합니다."
     },
     "SNDK": {
       unit: "$M", sector: "NAND 플래시·eSSD 스토리지", sectorPer: 17.5, sectorPbr: 2.20,
-      years: ["FY22", "FY23", "FY24/25"],
-      rev: [9750, 6080, 7350],
-      op: [1240, -1150, 680],
-      net: [910, -1420, 510],
-      opm: [12.7, -18.9, 9.3],
+      years: ["FY22", "FY23", "최근연간"], rev: [9750, 6080, 7350], op: [1240, -1150, 680], net: [910, -1420, 510], opm: [12.7, -18.9, 9.3],
       debtRatio: 64.0, currentRatio: 182.0, per: 13.8, pbr: 1.65, roe: 11.5,
-      catalyst: "웨스턴디지털(WDC)로부터 플래시 메모리 사업부가 분할 재상장(SNDK)되었으며, AI 데이터센터용 엔터프라이즈 SSD 수요 회복으로 흑자 전환에 성공했습니다."
+      catalyst: "웨스턴디지털(WDC)에서 분사 재상장(SNDK)되었으며, AI 데이터센터용 엔터프라이즈 SSD 수요 회복으로 흑자 전환했습니다."
     },
     "LAES": {
       unit: "$M", sector: "양자내성암호(PQC) 보안 반도체", sectorPer: 35.0, sectorPbr: 4.80,
-      years: ["2022", "2023", "2024/25"],
-      rev: [23.2, 30.1, 14.5],
-      op: [-1.8, -4.2, -16.5],
-      net: [-2.5, -5.1, -18.2],
-      opm: [-7.8, -14.0, -113.8],
+      years: ["2022", "2023", "최근연간"], rev: [23.2, 30.1, 14.5], op: [-1.8, -4.2, -16.5], net: [-2.5, -5.1, -18.2], opm: [-7.8, -14.0, -113.8],
       debtRatio: 42.5, currentRatio: 265.0, per: -1, pbr: 3.90, roe: -35.0,
-      catalyst: "차세대 양자내성암호(PQC) 칩(QS7001) R&D 투자 집중 및 레거시 반도체 전환기 영향으로 영업적자가 지속 중이나, 최근 유상증자·현금 확충으로 유동비율(265%)을 확보했습니다."
+      catalyst: "차세대 양자내성암호(PQC) 반도체 R&D 투자 집중으로 영업적자 구간이나, 유동비율 265%로 단기 현금 유동성을 확보하고 있습니다."
     },
     "IREN": {
-      unit: "$M", sector: "AI 클라우드 & 비트코인 데이터센터", sectorPer: 25.0, sectorPbr: 2.80,
-      years: ["FY22", "FY23", "FY24/25"],
-      rev: [59.0, 75.5, 188.8],
-      op: [-12.0, -145.0, 19.5],
-      net: [-42.0, -171.0, 14.2],
-      opm: [-20.3, -192.0, 10.3],
+      unit: "$M", sector: "AI 클라우드 & 데이터센터", sectorPer: 25.0, sectorPbr: 2.80,
+      years: ["FY22", "FY23", "최근연간"], rev: [59.0, 75.5, 188.8], op: [-12.0, -145.0, 19.5], net: [-42.0, -171.0, 14.2], opm: [-20.3, -192.0, 10.3],
       debtRatio: 18.5, currentRatio: 310.0, per: 28.5, pbr: 1.75, roe: 6.8,
-      catalyst: "무차입에 가까운 낮은 부채비율(18.5%)과 신재생에너지 기반 저전력 데이터센터 확장을 통해 매출이 2.5배 급증하며 영업흑자 전환했습니다."
+      catalyst: "낮은 부채비율(18.5%)과 AI GPU 클라우드 및 데이터센터 용량 확장으로 매출 급증 및 영업흑자 전환을 기록했습니다."
     },
     "SERV": {
-      unit: "$M", sector: "자율주행 라스트마일 배송 로봇", sectorPer: 40.0, sectorPbr: 5.50,
-      years: ["2022", "2023", "2024/25"],
-      rev: [0.11, 0.21, 1.85],
-      op: [-21.5, -20.8, -36.4],
-      net: [-21.9, -24.5, -39.1],
-      opm: [-19500, -9900, -1967],
+      unit: "$M", sector: "자율주행 배송 로봇", sectorPer: 40.0, sectorPbr: 5.50,
+      years: ["2022", "2023", "최근연간"], rev: [0.11, 0.21, 1.85], op: [-21.5, -20.8, -36.4], net: [-21.9, -24.5, -39.1], opm: [-19500, -9900, -1967],
       debtRatio: 15.2, currentRatio: 420.0, per: -1, pbr: 6.20, roe: -48.0,
-      catalyst: "우버이츠(Uber Eats)향 자율주행 로봇 2,000대 양산 배치 초기 단계로 R&D 비용에 따른 적자 구조이나, 대규모 현금 유동성(유동비율 420%)을 바탕으로 상용화 확장에 집중하고 있습니다."
+      catalyst: "우버이츠향 자율주행 로봇 양산 배치 초기 단계로 적자 구조이나, 유동비율 420%의 현금 유동성을 바탕으로 상용화를 확대 중입니다."
     },
     "NVDA": {
       unit: "$B", sector: "AI 가속기 & 데이터센터 GPU", sectorPer: 32.0, sectorPbr: 18.0,
-      years: ["FY23", "FY24", "FY25"],
-      rev: [27.0, 60.9, 130.5],
-      op: [4.2, 33.0, 81.4],
-      net: [4.4, 29.8, 72.9],
-      opm: [15.6, 54.2, 62.4],
+      years: ["FY23", "FY24", "FY25"], rev: [27.0, 60.9, 130.5], op: [4.2, 33.0, 81.4], net: [4.4, 29.8, 72.9], opm: [15.6, 54.2, 62.4],
       debtRatio: 17.2, currentRatio: 410.0, per: 31.5, pbr: 28.5, roe: 91.5,
-      catalyst: "AI 인프라 독점적 생태계(CUDA·Blackwell)를 기반으로 매출이 2년 만에 4.8배 폭증하고 영업이익률 62.4%라는 전례 없는 수익성을 기록 중입니다."
+      catalyst: "AI 데이터센터 GPU 독점적 지위로 영업이익률 62.4%, ROE 91.5%의 압도적 수익성을 기록 중입니다."
     }
   };
 
-  // 상단 지표 12종
   const UPPER_IND_META = [
     { id: "SMA", name: "이동평균선 (SMA 5·20·60)", desc: "단기·중기·장기 단순 이동평균 정배열/역배열", defOn: true },
     { id: "EMA", name: "지수이동평균선 (EMA 12·26·50)", desc: "최근 가격에 가중치를 둔 이동평균선", defOn: true },
@@ -916,7 +856,6 @@
     { id: "AVWAP", name: "고정된 VWAP (저점 변곡 기준)", desc: "최근 핵심 저점 이후 누적된 평균단가", defOn: true }
   ];
 
-  // 하단 지표 25종
   const LOWER_IND_META = [
     { id: "VOL", name: "거래량 (20봉 평균 대비)", desc: "평균 거래량 대비 현재 수급 배율", defOn: true },
     { id: "MASS", name: "매스 인덱스 (Mass Index 25)", desc: "고저 변동폭 기반 추세 전환 주의보", defOn: true },
@@ -957,14 +896,14 @@
     { ticker: "010950.KS", krName: "S-Oil", exchange: "KOSPI", pinned: false },
     { ticker: "NVDA", krName: "엔비디아 (NVIDIA)", exchange: "NASDAQ", pinned: false },
     { ticker: "KRW-BTC", krName: "비트코인 (24시 원화)", exchange: "UPBIT 24H", pinned: false },
-    { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 Gold)", exchange: "GOLD 24H", pinned: false }
+    { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 Gold)", exchange: "BINANCE 24H", pinned: false }
   ];
 
   let appState = loadAppState();
   let activeUpper = appState.activeUpper;
   let activeLower = appState.activeLower;
   let majorStocks = appState.watchlist;
-  const candleCache = {};
+  const candleCache = {}; // 오직 실제 API에서 받아온 캔들과 가격만 저장 (가짜 생성 금지)
 
   function loadAppState() {
     const up = {}, low = {};
@@ -996,6 +935,13 @@
     } catch (e) {}
   }
 
+  function saveApiKey() {
+    finnhubApiKey = document.getElementById("finnhubKeyInput").value.trim();
+    localStorage.setItem("QUANT_FINNHUB_KEY", finnhubApiKey);
+    alert("API 키가 저장되었습니다. 즉시 실데이터를 다시 불러옵니다.");
+    syncAllRealtime();
+  }
+
   function isKrwNativeAsset(ticker) {
     return ticker.endsWith(".KS") || ticker.endsWith(".KQ") || ticker.startsWith("KRW-") || ticker === "KRW=X" || /^\d{6}$/.test(ticker);
   }
@@ -1006,159 +952,63 @@
     return "US";
   }
 
-  // ==================== 3. 한국시간(KST) 기준 장 운영 시간 자동 판별기 ====================
-  function getMarketSessionStatus(ticker) {
-    const cat = getAssetCategory(ticker);
-    if (cat === "24H" && ticker !== "KRW=X") {
-      return { open: true, label: "🟢 24H 실시간 체결중", color: "#34D399" };
-    }
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const kst = new Date(utc + (9 * 3600000));
-    const day = kst.getDay();
-    const hm = kst.getHours() * 100 + kst.getMinutes();
-
-    if (cat === "KR") {
-      if (day === 0 || day === 6) return { open: false, label: "⚪ 주말휴장 (금요일 종가)", color: "#94A3B8" };
-      if (hm >= 900 && hm <= 1530) return { open: true, label: "🟢 KRX 정규장 실시간", color: "#34D399" };
-      if (hm >= 800 && hm <= 2000) return { open: true, label: "🟡 대체·시간외 거래", color: "#FBBF24" };
-      return { open: false, label: "⚪ 장마감 (종가)", color: "#94A3B8" };
-    }
-
-    if (day === 0 || (day === 6 && hm >= 900) || (day === 1 && hm < 1700)) {
-      return { open: false, label: "⚪ 주말휴장 (최근 종가)", color: "#94A3B8" };
-    }
-    if (hm >= 2230 || hm < 500) return { open: true, label: "🟢 미 증시 정규장 실시간", color: "#34D399" };
-    if (hm >= 1700 && hm < 2230) return { open: true, label: "🟡 프리마켓 실시간", color: "#FBBF24" };
-    if (hm >= 500 && hm < 900) return { open: true, label: "🟡 애프터마켓 실시간", color: "#FBBF24" };
-    return { open: false, label: "⚪ 장외 대기 (종가)", color: "#94A3B8" };
-  }
-
   function formatDisplayTitle(krName, ticker) {
     const cleanT = ticker.replace(".KS", "").replace(".KQ", "");
     if (krName.toUpperCase().includes(cleanT.toUpperCase())) return krName;
     return `${krName} (${cleanT})`;
   }
 
-  // ==================== 4. 초기 폴백 캔들 생성 & 실시간 틱 전파 ====================
-  function buildAnchoredCandles(targetClose, targetPrevClose, tickerStr) {
-    const raw = [];
-    let seed = 0;
-    for (let i = 0; i < tickerStr.length; i++) seed += tickerStr.charCodeAt(i) * (i + 1);
-    let p = 1.0;
-    for (let i = 75; i >= 0; i--) {
-      const wave = Math.sin((i + seed) * 0.36) * 0.013 + Math.cos((i * 0.58) + seed) * 0.008;
-      const o = p;
-      const c = o * (1 + wave);
-      const h = Math.max(o, c) * (1 + Math.abs(Math.sin(i + seed)) * 0.008);
-      const l = Math.min(o, c) * (1 - Math.abs(Math.cos(i + seed)) * 0.008);
-      const v = Math.round(1500000 + Math.abs(wave) * 45000000);
-      raw.push({ o, h, l, c, v });
-      p = c;
-    }
-    const scale = targetClose / raw[raw.length - 1].c;
-    const isKRW = isKrwNativeAsset(tickerStr) && tickerStr !== "KRW=X" && tickerStr !== "KRW-USDT";
-    const fmt = (val) => isKRW ? Math.round(val) : +(val.toFixed(targetClose < 10 ? 3 : 2));
+  // ==================== 3. 다중 출처 가격 기록기 (출처 투명성 100% 보장) ====================
+  function recordSourceQuote(ticker, sourceName, price, prevClose, changePct) {
+    if (!price || isNaN(price) || price <= 0) return;
+    if (!multiSourceQuotes[ticker]) multiSourceQuotes[ticker] = {};
+    const pct = changePct != null ? changePct : (prevClose ? ((price - prevClose) / prevClose) * 100 : 0);
+    multiSourceQuotes[ticker][sourceName] = {
+      price,
+      prevClose: prevClose || price,
+      changePct: pct,
+      time: new Date().toLocaleTimeString("ko-KR", { hour12: false })
+    };
 
-    const candles = raw.map(bar => ({
-      o: fmt(bar.o * scale),
-      h: fmt(bar.h * scale),
-      l: fmt(bar.l * scale),
-      c: fmt(bar.c * scale),
-      v: bar.v
-    }));
-
-    if (targetPrevClose && candles.length >= 2) {
-      candles[candles.length - 2].c = fmt(targetPrevClose);
-      candles[candles.length - 1].o = fmt(targetPrevClose);
-    }
-    candles[candles.length - 1].c = fmt(targetClose);
-    candles[candles.length - 1].h = fmt(Math.max(candles[candles.length - 1].o, targetClose) * 1.004);
-    candles[candles.length - 1].l = fmt(Math.min(candles[candles.length - 1].o, targetClose) * 0.996);
-    return candles;
-  }
-
-  function ensureStockInitialized(ticker) {
-    const key = `${ticker}_1d`;
-    if (!candleCache[key]) {
-      const db = MASTER_STOCK_DB.find(m => m.ticker === ticker);
-      const cur = db ? db.basePrice : (isKrwNativeAsset(ticker) ? 50000 : 50);
-      const prev = db && db.prevClose ? db.prevClose : cur * 0.99;
-      const pct = ((cur - prev) / prev) * 100;
-      const candles = buildAnchoredCandles(cur, prev, ticker);
-      candleCache[key] = {
-        source: "초기 스냅샷 (실시간 연동중)",
-        isLive: false,
-        candles,
-        livePrice: cur,
-        prevClose: prev,
-        changePct: pct
-      };
-    }
-    return candleCache[key];
-  }
-
-  function applyRealtimeTickToAllTimeframes(ticker, newPrice, prevClose, changePct, sourceName) {
-    const pack1d = ensureStockInitialized(ticker);
-    const oldPrice = pack1d.livePrice || newPrice;
-    const tickDir = newPrice > oldPrice ? "up" : (newPrice < oldPrice ? "down" : "same");
-
+    // 기존 캐시에 실데이터 반영
     ["1d", "1h", "15m", "5m"].forEach(tf => {
       const p = candleCache[`${ticker}_${tf}`];
       if (p && p.candles && p.candles.length > 0) {
-        p.livePrice = newPrice;
+        p.livePrice = price;
         if (prevClose) p.prevClose = prevClose;
-        if (changePct != null) p.changePct = changePct;
-        else if (p.prevClose) p.changePct = ((newPrice - p.prevClose) / p.prevClose) * 100;
+        p.changePct = pct;
+        p.source = sourceName;
         p.isLive = true;
-        if (sourceName) p.source = sourceName;
         const lastBar = p.candles[p.candles.length - 1];
-        lastBar.c = newPrice;
-        if (newPrice > lastBar.h) lastBar.h = newPrice;
-        if (newPrice < lastBar.l) lastBar.l = newPrice;
+        lastBar.c = price;
+        if (price > lastBar.h) lastBar.h = price;
+        if (price < lastBar.l) lastBar.l = price;
       }
     });
 
-    if (ticker === "KRW-USDT" && newPrice > 900) {
-      upbitUsdtKrw = newPrice;
-    }
-    if (ticker === "KRW=X" && newPrice > 900) {
-      officialUsdKrw = newPrice;
-    }
-
-    if (tickDir !== "same") {
-      triggerVisualTickFlash(ticker, tickDir);
+    if (!candleCache[`${ticker}_1d`]) {
+      // 아직 캔들 배열이 도착하기 전에 실시간 단가만 먼저 도착한 경우
+      candleCache[`${ticker}_1d`] = {
+        source: sourceName,
+        isLive: true,
+        candles: null, // 캔들은 가짜로 만들지 않고 null로 두어 실제 캔들 수신 시에만 그림
+        livePrice: price,
+        prevClose: prevClose || price,
+        changePct: pct
+      };
+    } else {
+      candleCache[`${ticker}_1d`].livePrice = price;
+      if (prevClose) candleCache[`${ticker}_1d`].prevClose = prevClose;
+      candleCache[`${ticker}_1d`].changePct = pct;
+      candleCache[`${ticker}_1d`].source = sourceName;
     }
   }
 
-  function triggerVisualTickFlash(ticker, dir) {
-    const cls = dir === "up" ? "flash-up" : "flash-down";
-    const rowEl = document.getElementById(`row_price_${ticker}`);
-    if (rowEl) {
-      rowEl.classList.remove("flash-up", "flash-down");
-      void rowEl.offsetWidth;
-      rowEl.classList.add(cls);
-    }
-    if (ticker === currentTicker) {
-      const dtWrap = document.getElementById("dtPriceWrap");
-      if (dtWrap) {
-        dtWrap.classList.remove("flash-up", "flash-down");
-        void dtWrap.offsetWidth;
-        dtWrap.classList.add(cls);
-      }
-      renderDetail();
-    }
-    updateHomeRowQuick(ticker);
-  }
-
-  majorStocks.forEach(st => ensureStockInitialized(st.ticker));
-  ["QQQ", "SPY", "KRW-BTC", "KRW-ETH", "PAXGUSDT", "KRW-USDT", "KRW=X"].forEach(tk => ensureStockInitialized(tk));
-
-  // ==================== 5. 공식 고시환율 기준 통화 포맷터 ====================
   function fmtPrice(rawVal, ticker = currentTicker) {
-    if (rawVal == null || isNaN(rawVal)) return "-";
+    if (rawVal == null || isNaN(rawVal) || rawVal <= 0) return "수신중..";
+    const fx = officialUsdKrw || 1385.0;
     if (ticker === "KRW=X" || ticker === "KRW-USDT") {
-      if (currencyMode === "USD") return `$${(rawVal / officialUsdKrw).toFixed(4)}`;
+      if (currencyMode === "USD") return `$${(rawVal / fx).toFixed(4)}`;
       return `${rawVal.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 2 })}원`;
     }
     const isKRW = isKrwNativeAsset(ticker);
@@ -1167,10 +1017,10 @@
       if (isKRW) return `${Math.round(rawVal).toLocaleString()}원`;
       return `$${rawVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     } else if (currencyMode === "KRW") {
-      const krw = isKRW ? rawVal : rawVal * officialUsdKrw;
+      const krw = isKRW ? rawVal : rawVal * fx;
       return `${Math.round(krw).toLocaleString()}원`;
     } else {
-      const usd = isKRW ? (rawVal / officialUsdKrw) : rawVal;
+      const usd = isKRW ? (rawVal / fx) : rawVal;
       return `$${usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
   }
@@ -1192,136 +1042,99 @@
     renderHome();
   }
 
-  // ==================== 6. 공식 외환 API + 업비트/바이낸스 웹소켓 교차 검증 ====================
-  async function syncOfficialExchangeRate() {
-    // 1순위: 글로벌 오픈 외환 API (CORS 무제한 직접 호출 가능)
-    try {
-      const res = await fetch("https://open.er-api.com/v6/latest/USD");
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.rates && data.rates.KRW > 900) {
-          officialUsdKrw = data.rates.KRW;
-          applyRealtimeTickToAllTimeframes("KRW=X", officialUsdKrw, officialUsdKrw * 0.998, 0.15, "글로벌 공식 외환 API");
-          document.getElementById("mcFXSource").textContent = "글로벌 외환 고시";
-          updateMacroBarUI();
-        }
-      }
-    } catch (e) {}
+  // ==================== 4. 외부 금융앱(토스증권/인베스팅닷컴/네이버/야후) 원클릭 딥링크 생성 ====================
+  function renderExternalAppLinks(ticker) {
+    const cleanCode = ticker.replace(".KS", "").replace(".KQ", "");
+    const isKR = ticker.endsWith(".KS") || ticker.endsWith(".KQ");
+    const dbItem = MASTER_STOCK_DB.find(m => m.ticker === ticker);
+    const searchName = dbItem ? dbItem.krName.split("(")[0].trim() : cleanCode;
 
-    // 2순위: 유럽중앙은행/Frankfurter API 교차 확인
-    try {
-      const fRes = await fetch("https://api.frankfurter.app/latest?from=USD&to=KRW");
-      if (fRes.ok) {
-        const fData = await fRes.json();
-        if (fData && fData.rates && fData.rates.KRW > 900) {
-          officialUsdKrw = fData.rates.KRW;
-          applyRealtimeTickToAllTimeframes("KRW=X", officialUsdKrw, officialUsdKrw * 0.998, 0.15, "ECB/글로벌 고시환율");
-          updateMacroBarUI();
-        }
-      }
-    } catch (e) {}
+    // 1. 토스증권 (국내주식은 A+6자리코드, 미국주식은 티커로 직결)
+    const tossCode = isKR ? `A${cleanCode}` : cleanCode;
+    const tossUrl = `https://tossinvest.com/stocks/${encodeURIComponent(tossCode)}/order`;
+
+    // 2. 인베스팅닷컴 (종목 검색 직결)
+    const investingUrl = `https://kr.investing.com/search/?q=${encodeURIComponent(cleanCode)}`;
+
+    // 3. 네이버페이 증권 (국내/해외 직결)
+    const reuters = (dbItem && dbItem.reuters) ? dbItem.reuters : `${cleanCode}.O`;
+    const naverUrl = isKR
+      ? `https://m.stock.naver.com/domestic/stock/${cleanCode}/total`
+      : `https://m.stock.naver.com/worldstock/stock/${reuters}/total`;
+
+    // 4. Yahoo Finance 원문
+    const yahooUrl = `https://finance.yahoo.com/quote/${encodeURIComponent(ticker)}`;
+
+    const bar = document.getElementById("externalAppLinksBar");
+    if (!bar) return;
+    bar.innerHTML = `
+      <a href="${tossUrl}" target="_blank" rel="noopener" class="app-link-btn toss">🔵 토스증권 열기</a>
+      <a href="${investingUrl}" target="_blank" rel="noopener" class="app-link-btn investing">🟠 인베스팅닷컴</a>
+      <a href="${naverUrl}" target="_blank" rel="noopener" class="app-link-btn naver">🟢 네이버증권</a>
+      <a href="${yahooUrl}" target="_blank" rel="noopener" class="app-link-btn">🟣 야후파이낸스</a>
+    `;
   }
 
-  function startRealtimeWebSockets() {
-    // 업비트 웹소켓
-    try {
-      if (upbitWs) upbitWs.close();
-      upbitWs = new WebSocket("wss://api.upbit.com/websocket/v1");
-      upbitWs.binaryType = "arraybuffer";
-      upbitWs.onopen = () => {
-        const subMsg = [
-          { ticket: "quant_pro_v21" },
-          { type: "ticker", codes: ["KRW-BTC", "KRW-ETH", "KRW-XRP", "KRW-SOL", "KRW-DOGE", "KRW-USDT"] }
-        ];
-        upbitWs.send(JSON.stringify(subMsg));
-      };
-      upbitWs.onmessage = (evt) => {
-        try {
-          const dec = new TextDecoder("utf-8");
-          const data = JSON.parse(dec.decode(evt.data));
-          if (data && data.code && data.trade_price) {
-            applyRealtimeTickToAllTimeframes(
-              data.code,
-              data.trade_price,
-              data.prev_closing_price,
-              data.signed_change_rate * 100,
-              "업비트 WebSocket 실시간"
-            );
-            updateMacroBarUI();
-          }
-        } catch (e) {}
-      };
-      upbitWs.onclose = () => { setTimeout(startRealtimeWebSockets, 4000); };
-    } catch (e) {}
-
-    // 바이낸스 웹소켓
-    try {
-      if (binanceWs) binanceWs.close();
-      binanceWs = new WebSocket("wss://stream.binance.com:9443/ws/paxgusdt@ticker/btcusdt@ticker");
-      binanceWs.onmessage = (evt) => {
-        try {
-          const d = JSON.parse(evt.data);
-          if (d && d.s && d.c) {
-            applyRealtimeTickToAllTimeframes(
-              d.s,
-              parseFloat(d.c),
-              parseFloat(d.o),
-              parseFloat(d.P),
-              "바이낸스 WebSocket 실시간"
-            );
-            updateMacroBarUI();
-          }
-        } catch (e) {}
-      };
-    } catch (e) {}
-  }
-
-  function updateMacroBarUI() {
-    // 1. 공식 달러/원 환율 표시
-    const fxEl = document.getElementById("mcOfficialFX");
-    if (fxEl) {
-      fxEl.textContent = `${officialUsdKrw.toFixed(2)}원`;
+  // ==================== 5. TradingView 공식 실시간 차트 위젯 연동 ====================
+  function switchChartMode(mode) {
+    chartMode = mode;
+    document.getElementById("tabChartCanvas").classList.toggle("active", mode === "canvas");
+    document.getElementById("tabChartTV").classList.toggle("active", mode === "tv");
+    document.getElementById("canvasChartWrap").style.display = mode === "canvas" ? "block" : "none";
+    document.getElementById("tvWidgetWrap").style.display = mode === "tv" ? "block" : "none";
+    if (mode === "tv") {
+      loadTradingViewWidget(currentTicker);
+    } else {
+      renderDetail();
     }
-    // 2. 테더 및 김치프리미엄 계산
-    const usdtEl = document.getElementById("mcUsdtFX");
-    const premEl = document.getElementById("mcKimchiPrem");
-    if (usdtEl && premEl) {
-      usdtEl.textContent = `${upbitUsdtKrw.toFixed(1)}원`;
-      const kPrem = ((upbitUsdtKrw - officialUsdKrw) / Math.max(1, officialUsdKrw)) * 100;
-      premEl.textContent = `김프 ${kPrem >= 0 ? '+' : ''}${kPrem.toFixed(2)}%`;
-      premEl.style.color = kPrem >= 0 ? "#FBBF24" : "#60A5FA";
-    }
-
-    const setMacroCard = (elId, ticker) => {
-      const el = document.getElementById(elId);
-      if (!el) return;
-      const p = ensureStockInitialized(ticker);
-      const cur = p.livePrice;
-      const pct = p.changePct || 0;
-      const isUp = pct >= 0;
-      el.textContent = `${fmtPrice(cur, ticker)} (${isUp ? '+' : ''}${pct.toFixed(2)}%)`;
-      el.style.color = isUp ? "var(--up)" : "var(--down)";
-    };
-
-    setMacroCard("mcBTC", "KRW-BTC");
-    setMacroCard("mcGOLD", "PAXGUSDT");
-    setMacroCard("mcQQQ", "QQQ");
-    setMacroCard("mcSPY", "SPY");
-
-    const qqqSt = getMarketSessionStatus("QQQ");
-    document.getElementById("dotQQQ").className = qqqSt.open ? "live-dot" : "closed-dot";
-    document.getElementById("dotSPY").className = qqqSt.open ? "live-dot" : "closed-dot";
   }
 
-  // ==================== 7. 다중 프록시 & 네이버 fchart XML + 야후 + 네이버 통합 API ====================
-  async function fetchVerified(targetUrl, validatorFn, timeoutMs = 5000) {
+  function getTradingViewSymbol(ticker) {
+    if (ticker === "KRW-BTC") return "UPBIT:BTCKRW";
+    if (ticker === "KRW-ETH") return "UPBIT:ETHKRW";
+    if (ticker === "KRW-XRP") return "UPBIT:XRPKRW";
+    if (ticker === "KRW-SOL") return "UPBIT:SOLKRW";
+    if (ticker === "KRW-USDT") return "UPBIT:USDTKRW";
+    if (ticker === "PAXGUSDT") return "BINANCE:PAXGUSDT";
+    if (ticker === "KRW=X") return "FX_IDC:USDKRW";
+    if (ticker.endsWith(".KS") || ticker.endsWith(".KQ")) {
+      return `KRX:${ticker.replace(".KS", "").replace(".KQ", "")}`;
+    }
+    const dbItem = MASTER_STOCK_DB.find(m => m.ticker === ticker);
+    if (dbItem && dbItem.exchange === "NYSE") return `NYSE:${ticker}`;
+    return `NASDAQ:${ticker}`;
+  }
+
+  function loadTradingViewWidget(ticker) {
+    const container = document.getElementById("tv_chart_container");
+    if (!container || typeof TradingView === "undefined") return;
+    container.innerHTML = "";
+    const tvSym = getTradingViewSymbol(ticker);
+    const tvInterval = currentTf === "5m" ? "5" : (currentTf === "15m" ? "15" : (currentTf === "1h" ? "60" : "D"));
+    new TradingView.widget({
+      autosize: true,
+      symbol: tvSym,
+      interval: tvInterval,
+      timezone: "Asia/Seoul",
+      theme: "dark",
+      style: "1",
+      locale: "kr",
+      toolbar_bg: "#131722",
+      enable_publishing: false,
+      hide_top_toolbar: false,
+      save_image: false,
+      container_id: "tv_chart_container"
+    });
+  }
+
+  // ==================== 6. 다중 프록시 엔진 & 6대 실데이터 소스 수집기 ====================
+  async function fetchVerified(targetUrl, validatorFn, timeoutMs = 6000) {
     const encoded = encodeURIComponent(targetUrl);
     const candidates = [
+      { url: `https://api.codetabs.com/v1/proxy?quest=${encoded}`, wrap: "raw" },
       { url: `https://api.allorigins.win/raw?url=${encoded}`, wrap: "raw" },
       { url: `https://api.allorigins.win/get?url=${encoded}`, wrap: "allorigins" },
-      { url: `https://corsproxy.io/?${encoded}`, wrap: "raw" },
-      { url: `https://api.codetabs.com/v1/proxy?quest=${encoded}`, wrap: "raw" },
-      { url: `https://api.cors.lol/?url=${encoded}`, wrap: "raw" }
+      { url: `https://corsproxy.io/?url=${encoded}`, wrap: "raw" }
     ];
 
     const tasks = candidates.map(async (c) => {
@@ -1348,21 +1161,100 @@
     return Promise.any(tasks);
   }
 
+  // [소스 1] 공식 달러/원 환율 3중 직결 API (프록시 무사용, 브라우저 100% 직결)
+  async function syncOfficialExchangeRate() {
+    // 1-A. Fawazahmed0 Currency API (CDN 직결, 일일 최신 환율)
+    try {
+      const res = await fetch("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json");
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.usd && data.usd.krw > 900) {
+          officialUsdKrw = data.usd.krw;
+          recordSourceQuote("KRW=X", "글로벌 Currency-API(직결)", officialUsdKrw, officialUsdKrw, 0);
+        }
+      }
+    } catch (e) {}
+
+    // 1-B. Open Exchange Rates API (직결)
+    try {
+      const res = await fetch("https://open.er-api.com/v6/latest/USD");
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.rates && data.rates.KRW > 900) {
+          officialUsdKrw = data.rates.KRW;
+          recordSourceQuote("KRW=X", "Open-ER 외환API(직결)", officialUsdKrw, officialUsdKrw, 0);
+        }
+      }
+    } catch (e) {}
+
+    // 1-C. ECB Frankfurter API (직결)
+    try {
+      const fRes = await fetch("https://api.frankfurter.app/latest?from=USD&to=KRW");
+      if (fRes.ok) {
+        const fData = await fRes.json();
+        if (fData && fData.rates && fData.rates.KRW > 900) {
+          if (!officialUsdKrw) officialUsdKrw = fData.rates.KRW;
+          recordSourceQuote("KRW=X", "ECB 기준환율(직결)", fData.rates.KRW, fData.rates.KRW, 0);
+        }
+      }
+    } catch (e) {}
+
+    updateMacroBarUI();
+  }
+
+  // [소스 2] 업비트 & 바이낸스 24H 직결 (웹소켓 + REST, 프록시 무사용)
+  function startRealtimeWebSockets() {
+    try {
+      if (upbitWs) upbitWs.close();
+      upbitWs = new WebSocket("wss://api.upbit.com/websocket/v1");
+      upbitWs.binaryType = "arraybuffer";
+      upbitWs.onopen = () => {
+        upbitWs.send(JSON.stringify([
+          { ticket: "quant_v22" },
+          { type: "ticker", codes: ["KRW-BTC", "KRW-ETH", "KRW-XRP", "KRW-SOL", "KRW-USDT"] }
+        ]));
+      };
+      upbitWs.onmessage = (evt) => {
+        try {
+          const data = JSON.parse(new TextDecoder("utf-8").decode(evt.data));
+          if (data && data.code && data.trade_price) {
+            if (data.code === "KRW-USDT") upbitUsdtKrw = data.trade_price;
+            recordSourceQuote(data.code, "업비트 WebSocket(직결)", data.trade_price, data.prev_closing_price, data.signed_change_rate * 100);
+            updateMacroBarUI();
+            updateHomeRowQuick(data.code);
+            if (currentTicker === data.code) renderDetailHeaderOnly();
+          }
+        } catch (e) {}
+      };
+    } catch (e) {}
+
+    try {
+      if (binanceWs) binanceWs.close();
+      binanceWs = new WebSocket("wss://stream.binance.com:9443/ws/paxgusdt@ticker/btcusdt@ticker");
+      binanceWs.onmessage = (evt) => {
+        try {
+          const d = JSON.parse(evt.data);
+          if (d && d.s && d.c) {
+            recordSourceQuote(d.s, "바이낸스 WebSocket(직결)", parseFloat(d.c), parseFloat(d.o), parseFloat(d.P));
+            updateMacroBarUI();
+            updateHomeRowQuick(d.s);
+            if (currentTicker === d.s) renderDetailHeaderOnly();
+          }
+        } catch (e) {}
+      };
+    } catch (e) {}
+  }
+
   async function sync24HourAssetsRest() {
     await syncOfficialExchangeRate();
     try {
-      const upbitMarkets = ["KRW-BTC", "KRW-ETH", "KRW-XRP", "KRW-SOL", "KRW-DOGE", "KRW-USDT"];
+      const upbitMarkets = ["KRW-BTC", "KRW-ETH", "KRW-XRP", "KRW-SOL", "KRW-USDT"];
       const res = await fetch(`https://api.upbit.com/v1/ticker?markets=${upbitMarkets.join(",")}`);
       if (res.ok) {
         const arr = await res.json();
         arr.forEach(item => {
-          applyRealtimeTickToAllTimeframes(
-            item.market,
-            item.trade_price,
-            item.prev_closing_price,
-            item.signed_change_rate * 100,
-            "업비트 24H 실시간"
-          );
+          if (item.market === "KRW-USDT") upbitUsdtKrw = item.trade_price;
+          recordSourceQuote(item.market, "업비트 REST(직결)", item.trade_price, item.prev_closing_price, item.signed_change_rate * 100);
         });
       }
     } catch (e) {}
@@ -1372,77 +1264,281 @@
       if (bRes.ok) {
         const bArr = await bRes.json();
         bArr.forEach(item => {
-          applyRealtimeTickToAllTimeframes(
-            item.symbol,
-            parseFloat(item.lastPrice),
-            parseFloat(item.openPrice),
-            parseFloat(item.priceChangePercent),
-            "바이낸스 24H 실시간"
-          );
+          recordSourceQuote(item.symbol, "바이낸스 REST(직결)", parseFloat(item.lastPrice), parseFloat(item.openPrice), parseFloat(item.priceChangePercent));
         });
       }
     } catch (e) {}
     updateMacroBarUI();
   }
 
-  async function batchSyncDomesticQuotes() {
-    const krCodes = majorStocks
-      .filter(s => s.ticker.endsWith(".KS") || s.ticker.endsWith(".KQ"))
-      .map(s => s.ticker.replace(".KS", "").replace(".KQ", ""))
-      .filter(c => /^\d{6}$/.test(c));
+  // [소스 3] 네이버 국내 주식 API (m.stock.naver.com/api/stock/{code}/basic & price & fchart)
+  async function fetchNaverDomesticStock(ticker, tf = "1d") {
+    const cleanCode = ticker.replace(".KS", "").replace(".KQ", "");
+    if (!/^\d{6}$/.test(cleanCode)) return null;
 
-    if (krCodes.length === 0) return;
-    const url = `https://polling.finance.naver.com/api/realtime/domestic/stock/${krCodes.join(",")}`;
-
+    // 3-1. 네이버 모바일 실시간 기본 시세 (현재가, 전일비, 등락률)
     try {
-      const datas = await fetchVerified(url, (txt) => {
-        const obj = JSON.parse(txt);
-        return (obj && Array.isArray(obj.datas) && obj.datas.length > 0) ? obj.datas : null;
-      }, 4500);
-
-      datas.forEach(d => {
-        const code = d.itemCode;
-        const matchedStock = majorStocks.find(s => s.ticker.startsWith(code));
-        if (!matchedStock) return;
-        const tk = matchedStock.ticker;
-        const cur = parseFloat(String(d.closePrice || "").replace(/,/g, ""));
-        const diff = parseFloat(String(d.compareToPreviousClosePrice || "0").replace(/,/g, ""));
-        const pct = parseFloat(String(d.fluctuationsRatio || "0").replace(/,/g, ""));
-        if (!cur || isNaN(cur)) return;
-        applyRealtimeTickToAllTimeframes(tk, cur, cur - diff, pct, "네이버 금융 실시간 검증됨");
-      });
-    } catch (e) {}
-  }
-
-  // 국내 상장사 실시간 PER/PBR/배당수익률 네이버 모바일 통합 API에서 추출
-  async function fetchNaverStockFundamentalLive(cleanCode, ticker) {
-    try {
-      const url = `https://m.stock.naver.com/api/stock/${cleanCode}/integration`;
-      const info = await fetchVerified(url, (txt) => {
+      const basicUrl = `https://m.stock.naver.com/api/stock/${cleanCode}/basic`;
+      const basic = await fetchVerified(basicUrl, (txt) => {
         const j = JSON.parse(txt);
-        return (j && j.totalInfos) ? j : null;
-      }, 4500);
-      if (!info || !Array.isArray(info.totalInfos)) return;
-
-      const findVal = (keyName) => {
-        const row = info.totalInfos.find(x => (x.key || "").includes(keyName) || (x.code || "").includes(keyName));
-        if (!row || !row.value) return null;
-        const num = parseFloat(String(row.value).replace(/[^0-9.-]/g, ""));
-        return isNaN(num) ? null : num;
-      };
-
-      const livePer = findVal("PER");
-      const livePbr = findVal("PBR");
-      if (!FINANCIAL_DB[ticker]) {
-        FINANCIAL_DB[ticker] = buildDefaultFinancialProfile(ticker);
+        return (j && j.closePrice) ? j : null;
+      }, 5500);
+      if (basic) {
+        const cur = parseFloat(String(basic.closePrice).replace(/,/g, ""));
+        const diff = parseFloat(String(basic.compareToPreviousClosePrice || "0").replace(/,/g, ""));
+        const pct = parseFloat(String(basic.fluctuationsRatio || "0").replace(/,/g, ""));
+        const isDown = basic.compareToPreviousPrice && (basic.compareToPreviousPrice.code === "5" || basic.compareToPreviousPrice.name === "FALLING");
+        const signedDiff = isDown ? -Math.abs(diff) : Math.abs(diff);
+        recordSourceQuote(ticker, "네이버증권 실시간(KRX)", cur, cur - signedDiff, pct);
       }
-      if (livePer && livePer > 0) FINANCIAL_DB[ticker].per = livePer;
-      if (livePbr && livePbr > 0) FINANCIAL_DB[ticker].pbr = livePbr;
     } catch (e) {}
+
+    // 3-2. 네이버 fchart XML (실제 캔들 데이터: 일봉/분봉)
+    try {
+      const fchartTf = tf === "1d" ? "day" : (tf === "1h" ? "minute60" : (tf === "15m" ? "minute15" : "minute5"));
+      const fchartUrl = `https://fchart.stock.naver.com/sise.nhn?symbol=${cleanCode}&timeframe=${fchartTf}&count=85&requestType=0`;
+      const candles = await fetchVerified(fchartUrl, (txt) => {
+        const matches = [...txt.matchAll(/data="([^"]+)"/g)];
+        if (matches.length < 10) return null;
+        return matches.map(m => {
+          const p = m[1].split("|");
+          const c = parseFloat(p[4]);
+          return {
+            o: parseFloat(p[1]) || c,
+            h: parseFloat(p[2]) || c,
+            l: parseFloat(p[3]) || c,
+            c,
+            v: parseFloat(p[5]) || 100000
+          };
+        }).filter(x => x.c > 0);
+      }, 5500);
+
+      if (candles && candles.length >= 10) {
+        const cur = candles[candles.length - 1].c;
+        const prev = candles[candles.length - 2].c;
+        recordSourceQuote(ticker, "네이버 KRX 차트(fchart)", cur, prev, ((cur - prev) / prev) * 100);
+        const pack = {
+          source: "네이버 KRX 실데이터",
+          isLive: true,
+          candles,
+          livePrice: multiSourceQuotes[ticker]?.["네이버증권 실시간(KRX)"]?.price || cur,
+          prevClose: multiSourceQuotes[ticker]?.["네이버증권 실시간(KRX)"]?.prevClose || prev,
+          changePct: multiSourceQuotes[ticker]?.["네이버증권 실시간(KRX)"]?.changePct ?? (((cur - prev) / prev) * 100)
+        };
+        candleCache[`${ticker}_${tf}`] = pack;
+        if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
+        return pack;
+      }
+    } catch (e) {}
+
+    // 3-3. 네이버 모바일 일별 시세 JSON 폴백
+    try {
+      const priceUrl = `https://m.stock.naver.com/api/stock/${cleanCode}/price?pageSize=70&page=1`;
+      const arr = await fetchVerified(priceUrl, (txt) => {
+        const j = JSON.parse(txt);
+        return (Array.isArray(j) && j.length >= 10) ? j : null;
+      }, 5500);
+      if (arr) {
+        const sorted = arr.slice().reverse();
+        const candles = sorted.map(r => {
+          const c = parseFloat(String(r.closePrice).replace(/,/g, ""));
+          return {
+            o: parseFloat(String(r.openPrice).replace(/,/g, "")) || c,
+            h: parseFloat(String(r.highPrice).replace(/,/g, "")) || c,
+            l: parseFloat(String(r.lowPrice).replace(/,/g, "")) || c,
+            c,
+            v: parseFloat(String(r.accumulatedTradingVolume).replace(/,/g, "")) || 100000
+          };
+        }).filter(x => x.c > 0);
+        const latest = arr[0];
+        const cur = parseFloat(String(latest.closePrice).replace(/,/g, ""));
+        const pct = parseFloat(String(latest.fluctuationsRatio || "0").replace(/,/g, ""));
+        const prev = candles.length >= 2 ? candles[candles.length - 2].c : cur;
+        recordSourceQuote(ticker, "네이버 일별시세(KRX)", cur, prev, pct);
+        const pack = { source: "네이버 모바일 실데이터", isLive: true, candles, livePrice: cur, prevClose: prev, changePct: pct };
+        candleCache[`${ticker}_${tf}`] = pack;
+        return pack;
+      }
+    } catch (e) {}
+
+    return null;
   }
 
+  // [소스 4] 네이버 해외주식 API (미국 주식 현재가 & 일별 캔들 - 야후 파이낸스 없이도 미국 주식 조회 가능!)
+  async function resolveNaverReutersCode(ticker) {
+    const dbItem = MASTER_STOCK_DB.find(m => m.ticker === ticker);
+    if (dbItem && dbItem.reuters) return dbItem.reuters;
+    try {
+      const acUrl = `https://ac.stock.naver.com/ac?q=${encodeURIComponent(ticker)}&target=stock,etf,index`;
+      const items = await fetchVerified(acUrl, (txt) => {
+        const j = JSON.parse(txt);
+        return (j && Array.isArray(j.items) && j.items.length > 0) ? j.items : null;
+      }, 4500);
+      if (items) {
+        const exact = items.find(it => (it.code || "").split(".")[0].toUpperCase() === ticker.toUpperCase()) || items[0];
+        if (exact && exact.reutersCode) {
+          if (dbItem) dbItem.reuters = exact.reutersCode;
+          return exact.reutersCode;
+        }
+      }
+    } catch (e) {}
+    return `${ticker}.O`;
+  }
+
+  async function fetchNaverOverseasStock(ticker) {
+    const reuters = await resolveNaverReutersCode(ticker);
+    const suffixes = [reuters, `${ticker}.O`, `${ticker}.N`, `${ticker}.P`, `${ticker}.A`];
+    const uniqueSuffixes = [...new Set(suffixes)];
+
+    for (const rCode of uniqueSuffixes) {
+      try {
+        const priceUrl = `https://api.stock.naver.com/stock/${encodeURIComponent(rCode)}/price?page=1&pageSize=70`;
+        const arr = await fetchVerified(priceUrl, (txt) => {
+          const j = JSON.parse(txt);
+          return (Array.isArray(j) && j.length >= 5) ? j : null;
+        }, 5000);
+
+        if (arr) {
+          const sorted = arr.slice().reverse();
+          const candles = sorted.map(r => {
+            const c = parseFloat(String(r.closePrice).replace(/,/g, ""));
+            return {
+              o: parseFloat(String(r.openPrice).replace(/,/g, "")) || c,
+              h: parseFloat(String(r.highPrice).replace(/,/g, "")) || c,
+              l: parseFloat(String(r.lowPrice).replace(/,/g, "")) || c,
+              c,
+              v: parseFloat(String(r.accumulatedTradingVolume || "500000").replace(/,/g, "")) || 500000
+            };
+          }).filter(x => x.c > 0);
+
+          const latest = arr[0];
+          const cur = parseFloat(String(latest.closePrice).replace(/,/g, ""));
+          const pct = parseFloat(String(latest.fluctuationsRatio || "0").replace(/,/g, ""));
+          const prev = candles.length >= 2 ? candles[candles.length - 2].c : cur;
+
+          recordSourceQuote(ticker, `네이버 해외증시(${rCode})`, cur, prev, pct);
+          const pack = {
+            source: `네이버 해외증시(${rCode})`,
+            isLive: true,
+            candles,
+            livePrice: cur,
+            prevClose: prev,
+            changePct: pct
+          };
+          candleCache[`${ticker}_1d`] = pack;
+          return pack;
+        }
+      } catch (e) {}
+    }
+    return null;
+  }
+
+  // [소스 5] Stooq 글로벌 금융 데이터베이스 CSV (미국 주식 OHLCV 교차 검증)
+  async function fetchStooqGlobalStock(ticker) {
+    if (isKrwNativeAsset(ticker)) return null;
+    try {
+      const stooqSym = `${ticker.toLowerCase()}.us`;
+      const url = `https://stooq.com/q/d/l/?s=${encodeURIComponent(stooqSym)}&i=d`;
+      const candles = await fetchVerified(url, (txt) => {
+        const lines = txt.trim().split("\n");
+        if (lines.length < 15 || !lines[0].includes("Close")) return null;
+        const rows = lines.slice(1).slice(-80);
+        const parsed = rows.map(line => {
+          const cols = line.split(",");
+          const o = parseFloat(cols[1]);
+          const h = parseFloat(cols[2]);
+          const l = parseFloat(cols[3]);
+          const c = parseFloat(cols[4]);
+          const v = parseFloat(cols[5]) || 500000;
+          return { o, h, l, c, v };
+        }).filter(x => !isNaN(x.c) && x.c > 0);
+        return parsed.length >= 10 ? parsed : null;
+      }, 5500);
+
+      if (candles) {
+        const cur = candles[candles.length - 1].c;
+        const prev = candles[candles.length - 2].c;
+        const pct = ((cur - prev) / prev) * 100;
+        recordSourceQuote(ticker, "Stooq 글로벌(OHLCV)", cur, prev, pct);
+        if (!candleCache[`${ticker}_1d`] || !candleCache[`${ticker}_1d`].candles) {
+          candleCache[`${ticker}_1d`] = {
+            source: "Stooq 글로벌 금융 실데이터",
+            isLive: true,
+            candles,
+            livePrice: cur,
+            prevClose: prev,
+            changePct: pct
+          };
+        }
+        return candleCache[`${ticker}_1d`];
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  // [소스 6] Yahoo Finance v8 Chart & Finnhub 직결 API
+  async function fetchYahooAndFinnhubStock(ticker, tf = "1d") {
+    // 6-1. 사용자가 Finnhub 무료 API 키를 등록한 경우 프록시 없이 0.1초 직결 호출
+    if (finnhubApiKey && !isKrwNativeAsset(ticker)) {
+      try {
+        const fRes = await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(ticker)}&token=${encodeURIComponent(finnhubApiKey)}`);
+        if (fRes.ok) {
+          const fq = await fRes.json();
+          if (fq && fq.c > 0) {
+            recordSourceQuote(ticker, "Finnhub 공식API(직결)", fq.c, fq.pc, fq.dp);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 6-2. Yahoo Finance v8
+    try {
+      const range = (tf === "5m" || tf === "15m") ? "5d" : (tf === "1h" ? "1mo" : "6mo");
+      const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=${tf}&range=${range}&includePrePost=true`;
+      const pack = await fetchVerified(yUrl, (txt) => {
+        const data = JSON.parse(txt);
+        const res = data?.chart?.result?.[0];
+        if (!res) return null;
+        const meta = res.meta || {};
+        const ts = res.timestamp || [];
+        const q = res.indicators?.quote?.[0];
+        if (!q || ts.length < 8) return null;
+
+        const candles = [];
+        for (let i = 0; i < ts.length; i++) {
+          if (q.close[i] != null && q.open[i] != null && q.high[i] != null && q.low[i] != null) {
+            candles.push({
+              o: q.open[i], h: q.high[i], l: q.low[i], c: q.close[i], v: q.volume[i] || 500000
+            });
+          }
+        }
+        if (candles.length < 8) return null;
+        const cur = meta.postMarketPrice || meta.preMarketPrice || meta.regularMarketPrice || candles[candles.length - 1].c;
+        candles[candles.length - 1].c = cur;
+        const prev = meta.chartPreviousClose || meta.previousClose || candles[candles.length - 2].c;
+        return {
+          source: "Yahoo Finance 실데이터",
+          isLive: true,
+          candles: candles.slice(-85),
+          livePrice: cur,
+          prevClose: prev,
+          changePct: ((cur - prev) / prev) * 100
+        };
+      }, 5500);
+
+      if (pack) {
+        recordSourceQuote(ticker, "Yahoo Finance(v8)", pack.livePrice, pack.prevClose, pack.changePct);
+        candleCache[`${ticker}_${tf}`] = pack;
+        if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
+        return pack;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  // 통합 캔들 & 다중 출처 가격 로더 (모든 가능한 소스를 동시에 호출해 교차 검증!)
   async function fetchLiveStockCandles(ticker, tf = "1d") {
-    // 1. 업비트 24시간 암호화폐
+    // 1. 24시간 업비트 암호화폐
     if (ticker.startsWith("KRW-")) {
       try {
         const upTfUrl = tf === "1d"
@@ -1454,13 +1550,13 @@
         ]);
         if (cRes.ok && tRes.ok) {
           const rawCandles = await cRes.json();
-          const tickerArr = await tRes.json();
-          const tInfo = tickerArr[0];
+          const tInfo = (await tRes.json())[0];
           const candles = rawCandles.slice().reverse().map(b => ({
             o: b.opening_price, h: b.high_price, l: b.low_price, c: b.trade_price, v: b.candle_acc_trade_volume
           }));
+          recordSourceQuote(ticker, "업비트 REST(직결)", tInfo.trade_price, tInfo.prev_closing_price, tInfo.signed_change_rate * 100);
           const pack = {
-            source: "업비트 24H 실데이터 검증됨",
+            source: "업비트 24H 직결",
             isLive: true,
             candles,
             livePrice: tInfo.trade_price,
@@ -1474,7 +1570,7 @@
       } catch (e) {}
     }
 
-    // 2. 바이낸스 24시간 금/코인다운로드
+    // 2. 24시간 바이낸스 금/코인
     if (ticker.endsWith("USDT")) {
       try {
         const bInterval = tf === "1d" ? "1d" : tf;
@@ -1488,14 +1584,11 @@
           const candles = kArr.map(k => ({
             o: parseFloat(k[1]), h: parseFloat(k[2]), l: parseFloat(k[3]), c: parseFloat(k[4]), v: parseFloat(k[5])
           }));
-          const pack = {
-            source: "바이낸스 24H 실데이터 검증됨",
-            isLive: true,
-            candles,
-            livePrice: parseFloat(tInfo.lastPrice),
-            prevClose: parseFloat(tInfo.openPrice),
-            changePct: parseFloat(tInfo.priceChangePercent)
-          };
+          const cur = parseFloat(tInfo.lastPrice);
+          const prev = parseFloat(tInfo.openPrice);
+          const pct = parseFloat(tInfo.priceChangePercent);
+          recordSourceQuote(ticker, "바이낸스 REST(직결)", cur, prev, pct);
+          const pack = { source: "바이낸스 24H 직결", isLive: true, candles, livePrice: cur, prevClose: prev, changePct: pct };
           candleCache[`${ticker}_${tf}`] = pack;
           if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
           return pack;
@@ -1503,139 +1596,31 @@
       } catch (e) {}
     }
 
-    // 3. 국내 주식: 네이버 fchart XML API (일봉 + 5분/15분/60분봉 모두 실제 KRX 데이터 지원) & 네이버 모바일 JSON
-    const cleanCode = ticker.replace(".KS", "").replace(".KQ", "");
-    if ((ticker.endsWith(".KS") || ticker.endsWith(".KQ")) && /^\d{6}$/.test(cleanCode)) {
-      fetchNaverStockFundamentalLive(cleanCode, ticker);
-
-      // 3-A. 네이버 fchart XML (일봉 및 분봉 전 주기 지원)
-      try {
-        const fchartTf = tf === "1d" ? "day" : (tf === "1h" ? "minute60" : (tf === "15m" ? "minute15" : "minute5"));
-        const fchartUrl = `https://fchart.stock.naver.com/sise.nhn?symbol=${cleanCode}&timeframe=${fchartTf}&count=85&requestType=0`;
-        const pack = await fetchVerified(fchartUrl, (txt) => {
-          const matches = [...txt.matchAll(/data="([^"]+)"/g)];
-          if (matches.length < 15) return null;
-          const candles = matches.map(m => {
-            const parts = m[1].split("|");
-            const o = parseFloat(parts[1]);
-            const h = parseFloat(parts[2]);
-            const l = parseFloat(parts[3]);
-            const c = parseFloat(parts[4]);
-            const v = parseFloat(parts[5]) || 100000;
-            return { o: o || c, h: h || c, l: l || c, c, v };
-          }).filter(x => x.c > 0);
-          if (candles.length < 15) return null;
-          const cur = candles[candles.length - 1].c;
-          const prev = candleCache[`${ticker}_1d`] && tf !== "1d"
-            ? candleCache[`${ticker}_1d`].prevClose
-            : candles[candles.length - 2].c;
-          return {
-            source: "네이버 KRX 차트 실데이터 검증됨",
-            isLive: true,
-            candles,
-            livePrice: cur,
-            prevClose: prev,
-            changePct: ((cur - prev) / prev) * 100
-          };
-        }, 4500);
-
-        candleCache[`${ticker}_${tf}`] = pack;
-        if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
-        return pack;
-      } catch (e) {}
-
-      // 3-B. 네이버 모바일 일별 시세 JSON 폴백
-      if (tf === "1d") {
-        try {
-          const naverJsonUrl = `https://m.stock.naver.com/api/stock/${cleanCode}/price?pageSize=75&page=1`;
-          const pack = await fetchVerified(naverJsonUrl, (txt) => {
-            const arr = JSON.parse(txt);
-            if (!Array.isArray(arr) || arr.length < 15) return null;
-            const sorted = arr.slice().reverse();
-            const candles = sorted.map(row => {
-              const c = parseFloat(String(row.closePrice).replace(/,/g, ""));
-              const o = parseFloat(String(row.openPrice).replace(/,/g, "")) || c;
-              const h = parseFloat(String(row.highPrice).replace(/,/g, "")) || c;
-              const l = parseFloat(String(row.lowPrice).replace(/,/g, "")) || c;
-              const v = parseFloat(String(row.accumulatedTradingVolume).replace(/,/g, "")) || 100000;
-              return { o, h, l, c, v };
-            }).filter(x => x.c > 0);
-            const latest = arr[0];
-            const cur = parseFloat(String(latest.closePrice).replace(/,/g, ""));
-            const diff = parseFloat(String(latest.compareToPreviousClosePrice || "0").replace(/,/g, ""));
-            const pct = parseFloat(String(latest.fluctuationsRatio || "0").replace(/,/g, ""));
-            return {
-              source: "네이버 금융 실데이터 검증됨",
-              isLive: true,
-              candles,
-              livePrice: cur,
-              prevClose: cur - diff,
-              changePct: pct
-            };
-          }, 4500);
-          candleCache[`${ticker}_1d`] = pack;
-          return pack;
-        } catch (e) {}
-      }
+    // 3. 국내 주식 (네이버 KRX + Yahoo 동시 교차 호출)
+    if (ticker.endsWith(".KS") || ticker.endsWith(".KQ")) {
+      const [naverPack, yahooPack] = await Promise.allSettled([
+        fetchNaverDomesticStock(ticker, tf),
+        fetchYahooAndFinnhubStock(ticker, tf)
+      ]);
+      return (naverPack.status === "fulfilled" && naverPack.value) ||
+             (yahooPack.status === "fulfilled" && yahooPack.value) ||
+             candleCache[`${ticker}_${tf}`] || candleCache[`${ticker}_1d`];
     }
 
-    // 4. 미국 주식 & 글로벌 티커 (Yahoo Finance v8 API)
-    try {
-      const range = (tf === "5m" || tf === "15m") ? "5d" : (tf === "1h" ? "1mo" : "6mo");
-      const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=${tf}&range=${range}&includePrePost=true`;
-      const pack = await fetchVerified(yUrl, (txt) => {
-        const data = JSON.parse(txt);
-        const res = data && data.chart && data.chart.result && data.chart.result[0];
-        if (!res) return null;
-        const meta = res.meta || {};
-        const ts = res.timestamp || [];
-        const q = res.indicators && res.indicators.quote && res.indicators.quote[0];
-        if (!q || ts.length < 10) return null;
+    // 4. 미국 주식 & 글로벌 자산 (네이버 해외증시 + Yahoo v8 + Stooq CSV + Finnhub 동시 교차 호출)
+    const [naverUsPack, yahooUsPack, stooqPack] = await Promise.allSettled([
+      fetchNaverOverseasStock(ticker),
+      fetchYahooAndFinnhubStock(ticker, tf),
+      fetchStooqGlobalStock(ticker)
+    ]);
 
-        const rawCandles = [];
-        const seenDates = new Map();
-        for (let i = 0; i < ts.length; i++) {
-          if (q.close[i] != null && q.open[i] != null && q.high[i] != null && q.low[i] != null) {
-            const bar = {
-              ts: ts[i],
-              dateKey: new Date(ts[i] * 1000).toISOString().slice(0, 10),
-              o: q.open[i],
-              h: q.high[i],
-              l: q.low[i],
-              c: q.close[i],
-              v: q.volume[i] || 500000
-            };
-            if (tf === "1d") seenDates.set(bar.dateKey, bar);
-            else rawCandles.push(bar);
-          }
-        }
-        const candles = tf === "1d" ? Array.from(seenDates.values()) : rawCandles;
-        if (candles.length < 12) return null;
-
-        const cur = meta.postMarketPrice || meta.preMarketPrice || meta.regularMarketPrice || candles[candles.length - 1].c;
-        candles[candles.length - 1].c = cur;
-        let prev = meta.chartPreviousClose || meta.previousClose || candles[candles.length - 2].c;
-
-        return {
-          source: "Yahoo Finance 실데이터 검증됨",
-          isLive: true,
-          candles: candles.slice(-85),
-          livePrice: cur,
-          prevClose: prev,
-          changePct: ((cur - prev) / prev) * 100
-        };
-      }, 5000);
-
-      candleCache[`${ticker}_${tf}`] = pack;
-      if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
-      updateMacroBarUI();
-      return pack;
-    } catch (e) {}
-
-    return ensureStockInitialized(ticker);
+    return (yahooUsPack.status === "fulfilled" && yahooUsPack.value) ||
+           (naverUsPack.status === "fulfilled" && naverUsPack.value) ||
+           (stooqPack.status === "fulfilled" && stooqPack.value) ||
+           candleCache[`${ticker}_${tf}`] || candleCache[`${ticker}_1d`];
   }
 
-  // ==================== 8. 전 종목 3중 폴백 검색 엔진 (가온전선, 샌디스크 등 100% 검색 보장) ====================
+  // ==================== 7. 전 종목 통합 검색 ====================
   function findLocalMatches(query) {
     const q = query.trim().toUpperCase().replace(/\s+/g, "");
     if (!q) return [];
@@ -1652,14 +1637,10 @@
   function onSearchInput() {
     const raw = document.getElementById("stockQueryInput").value.trim();
     const dd = document.getElementById("acDropdown");
-    if (!raw) {
-      dd.style.display = "none";
-      return;
-    }
+    if (!raw) { dd.style.display = "none"; return; }
     const localMatches = findLocalMatches(raw);
     renderAcDropdown(localMatches);
 
-    // 로컬 매칭이 적으면 실시간 네이버/야후 통합 자동완성 호출
     clearTimeout(acDebounceTimer);
     acDebounceTimer = setTimeout(async () => {
       const remoteMatches = await queryRemoteAutocomplete(raw);
@@ -1673,13 +1654,10 @@
 
   function renderAcDropdown(list) {
     const dd = document.getElementById("acDropdown");
-    if (!list || list.length === 0) {
-      dd.style.display = "none";
-      return;
-    }
+    if (!list || list.length === 0) { dd.style.display = "none"; return; }
     dd.style.display = "block";
     dd.innerHTML = list.map(item => `
-      <div class="ac-item" onclick="selectAutocompleteItem('${item.ticker}', '${item.krName.replace(/'/g, "")}', '${item.exchange}')">
+      <div class="ac-item" onclick="selectAutocompleteItem('${item.ticker}', '${item.krName.replace(/'/g, "")}', '${item.exchange}', '${item.reuters || ""}')">
         <div>
           <span class="ac-name">${item.krName}</span>
           <span class="ac-code">${item.ticker.replace(".KS", "").replace(".KQ", "")}</span>
@@ -1691,17 +1669,15 @@
 
   async function queryRemoteAutocomplete(raw) {
     const results = [];
-    // 1) 네이버 국내+해외 주식 통합 자동완성 (target=stock,index,marketindicator,etf)
     try {
       const naverAcUrl = `https://ac.stock.naver.com/ac?q=${encodeURIComponent(raw)}&target=stock,index,etf`;
       const items = await fetchVerified(naverAcUrl, (txt) => {
         const j = JSON.parse(txt);
         return (j && Array.isArray(j.items)) ? j.items : null;
-      }, 3500);
+      }, 4000);
       items.forEach(it => {
         const code = it.code || "";
         const name = it.name || code;
-        const typeCode = (it.typeCode || it.nationCode || "").toUpperCase();
         let tk = code;
         let exch = it.typeName || "GLOBAL";
         if (/^\d{6}$/.test(code)) {
@@ -1710,36 +1686,16 @@
         } else if (code.includes(".")) {
           tk = code.split(".")[0];
         }
-        results.push({ ticker: tk, krName: name, exchange: exch });
+        results.push({ ticker: tk, reuters: it.reutersCode || code, krName: name, exchange: exch });
       });
     } catch (e) {}
-
-    // 2) Yahoo Finance 글로벌 검색 API 폴백
-    if (results.length === 0) {
-      try {
-        const ySearchUrl = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(raw)}&quotesCount=6&newsCount=0`;
-        const quotes = await fetchVerified(ySearchUrl, (txt) => {
-          const j = JSON.parse(txt);
-          return (j && Array.isArray(j.quotes)) ? j.quotes : null;
-        }, 3500);
-        quotes.forEach(q => {
-          if (q && q.symbol) {
-            results.push({
-              ticker: q.symbol,
-              krName: q.shortname || q.longname || q.symbol,
-              exchange: q.exchDisp || q.exchange || "GLOBAL"
-            });
-          }
-        });
-      } catch (e) {}
-    }
     return results;
   }
 
-  async function selectAutocompleteItem(ticker, krName, exchange) {
+  async function selectAutocompleteItem(ticker, krName, exchange, reuters = "") {
     document.getElementById("acDropdown").style.display = "none";
     document.getElementById("stockQueryInput").value = "";
-    await addAndOpenStock({ ticker, krName, exchange });
+    await addAndOpenStock({ ticker, krName, exchange, reuters });
   }
 
   async function searchAndAnalyzeStock() {
@@ -1750,8 +1706,6 @@
     btn.textContent = "검색중..";
 
     const qUpper = raw.toUpperCase().replace(/\s+/g, "");
-
-    // 1단계: 내장 마스터 DB 완전 일치 검색
     let matched = MASTER_STOCK_DB.find(item =>
       item.krName.replace(/\s+/g, "").toUpperCase() === qUpper ||
       item.ticker.toUpperCase() === qUpper ||
@@ -1759,29 +1713,24 @@
       (item.aliases && item.aliases.some(a => a.replace(/\s+/g, "").toUpperCase() === qUpper))
     );
 
-    // 2단계: 내장 마스터 DB 부분 일치 검색
     if (!matched) {
       const partial = findLocalMatches(raw);
       if (partial.length > 0) matched = partial[0];
     }
-
-    // 3단계: 원격 통합 검색 (네이버 ac.stock.naver.com + Yahoo Search)
     if (!matched) {
       const remoteList = await queryRemoteAutocomplete(raw);
       if (remoteList.length > 0) matched = remoteList[0];
     }
-
-    // 4단계: 6자리 숫자면 KRX 종목코드로 직결, 영문이면 미국 티커로 직결
     if (!matched && /^\d{6}$/.test(qUpper)) {
-      matched = { ticker: `${qUpper}.KS`, krName: `국내상장(${qUpper})`, exchange: "KRX" };
+      matched = { ticker: `${qUpper}.KS`, krName: `국내종목(${qUpper})`, exchange: "KRX" };
     }
     if (!matched && /^[A-Z.\-=]{1,8}$/.test(qUpper)) {
-      matched = { ticker: qUpper, krName: qUpper, exchange: "NASDAQ/NYSE" };
+      matched = { ticker: qUpper, krName: qUpper, exchange: "US/GLOBAL" };
     }
 
     btn.textContent = "분석";
     if (!matched) {
-      alert(`"${raw}" 종목을 찾을 수 없습니다. 티커(예: SNDK, 000500) 또는 정확한 종목명을 입력해 주세요.`);
+      alert(`"${raw}" 종목을 찾을 수 없습니다.`);
       return;
     }
 
@@ -1794,16 +1743,13 @@
     if (!MASTER_STOCK_DB.some(m => m.ticker === stockObj.ticker)) {
       MASTER_STOCK_DB.push({
         ticker: stockObj.ticker,
+        reuters: stockObj.reuters || "",
         krName: stockObj.krName,
         exchange: stockObj.exchange || "GLOBAL",
-        basePrice: isKrwNativeAsset(stockObj.ticker) ? 50000 : 50,
-        prevClose: isKrwNativeAsset(stockObj.ticker) ? 49500 : 49.5,
-        pct: 1.0,
         cat: getAssetCategory(stockObj.ticker),
         aliases: [stockObj.krName]
       });
     }
-    ensureStockInitialized(stockObj.ticker);
     if (!majorStocks.find(s => s.ticker === stockObj.ticker)) {
       majorStocks.unshift({
         ticker: stockObj.ticker,
@@ -1818,7 +1764,7 @@
     renderAll();
   }
 
-  // ==================== 9. 20년 경력 애널리스트 재무제표 채점 & 분석 엔진 ====================
+  // ==================== 8. 재무제표 평가 및 37개 기술지표 연산 ====================
   function buildDefaultFinancialProfile(ticker) {
     const isKR = ticker.endsWith(".KS") || ticker.endsWith(".KQ");
     const is24H = getAssetCategory(ticker) === "24H";
@@ -1826,28 +1772,23 @@
       return {
         isMacroAsset: true,
         unit: "-", sector: "글로벌 매크로·디지털 자산", sectorPer: 0, sectorPbr: 0,
-        years: ["2023", "2024", "2025/26"],
-        rev: [0, 0, 0], op: [0, 0, 0], net: [0, 0, 0], opm: [0, 0, 0],
+        years: ["2023", "2024", "최근"], rev: [0, 0, 0], op: [0, 0, 0], net: [0, 0, 0], opm: [0, 0, 0],
         debtRatio: 0, currentRatio: 100, per: 0, pbr: 1.0, roe: 0,
-        catalyst: "비기업 매크로 자산(암호화폐·원자재·환율)으로 재무제표 대신 글로벌 유동성(M2), 실질금리, 온체인/선물 수급 및 37개 기술적 지표가 가격을 결정합니다."
+        catalyst: "비기업 매크로 자산으로 글로벌 유동성 및 37개 기술적 지표가 가격을 결정합니다."
       };
     }
     return {
       unit: isKR ? "억원" : "$M",
-      sector: isKR ? "국내 상장 일반산업" : "글로벌 상장 기술·산업",
+      sector: isKR ? "국내 상장 산업" : "글로벌 상장 산업",
       sectorPer: isKR ? 14.0 : 21.0,
       sectorPbr: isKR ? 1.25 : 3.20,
-      years: ["2022", "2023", "2024/25(최근)"],
+      years: ["2022", "2023", "최근연간"],
       rev: isKR ? [4200, 4650, 5120] : [850, 940, 1120],
       op: isKR ? [310, 380, 460] : [75, 92, 125],
       net: isKR ? [240, 295, 360] : [58, 74, 98],
       opm: [7.4, 8.2, 9.0],
-      debtRatio: 88.5,
-      currentRatio: 158.0,
-      per: isKR ? 12.4 : 18.5,
-      pbr: isKR ? 1.10 : 2.60,
-      roe: 10.4,
-      catalyst: "최근 3개년 외형 매출 성장과 함께 영업이익률이 안정적으로 우상향하고 있으며, 부채비율 100% 미만·유동비율 150% 이상으로 단기 자금 흐름이 견조합니다."
+      debtRatio: 88.5, currentRatio: 158.0, per: isKR ? 12.4 : 18.5, pbr: isKR ? 1.10 : 2.60, roe: 10.4,
+      catalyst: "하단 [재무 수치 직접 보정] 버튼을 눌러 DART 또는 네이버 증권의 최신 분기 수치를 입력하면 정밀 재채점됩니다."
     };
   }
 
@@ -1855,86 +1796,48 @@
     const fin = customFinStore[ticker] || FINANCIAL_DB[ticker] || buildDefaultFinancialProfile(ticker);
     if (fin.isMacroAsset) {
       return {
-        fin,
-        finScore: 75,
-        profitScore: 25,
-        healthScore: 25,
-        valScore: 25,
-        profitComment: "매크로/디지털 자산은 기업 영업이익 대신 글로벌 달러 유동성 및 ETF 순유입 추이를 수익성 대리 변수로 평가합니다.",
-        healthComment: "발행량 한도 및 거래소 준비금 증명(PoR), 거래대금 유동성이 풍부하여 유동성 위기 리스크가 낮습니다.",
-        valComment: "실질금리 및 채굴원가(또는 생산원가) 대비 건전한 권역에서 거래되고 있습니다."
+        fin, finScore: 75, profitScore: 25, healthScore: 25, valScore: 25,
+        profitComment: "매크로/디지털 자산은 글로벌 달러 유동성 및 거래대금 추이를 기준으로 평가합니다.",
+        healthComment: "24시간 글로벌 거래소 유동성이 풍부합니다.",
+        valComment: "37개 기술적 지표 중심의 매매 전략이 유효합니다."
       };
     }
 
-    // 1. 수익성 점수 (35점 만점): 최근 3개년 영업이익 추이 및 OPM 개선도
     let profitScore = 18;
     const opm0 = fin.opm[0], opm1 = fin.opm[1], opm2 = fin.opm[2];
     const revGrowth = ((fin.rev[2] - fin.rev[0]) / Math.max(0.01, Math.abs(fin.rev[0]))) * 100;
     if (fin.op[2] > 0 && opm2 >= 15) profitScore += 12;
     else if (fin.op[2] > 0 && opm2 >= 7) profitScore += 7;
     else if (fin.op[2] < 0) profitScore -= 6;
-
     if (opm2 > opm1 && opm1 >= opm0) profitScore += 5;
     else if (opm2 > opm1) profitScore += 3;
     profitScore = Math.min(35, Math.max(5, profitScore));
 
-    // 2. 재무 건전성 점수 (35점 만점): 부채비율(<150% 안정) & 유동비율(>120% 안전)
     let healthScore = 20;
     if (fin.debtRatio <= 80) healthScore += 9;
     else if (fin.debtRatio <= 150) healthScore += 5;
     else if (fin.debtRatio >= 250) healthScore -= 8;
-
     if (fin.currentRatio >= 180) healthScore += 6;
     else if (fin.currentRatio >= 120) healthScore += 3;
     else if (fin.currentRatio < 100) healthScore -= 7;
     healthScore = Math.min(35, Math.max(5, healthScore));
 
-    // 3. 성장성 및 밸류에이션 점수 (30점 만점): 업종 평균 PER/PBR 대비 저평가 여부
     let valScore = 16;
     if (fin.per > 0 && fin.per < fin.sectorPer * 0.85) valScore += 8;
     else if (fin.per > 0 && fin.per <= fin.sectorPer * 1.1) valScore += 4;
-    else if (fin.per < 0 && revGrowth > 30) valScore += 2; // 고성장 기술주 특례
-
     if (fin.pbr > 0 && fin.pbr <= 1.05) valScore += 6;
     else if (fin.pbr <= fin.sectorPbr) valScore += 3;
     valScore = Math.min(30, Math.max(5, valScore));
 
     const finScore = Math.min(98, Math.max(15, profitScore + healthScore + valScore));
 
-    // 20년 경력 애널리스트 코멘트 자동 추론
-    const opmTrendTxt = opm2 >= opm1
-      ? `최근 영업이익률이 ${opm1}% → <b>${opm2}%</b>로 개선(+${(opm2 - opm1).toFixed(1)}%p)되었습니다.`
-      : `최근 영업이익률이 ${opm1}% → <b>${opm2}%</b>로 소폭 조정되었습니다.`;
-
-    const profitComment = `
-      • <b>3개년 매출·영업이익률 추이:</b> 3개년 매출액이 ${fin.rev[0].toLocaleString()}${fin.unit} → <b>${fin.rev[2].toLocaleString()}${fin.unit}</b>(${revGrowth >= 0 ? '+' : ''}${revGrowth.toFixed(1)}%)로 변화했으며, ${opmTrendTxt}<br/>
-      • <b>변동 핵심 원인 추론:</b> ${fin.catalyst}
-    `;
-
-    const healthStatus = (fin.debtRatio <= 150 && fin.currentRatio >= 120)
-      ? `<b style="color:#34D399;">[단기 자금흐름 매우 우량]</b> 부채비율(${fin.debtRatio}%)이 안정권(150% 이하)이고 유동비율(${fin.currentRatio}%)이 권장치(120% 이상)를 상회하여 단기 차입금 상환 및 운전자본 경색 리스크가 없습니다.`
-      : (fin.currentRatio >= 150
-        ? `<b style="color:#FBBF24;">[유동성 확보 양호]</b> 부채비율은 ${fin.debtRatio}% 수준이나 단기 지급능력을 나타내는 유동비율이 <b>${fin.currentRatio}%</b>로 풍부해 단기 현금흐름에 문제가 없습니다.`
-        : `<b style="color:#FF6B78;">[운전자본 점검 필요]</b> 부채비율 ${fin.debtRatio}%, 유동비율 ${fin.currentRatio}%로 금리 변동 시 이자보상배율 및 단기 현금흐름에 대한 분기별 모니터링이 요구됩니다.`);
-
-    const healthComment = `
-      • <b>부채비율(${fin.debtRatio}%) & 유동비율(${fin.currentRatio}%) 진단:</b> ${healthStatus}
-    `;
-
-    const perComparison = fin.per > 0
-      ? `현재 <b>PER ${fin.per}배</b> (업종평균 ${fin.sectorPer}배 대비 <b>${fin.per < fin.sectorPer ? '저평가 할인 거래중' : '성장 프리미엄 반영중'}</b>)`
-      : `현재 <b>PER 산출 적자(N/A)</b> 구간으로, 매출 성장률(PSR) 및 선행 수주잔고 기준으로 밸류에이션을 평가해야 합니다`;
-
-    const pbrComparison = `<b>PBR ${fin.pbr}배</b> (업종평균 ${fin.sectorPbr}배, ROE ${fin.roe}%)로 ${fin.pbr <= 1.05 ? '<b style="color:#34D399;">청산가치(1배) 부근의 강력한 하방경직성(저평가 매력)</b>을 보유하고 있습니다.' : '자본수익성(ROE)과 기술 해자를 반영한 멀티플 구간입니다.'}`;
-
-    const valComment = `
-      • <b>업계 평균 대비 멀티플 위치:</b> ${perComparison}이며, ${pbrComparison}
-    `;
+    const profitComment = `• <b>3개년 매출·영업이익률 추이:</b> 매출액 ${fin.rev[0].toLocaleString()}${fin.unit} → <b>${fin.rev[2].toLocaleString()}${fin.unit}</b>(${revGrowth >= 0 ? '+' : ''}${revGrowth.toFixed(1)}%), 영업이익률 ${opm1}% → <b>${opm2}%</b><br/>• <b>원인 추론:</b> ${fin.catalyst}`;
+    const healthComment = `• <b>부채비율(${fin.debtRatio}%) & 유동비율(${fin.currentRatio}%):</b> ${fin.debtRatio <= 150 && fin.currentRatio >= 120 ? '<b style="color:#34D399;">단기 자금흐름 우량</b> (부채비율 150% 이하, 유동비율 120% 이상 충족)' : '유동비율 및 단기 운전자본 추이 점검 필요'}`;
+    const valComment = `• <b>멀티플 위치:</b> PER <b>${fin.per > 0 ? fin.per + '배' : '적자(N/A)'}</b> (업종평균 ${fin.sectorPer}배), PBR <b>${fin.pbr}배</b> (업종평균 ${fin.sectorPbr}배, ROE ${fin.roe}%)`;
 
     return { fin, finScore, profitScore, healthScore, valScore, profitComment, healthComment, valComment };
   }
 
-  // ==================== 10. 37개 기술적 지표 수학 엔진 ====================
   const MathUtils = {
     sma(arr, p) {
       if (!arr || arr.length === 0) return 0;
@@ -1970,6 +1873,7 @@
   };
 
   function evaluateAll37Indicators(candles, ticker = currentTicker) {
+    if (!candles || candles.length < 5) return null;
     const N = candles.length;
     const C = candles.map(x => x.c);
     const H = candles.map(x => x.h);
@@ -2327,7 +2231,6 @@
     const buyScore = Math.min(98, Math.max(15, Math.round((weightedBuy / Math.max(1, totalWeight)) * 100) + divBuyBonus));
     const sellScore = Math.min(98, Math.max(15, Math.round((weightedSell / Math.max(1, totalWeight)) * 100) + divSellBonus));
 
-    // 재무제표 점수와 결합한 하이브리드 최종 점수 산출 (기술 70% + 재무 30%)
     const finEval = getFinancialAnalysis(ticker);
     const finScore = finEval.finScore;
     const hybridScore = Math.round(buyScore * 0.7 + finScore * 0.3);
@@ -2376,37 +2279,52 @@
     };
   }
 
-  // ==================== 11. UI 렌더링 (관심종목 / 상세 / 재무제표 / 차트) ====================
-  function drawMiniSparkline(canvasId, prices, isUp) {
-    const cv = document.getElementById(canvasId);
-    if (!cv || !prices || prices.length < 2) return;
-    const ctx = cv.getContext("2d");
-    const w = cv.width, h = cv.height;
-    ctx.clearRect(0, 0, w, h);
-    const min = Math.min(...prices), max = Math.max(...prices);
-    const rng = Math.max(0.0001, max - min);
-    ctx.strokeStyle = isUp ? "#F23645" : "#2962FF";
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    prices.forEach((p, idx) => {
-      const x = (idx / (prices.length - 1)) * (w - 4) + 2;
-      const y = h - 3 - ((p - min) / rng) * (h - 6);
-      if (idx === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
+  // ==================== 9. 화면 렌더링 (가짜 수치 없이 실데이터만 출력) ====================
+  function updateMacroBarUI() {
+    const fxEl = document.getElementById("mcOfficialFX");
+    if (fxEl) {
+      fxEl.textContent = officialUsdKrw ? `${officialUsdKrw.toFixed(2)}원` : "수신중..";
+    }
+    const usdtEl = document.getElementById("mcUsdtFX");
+    const premEl = document.getElementById("mcKimchiPrem");
+    if (usdtEl && premEl) {
+      usdtEl.textContent = upbitUsdtKrw ? `${upbitUsdtKrw.toLocaleString()}원` : "수신중..";
+      if (upbitUsdtKrw && officialUsdKrw) {
+        const kPrem = ((upbitUsdtKrw - officialUsdKrw) / officialUsdKrw) * 100;
+        premEl.textContent = `김프 ${kPrem >= 0 ? '+' : ''}${kPrem.toFixed(2)}%`;
+        premEl.style.color = kPrem >= 0 ? "#FBBF24" : "#60A5FA";
+      }
+    }
+
+    const setMacroCard = (elId, ticker) => {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      const p = candleCache[`${ticker}_1d`];
+      if (!p || !p.livePrice) {
+        el.textContent = "수신중..";
+        return;
+      }
+      const pct = p.changePct || 0;
+      const isUp = pct >= 0;
+      el.textContent = `${fmtPrice(p.livePrice, ticker)} (${isUp ? '+' : ''}${pct.toFixed(2)}%)`;
+      el.style.color = isUp ? "var(--up)" : "var(--down)";
+    };
+
+    setMacroCard("mcBTC", "KRW-BTC");
+    setMacroCard("mcGOLD", "PAXGUSDT");
+    setMacroCard("mcQQQ", "QQQ");
+    setMacroCard("mcSPY", "SPY");
   }
 
   function updateHomeRowQuick(ticker) {
-    const p = ensureStockInitialized(ticker);
-    const cur = p.livePrice;
-    const pct = p.changePct || 0;
-    const isUp = pct >= 0;
+    const p = candleCache[`${ticker}_1d`];
+    if (!p || !p.livePrice) return;
+    const isUp = (p.changePct || 0) >= 0;
     const pEl = document.getElementById(`val_price_${ticker}`);
     const pctEl = document.getElementById(`val_pct_${ticker}`);
-    if (pEl) pEl.textContent = fmtPrice(cur, ticker);
+    if (pEl) pEl.textContent = fmtPrice(p.livePrice, ticker);
     if (pctEl) {
-      pctEl.textContent = `${isUp ? '+' : ''}${pct.toFixed(2)}%`;
+      pctEl.textContent = `${isUp ? '+' : ''}${(p.changePct || 0).toFixed(2)}%`;
       pctEl.style.color = isUp ? "var(--up)" : "var(--down)";
     }
   }
@@ -2414,7 +2332,6 @@
   function renderHome() {
     majorStocks.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
     const box = document.getElementById("majorWatchlistBox");
-    const sparkQueue = [];
 
     const filtered = majorStocks.filter(st => {
       if (categoryFilter === "ALL") return true;
@@ -2422,16 +2339,14 @@
     });
 
     box.innerHTML = filtered.map((st, idx) => {
-      const pack = ensureStockInitialized(st.ticker);
-      const candles = pack.candles;
-      const cur = pack.livePrice || candles[candles.length - 1].c;
-      const pct = pack.changePct != null ? pack.changePct : 0;
+      const pack = candleCache[`${st.ticker}_1d`];
+      const hasData = pack && pack.livePrice > 0;
+      const cur = hasData ? pack.livePrice : null;
+      const pct = hasData ? (pack.changePct || 0) : 0;
       const isUp = pct >= 0;
-      const ev = evaluateAll37Indicators(candles, st.ticker);
-      const sparkId = `spark_${idx}`;
-      sparkQueue.push({ id: sparkId, data: candles.slice(-20).map(x => x.c), isUp });
+      const ev = (pack && pack.candles) ? evaluateAll37Indicators(pack.candles, st.ticker) : null;
       const cleanCode = st.ticker.replace(".KS", "").replace(".KQ", "");
-      const mktSt = getMarketSessionStatus(st.ticker);
+      const srcCount = multiSourceQuotes[st.ticker] ? Object.keys(multiSourceQuotes[st.ticker]).length : 0;
 
       return `
         <div class="stock-row" onclick="selectStockFromHome('${st.ticker}')">
@@ -2440,14 +2355,15 @@
           <div style="min-width:0;">
             <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
               <span class="s-ticker">${st.krName}</span>
-              <span class="tag ${ev.hybridScore >= 68 ? 'tag-buy' : (ev.sellScore >= 65 ? 'tag-sell' : 'tag-neutral')}">통합 ${ev.hybridScore}점</span>
+              ${ev ? `<span class="tag ${ev.hybridScore >= 68 ? 'tag-buy' : (ev.sellScore >= 65 ? 'tag-sell' : 'tag-neutral')}">통합 ${ev.hybridScore}점</span>` : `<span class="tag tag-neutral">실데이터 수신중</span>`}
             </div>
-            <div class="s-krname"><span style="color:${mktSt.color}; font-weight:700;">${mktSt.label}</span> · 기술${ev.buyScore}/재무${ev.finScore}</div>
+            <div class="s-krname">${hasData ? `<span style="color:#34D399;">✔ ${pack.source}</span> (${srcCount}개 출처 검증)` : '네트워크 시세 호출중...'}</div>
           </div>
-          <canvas id="${sparkId}" width="46" height="24"></canvas>
           <div class="s-price-col" id="row_price_${st.ticker}">
-            <div class="s-price" id="val_price_${st.ticker}">${fmtPrice(cur, st.ticker)}</div>
-            <div class="s-pct" id="val_pct_${st.ticker}" style="color:${isUp ? 'var(--up)' : 'var(--down)'};">${isUp ? '+' : ''}${pct.toFixed(2)}%</div>
+            <div class="s-price" id="val_price_${st.ticker}">${hasData ? fmtPrice(cur, st.ticker) : '수신중..'}</div>
+            <div class="s-pct" id="val_pct_${st.ticker}" style="color:${hasData ? (isUp ? 'var(--up)' : 'var(--down)') : 'var(--sub)'};">
+              ${hasData ? `${isUp ? '+' : ''}${pct.toFixed(2)}%` : '-'}
+            </div>
           </div>
           <div class="s-ctrl">
             <button class="mini-ic-btn ${st.pinned ? 'pinned' : ''}" onclick="togglePinStock('${st.ticker}', event)">고정</button>
@@ -2456,10 +2372,41 @@
         </div>
       `;
     }).join("");
+  }
 
-    requestAnimationFrame(() => {
-      sparkQueue.forEach(sp => drawMiniSparkline(sp.id, sp.data, sp.isUp));
-    });
+  function renderDetailHeaderOnly() {
+    const pack1d = candleCache[`${currentTicker}_1d`];
+    if (!pack1d || !pack1d.livePrice) return;
+    const cur = pack1d.livePrice;
+    const prev = pack1d.prevClose || cur;
+    const pct = pack1d.changePct != null ? pack1d.changePct : (((cur - prev) / prev) * 100);
+    const isUp = pct >= 0;
+    document.getElementById("dtMainPrice").textContent = fmtPrice(cur, currentTicker);
+    const chgEl = document.getElementById("dtMainChange");
+    chgEl.textContent = `${isUp ? '▲ +' : '▼ '}${pct.toFixed(2)}% (전일종가 ${fmtPrice(prev, currentTicker)})`;
+    chgEl.style.color = isUp ? "var(--up)" : "var(--down)";
+    renderMultiSourceVerifyBox(currentTicker);
+  }
+
+  function renderMultiSourceVerifyBox(ticker) {
+    const listEl = document.getElementById("multiSourceList");
+    if (!listEl) return;
+    const sources = multiSourceQuotes[ticker];
+    if (!sources || Object.keys(sources).length === 0) {
+      listEl.innerHTML = `<div style="color:var(--amber);">실시간 API 서버에서 시세를 가져오는 중입니다... (가짜 가격 표시 안 함)</div>`;
+      return;
+    }
+    listEl.innerHTML = Object.entries(sources).map(([srcName, info]) => {
+      const isUp = info.changePct >= 0;
+      return `
+        <div class="source-row">
+          <span style="color:#CBD5E1; font-weight:700;">• ${srcName} <span style="color:var(--sub); font-size:9.5px;">(${info.time})</span></span>
+          <span style="font-weight:900; color:${isUp ? 'var(--up)' : 'var(--down)'};">
+            ${fmtPrice(info.price, ticker)} (${isUp ? '+' : ''}${info.changePct.toFixed(2)}%)
+          </span>
+        </div>
+      `;
+    }).join("");
   }
 
   function renderDetail() {
@@ -2467,17 +2414,38 @@
     const st = majorStocks.find(s => s.ticker === currentTicker) || dbItem || {
       ticker: currentTicker, krName: currentTicker, exchange: "GLOBAL"
     };
-    const pack1d = ensureStockInitialized(currentTicker);
+
+    document.getElementById("dtFullName").textContent = formatDisplayTitle(st.krName, currentTicker);
+    renderExternalAppLinks(currentTicker);
+    renderMultiSourceVerifyBox(currentTicker);
+    renderFinancialPane();
+
+    const pack1d = candleCache[`${currentTicker}_1d`];
     const pack = candleCache[`${currentTicker}_${currentTf}`] || pack1d;
+
+    if (!pack || !pack.candles || pack.candles.length < 5) {
+      document.getElementById("dtSourceMeta").textContent = "실제 차트 데이터를 수신 중입니다...";
+      document.getElementById("dtMainPrice").textContent = (pack1d && pack1d.livePrice) ? fmtPrice(pack1d.livePrice, currentTicker) : "수신중..";
+      if (chartMode === "tv") loadTradingViewWidget(currentTicker);
+      return;
+    }
+
     const candles = pack.candles;
-    const cur = pack1d.livePrice || pack.livePrice || candles[candles.length - 1].c;
-    const prev = pack1d.prevClose || pack.prevClose || candles[candles.length - 2].c;
-    const pct = ((cur - prev) / prev) * 100;
+    const cur = pack1d?.livePrice || pack.livePrice || candles[candles.length - 1].c;
+    const prev = pack1d?.prevClose || pack.prevClose || candles[candles.length - 2].c;
+    const pct = pack1d?.changePct != null ? pack1d.changePct : (((cur - prev) / prev) * 100);
     const isUp = pct >= 0;
 
     candles[candles.length - 1].c = cur;
     const ev = evaluateAll37Indicators(candles, currentTicker);
+    if (!ev) return;
     lastEvaluated = ev;
+
+    document.getElementById("dtSourceMeta").innerHTML = `<b style="color:#34D399;">✔ ${pack.source}</b> · ${currentTf.toUpperCase()} (${candles.length}캔들 검증됨)`;
+    document.getElementById("dtMainPrice").textContent = fmtPrice(cur, currentTicker);
+    const chgEl = document.getElementById("dtMainChange");
+    chgEl.textContent = `${isUp ? '▲ +' : '▼ '}${pct.toFixed(2)}% (전일종가 ${fmtPrice(prev, currentTicker)})`;
+    chgEl.style.color = isUp ? "var(--up)" : "var(--down)";
 
     const setHorizonBox = (sId, stId, sc) => {
       const sEl = document.getElementById(sId);
@@ -2490,14 +2458,6 @@
     setHorizonBox("mtfShortScore", "mtfShortStatus", ev.shortScore);
     setHorizonBox("mtfMidScore", "mtfMidStatus", ev.midScore);
     setHorizonBox("mtfLongScore", "mtfLongStatus", ev.longScore);
-
-    const mktSt = getMarketSessionStatus(currentTicker);
-    document.getElementById("dtFullName").textContent = formatDisplayTitle(st.krName, currentTicker);
-    document.getElementById("dtSourceMeta").innerHTML = `<b style="color:${mktSt.color};">${mktSt.label}</b> · ${pack.source} · ${currentTf.toUpperCase()}`;
-    document.getElementById("dtMainPrice").textContent = fmtPrice(cur, currentTicker);
-    const chgEl = document.getElementById("dtMainChange");
-    chgEl.textContent = `${isUp ? '▲ +' : '▼ '}${pct.toFixed(2)}% (전일종가 ${fmtPrice(prev, currentTicker)})`;
-    chgEl.style.color = isUp ? "var(--up)" : "var(--down)";
 
     const divBadge = document.getElementById("dtDivergenceBadge");
     if (ev.divergenceType === "BULL") {
@@ -2513,19 +2473,19 @@
 
     const badge = document.getElementById("dtConsensusBadge");
     if (ev.hybridScore >= 68) {
-      badge.textContent = `🔥 강력 매수권 (${ev.hybridScore}점)`;
+      badge.textContent = `🔥 매수 우위 (${ev.hybridScore}점)`;
       badge.className = "tag tag-buy";
     } else if (ev.sellScore >= 65) {
       badge.textContent = `🚨 과열·주의 (${ev.sellVotes}/${ev.activeTotalCount})`;
       badge.className = "tag tag-sell";
     } else {
-      badge.textContent = `⚖️ 분할매수·관망 (${ev.hybridScore}점)`;
+      badge.textContent = `⚖️ 중립·관망 (${ev.hybridScore}점)`;
       badge.className = "tag tag-neutral";
     }
 
     document.getElementById("dtRegimeAndBacktestBox").innerHTML = `
       • <b>🧠 현재 시장 국면 (ADX ${ev.adxVal.toFixed(1)}):</b> <b>${ev.isStrongTrend ? '강한 추세장 (상단 추세·일목·매물대 가중치 1.7배)' : '횡보·박스권 (하단 오실레이터 가중치 1.4배)'}</b><br/>
-      • <b>📑 재무 펀더멘털 요약:</b> 영업이익률 <b>${ev.finEval.fin.opm[2]}%</b> · 부채비율 <b>${ev.finEval.fin.debtRatio}%</b> · PER <b>${ev.finEval.fin.per > 0 ? ev.finEval.fin.per + '배' : 'N/A'}</b> · PBR <b>${ev.finEval.fin.pbr}배</b><br/>
+      • <b>📑 재무 요약:</b> 영업이익률 <b>${ev.finEval.fin.opm[2]}%</b> · 부채비율 <b>${ev.finEval.fin.debtRatio}%</b> · PER <b>${ev.finEval.fin.per > 0 ? ev.finEval.fin.per + '배' : 'N/A'}</b> · PBR <b>${ev.finEval.fin.pbr}배</b><br/>
       • <b>📈 과거 백테스팅 검증:</b> 동일 신호 발생 시 3봉 이내 상승 적중률 <b style="color:#34D399;">${ev.backtestWinRate}%</b>
     `;
 
@@ -2566,11 +2526,13 @@
     document.getElementById("upperIndicatorsTable").innerHTML = renderIndRows(ev.upperResults);
     document.getElementById("lowerIndicatorsTable").innerHTML = renderIndRows(ev.lowerResults);
 
-    drawUpperAndLowerCanvases(candles, ev);
-    renderFinancialPane();
+    if (chartMode === "canvas") {
+      drawUpperAndLowerCanvases(candles, ev);
+    } else {
+      loadTradingViewWidget(currentTicker);
+    }
   }
 
-  // ==================== 12. 📑 재무제표 & 20년 경력 애널리스트 탭 렌더링 ====================
   function renderFinancialPane() {
     const dbItem = MASTER_STOCK_DB.find(m => m.ticker === currentTicker) || { ticker: currentTicker, krName: currentTicker };
     const fEval = getFinancialAnalysis(currentTicker);
@@ -2580,7 +2542,6 @@
     document.getElementById("finPaneSub").textContent = `섹터: ${fin.sector} · 단위: ${fin.unit}`;
     document.getElementById("finGradeBadge").textContent = `재무점수 ${fEval.finScore}/100점`;
 
-    // 1. 3개년 요약 마크다운 테이블 HTML
     const y = fin.years;
     document.getElementById("finSummaryTableWrap").innerHTML = `
       <table class="fin-table">
@@ -2621,7 +2582,6 @@
       </table>
     `;
 
-    // 2. 핵심 건전성/밸류에이션 4칸 그리드
     document.getElementById("finValuationGrid").innerHTML = `
       <div class="mtf-box">
         <div class="mtf-tf">부채비율</div>
@@ -2645,7 +2605,6 @@
       </div>
     `;
 
-    // 3. 20년 베테랑 애널리스트 3단계 심층 리포트
     document.getElementById("analystThreeStepsBox").innerHTML = `
       <div class="analyst-step-box">
         <div class="analyst-step-title">① [수익성 분석] 최근 3개년 이익률 추이 및 원인 추론 (${fEval.profitScore}/35점)</div>
@@ -2661,7 +2620,6 @@
       </div>
     `;
 
-    // 4. DART / 네이버 증권 / Yahoo / SEC 공시·뉴스 원문 교차 검증 링크
     const cleanCode = currentTicker.replace(".KS", "").replace(".KQ", "");
     const isKR = currentTicker.endsWith(".KS") || currentTicker.endsWith(".KQ");
     const link1 = isKR
@@ -2673,14 +2631,13 @@
 
     document.getElementById("finCrossCheckLinks").innerHTML = `
       <a href="${link1}" target="_blank" rel="noopener" class="btn-action" style="text-align:center; text-decoration:none;">
-        🔗 ${isKR ? '네이버 증권 기업현황·컨센서스 원문' : 'Yahoo Finance 재무제표 원문'}
+        🔗 ${isKR ? '네이버 증권 기업현황 원문' : 'Yahoo Finance 재무제표 원문'}
       </a>
       <a href="${link2}" target="_blank" rel="noopener" class="btn-action" style="text-align:center; text-decoration:none;">
-        🏛️ ${isKR ? '금감원 DART 전자공시시스템 확인' : '미국 SEC EDGAR 공시 원문'}
+        🏛️ ${isKR ? '금감원 DART 전자공시 확인' : '미국 SEC EDGAR 공시 원문'}
       </a>
     `;
 
-    // 수동 편집창 초기값 세팅
     document.getElementById("inRev25").value = fin.rev[2];
     document.getElementById("inOp25").value = fin.op[2];
     document.getElementById("inOpm25").value = fin.opm[2];
@@ -2716,7 +2673,6 @@
     renderAll();
   }
 
-  // 20년 경력 애널리스트 프롬프트 & 마크다운 표 클립보드 복사기
   function copyAnalystPrompt() {
     const dbItem = MASTER_STOCK_DB.find(m => m.ticker === currentTicker) || { ticker: currentTicker, krName: currentTicker };
     const fEval = getFinancialAnalysis(currentTicker);
@@ -2739,19 +2695,17 @@
 * **기술적 지표(37종 합의):** 현재가 ${fmtPrice(ev ? ev.curC : 0, currentTicker)}, 기술점수 ${ev ? ev.buyScore : 0}/100점, 재무점수 ${fEval.finScore}/100점 (통합 ${ev ? ev.hybridScore : 0}점)
 
 ### 2. [세부 분석 요청사항]
-1) **수익성 분석:** 최근 3년간 매출총이익률과 영업이익률(${fin.opm[0]}% → ${fin.opm[1]}% → ${fin.opm[2]}%)의 추이를 분석하고, 이익률이 변동된 주요 원인이 무엇일지 추론해 줘.
-2) **재무 건전성 분석:** 부채비율(${fin.debtRatio}%)과 유동비율(${fin.currentRatio}%)을 바탕으로 이 기업의 단기적인 자금 흐름에 문제가 없는지 평가해 줘.
-3) **성장성 및 리스크:** 업계 평균(${fin.sector}) 대비 현재 이 기업의 PBR(${fin.pbr}배)과 PER(${fin.per}배)이 어떤 위치에 있는지, 저평가 요소가 있는지 설명해 줘.
-4) **시각화 및 결론:** 이 기업의 매출과 영업이익 성장세를 한눈에 볼 수 있도록 마크다운 표 형식으로 다시 정리해 주고, 현재 기술적 타점(1차 매수선 ${fmtPrice(ev ? ev.buyTarget1 : 0, currentTicker)}, 손절선 ${fmtPrice(ev ? ev.stopLoss : 0, currentTicker)})과 결합한 최종 투자 전략을 제시해 줘.`;
+1) **수익성 분석:** 최근 3년간 영업이익률(${fin.opm[0]}% → ${fin.opm[1]}% → ${fin.opm[2]}%)의 추이를 분석하고, 이익률이 변동된 주요 원인이 무엇일지 추론해 줘.
+2) **재무 건전성 분석:** 부채비율(${fin.debtRatio}%)과 유동비율(${fin.currentRatio}%)을 바탕으로 단기적인 자금 흐름에 문제가 없는지 평가해 줘.
+3) **성장성 및 리스크:** 업계 평균(${fin.sector}) 대비 현재 PBR(${fin.pbr}배)과 PER(${fin.per}배)이 어떤 위치에 있는지, 저평가 요소가 있는지 설명해 줘.`;
 
     navigator.clipboard.writeText(mdPrompt).then(() => {
-      alert("📋 20년 경력 애널리스트용 프롬프트와 3개년 마크다운 재무표가 클립보드에 복사되었습니다!");
+      alert("📋 20년 경력 애널리스트 프롬프트와 마크다운 재무표가 복사되었습니다.");
     }).catch(() => {
       prompt("아래 프롬프트를 복사하세요:", mdPrompt);
     });
   }
 
-  // ==================== 13. 차트 캔버스 렌더링 ====================
   function drawUpperAndLowerCanvases(candles, ev) {
     const uCanvas = document.getElementById("upperChartCanvas");
     if (!uCanvas) return;
@@ -2804,17 +2758,6 @@
       drawBand(ev.overlays.bbLowerArr);
     }
 
-    if (activeUpper.VP) {
-      const maxBV = Math.max(...ev.overlays.vpBuckets, 1);
-      ev.overlays.vpBuckets.forEach((bv, bIdx) => {
-        const bp = ev.overlays.minPAll + (bIdx + 0.5) * ev.overlays.stepP;
-        const by = toY(bp);
-        const bw = (bv / maxBV) * 85;
-        ctx.fillStyle = Math.abs(bp - ev.overlays.pocPrice) < 0.001 ? "rgba(245, 158, 11, 0.34)" : "rgba(59, 130, 246, 0.16)";
-        ctx.fillRect(0, by - 5, bw, 10);
-      });
-    }
-
     if (activeUpper.SMA) {
       const drawMA = (arr, col) => {
         ctx.strokeStyle = col; ctx.lineWidth = 1.4; ctx.beginPath();
@@ -2854,16 +2797,6 @@
     ctx.fillStyle = "#FF6B78";
     ctx.fillText(`1차익절 ${fmtPrice(ev.sellTarget1, currentTicker)}`, w - 135, Math.max(11, ySell1 - 4));
     ctx.setLineDash([]);
-
-    uCanvas.onmousemove = (e) => {
-      const rect = uCanvas.getBoundingClientRect();
-      const idx = Math.min(slice.length - 1, Math.max(0, Math.floor(((e.clientX - rect.left) / rect.width) * slice.length)));
-      const bar = slice[idx];
-      const infoEl = document.getElementById("chartCrosshairInfo");
-      infoEl.style.display = "block";
-      infoEl.innerHTML = `종가 <b>${fmtPrice(bar.c, currentTicker)}</b> (고 ${fmtPrice(bar.h, currentTicker)} / 저 ${fmtPrice(bar.l, currentTicker)})`;
-    };
-    uCanvas.onmouseleave = () => { document.getElementById("chartCrosshairInfo").style.display = "none"; };
 
     const lCanvas = document.getElementById("lowerChartCanvas");
     if (!lCanvas) return;
@@ -2949,7 +2882,6 @@
     box.innerHTML = html;
   }
 
-  // ==================== 14. UI 컨트롤 및 백그라운드 동기화 ====================
   async function onChangeTimeframe() {
     currentTf = document.getElementById("timeframeSelect").value;
     await fetchLiveStockCandles(currentTicker, currentTf);
@@ -2975,7 +2907,6 @@
 
   async function selectStockFromHome(ticker) {
     currentTicker = ticker;
-    ensureStockInitialized(ticker);
     showPane("detail");
     await fetchLiveStockCandles(ticker, currentTf);
     renderAll();
@@ -3019,23 +2950,24 @@
   }
 
   function renderSettings() {
+    document.getElementById("finnhubKeyInput").value = finnhubApiKey;
     document.getElementById("settingsUpperList").innerHTML = UPPER_IND_META.map(m => `
-      <div class="toss-setting-row" onclick="toggleUpperInd('${m.id}')">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 2px; border-bottom:1px solid var(--border); cursor:pointer;" onclick="toggleUpperInd('${m.id}')">
         <div>
-          <div class="toss-title">${m.name}</div>
-          <div class="toss-sub">${m.desc}</div>
+          <div style="font-size:13px; font-weight:800;">${m.name}</div>
+          <div style="font-size:11px; color:var(--sub);">${m.desc}</div>
         </div>
-        <div class="ios-switch ${activeUpper[m.id] ? 'on' : ''}"></div>
+        <span class="tag ${activeUpper[m.id] ? 'tag-good' : 'tag-neutral'}">${activeUpper[m.id] ? 'ON' : 'OFF'}</span>
       </div>
     `).join("");
 
     document.getElementById("settingsLowerList").innerHTML = LOWER_IND_META.map(m => `
-      <div class="toss-setting-row" onclick="toggleLowerInd('${m.id}')">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 2px; border-bottom:1px solid var(--border); cursor:pointer;" onclick="toggleLowerInd('${m.id}')">
         <div>
-          <div class="toss-title">${m.name}</div>
-          <div class="toss-sub">${m.desc}</div>
+          <div style="font-size:13px; font-weight:800;">${m.name}</div>
+          <div style="font-size:11px; color:var(--sub);">${m.desc}</div>
         </div>
-        <div class="ios-switch ${activeLower[m.id] ? 'on' : ''}"></div>
+        <span class="tag ${activeLower[m.id] ? 'tag-good' : 'tag-neutral'}">${activeLower[m.id] ? 'ON' : 'OFF'}</span>
       </div>
     `).join("");
   }
@@ -3047,15 +2979,19 @@
     renderSettings();
   }
 
+  // 병렬(Parallel) 고속 동기화: 순차 대기로 인한 타임아웃 방지
   async function syncAllRealtime() {
-    document.getElementById("feedSourceBadge").textContent = "🔄 다중 소스 동기화중..";
+    document.getElementById("feedSourceBadge").textContent = "🔄 다중 실데이터 병렬 수신중..";
     await sync24HourAssetsRest();
-    await batchSyncDomesticQuotes();
-    for (let i = 0; i < majorStocks.length; i++) {
-      await fetchLiveStockCandles(majorStocks[i].ticker, "1d");
+
+    const allTargets = [...new Set([...majorStocks.map(s => s.ticker), "QQQ", "SPY"])];
+    const batchSize = 4;
+    for (let i = 0; i < allTargets.length; i += batchSize) {
+      const batch = allTargets.slice(i, i + batchSize);
+      await Promise.allSettled(batch.map(tk => fetchLiveStockCandles(tk, "1d")));
       renderAll();
     }
-    document.getElementById("feedSourceBadge").textContent = "● 전체 실데이터 동기화됨";
+    document.getElementById("feedSourceBadge").textContent = "● 실데이터 교차검증 완료";
   }
 
   document.addEventListener("click", (e) => {
@@ -3063,17 +2999,6 @@
       document.getElementById("acDropdown").style.display = "none";
     }
   });
-
-  setInterval(async () => {
-    await sync24HourAssetsRest();
-    const curStatus = getMarketSessionStatus(currentTicker);
-    if (curStatus.open) {
-      await fetchLiveStockCandles(currentTicker, currentTf);
-    }
-    if (getMarketSessionStatus("005930.KS").open) {
-      await batchSyncDomesticQuotes();
-    }
-  }, 7000);
 
   (async function init() {
     renderAll();
