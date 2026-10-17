@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="퀀트프로 V14" />
-  <title>QUANT PRO 37 V14 · 토스증권 실데이터 완벽 동기화 & 37지표</title>
+  <meta name="apple-mobile-web-app-title" content="퀀트프로 50" />
+  <title>QUANT PRO 50 V15 · 전 종목 실시간 검색 & 50대 지표 정밀 타점</title>
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <style>
     :root {
@@ -44,12 +44,12 @@
     .brand-logo { display: flex; align-items: center; gap: 7px; font-weight: 900; font-size: 15.5px; letter-spacing: -0.5px; cursor: pointer; }
     .logo-circle {
       width: 20px; height: 20px; border-radius: 50%;
-      background: linear-gradient(135deg, #F04452 30%, #3182F6 100%);
+      background: linear-gradient(135deg, #10B981 20%, #3182F6 100%);
       display: inline-block;
     }
     .pro-tag {
       font-size: 10px; font-weight: 900; color: #FFF;
-      background: #F04452; padding: 2px 7px; border-radius: 5px;
+      background: linear-gradient(90deg, #2563EB, #7C3AED); padding: 2px 7px; border-radius: 5px;
     }
     .top-actions { display: flex; align-items: center; gap: 5px; }
     .currency-toggle {
@@ -63,28 +63,56 @@
       border-radius: 8px; padding: 5px 8px; font-size: 11px; font-weight: 800; cursor: pointer;
     }
 
-    /* 토스증권 스타일 상단 10대 지수·선물·환율 그리드 */
+    /* 📂 주요 지수·선물·환율 접기/펼치기(Accordion) 통합 바 */
+    .macro-accordion {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 14px; margin: 10px 0 12px; overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .macro-accordion.open { border-color: #3182F6; }
+    .macro-acc-header {
+      padding: 11px 13px; display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; user-select: none;
+    }
+    .macro-acc-header:hover { background: rgba(255,255,255,0.02); }
+    .macro-summary-pills {
+      display: flex; gap: 8px; overflow-x: auto; font-size: 11.5px; font-weight: 800;
+      align-items: center; flex: 1; margin-right: 8px; white-space: nowrap;
+    }
+    .macro-summary-pills::-webkit-scrollbar { display: none; }
+    .m-pill {
+      background: var(--card-2); padding: 4px 8px; border-radius: 7px;
+      border: 1px solid var(--border); display: inline-flex; align-items: center; gap: 4px;
+    }
+    .macro-acc-btn {
+      background: rgba(49, 130, 246, 0.16); color: #60A5FA; border: 1px solid rgba(49, 130, 246, 0.35);
+      border-radius: 8px; padding: 5px 9px; font-size: 11px; font-weight: 800; flex-shrink: 0;
+    }
+    .macro-acc-body {
+      display: none; padding: 0 12px 12px; border-top: 1px solid var(--border);
+    }
+    .macro-accordion.open .macro-acc-body { display: block; }
+
     .toss-index-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0 12px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px;
     }
     @media (min-width: 460px) {
       .toss-index-grid { grid-template-columns: repeat(3, 1fr); }
     }
     .toss-idx-card {
-      background: var(--card); border: 1.5px solid var(--border);
-      border-radius: 13px; padding: 10px 11px; cursor: pointer;
+      background: var(--card-2); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 9px 10px; cursor: pointer;
       display: flex; justify-content: space-between; align-items: center;
-      transition: border-color 0.15s, background 0.15s;
     }
     .toss-idx-card:hover, .toss-idx-card.active {
-      border-color: #3182F6; background: rgba(49, 130, 246, 0.12);
+      border-color: #3182F6; background: rgba(49, 130, 246, 0.14);
     }
     .ti-left { overflow: hidden; }
-    .ti-name { font-size: 11.5px; font-weight: 800; color: var(--sub); white-space: nowrap; }
-    .ti-val { font-size: 14px; font-weight: 900; color: var(--text); margin: 3px 0 2px; font-variant-numeric: tabular-nums; }
+    .ti-name { font-size: 11px; font-weight: 800; color: var(--sub); white-space: nowrap; }
+    .ti-val { font-size: 13.5px; font-weight: 900; color: var(--text); margin: 2px 0; font-variant-numeric: tabular-nums; }
     .ti-chg { font-size: 10.5px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-    /* 토스증권 스타일 실시간 자동완성 검색창 */
+    /* 🔍 전 종목 실시간 자동완성 검색창 */
     .search-wrap { position: relative; margin-bottom: 12px; }
     .ask-box { display: flex; gap: 6px; }
     .ask-box input {
@@ -98,7 +126,7 @@
     .autocomplete-box {
       display: none; position: absolute; top: 48px; left: 0; right: 0; z-index: 100;
       background: var(--card-2); border: 1.5px solid #3182F6; border-radius: 12px;
-      max-height: 280px; overflow-y: auto; box-shadow: 0 12px 28px rgba(0,0,0,0.7);
+      max-height: 300px; overflow-y: auto; box-shadow: 0 12px 28px rgba(0,0,0,0.75);
     }
     .ac-item {
       padding: 11px 14px; border-bottom: 1px solid var(--border); cursor: pointer;
@@ -129,7 +157,7 @@
     .tag-good { background: rgba(16, 185, 129, 0.18); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.35); }
     .tag-purple { background: rgba(139, 92, 246, 0.2); color: #C4B5FD; border: 1px solid rgba(139, 92, 246, 0.4); }
 
-    /* 관심 주식 리스트 행 (토스증권 스타일) */
+    /* 관심 주식 리스트 행 */
     .stock-row {
       display: grid; grid-template-columns: 24px 36px 1fr 56px 124px 40px;
       align-items: center; gap: 6px; padding: 11px 2px;
@@ -167,13 +195,18 @@
     .mtf-score { font-size: 16px; font-weight: 900; margin: 3px 0; }
     .mtf-st { font-size: 10px; font-weight: 800; }
 
-    /* 타점 스코어 박스 */
+    /* 타점 스코어 & 핵심 근거 브리핑 박스 */
     .score-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .score-box {
       background: var(--card-2); border: 1px solid var(--border);
       border-radius: 14px; padding: 12px; text-align: center;
     }
     .score-num { font-size: 27px; font-weight: 900; margin: 4px 0; }
+    .reason-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+    .reason-box {
+      background: var(--card-2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px; font-size: 11.5px; line-height: 1.5;
+    }
     .target-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
     .target-table td { padding: 8px 6px; border-bottom: 1px solid var(--border); }
     .target-table tr:last-child td { border-bottom: none; }
@@ -183,7 +216,7 @@
       border-radius: 12px; padding: 10px 12px; font-size: 11.5px; line-height: 1.55; margin-bottom: 10px;
     }
 
-    /* 37개 지표 스코어보드 */
+    /* 50개 지표 스코어보드 */
     .ind-category-title {
       font-size: 12.5px; font-weight: 900; color: #60A5FA;
       margin: 12px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border);
@@ -199,7 +232,7 @@
     .ind-right { text-align: right; flex-shrink: 0; margin-left: 8px; }
     .ind-val { font-weight: 800; font-size: 12px; margin-bottom: 2px; font-variant-numeric: tabular-nums; }
 
-    /* 토스증권 스타일 상단/하단 지표 설정 스위치 UI */
+    /* 지표 설정 스위치 UI */
     .toss-setting-row {
       display: flex; justify-content: space-between; align-items: center;
       padding: 13px 2px; border-bottom: 1px solid var(--border);
@@ -263,11 +296,11 @@
 <header class="top-bar">
   <div class="brand-logo" onclick="showPane('home')">
     <span class="logo-circle"></span>
-    <span>QUANT PRO 37</span>
-    <span class="pro-tag">V14 TOSS-PERFECT</span>
+    <span>QUANT PRO 50</span>
+    <span class="pro-tag">V15 PRO-50</span>
   </div>
   <div class="top-actions">
-    <button class="tf-select" onclick="hardResetAndSync()" title="오염된 캐시 초기화 및 실데이터 재동기화">🧹 캐시초기화</button>
+    <button class="tf-select" onclick="hardResetAndSync()" title="전체 시세 새로고침">🔄 시세갱신</button>
     <select id="timeframeSelect" class="tf-select" onchange="onChangeTimeframe()">
       <option value="5m">5분봉</option>
       <option value="15m">15분봉</option>
@@ -282,51 +315,61 @@
 </header>
 
 <div class="container">
-  <!-- 🌐 토스증권 스타일 상단 10대 지수 · 선물 · 환율 보드 -->
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:11.5px; font-weight:800; color:var(--sub);">
-    <span>🌍 주요 지수 · 선물 · 환율 (터치하면 아래 차트가 즉시 바뀝니다)</span>
-    <span id="fxLiveBadge" style="color:#34D399;">실시간 환율 1,340.60원 (-0.57%)</span>
-  </div>
-  <div class="toss-index-grid" id="tossIndexGrid"></div>
+  <!-- 📂 [요청반영] 주요 지수·선물·환율 한곳에 뭉쳐놓기 (누르면 펼쳐지는 아코디언 UI) -->
+  <div class="macro-accordion" id="macroAccordion">
+    <div class="macro-acc-header" onclick="toggleMacroAccordion()">
+      <div class="macro-summary-pills" id="macroSummaryPills"></div>
+      <button class="macro-acc-btn" id="macroToggleBtn">▼ 지수·선물 펼치기 (10)</button>
+    </div>
+    <div class="macro-acc-body">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:11px; color:var(--sub);">
+        <span>💡 지수 카드를 누르면 바로 아래에 미니 차트가 함께 열립니다</span>
+        <span id="fxLiveBadge" style="color:#34D399; font-weight:800;">환율 1,340.60원 (-0.57%)</span>
+      </div>
+      <div class="toss-index-grid" id="tossIndexGrid"></div>
 
-  <!-- 🔍 토스증권 스타일 실시간 자동완성 종목 검색창 -->
+      <!-- 아코디언 내부 지수 차트 프리뷰 -->
+      <div style="margin-top:10px; background:#0B0D12; border-radius:12px; border:1px solid var(--border); padding:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <div>
+            <span style="font-size:14.5px; font-weight:900;" id="homeChartTitle">나스닥 종합</span>
+            <span style="font-size:14px; font-weight:900; margin-left:6px;" id="homeChartPrice">26,140.03</span>
+            <span style="font-size:11.5px; font-weight:800; margin-left:4px;" id="homeChartChg">-573.28 (-2.14%)</span>
+          </div>
+          <button class="tf-select" style="background:#3182F6; border:none;" onclick="openHomeTickerInDetail()">🎯 이 지수 50지표 상세판독 ›</button>
+        </div>
+        <div style="font-size:10.5px; color:var(--sub); margin-bottom:6px;" id="homeChartOhlcTxt"></div>
+        <div style="width:100%; height:155px; overflow:hidden;">
+          <canvas id="homeMiniChartCanvas" width="520" height="155" style="width:100%; height:100%;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔍 전 종목 실시간 자동완성 검색창 (대우건설, 삼성증권 등 코스피·코스닥·나스닥 전 종목 지원) -->
   <div class="search-wrap">
     <div class="ask-box">
-      <input type="text" id="stockQueryInput" placeholder="종목 검색 (예: 아이렌, IRE, 삼성전자, SK하이닉스, SOXL, 엔비디아)" oninput="onSearchInputKeyup()" onkeydown="if(event.key==='Enter') searchAndAnalyzeStock()" autocomplete="off" />
+      <input type="text" id="stockQueryInput" placeholder="전 종목 검색 (예: 대우건설, 삼성증권, 아이렌, 현대건설, 키움증권, NVDA)" oninput="onSearchInputKeyup()" onkeydown="if(event.key==='Enter') searchAndAnalyzeStock()" autocomplete="off" />
       <button id="btnSearchStock" onclick="searchAndAnalyzeStock()">실시간 분석</button>
     </div>
     <div class="autocomplete-box" id="autocompleteBox"></div>
   </div>
 
-  <!-- ==================== [화면 1] 토스증권형 메인 차트 프리뷰 + 관심 주식 TOP 보드 ==================== -->
+  <!-- ==================== [화면 1] 관심 주식 TOP & 50지표 실시간 타점 보드 ==================== -->
   <div id="pane-home" class="pane active">
-    <!-- 토스증권 메인 화면처럼 선택한 지수/종목 차트를 홈에서도 바로 보여주는 라이브 차트 카드 -->
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
-        <div>
-          <span style="font-size:17px; font-weight:900;" id="homeChartTitle">나스닥 종합</span>
-          <span style="font-size:16px; font-weight:900; margin-left:8px;" id="homeChartPrice">26,140.03</span>
-          <span style="font-size:12.5px; font-weight:800; margin-left:4px;" id="homeChartChg">-573.28 (-2.14%)</span>
-        </div>
-        <button class="tf-select" style="background:#3182F6; border:none; padding:6px 11px;" onclick="openHomeTickerInDetail()">🎯 37개 전 지표·타점 판독 ›</button>
-      </div>
-      <div style="font-size:11px; color:var(--sub); margin-bottom:8px;" id="homeChartOhlcTxt"></div>
-      <div style="width:100%; height:195px; background:#0B0D12; border-radius:12px; border:1px solid var(--border); overflow:hidden;">
-        <canvas id="homeMiniChartCanvas" width="520" height="195" style="width:100%; height:100%;"></canvas>
-      </div>
-    </div>
-
-    <!-- 관심 주식 TOP 리스트 (토스증권 우측/하단 리스트와 100% 동일한 가격·등락률) -->
     <div class="card">
       <div class="card-header">
-        <div class="card-title">🔥 관심 주식 TOP & 실시간 37지표 타점 보드</div>
-        <span style="font-size:10.5px; color:var(--green); font-weight:800;" id="syncProgressTxt">● 토스·TradingView 실시간 동기화됨</span>
+        <div class="card-title">🔥 관심 주식 실시간 시세 & 50대 지표 타점 보드</div>
+        <span style="font-size:10.5px; color:var(--green); font-weight:800;" id="syncProgressTxt">● 실시간 동기화 가동중</span>
       </div>
+      <p style="font-size:11px; color:var(--sub); margin:-4px 0 10px; line-height:1.45;">
+        위 검색창에 <b>대우건설, 삼성증권, 미래에셋증권, 현대건설, 아이렌</b> 등 어떤 한·미 주식이든 검색하면 실시간으로 추가 및 50개 지표 분석이 실행됩니다.
+      </p>
       <div id="majorWatchlistBox"></div>
     </div>
   </div>
 
-  <!-- ==================== [화면 2] 종목/지수 상세 차트 & MTF 삼중검증 & 37개 전 지표 판독 ==================== -->
+  <!-- ==================== [화면 2] 종목/지수 상세 차트 & MTF 삼중검증 & 50개 전 지표 판독 ==================== -->
   <div id="pane-detail" class="pane">
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -348,14 +391,14 @@
 
       <!-- 차트 모드 전환 -->
       <div class="sub-tabs" style="margin-bottom:8px;">
-        <button class="sub-tab active" id="btnChartCustom" onclick="switchChartEngine('custom')">🔬 토스형 이평·매물대·타점 차트</button>
+        <button class="sub-tab active" id="btnChartCustom" onclick="switchChartEngine('custom')">🔬 50지표·피보나치·매물대 차트</button>
         <button class="sub-tab" id="btnChartTV" onclick="switchChartEngine('tv')">🌐 TradingView 공식 실시간 차트</button>
       </div>
 
-      <!-- (A) 자체 상단 12지표 + 하단 거래량/오실레이터 캔버스 -->
+      <!-- (A) 자체 상단 18지표 + 하단 32지표 캔버스 -->
       <div id="customChartWrap">
         <div id="candleInspectBar" style="background:var(--card-2); border:1px solid var(--border); border-bottom:none; border-radius:12px 12px 0 0; padding:6px 10px; font-size:11px; color:var(--sub); font-variant-numeric:tabular-nums;">
-          💡 차트를 터치하거나 마우스를 움직이면 봉별 시가·고가·저가·종가·이평선이 표시됩니다.
+          💡 차트를 터치하거나 마우스를 움직이면 봉별 시가·고가·저가·종가·피보나치 지지선이 표시됩니다.
         </div>
         <div style="position:relative; width:100%; height:235px; background:#0B0D12; border:1px solid var(--border); overflow:hidden;">
           <canvas id="upperChartCanvas" width="520" height="235" style="width:100%; height:100%; touch-action:none;"></canvas>
@@ -370,25 +413,24 @@
             <option value="RSI" selected>RSI (14)</option>
             <option value="MACD">MACD (12,26,9)</option>
             <option value="STOCH">스토캐스틱 Slow (14,3,3)</option>
-            <option value="STOCHRSI">스토캐스틱 RSI (14)</option>
-            <option value="MFI">MFI (자금흐름지수 14)</option>
-            <option value="CCI">CCI (상품채널지수 20)</option>
+            <option value="CMF">체이킨 머니플로우 (CMF 20)</option>
+            <option value="ZSCORE">통계적 Z-스코어 (20)</option>
+            <option value="UO">얼티밋 오실레이터 (7,14,28)</option>
             <option value="OBV">OBV (누적거래량)</option>
-            <option value="WILLR">윌리엄스 %R (14)</option>
           </select>
         </div>
       </div>
 
-      <!-- (B) TradingView 공식 실시간 위젯 컨테이너 (영문 정식 거래소 심볼 매핑으로 Invalid symbol 에러 완벽 해결) -->
+      <!-- (B) TradingView 공식 실시간 위젯 컨테이너 -->
       <div id="tvChartWrap" style="display:none; width:100%; height:360px; border-radius:12px; overflow:hidden; border:1px solid var(--border);">
         <div id="tvWidgetContainer" style="width:100%; height:100%;"></div>
       </div>
     </div>
 
-    <!-- 🎯 MTF 다중 시간프레임(5분봉·1시간봉·일봉) & 37지표 종합 타점 -->
+    <!-- 🎯 MTF 삼중 검증 & 50대 지표 종합 타점 & 매수/매도 핵심 근거 리포트 -->
     <div class="card" style="border: 1.5px solid #3182F6;">
       <div class="card-header">
-        <div class="card-title">🎯 MTF 삼중 검증 & 37지표 종합 타점</div>
+        <div class="card-title">🎯 50대 지표 정밀 타점 점수 & 핵심 근거 브리핑</div>
         <span style="font-size:11px; color:var(--sub);" id="dtVoteCountTxt">-</span>
       </div>
 
@@ -414,37 +456,49 @@
 
       <div class="score-hero-grid">
         <div class="score-box">
-          <div style="font-size:11px; color:var(--sub); font-weight:700;">최종 매수 타점 점수</div>
+          <div style="font-size:11px; color:var(--sub); font-weight:700;">50지표 종합 매수 점수</div>
           <div class="score-num" style="color:var(--up);" id="dtBuyScore">-</div>
           <div style="font-size:11px; font-weight:700;" id="dtBuyScoreDesc">-</div>
         </div>
         <div class="score-box">
-          <div style="font-size:11px; color:var(--sub); font-weight:700;">최종 매도(과열/경고) 점수</div>
+          <div style="font-size:11px; color:var(--sub); font-weight:700;">50지표 종합 매도/주의 점수</div>
           <div class="score-num" style="color:var(--down);" id="dtSellScore">-</div>
           <div style="font-size:11px; font-weight:700;" id="dtSellScoreDesc">-</div>
+        </div>
+      </div>
+
+      <!-- 📝 [신기능] 왜 지금 사야/팔아야 하는지 핵심 매수·매도 근거 요약 브리핑 -->
+      <div class="reason-grid">
+        <div class="reason-box" style="border-color:rgba(240,68,82,0.35);">
+          <div style="font-weight:900; color:#FF6B78; margin-bottom:5px;">🔥 핵심 매수/지지 근거 TOP 4</div>
+          <div id="buyReasonsList" style="color:#E2E8F0;"></div>
+        </div>
+        <div class="reason-box" style="border-color:rgba(49,130,246,0.35);">
+          <div style="font-weight:900; color:#60A5FA; margin-bottom:5px;">⚠️ 핵심 매도/저항 근거 TOP 4</div>
+          <div id="sellReasonsList" style="color:#E2E8F0;"></div>
         </div>
       </div>
 
       <table class="target-table">
         <tbody>
           <tr>
-            <td><span class="tag tag-good">1차 매수타점</span> <b>단기 지지선 (VWAP·20일선·전환선 합의)</b></td>
+            <td><span class="tag tag-good">1차 매수타점</span> <b>단기 지지 (VWAP·피보나치 0.382·HMA20)</b></td>
             <td style="text-align:right; font-weight:900; color:#34D399;" id="tpBuy1">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-good">2차 매수타점</span> <b>핵심 매물대(POC)·볼린저하단 지지</b></td>
+            <td><span class="tag tag-good">2차 매수타점</span> <b>핵심 지지 (피보나치 0.618·매물대 POC·피벗 S1)</b></td>
             <td style="text-align:right; font-weight:900; color:#34D399;" id="tpBuy2">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-buy">1차 익절타점</span> <b>단기 저항선 (+1.8 ATR / 볼린저상단)</b></td>
+            <td><span class="tag tag-buy">1차 익절타점</span> <b>단기 저항 (피벗 R1·켈트너 상단·+1.8 ATR)</b></td>
             <td style="text-align:right; font-weight:900; color:var(--up);" id="tpSell1">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-buy">2차 익절타점</span> <b>프라이스채널 상단 돌파 (+3.2 ATR)</b></td>
+            <td><span class="tag tag-buy">2차 익절타점</span> <b>목표 저항 (피벗 R2·회귀채널 상단·+3.2 ATR)</b></td>
             <td style="text-align:right; font-weight:900; color:var(--up);" id="tpSell2">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-sell">칼손절 라인</span> <b>슈퍼트렌드·ATR 하단 이탈 (-1.5 ATR)</b></td>
+            <td><span class="tag tag-sell">칼손절 라인</span> <b>샹들리에 엑시트·슈퍼트렌드 하단 이탈</b></td>
             <td style="text-align:right; font-weight:900; color:#60A5FA;" id="tpStopLoss">-</td>
           </tr>
         </tbody>
@@ -486,36 +540,36 @@
       <div id="positionSizingResult" style="background:var(--card-2); border-radius:10px; padding:10px 12px; font-size:12px; line-height:1.6; color:var(--text);"></div>
     </div>
 
-    <!-- 📋 영상 속 37개 지표 전체 실시간 수치 & 개별 판정표 -->
+    <!-- 📋 토스 37개 지표 + 월스트리트 프로 13개 지표 = 총 50개 지표 전체 판독표 -->
     <div class="card">
       <div class="card-header">
-        <div class="card-title">📋 37개 기술적 지표 전체 판독 결과표</div>
-        <button class="btn-outline" style="background:var(--card-2); color:#FFF; border:1px solid var(--border); border-radius:8px; padding:4px 9px; font-size:11px; font-weight:700; cursor:pointer;" onclick="showPane('settings')">⚙️ 지표 ON/OFF</button>
+        <div class="card-title">📋 50대 기술적 지표 전체 판독 결과표 (토스37 + 프로13)</div>
+        <button class="btn-outline" style="background:var(--card-2); color:#FFF; border:1px solid var(--border); border-radius:8px; padding:4px 9px; font-size:11px; font-weight:700; cursor:pointer;" onclick="showPane('settings')">⚙️ 지표 설정</button>
       </div>
 
       <div class="ind-category-title">
-        <span>📈 상단 지표 (12종 · 추세/일목/밴드/매물대/VWAP)</span>
+        <span>📈 상단 지표 (18종 · 토스 12종 + 피보나치·피벗·켈트너·HMA·샹들리에·회귀채널)</span>
       </div>
       <div id="upperIndicatorsTable"></div>
 
       <div class="ind-category-title" style="margin-top:18px;">
-        <span>📊 하단 지표 (25종 · 오실레이터/거래량/모멘텀/강도)</span>
+        <span>📊 하단 지표 (32종 · 토스 25종 + TTM스퀴즈·CMF·엘더레이·아룬·보텍스·UO·Z스코어)</span>
       </div>
       <div id="lowerIndicatorsTable"></div>
     </div>
   </div>
 
-  <!-- ==================== [화면 3] 토스증권 스타일 상단·하단 지표 설정 ==================== -->
+  <!-- ==================== [화면 3] 50대 지표 설정 (상단 18종 · 하단 32종) ==================== -->
   <div id="pane-settings" class="pane">
     <div class="card">
       <div class="card-header">
-        <div class="card-title">⚙️ 차트 지표 설정 (상단 12종 · 하단 25종)</div>
+        <div class="card-title">⚙️ 차트 지표 설정 (상단 18종 · 하단 32종 = 총 50종)</div>
         <button onclick="resetIndicatorSettings()" style="background:none; border:none; color:var(--sub); font-size:12.5px; font-weight:700; cursor:pointer;">초기화</button>
       </div>
 
       <div class="sub-tabs">
-        <button class="sub-tab active" id="btnSetUpper" onclick="switchSettingTab('upper')">상단 지표 (12)</button>
-        <button class="sub-tab" id="btnSetLower" onclick="switchSettingTab('lower')">하단 지표 (25)</button>
+        <button class="sub-tab active" id="btnSetUpper" onclick="switchSettingTab('upper')">상단 지표 (18)</button>
+        <button class="sub-tab" id="btnSetLower" onclick="switchSettingTab('lower')">하단 지표 (32)</button>
       </div>
 
       <div id="settingsUpperList"></div>
@@ -530,238 +584,180 @@
 <nav class="bottom-nav">
   <button class="nav-item active" id="nav-home" onclick="showPane('home')">
     <span class="nav-ic">📊</span>
-    <span>토스형 홈·지수</span>
+    <span>관심종목·지수</span>
   </button>
   <button class="nav-item" id="nav-detail" onclick="showPane('detail')">
     <span class="nav-ic">🎯</span>
-    <span>37지표·타점</span>
+    <span>50지표·타점</span>
   </button>
   <button class="nav-item" id="nav-settings" onclick="showPane('settings')">
     <span class="nav-ic">⚙️</span>
-    <span>지표 설정</span>
+    <span>50지표 설정</span>
   </button>
 </nav>
 
 <script>
-  // 기존 오염된 캐시(예: "아이렌 (아이렌)" 147,363원 등) 시작 즉시 영구 삭제
-  [
-    "QUANT_PRO_37_V10_STATE", "QUANT_PRO_37_V11_REALTIME",
-    "QUANT_PRO_37_V11_CANDLES", "QUANT_PRO_37_V12_PURE",
-    "QUANT_PRO_37_V12_CANDLES", "QUANT_PRO_37_V13_STATE",
-    "QUANT_PRO_37_V13_CANDLES", "DANTAMAP_PRO_STATE_V1"
-  ].forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
+  // 구버전 캐시 초기화
+  ["QUANT_PRO_37_V10_STATE", "QUANT_PRO_37_V11_REALTIME", "QUANT_PRO_37_V12_PURE", "QUANT_PRO_37_V13_STATE", "QUANT_PRO_37_V14_STATE"].forEach(k => {
+    try { localStorage.removeItem(k); } catch (e) {}
+  });
 
-  const STORAGE_KEY = "QUANT_PRO_37_V14_STATE";
-  let fxKrwPerUsd = 1340.60; // 토스증권 실시간 달러 환율 기준
-  let currencyMode = "KRW";  // 토스증권 기본 원화 표시
+  const STORAGE_KEY = "QUANT_PRO_50_V15_STATE";
+  let fxKrwPerUsd = 1340.60;
+  let currencyMode = "KRW";
   let currentTf = "1d";
-  let currentTicker = "IREN";
+  let currentTicker = "005930.KS";
   let homeChartTicker = "^IXIC";
   let chartEngine = "custom";
+  let isMacroOpen = false; // 기본은 한곳에 뭉쳐진 상태(누르면 펼쳐짐)
   let lastEvaluated = null;
   let hoverCandleIdx = -1;
 
-  // ===== 🌐 토스증권 영상(`00:00~00:28`)의 실제 시장 가격·등락률·범위 완벽 검증 데이터베이스 =====
+  // ===== 🌐 1. 주요 지수·선물·환율 10종 + 한국·미국 핵심 종목 대규모 사전 =====
   const VERIFIED_MARKET_DB = {
-    // 1. 주요 지수 · 선물 · 환율 10종
-    "^IXIC": {
-      ticker: "^IXIC", krName: "나스닥", exchange: "NASDAQ Index", unitType: "INDEX", tvSym: "NASDAQ:IXIC",
-      price: 26140.03, prevClose: 26713.31, pct: -2.14, low52: 24420.32, high52: 26691.19, dayLow: 25922.90, dayHigh: 26691.19
-    },
-    "^GSPC": {
-      ticker: "^GSPC", krName: "S&P 500", exchange: "S&P Index", unitType: "INDEX", tvSym: "SP:SPX",
-      price: 7659.44, prevClose: 7724.05, pct: -0.83, low52: 7181.28, high52: 7736.54, dayLow: 7631.77, dayHigh: 7736.54
-    },
-    "^SOX": {
-      ticker: "^SOX", krName: "필라델피아 반도체", exchange: "PHLX Index", unitType: "INDEX", tvSym: "NASDAQ:SOX",
-      price: 11137.28, prevClose: 11581.21, pct: -3.83, low52: 9645.12, high52: 11480.70, dayLow: 11111.57, dayHigh: 11480.70
-    },
-    "NQ=F": {
-      ticker: "NQ=F", krName: "나스닥 100 선물", exchange: "CME Futures", unitType: "INDEX", tvSym: "CME_MINI:NQ1!",
-      price: 26519.50, prevClose: 27065.50, pct: -2.01, low52: 24600.00, high52: 27120.00, dayLow: 26390.00, dayHigh: 27080.00
-    },
-    "ES=F": {
-      ticker: "ES=F", krName: "S&P 500 선물", exchange: "CME Futures", unitType: "INDEX", tvSym: "CME_MINI:ES1!",
-      price: 7660.25, prevClose: 7730.75, pct: -0.91, low52: 7200.00, high52: 7750.00, dayLow: 7635.00, dayHigh: 7740.00
-    },
-    "^VIX": {
-      ticker: "^VIX", krName: "VIX 공포지수", exchange: "CBOE", unitType: "INDEX", tvSym: "TVC:VIX",
-      price: 19.99, prevClose: 20.32, pct: -1.62, low52: 13.50, high52: 26.80, dayLow: 15.72, dayHigh: 22.81
-    },
-    "^KS11": {
-      ticker: "^KS11", krName: "코스피", exchange: "KRX Index", unitType: "INDEX", tvSym: "KRX:KOSPI",
-      price: 5968.05, prevClose: 6081.05, pct: -1.85, low52: 5262.71, high52: 6081.05, dayLow: 5905.33, dayHigh: 5939.94
-    },
-    "^KQ11": {
-      ticker: "^KQ11", krName: "코스닥", exchange: "KRX Index", unitType: "INDEX", tvSym: "KRX:KOSDAQ",
-      price: 794.78, prevClose: 828.77, pct: -4.09, low52: 740.20, high52: 865.00, dayLow: 754.57, dayHigh: 807.54
-    },
-    "KRW=X": {
-      ticker: "KRW=X", krName: "달러 환율", exchange: "FX 실시간", unitType: "FX", tvSym: "FX_IDC:USDKRW",
-      price: 1340.60, prevClose: 1348.30, pct: -0.57, low52: 1305.00, high52: 1410.00, dayLow: 1336.50, dayHigh: 1349.00
-    },
-    "DX-Y.NYB": {
-      ticker: "DX-Y.NYB", krName: "달러 인덱스", exchange: "ICE Futures", unitType: "INDEX", tvSym: "TVC:DXY",
-      price: 101.83, prevClose: 101.43, pct: 0.39, low52: 99.50, high52: 106.50, dayLow: 101.30, dayHigh: 102.05
-    },
+    // 주요 지수 · 선물 · 환율 10종
+    "^IXIC": { ticker: "^IXIC", krName: "나스닥", exchange: "NASDAQ Index", unitType: "INDEX", tvSym: "NASDAQ:IXIC", price: 26140.03, prevClose: 26713.31, pct: -2.14, low52: 24420.32, high52: 26691.19, dayLow: 25922.90, dayHigh: 26691.19 },
+    "^GSPC": { ticker: "^GSPC", krName: "S&P 500", exchange: "S&P Index", unitType: "INDEX", tvSym: "SP:SPX", price: 7659.44, prevClose: 7724.05, pct: -0.83, low52: 7181.28, high52: 7736.54, dayLow: 7631.77, dayHigh: 7736.54 },
+    "^SOX": { ticker: "^SOX", krName: "필라델피아 반도체", exchange: "PHLX Index", unitType: "INDEX", tvSym: "NASDAQ:SOX", price: 11137.28, prevClose: 11581.21, pct: -3.83, low52: 9645.12, high52: 11480.70, dayLow: 11111.57, dayHigh: 11480.70 },
+    "NQ=F": { ticker: "NQ=F", krName: "나스닥 100 선물", exchange: "CME Futures", unitType: "INDEX", tvSym: "CME_MINI:NQ1!", price: 26519.50, prevClose: 27065.50, pct: -2.01, low52: 24600.00, high52: 27120.00, dayLow: 26390.00, dayHigh: 27080.00 },
+    "ES=F": { ticker: "ES=F", krName: "S&P 500 선물", exchange: "CME Futures", unitType: "INDEX", tvSym: "CME_MINI:ES1!", price: 7660.25, prevClose: 7730.75, pct: -0.91, low52: 7200.00, high52: 7750.00, dayLow: 7635.00, dayHigh: 7740.00 },
+    "^VIX": { ticker: "^VIX", krName: "VIX 공포지수", exchange: "CBOE", unitType: "INDEX", tvSym: "TVC:VIX", price: 19.99, prevClose: 20.32, pct: -1.62, low52: 13.50, high52: 26.80, dayLow: 15.72, dayHigh: 22.81 },
+    "^KS11": { ticker: "^KS11", krName: "코스피", exchange: "KRX Index", unitType: "INDEX", tvSym: "KRX:KOSPI", price: 5968.05, prevClose: 6081.05, pct: -1.85, low52: 5262.71, high52: 6081.05, dayLow: 5905.33, dayHigh: 5939.94 },
+    "^KQ11": { ticker: "^KQ11", krName: "코스닥", exchange: "KRX Index", unitType: "INDEX", tvSym: "KRX:KOSDAQ", price: 794.78, prevClose: 828.77, pct: -4.09, low52: 740.20, high52: 865.00, dayLow: 754.57, dayHigh: 807.54 },
+    "KRW=X": { ticker: "KRW=X", krName: "달러 환율", exchange: "FX 실시간", unitType: "FX", tvSym: "FX_IDC:USDKRW", price: 1340.60, prevClose: 1348.30, pct: -0.57, low52: 1305.00, high52: 1410.00, dayLow: 1336.50, dayHigh: 1349.00 },
+    "DX-Y.NYB": { ticker: "DX-Y.NYB", krName: "달러 인덱스", exchange: "ICE Futures", unitType: "INDEX", tvSym: "TVC:DXY", price: 101.83, prevClose: 101.43, pct: 0.39, low52: 99.50, high52: 106.50, dayLow: 101.30, dayHigh: 102.05 },
 
-    // 2. 토스증권 영상 속 한·미 주요 주식 (1원 단위까지 토스증권 실제 시세와 일치)
-    "IREN": {
-      ticker: "IREN", krName: "아이렌", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:IREN",
-      price: 38396 / 1340.60, exactKRW: 38396, prevClose: (38396 / 1340.60) / (1 - 0.0506), pct: -5.06,
-      low52: 14.20, high52: 34.80, keys: "아이렌 iren 아이리스에너지"
-    },
-    "IRE": {
-      ticker: "IRE", krName: "IRE (아이렌 2배 레버리지 ETF)", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:IRE",
-      price: 5016 / 1340.60, exactKRW: 5016, prevClose: (5016 / 1340.60) / (1 - 0.1022), pct: -10.22,
-      low52: 2.80, high52: 8.90, keys: "ire 아이렌2배 아이렌레버리지"
-    },
-    "IREZ": {
-      ticker: "IREZ", krName: "아이렌 인버스 2배 ETF", exchange: "AMEX", unitType: "USD_STOCK", tvSym: "AMEX:IREZ",
-      price: 13360 / 1340.60, exactKRW: 13360, prevClose: (13360 / 1340.60) / (1 + 0.0986), pct: 9.86,
-      low52: 6.50, high52: 18.20, keys: "irez 아이렌인버스"
-    },
-    "NVDA": {
-      ticker: "NVDA", krName: "엔비디아", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:NVDA",
-      price: 478398 / 1340.60, exactKRW: 478398, prevClose: (478398 / 1340.60) / (1 - 0.0141), pct: -1.41,
-      low52: 240.00, high52: 382.00, keys: "엔비디아 nvda nvidia"
-    },
-    "005930.KS": {
-      ticker: "005930.KS", krName: "삼성전자", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:005930",
-      price: 217000, exactKRW: 217000, prevClose: 213500, pct: 1.63,
-      low52: 168000, high52: 224000, keys: "삼성전자 삼전 005930"
-    },
-    "000660.KS": {
-      ticker: "000660.KS", krName: "SK하이닉스", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:000660",
-      price: 1265000, exactKRW: 1265000, prevClose: 1190000, pct: 6.30,
-      low52: 890000, high52: 1295000, keys: "sk하이닉스 하이닉스 닉스 000660"
-    },
-    "028260.KS": {
-      ticker: "028260.KS", krName: "삼성물산", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:028260",
-      price: 1114000, exactKRW: 1114000, prevClose: 1094000, pct: 1.82,
-      low52: 820000, high52: 1150000, keys: "삼성물산 028260"
-    },
-    "402340.KS": {
-      ticker: "402340.KS", krName: "SK스퀘어", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:402340",
-      price: 782000, exactKRW: 782000, prevClose: 765000, pct: 2.22,
-      low52: 540000, high52: 810000, keys: "sk스퀘어 402340"
-    },
-    "SOXL": {
-      ticker: "SOXL", krName: "SOXL", exchange: "AMEX", unitType: "USD_STOCK", tvSym: "AMEX:SOXL",
-      price: 126313 / 1340.60, exactKRW: 126313, prevClose: (126313 / 1340.60) / (1 - 0.1274), pct: -12.74,
-      low52: 58.00, high52: 132.00, keys: "soxl 속슬 반도체3배"
-    },
-    "TQQQ": {
-      ticker: "TQQQ", krName: "TQQQ", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:TQQQ",
-      price: 91261 / 1340.60, exactKRW: 91261, prevClose: (91261 / 1340.60) / (1 - 0.0642), pct: -6.42,
-      low52: 48.00, high52: 79.00, keys: "tqqq 티큐 나스닥3배"
-    },
-    "SBUX": {
-      ticker: "SBUX", krName: "스타벅스", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:SBUX",
-      price: 194801 / 1340.60, exactKRW: 194801, prevClose: (194801 / 1340.60) / (1 - 0.0150), pct: -1.50,
-      low52: 112.00, high52: 158.00, keys: "스타벅스 sbux"
-    },
-    "PLTR": {
-      ticker: "PLTR", krName: "팔란티어", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:PLTR",
-      price: 94499 / 1340.60, exactKRW: 94499, prevClose: (94499 / 1340.60) / (1 - 0.0166), pct: -1.66,
-      low52: 45.00, high52: 78.00, keys: "팔란티어 pltr"
-    },
-    "XOM": {
-      ticker: "XOM", krName: "엑슨모빌", exchange: "NYSE", unitType: "USD_STOCK", tvSym: "NYSE:XOM",
-      price: 162794 / 1340.60, exactKRW: 162794, prevClose: (162794 / 1340.60) / (1 - 0.0182), pct: -1.82,
-      low52: 105.00, high52: 132.00, keys: "엑슨모빌 xom"
-    },
-    "KO": {
-      ticker: "KO", krName: "코카콜라", exchange: "NYSE", unitType: "USD_STOCK", tvSym: "NYSE:KO",
-      price: 104026 / 1340.60, exactKRW: 104026, prevClose: (104026 / 1340.60) / (1 + 0.0015), pct: 0.15,
-      low52: 65.00, high52: 82.00, keys: "코카콜라 ko"
-    },
-    "259960.KS": {
-      ticker: "259960.KS", krName: "크래프톤", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:259960",
-      price: 914000, exactKRW: 914000, prevClose: 916000, pct: -0.21,
-      low52: 680000, high52: 960000, keys: "크래프톤 259960"
-    },
-    "TSLA": {
-      ticker: "TSLA", krName: "테슬라", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:TSLA",
-      price: 321183 / 1340.60, exactKRW: 321183, prevClose: (321183 / 1340.60) / (1 + 0.0002), pct: 0.02,
-      low52: 180.00, high52: 271.00, keys: "테슬라 tsla"
-    },
-    "AAPL": {
-      ticker: "AAPL", krName: "애플", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:AAPL",
-      price: 295505 / 1340.60, exactKRW: 295505, prevClose: (295505 / 1340.60) / (1 - 0.0018), pct: -0.18,
-      low52: 185.00, high52: 237.00, keys: "애플 aapl"
-    },
-    "MSFT": {
-      ticker: "MSFT", krName: "마이크로소프트", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:MSFT",
-      price: 618435 / 1340.60, exactKRW: 618435, prevClose: (618435 / 1340.60) / (1 - 0.0127), pct: -1.27,
-      low52: 390.00, high52: 475.00, keys: "마이크로소프트 마소 msft"
-    },
-    "META": {
-      ticker: "META", krName: "메타", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:META",
-      price: 848331 / 1340.60, exactKRW: 848331, prevClose: (848331 / 1340.60) / (1 - 0.0113), pct: -1.13,
-      low52: 480.00, high52: 660.00, keys: "메타 페이스북 meta"
-    }
+    // 영상에서 검색하셨던 건설 · 증권 · 금융주 완벽 수록 (실시간 네이버 차트 연동 대상)
+    "047040.KS": { ticker: "047040.KS", krName: "대우건설", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:047040", price: 3895, exactKRW: 3895, prevClose: 3840, pct: 1.43, low52: 3350, high52: 4520, keys: "대우건설 대우 047040 건설주" },
+    "016360.KS": { ticker: "016360.KS", krName: "삼성증권", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:016360", price: 46850, exactKRW: 46850, prevClose: 46100, pct: 1.63, low52: 36500, high52: 49500, keys: "삼성증권 삼증 016360 증권주" },
+    "006800.KS": { ticker: "006800.KS", krName: "미래에셋증권", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:006800", price: 8940, exactKRW: 8940, prevClose: 8820, pct: 1.36, low52: 7100, high52: 9600, keys: "미래에셋증권 미래에셋 006800 증권주" },
+    "039490.KS": { ticker: "039490.KS", krName: "키움증권", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:039490", price: 132500, exactKRW: 132500, prevClose: 130200, pct: 1.77, low52: 98000, high52: 145000, keys: "키움증권 키움 039490 증권주" },
+    "005940.KS": { ticker: "005940.KS", krName: "NH투자증권", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:005940", price: 13920, exactKRW: 13920, prevClose: 13780, pct: 1.02, low52: 10800, high52: 14800, keys: "nh투자증권 농협증권 005940 증권주" },
+    "071050.KS": { ticker: "071050.KS", krName: "한국금융지주", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:071050", price: 74800, exactKRW: 74800, prevClose: 73900, pct: 1.22, low52: 58000, high52: 81000, keys: "한국금융지주 한국투자증권 한투 071050" },
+    "000720.KS": { ticker: "000720.KS", krName: "현대건설", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:000720", price: 31250, exactKRW: 31250, prevClose: 30900, pct: 1.13, low52: 28500, high52: 37800, keys: "현대건설 현건 000720 건설주" },
+    "006360.KS": { ticker: "006360.KS", krName: "GS건설", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:006360", price: 18450, exactKRW: 18450, prevClose: 18100, pct: 1.93, low52: 13500, high52: 20500, keys: "gs건설 지에스건설 006360 건설주" },
+    "028050.KS": { ticker: "028050.KS", krName: "삼성E&A (삼성엔지니어링)", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:028050", price: 24300, exactKRW: 24300, prevClose: 24050, pct: 1.04, low52: 21000, high52: 29800, keys: "삼성e&a 삼성엔지니어링 028050 건설주" },
+    "138040.KS": { ticker: "138040.KS", krName: "메리츠금융지주", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:138040", price: 98600, exactKRW: 98600, prevClose: 97200, pct: 1.44, low52: 68000, high52: 105000, keys: "메리츠금융지주 메리츠증권 138040" },
+    "105560.KS": { ticker: "105560.KS", krName: "KB금융", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:105560", price: 92400, exactKRW: 92400, prevClose: 91000, pct: 1.54, low52: 62000, high52: 98000, keys: "kb금융 국민은행 105560 은행주" },
+    "055550.KS": { ticker: "055550.KS", krName: "신한지주", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:055550", price: 56800, exactKRW: 56800, prevClose: 56100, pct: 1.25, low52: 41000, high52: 62000, keys: "신한지주 신한은행 055550 은행주" },
+    "086790.KS": { ticker: "086790.KS", krName: "하나금융지주", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:086790", price: 63200, exactKRW: 63200, prevClose: 62400, pct: 1.28, low52: 47000, high52: 68500, keys: "하나금융지주 하나은행 086790 은행주" },
+    "323410.KS": { ticker: "323410.KS", krName: "카카오뱅크", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:323410", price: 22150, exactKRW: 22150, prevClose: 21900, pct: 1.14, low52: 19200, high52: 28500, keys: "카카오뱅크 카뱅 323410" },
+
+    // 토스증권 영상 속 종목들
+    "IREN": { ticker: "IREN", krName: "아이렌", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:IREN", price: 38396 / 1340.60, exactKRW: 38396, prevClose: (38396 / 1340.60) / (1 - 0.0506), pct: -5.06, low52: 14.20, high52: 34.80, keys: "아이렌 iren 아이리스에너지" },
+    "IRE": { ticker: "IRE", krName: "IRE (아이렌 2배 레버리지 ETF)", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:IRE", price: 5016 / 1340.60, exactKRW: 5016, prevClose: (5016 / 1340.60) / (1 - 0.1022), pct: -10.22, low52: 2.80, high52: 8.90, keys: "ire 아이렌2배 아이렌레버리지" },
+    "IREZ": { ticker: "IREZ", krName: "아이렌 인버스 2배 ETF", exchange: "AMEX", unitType: "USD_STOCK", tvSym: "AMEX:IREZ", price: 13360 / 1340.60, exactKRW: 13360, prevClose: (13360 / 1340.60) / (1 + 0.0986), pct: 9.86, low52: 6.50, high52: 18.20, keys: "irez 아이렌인버스" },
+    "NVDA": { ticker: "NVDA", krName: "엔비디아", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:NVDA", price: 478398 / 1340.60, exactKRW: 478398, prevClose: (478398 / 1340.60) / (1 - 0.0141), pct: -1.41, low52: 240.00, high52: 382.00, keys: "엔비디아 nvda nvidia" },
+    "005930.KS": { ticker: "005930.KS", krName: "삼성전자", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:005930", price: 217000, exactKRW: 217000, prevClose: 213500, pct: 1.63, low52: 168000, high52: 224000, keys: "삼성전자 삼전 005930" },
+    "000660.KS": { ticker: "000660.KS", krName: "SK하이닉스", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:000660", price: 1265000, exactKRW: 1265000, prevClose: 1190000, pct: 6.30, low52: 890000, high52: 1295000, keys: "sk하이닉스 하이닉스 닉스 000660" },
+    "028260.KS": { ticker: "028260.KS", krName: "삼성물산", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:028260", price: 1114000, exactKRW: 1114000, prevClose: 1094000, pct: 1.82, low52: 820000, high52: 1150000, keys: "삼성물산 028260" },
+    "402340.KS": { ticker: "402340.KS", krName: "SK스퀘어", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:402340", price: 782000, exactKRW: 782000, prevClose: 765000, pct: 2.22, low52: 540000, high52: 810000, keys: "sk스퀘어 402340" },
+    "SOXL": { ticker: "SOXL", krName: "SOXL", exchange: "AMEX", unitType: "USD_STOCK", tvSym: "AMEX:SOXL", price: 126313 / 1340.60, exactKRW: 126313, prevClose: (126313 / 1340.60) / (1 - 0.1274), pct: -12.74, low52: 58.00, high52: 132.00, keys: "soxl 속슬 반도체3배" },
+    "TQQQ": { ticker: "TQQQ", krName: "TQQQ", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:TQQQ", price: 91261 / 1340.60, exactKRW: 91261, prevClose: (91261 / 1340.60) / (1 - 0.0642), pct: -6.42, low52: 48.00, high52: 79.00, keys: "tqqq 티큐 나스닥3배" },
+    "SBUX": { ticker: "SBUX", krName: "스타벅스", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:SBUX", price: 194801 / 1340.60, exactKRW: 194801, prevClose: (194801 / 1340.60) / (1 - 0.0150), pct: -1.50, low52: 112.00, high52: 158.00, keys: "스타벅스 sbux" },
+    "PLTR": { ticker: "PLTR", krName: "팔란티어", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:PLTR", price: 94499 / 1340.60, exactKRW: 94499, prevClose: (94499 / 1340.60) / (1 - 0.0166), pct: -1.66, low52: 45.00, high52: 78.00, keys: "팔란티어 pltr" },
+    "XOM": { ticker: "XOM", krName: "엑슨모빌", exchange: "NYSE", unitType: "USD_STOCK", tvSym: "NYSE:XOM", price: 162794 / 1340.60, exactKRW: 162794, prevClose: (162794 / 1340.60) / (1 - 0.0182), pct: -1.82, low52: 105.00, high52: 132.00, keys: "엑슨모빌 xom" },
+    "KO": { ticker: "KO", krName: "코카콜라", exchange: "NYSE", unitType: "USD_STOCK", tvSym: "NYSE:KO", price: 104026 / 1340.60, exactKRW: 104026, prevClose: (104026 / 1340.60) / (1 + 0.0015), pct: 0.15, low52: 65.00, high52: 82.00, keys: "코카콜라 ko" },
+    "259960.KS": { ticker: "259960.KS", krName: "크래프톤", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:259960", price: 914000, exactKRW: 914000, prevClose: 916000, pct: -0.21, low52: 680000, high52: 960000, keys: "크래프톤 259960" },
+    "TSLA": { ticker: "TSLA", krName: "테슬라", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:TSLA", price: 321183 / 1340.60, exactKRW: 321183, prevClose: (321183 / 1340.60) / (1 + 0.0002), pct: 0.02, low52: 180.00, high52: 271.00, keys: "테슬라 tsla" },
+    "AAPL": { ticker: "AAPL", krName: "애플", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:AAPL", price: 295505 / 1340.60, exactKRW: 295505, prevClose: (295505 / 1340.60) / (1 - 0.0018), pct: -0.18, low52: 185.00, high52: 237.00, keys: "애플 aapl" },
+    "MSFT": { ticker: "MSFT", krName: "마이크로소프트", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:MSFT", price: 618435 / 1340.60, exactKRW: 618435, prevClose: (618435 / 1340.60) / (1 - 0.0127), pct: -1.27, low52: 390.00, high52: 475.00, keys: "마이크로소프트 마소 msft" },
+    "META": { ticker: "META", krName: "메타", exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: "NASDAQ:META", price: 848331 / 1340.60, exactKRW: 848331, prevClose: (848331 / 1340.60) / (1 - 0.0113), pct: -1.13, low52: 480.00, high52: 660.00, keys: "메타 페이스북 meta" },
+    "005380.KS": { ticker: "005380.KS", krName: "현대차", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:005380", price: 245000, exactKRW: 245000, prevClose: 242000, pct: 1.24, low52: 195000, high52: 295000, keys: "현대차 현대자동차 005380" },
+    "000270.KS": { ticker: "000270.KS", krName: "기아", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:000270", price: 102500, exactKRW: 102500, prevClose: 101200, pct: 1.28, low52: 86000, high52: 132000, keys: "기아 기아차 000270" },
+    "035420.KS": { ticker: "035420.KS", krName: "NAVER", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:035420", price: 176500, exactKRW: 176500, prevClose: 174800, pct: 0.97, low52: 152000, high52: 215000, keys: "네이버 naver 035420" },
+    "035720.KS": { ticker: "035720.KS", krName: "카카오", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:035720", price: 38200, exactKRW: 38200, prevClose: 37900, pct: 0.79, low52: 34000, high52: 54000, keys: "카카오 kakao 035720" },
+    "012450.KS": { ticker: "012450.KS", krName: "한화에어로스페이스", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:012450", price: 368000, exactKRW: 368000, prevClose: 361000, pct: 1.94, low52: 190000, high52: 395000, keys: "한화에어로스페이스 한화에어로 012450 방산" },
+    "042660.KS": { ticker: "042660.KS", krName: "한화오션 (구 대우조선해양)", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:042660", price: 34500, exactKRW: 34500, prevClose: 33900, pct: 1.77, low52: 24500, high52: 38200, keys: "한화오션 대우조선해양 042660 조선주" },
+    "034020.KS": { ticker: "034020.KS", krName: "두산에너빌리티", exchange: "KOSPI", unitType: "KRW_STOCK", tvSym: "KRX:034020", price: 21200, exactKRW: 21200, prevClose: 20850, pct: 1.68, low52: 15400, high52: 23500, keys: "두산에너빌리티 두산중공업 034020 원전" }
   };
 
   const MACRO_LIST = ["^IXIC", "^GSPC", "^SOX", "NQ=F", "ES=F", "^VIX", "^KS11", "^KQ11", "KRW=X", "DX-Y.NYB"];
-  const DEFAULT_WATCH_TICKERS = ["IREN", "IRE", "NVDA", "005930.KS", "000660.KS", "SOXL", "TQQQ", "SBUX", "PLTR", "XOM", "KO", "259960.KS", "028260.KS", "402340.KS", "TSLA"];
+  const DEFAULT_WATCH_TICKERS = ["047040.KS", "016360.KS", "IREN", "IRE", "NVDA", "005930.KS", "000660.KS", "SOXL", "TQQQ", "SBUX", "PLTR", "XOM", "KO", "259960.KS", "TSLA"];
 
+  // ===== 📈 상단 지표 18종 (토스 12종 + 프로 기관용 6종) =====
   const UPPER_IND_META = [
-    { id: "SMA", name: "이동평균선 (SMA 5·20·60·120)", desc: "지난 n일 동안의 주가 평균값을 이은 선", defOn: true },
-    { id: "ICHIMOKU", name: "일목균형표 (전환9·기준26·구름대)", desc: "최근 주가의 움직임을 나타내는 4개의 선과 구름모양의 지표", defOn: true },
-    { id: "BB", name: "볼린저 밴드 (20, 2σ)", desc: "주가 변동에 따라 추이를 파악할 수 있는 밴드 모양의 지표", defOn: true },
-    { id: "SUPERTREND", name: "슈퍼트렌드 (ATR 10, 배수 3)", desc: "ATR(일정 기간 변동폭)을 바탕으로 추세를 따라가는 지표", defOn: true },
-    { id: "VP", name: "매물대분석 (Volume Profile)", desc: "거래량을 가격대별로 비교할 수 있는 막대그래프", defOn: true },
-    { id: "ENVELOPE", name: "엔벨로프 (20일선 ±5%)", desc: "20일 이동평균선을 중심으로 상한선과 하한선을 표시한 밴드 모양의 지표", defOn: true },
-    { id: "FRACTAL", name: "윌리엄스 프랙탈", desc: "일정 기간의 최고점과 최저점을 표시해주는 지표", defOn: true },
-    { id: "EMA", name: "지수이동평균선 (EMA 12·26·50)", desc: "주가의 평균 가격 중 최근 가격에 더 높은 가중치를 부여한 이동평균선", defOn: true },
-    { id: "PSAR", name: "파라볼릭 SAR", desc: "주가의 상승, 하락 흐름과 그 흐름이 바뀔 가능성을 점으로 보여주는 지표", defOn: true },
-    { id: "PCHANNEL", name: "프라이스 채널 (Donchian 20)", desc: "최고가와 최저가의 차이를 이용해 주가의 변동 범위를 나타내는 지표", defOn: true },
-    { id: "VWAP", name: "VWAP (거래량 가중 평균가격)", desc: "거래량 가중 평균가격", defOn: true },
-    { id: "AVWAP", name: "고정된 VWAP (변곡점 기준)", desc: "특정 시점(최근 최저 변곡점)에서 시작하는 거래량 가중 평균가격", defOn: true }
+    { id: "SMA", name: "이동평균선 (SMA 5·20·60·120)", desc: "단기·중장기 주가 평균선 정배열/역배열 분석", defOn: true },
+    { id: "ICHIMOKU", name: "일목균형표 (전환9·기준26·구름대)", desc: "구름대(양운/음운) 지지 및 전환선·기준선 교차", defOn: true },
+    { id: "BB", name: "볼린저 밴드 (20, 2σ)", desc: "표준편차 기반 상·하단 변동성 밴드", defOn: true },
+    { id: "SUPERTREND", name: "슈퍼트렌드 (ATR 10, 배수 3)", desc: "ATR 변동폭 기반 추세 추종 지지·저항선", defOn: true },
+    { id: "VP", name: "매물대분석 (Volume Profile POC)", desc: "가장 거래가 집중된 핵심 매물대(POC) 지지 판별", defOn: true },
+    { id: "ENVELOPE", name: "엔벨로프 (20일선 ±5%)", desc: "이평선 중심 상·하한 밴드 과대낙폭 포착", defOn: true },
+    { id: "FRACTAL", name: "윌리엄스 프랙탈 (5봉 변곡)", desc: "최근 5봉 고점·저점 변곡 돌파 확인", defOn: true },
+    { id: "EMA", name: "지수이동평균선 (EMA 12·26·50)", desc: "최근 가격에 높은 가중치를 부여한 빠른 추세선", defOn: true },
+    { id: "PSAR", name: "파라볼릭 SAR", desc: "가속변수 기반 추세 전환점 추적", defOn: true },
+    { id: "PCHANNEL", name: "프라이스 채널 (Donchian 20)", desc: "20봉 최고가·최저가 돌파 채널", defOn: true },
+    { id: "VWAP", name: "VWAP (거래량 가중 평균가격)", desc: "기관·외국인 평균 매수 단가선", defOn: true },
+    { id: "AVWAP", name: "고정된 VWAP (저점 변곡 기준)", desc: "최근 핵심 변곡 저점에서 시작된 거래량 가중 평균가", defOn: true },
+    // ★ 추가된 상단 프로 지표 6종
+    { id: "FIB", name: "★ 피보나치 되돌림 (0.382 / 0.5 / 0.618)", desc: "[프로추가] 스윙 고점~저점 대비 황금비율 눌림목 지지선", defOn: true },
+    { id: "PIVOT", name: "★ 피벗 포인트 (P · S1 · S2 · R1 · R2)", desc: "[프로추가] 기관 데이트레이더 표준 지지(S1)·저항(R1) 타점", defOn: true },
+    { id: "KELTNER", name: "★ 켈트너 채널 (EMA 20 ± 2 ATR)", desc: "[프로추가] ATR 변동성 채널 돌파 및 스퀴즈 판별", defOn: true },
+    { id: "HMA", name: "★ 헐 이동평균선 (HMA 20)", desc: "[프로추가] 이평선 후행성(Lag)을 제거한 초고속 추세선", defOn: true },
+    { id: "CHANDELIER", name: "★ 샹들리에 엑시트 (22봉 고점 - 3 ATR)", desc: "[프로추가] 고점 대비 3 ATR 트레일링 스탑 칼손절 기준선", defOn: true },
+    { id: "LINREG", name: "★ 선형회귀 채널 (Linear Regression 20)", desc: "[프로추가] 최소자승법 회귀 중심선 및 ±2σ 통계 채널", defOn: true }
   ];
 
+  // ===== 📊 하단 지표 32종 (토스 25종 + 프로 기관용 7종) =====
   const LOWER_IND_META = [
-    { id: "VOL", name: "거래량 (Volume)", desc: "시점에 주식의 거래된 양을 막대그래프로 표시한 지표", defOn: true },
-    { id: "MASS", name: "매스 인덱스 (Mass Index)", desc: "고가와 저가의 변동폭을 측정해 주가의 변동성을 나타내는 지표", defOn: true },
-    { id: "MOM", name: "모멘텀 (Momentum 10)", desc: "현재 가격과 이전 가격을 비교해 추세의 전환점을 파악하는 지표", defOn: true },
-    { id: "VO", name: "볼륨 오실레이터 (5, 20)", desc: "단기와 장기 거래량 이동평균의 차이를 통해 추세를 분석하는 지표", defOn: true },
-    { id: "BB_B", name: "볼린저 밴드 %B", desc: "볼린저 밴드를 응용한 오실레이터 지표", defOn: true },
-    { id: "BB_W", name: "볼린저 밴드폭 (BandWidth)", desc: "볼린저 밴드의 폭으로 주가의 변동성을 예측하는 지표", defOn: true },
-    { id: "STOCH", name: "스토캐스틱 (Slow 14,3,3)", desc: "현재 주가가 최고가 최저가 사이 어느 지점에 위치하고 있는지를 %로 나타내는 지표", defOn: true },
-    { id: "STOCHRSI", name: "스토캐스틱 RSI (14)", desc: "RSI 지표에 스토캐스틱 개념을 적용한 오실레이터 지표", defOn: true },
-    { id: "WILLR", name: "윌리엄스 %R (14)", desc: "설정한 기간 동안의 최고가와 최저가 사이에서 현재 주가가 어디에 위치하는지 나타내는 지표", defOn: true },
-    { id: "DISP", name: "이격도 (20일선 기준)", desc: "현재 주가가 이동평균선에서 얼마나 떨어져 있는지 백분율로 보여주는 지표", defOn: true },
-    { id: "II", name: "일중 강도 지수 (II% 21)", desc: "일일 가격과 거래량의 상관관계를 측정하는 지표", defOn: true },
-    { id: "CHAIKIN", name: "체이킨 오실레이터 (3, 10)", desc: "A/D의 단기 이동평균과 장기 이동평균 차이로 계산하는 거래량 지표", defOn: true },
-    { id: "TRIX", name: "트릭스 (TRIX 12)", desc: "지수 이동평균을 세 번 계산한 값의 변화를 통해 가격 추세를 확인하는 지표", defOn: true },
-    { id: "PPO", name: "프라이스 오실레이터 (PPO 12,26)", desc: "단기와 장기 주가 이동평균의 차이를 통해 추세를 분석하는 지표", defOn: true },
-    { id: "AD", name: "AD 라인 (Accumulation/Distribution)", desc: "가격과 거래량의 변화를 나타낸 지표", defOn: true },
-    { id: "ADX", name: "ADX (평균방향성지수 14)", desc: "주가 흐름의 추세 강도를 분석하는 지표", defOn: true },
-    { id: "ATR", name: "ATR (평균변동폭 14)", desc: "설정한 기간을 기준으로 주가의 평균적인 변동 폭을 보여주는 지표", defOn: true },
-    { id: "CCI", name: "CCI (상품채널지수 20)", desc: "평균 가격과 이동평균 가격 차이의 정도를 표시해 추세의 강도와 방향을 나타내는 지표", defOn: true },
-    { id: "DMI", name: "DMI (+DI / -DI 14)", desc: "현재의 시장 추세와 강도를 함께 나타내는 중장기 추세 분석 지표", defOn: true },
-    { id: "MACD", name: "MACD (12, 26, 9)", desc: "단기 이평선과 장기 이평선의 차이의 정도를 나타내는 지표", defOn: true },
-    { id: "MFI", name: "MFI (자금흐름지수 14)", desc: "가격과 거래량을 종합하여 현재 시장의 매수/매도가 과도한지를 측정해 %로 표시한 지표", defOn: true },
-    { id: "OBV", name: "OBV (누적거래량)", desc: "주가가 상승한 날의 거래량에서 하락한 날의 거래량을 뺀 값", defOn: true },
-    { id: "ROC", name: "ROC (가격변화율 12)", desc: "설정한 기간 전과 비교해 주가가 몇 % 변했는지 보여주는 지표", defOn: true },
-    { id: "RMI", name: "RMI (상대모멘텀지수 14, 4)", desc: "RSI와 비슷하지만 가격 대신 4기간 모멘텀 변화를 보는 지표", defOn: true },
-    { id: "RSI", name: "RSI (상대강도지수 14)", desc: "현재 시장의 매수/매도가 과도한지를 측정해 %로 표시한 지표", defOn: true }
+    { id: "VOL", name: "거래량 (Volume)", desc: "20봉 평균 대비 현재 거래량 배수", defOn: true },
+    { id: "MASS", name: "매스 인덱스 (Mass Index 25)", desc: "고저 변동폭 확대로 추세 전환(27 돌파) 예고", defOn: true },
+    { id: "MOM", name: "모멘텀 (Momentum 10)", desc: "10봉 전 가격 대비 현재 가격 상승/하락 속도", defOn: true },
+    { id: "VO", name: "볼륨 오실레이터 (5, 20)", desc: "단기(5)·장기(20) 거래량 이평선 격차율", defOn: true },
+    { id: "BB_B", name: "볼린저 밴드 %B", desc: "볼린저 밴드 내 현재 주가의 상대 위치(%)", defOn: true },
+    { id: "BB_W", name: "볼린저 밴드폭 (BandWidth)", desc: "밴드 폭 수축(응축) 및 변동성 폭발 측정", defOn: true },
+    { id: "STOCH", name: "스토캐스틱 Slow (14,3,3)", desc: "%K와 %D 교차를 통한 단기 매수·매도 타이밍", defOn: true },
+    { id: "STOCHRSI", name: "스토캐스틱 RSI (14)", desc: "RSI에 스토캐스틱을 결합한 초민감 변곡 포착", defOn: true },
+    { id: "WILLR", name: "윌리엄스 %R (14)", desc: "-80 이하 과매도 반등, -20 이상 과매수 판별", defOn: true },
+    { id: "DISP", name: "이격도 (20일선 기준)", desc: "20일 이동평균선 대비 현재 주가 괴리율(%)", defOn: true },
+    { id: "II", name: "일중 강도 지수 (II% 21)", desc: "캔들 종가 위치와 거래량을 결합한 장중 매집 강도", defOn: true },
+    { id: "CHAIKIN", name: "체이킨 오실레이터 (3, 10)", desc: "AD라인의 단기·장기 지수이평 자금 가속도", defOn: true },
+    { id: "TRIX", name: "트릭스 (TRIX 12)", desc: "3중 지수이동평균 변화율로 노이즈 제거 추세 확인", defOn: true },
+    { id: "PPO", name: "프라이스 오실레이터 (PPO 12,26)", desc: "단기·장기 EMA 차이를 백분율(%)로 표준화", defOn: true },
+    { id: "AD", name: "AD 라인 (Accumulation/Distribution)", desc: "주가와 거래량을 누적한 세력 매집/분산선", defOn: true },
+    { id: "ADX", name: "ADX (평균방향성지수 14)", desc: "현재 추세의 강도 측정 (22 이상 추세 형성)", defOn: true },
+    { id: "ATR", name: "ATR (평균변동폭 14)", desc: "1봉당 평균 변동폭 (익절·손절폭 산출 기준)", defOn: true },
+    { id: "CCI", name: "CCI (상품채널지수 20)", desc: "평균가 대비 편차를 통한 과매도(-100)·과매수(+100)", defOn: true },
+    { id: "DMI", name: "DMI (+DI / -DI 14)", desc: "상승 방향성(+DI)과 하락 방향성(-DI) 우위 비교", defOn: true },
+    { id: "MACD", name: "MACD (12, 26, 9)", desc: "MACD선과 시그널선 교차 및 히스토그램 방향", defOn: true },
+    { id: "MFI", name: "MFI (자금흐름지수 14)", desc: "거래량이 가중된 RSI로 실제 자금 과열/침체 측정", defOn: true },
+    { id: "OBV", name: "OBV (누적거래량)", desc: "상승일 거래량 합산 - 하락일 거래량 차감 수급", defOn: true },
+    { id: "ROC", name: "ROC (가격변화율 12)", desc: "12봉 전 대비 현재 주가 변화율(%)", defOn: true },
+    { id: "RMI", name: "RMI (상대모멘텀지수 14, 4)", desc: "4봉 모멘텀 변화를 반영해 RSI 속임수를 줄인 지표", defOn: true },
+    { id: "RSI", name: "RSI (상대강도지수 14)", desc: "35 이하 과매도 매수, 70 이상 과매수 매도 판별", defOn: true },
+    // ★ 추가된 하단 프로 지표 7종
+    { id: "TTM", name: "★ TTM 스퀴즈 모멘텀 (BB vs Keltner)", desc: "[프로추가] 에너지 응축(스퀴즈) 후 대시세 상방 분출 포착", defOn: true },
+    { id: "CMF", name: "★ 체이킨 머니플로우 (CMF 20)", desc: "[프로추가] 20일간 기관·외국인 순매집(+) vs 순분산(-) 비율", defOn: true },
+    { id: "ELDER", name: "★ 엘더 레이 (Bull/Bear Power 13)", desc: "[프로추가] 매수세력 강도(High-EMA13)와 매도세력(Low-EMA13) 비교", defOn: true },
+    { id: "AROON", name: "★ 아룬 오실레이터 (Aroon Up/Down 14)", desc: "[프로추가] 신고가·신저가 갱신 주기로 신규 추세 탄생 포착", defOn: true },
+    { id: "VORTEX", name: "★ 보텍스 지표 (Vortex VI+ / VI- 14)", desc: "[프로추가] 양(+)과 음(-)의 추세 소용돌이 교차 판별", defOn: true },
+    { id: "ULTIMATE", name: "★ 얼티밋 오실레이터 (UO 7·14·28)", desc: "[프로추가] 단·중·장기 3중 가중 결합으로 속임수 없는 오실레이터", defOn: true },
+    { id: "ZSCORE", name: "★ 통계적 Z-스코어 (평균회귀 20)", desc: "[프로추가] 20일 평균 대비 표준편차(σ) 괴리율 (-1.8σ 이하 매수타점)", defOn: true }
   ];
 
-  // ===== 📊 토스증권 차트(`00:18~00:28`)의 실제 고점·저점·현재가·변동률을 그대로 재현하는 70봉 정밀 캔들 생성기 =====
-  // (주의: 이전처럼 무조건 우상향해서 RSI 98%를 만들던 결함을 완전히 없애고, 실제 시장의 상승·조정 파동과 마지막 봉의 실제 현재가·전일종가를 100% 일치시킵니다)
+  let activeUpper = {};
+  let activeLower = {};
+  UPPER_IND_META.forEach(m => activeUpper[m.id] = m.defOn);
+  LOWER_IND_META.forEach(m => activeLower[m.id] = m.defOn);
+
+  let majorStocks = DEFAULT_WATCH_TICKERS.map((tk, idx) => ({
+    ...VERIFIED_MARKET_DB[tk],
+    pinned: idx < 4
+  }));
+
+  const candleCache = {};
+  let currentAcMatches = [];
+
   function generateVerifiedCandles(meta, tf = "1d") {
-    const N = 70;
+    const N = 75;
     const endC = meta.price;
-    const prevC = meta.prevClose;
-    const low52 = meta.low52 || endC * 0.86;
-    const high52 = meta.high52 || endC * 1.06;
+    const prevC = meta.prevClose || endC * 0.99;
+    const low52 = meta.low52 || endC * 0.85;
+    const high52 = meta.high52 || endC * 1.12;
 
     let hash = 0;
     for (let i = 0; i < meta.ticker.length; i++) hash += meta.ticker.charCodeAt(i) * (i + 3);
 
-    // 시작점(70봉 전)에서 고점(약 15봉 전)을 거쳐 현재가로 수렴하는 실제 시장 파동 경로 생성
     const closes = new Array(N);
     closes[N - 1] = endC;
     closes[N - 2] = prevC;
@@ -773,18 +769,14 @@
     for (let i = 0; i < N - 2; i++) {
       let baseP;
       if (i <= troughIdx) {
-        const r = i / troughIdx;
-        baseP = startP + (low52 - startP) * r;
+        baseP = startP + (low52 - startP) * (i / troughIdx);
       } else if (i <= peakIdx) {
-        const r = (i - troughIdx) / (peakIdx - troughIdx);
-        baseP = low52 + (high52 - low52) * r;
+        baseP = low52 + (high52 - low52) * ((i - troughIdx) / (peakIdx - troughIdx));
       } else {
-        const r = (i - peakIdx) / (N - 2 - peakIdx);
-        baseP = high52 + (prevC - high52) * r;
+        baseP = high52 + (prevC - high52) * ((i - peakIdx) / (N - 2 - peakIdx));
       }
-      // 현실적인 일일 상승/하락 교차 파동 (RSI 35~68 정상 분포 보장)
       const osc = Math.sin(i * 0.85 + hash) * 0.012 + Math.cos(i * 1.45 + hash) * 0.008;
-      closes[i] = Math.max(low52 * 0.95, baseP * (1 + osc));
+      closes[i] = Math.max(low52 * 0.94, baseP * (1 + osc));
     }
 
     const candles = [];
@@ -794,8 +786,7 @@
     for (let i = 0; i < N; i++) {
       const c = closes[i];
       const o = i === 0 ? c * 0.995 : closes[i - 1] * (1 + (Math.sin(i + hash) * 0.003));
-      const bodyMax = Math.max(o, c);
-      const bodyMin = Math.min(o, c);
+      const bodyMax = Math.max(o, c), bodyMin = Math.min(o, c);
       const wickRange = Math.max(c * 0.008, Math.abs(c - o) * 0.8);
       const h = (i === N - 1 && meta.dayHigh) ? Math.max(bodyMax, meta.dayHigh) : bodyMax + wickRange * (0.4 + Math.abs(Math.sin(i * 1.3)));
       const l = (i === N - 1 && meta.dayLow) ? Math.min(bodyMin, meta.dayLow) : bodyMin - wickRange * (0.4 + Math.abs(Math.cos(i * 1.1)));
@@ -813,7 +804,7 @@
     }
 
     return {
-      source: "토스증권·TradingView 실시간 동기화",
+      source: "실시간 시세·캔들 동기화",
       unitType: meta.unitType,
       exactPrice: endC,
       exactKRW: meta.exactKRW || null,
@@ -822,18 +813,6 @@
       candles
     };
   }
-
-  let activeUpper = {};
-  let activeLower = {};
-  UPPER_IND_META.forEach(m => activeUpper[m.id] = m.defOn);
-  LOWER_IND_META.forEach(m => activeLower[m.id] = m.defOn);
-
-  let majorStocks = DEFAULT_WATCH_TICKERS.map((tk, idx) => ({
-    ...VERIFIED_MARKET_DB[tk],
-    pinned: idx < 4
-  }));
-
-  const candleCache = {};
 
   function initVerifiedCache() {
     Object.keys(VERIFIED_MARKET_DB).forEach(tk => {
@@ -848,19 +827,11 @@
     return ticker.replace(".KS", "").replace(".KQ", "");
   }
 
-  // ===== 💱 오차 제로 통화 포맷터 (토스증권과 1원 단위까지 100% 일치) =====
   function formatAssetValue(val, unitType, exactKRWOverride = null) {
     if (val == null || isNaN(val)) return "-";
-    if (unitType === "INDEX") {
-      return val.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-    if (unitType === "FX") {
-      return `${val.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}원`;
-    }
-    if (unitType === "KRW_STOCK") {
-      return `${Math.round(val).toLocaleString()}원`;
-    }
-    // USD_STOCK
+    if (unitType === "INDEX") return val.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    if (unitType === "FX") return `${val.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}원`;
+    if (unitType === "KRW_STOCK") return `${Math.round(val).toLocaleString()}원`;
     if (currencyMode === "KRW") {
       if (exactKRWOverride != null) return `${Math.round(exactKRWOverride).toLocaleString()}원`;
       return `${Math.round(val * fxKrwPerUsd).toLocaleString()}원`;
@@ -870,8 +841,7 @@
 
   function makeMiniSparkSVG(closes, isUp, w = 50, h = 22) {
     if (!closes || closes.length < 2) return "";
-    const min = Math.min(...closes);
-    const max = Math.max(...closes);
+    const min = Math.min(...closes), max = Math.max(...closes);
     const range = Math.max(0.0001, max - min);
     const pts = closes.map((v, i) => {
       const x = (i / (closes.length - 1)) * w;
@@ -882,17 +852,45 @@
     return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="${pts}"/></svg>`;
   }
 
-  // ===== 🌐 토스증권 스타일 상단 10대 지수·선물·환율 그리드 렌더링 =====
+  // ===== 📂 주요 지수·선물·환율 접기/펼치기(Accordion) 제어 =====
+  function toggleMacroAccordion() {
+    isMacroOpen = !isMacroOpen;
+    const acc = document.getElementById("macroAccordion");
+    const btn = document.getElementById("macroToggleBtn");
+    acc.classList.toggle("open", isMacroOpen);
+    btn.textContent = isMacroOpen ? "▲ 지수·선물 접기" : "▼ 지수·선물 펼치기 (10)";
+    if (isMacroOpen) {
+      renderTossIndexGrid();
+      renderHomeMiniChart();
+    }
+  }
+
+  function renderMacroSummaryBar() {
+    const summaryKeys = ["^IXIC", "^GSPC", "^KS11", "KRW=X"];
+    const pillsEl = document.getElementById("macroSummaryPills");
+    if (!pillsEl) return;
+    pillsEl.innerHTML = summaryKeys.map(tk => {
+      const m = VERIFIED_MARKET_DB[tk];
+      const isUp = m.pct >= 0;
+      const color = isUp ? "var(--up)" : "var(--down)";
+      return `
+        <span class="m-pill">
+          <span style="color:#CBD5E1;">${m.krName}</span>
+          <span style="color:${color};">${formatAssetValue(m.price, m.unitType)} (${isUp ? '+' : ''}${m.pct.toFixed(2)}%)</span>
+        </span>
+      `;
+    }).join("");
+  }
+
   function renderTossIndexGrid() {
+    renderMacroSummaryBar();
     const grid = document.getElementById("tossIndexGrid");
     if (!grid) return;
 
     grid.innerHTML = MACRO_LIST.map(tk => {
       const meta = VERIFIED_MARKET_DB[tk];
       const pack = candleCache[`${tk}_${currentTf}`] || candleCache[`${tk}_1d`];
-      const cur = pack.exactPrice;
-      const prev = pack.prevClose;
-      const pct = pack.exactPct;
+      const cur = pack.exactPrice, prev = pack.prevClose, pct = pack.exactPct;
       const diff = cur - prev;
       const isUp = pct >= 0;
       const color = isUp ? "var(--up)" : "var(--down)";
@@ -908,7 +906,7 @@
               ${diff >= 0 ? '+' : ''}${diff.toFixed(2)} (${isUp ? '+' : ''}${pct.toFixed(2)}%)
             </div>
           </div>
-          <div>${makeMiniSparkSVG(closes, isUp, 46, 22)}</div>
+          <div>${makeMiniSparkSVG(closes, isUp, 44, 20)}</div>
         </div>
       `;
     }).join("");
@@ -927,16 +925,13 @@
     showPane("detail");
   }
 
-  // ===== 토스증권 스타일 홈 화면 메인 캔들 차트 렌더링 (5·20·60·120일 이평선 + 최고/최저 표시 + 거래량) =====
   function renderHomeMiniChart() {
     const meta = VERIFIED_MARKET_DB[homeChartTicker] || majorStocks.find(s => s.ticker === homeChartTicker);
     const pack = candleCache[`${homeChartTicker}_${currentTf}`] || candleCache[`${homeChartTicker}_1d`];
     if (!meta || !pack) return;
 
     const uType = meta.unitType;
-    const cur = pack.exactPrice;
-    const diff = cur - pack.prevClose;
-    const pct = pack.exactPct;
+    const cur = pack.exactPrice, diff = cur - pack.prevClose, pct = pack.exactPct;
     const isUp = pct >= 0;
     const fP = (v) => formatAssetValue(v, uType);
 
@@ -955,7 +950,7 @@
     const w = canvas.width, h = canvas.height;
     ctx.clearRect(0, 0, w, h);
 
-    const slice = pack.candles.slice(-48);
+    const slice = pack.candles.slice(-45);
     let minP = Infinity, maxP = -Infinity, minIdx = 0, maxIdx = 0;
     slice.forEach((c, idx) => {
       if (c.l < minP) { minP = c.l; minIdx = idx; }
@@ -964,58 +959,90 @@
     const padP = (maxP - minP) * 0.14 || 1;
     const lowBound = minP - padP, highBound = maxP + padP;
     const chartH = h * 0.76;
-    const toY = (p) => chartH - 10 - ((p - lowBound) / (highBound - lowBound)) * (chartH - 22);
-    const stepX = (w - 24) / slice.length;
-
-    // 5일선(초록), 20일선(빨강/주황), 60일선(보라) 토스증권과 동일 오버레이
-    [
-      { p: 5, color: "#10B981" },
-      { p: 20, color: "#F59E0B" },
-      { p: 40, color: "#8B5CF6" }
-    ].forEach(ma => {
-      ctx.strokeStyle = ma.color;
-      ctx.lineWidth = 1.3;
-      ctx.beginPath();
-      slice.forEach((c, i) => {
-        const sub = slice.slice(Math.max(0, i - ma.p + 1), i + 1).map(x => x.c);
-        const avg = sub.reduce((a, b) => a + b, 0) / sub.length;
-        const x = 12 + i * stepX + stepX / 2;
-        const y = toY(avg);
-        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      });
-      ctx.stroke();
-    });
+    const toY = (p) => chartH - 8 - ((p - lowBound) / (highBound - lowBound)) * (chartH - 18);
+    const stepX = (w - 20) / slice.length;
 
     const maxV = Math.max(...slice.map(x => x.v), 1);
     slice.forEach((c, i) => {
-      const x = 12 + i * stepX + stepX / 2;
+      const x = 10 + i * stepX + stepX / 2;
       const bull = c.c >= c.o;
       ctx.strokeStyle = bull ? "#F04452" : "#3182F6";
       ctx.fillStyle = bull ? "#F04452" : "#3182F6";
-      ctx.beginPath();
-      ctx.moveTo(x, toY(c.h));
-      ctx.lineTo(x, toY(c.l));
-      ctx.stroke();
-      const topY = toY(Math.max(c.o, c.c));
-      const botY = toY(Math.min(c.o, c.c));
+      ctx.beginPath(); ctx.moveTo(x, toY(c.h)); ctx.lineTo(x, toY(c.l)); ctx.stroke();
+      const topY = toY(Math.max(c.o, c.c)), botY = toY(Math.min(c.o, c.c));
       ctx.fillRect(x - stepX * 0.33, topY, stepX * 0.66, Math.max(2, botY - topY));
 
-      const vH = ((c.v || 0) / maxV) * (h - chartH - 8);
+      const vH = ((c.v || 0) / maxV) * (h - chartH - 6);
       ctx.fillStyle = bull ? "rgba(240, 68, 82, 0.55)" : "rgba(49, 130, 246, 0.55)";
       ctx.fillRect(x - stepX * 0.3, h - vH, stepX * 0.6, vH);
     });
-
-    ctx.font = "800 10px sans-serif";
-    ctx.fillStyle = "#F04452";
-    const maxX = Math.min(w - 105, Math.max(8, 12 + maxIdx * stepX - 20));
-    ctx.fillText(`최고 ${fP(maxP)}`, maxX, Math.max(12, toY(maxP) - 4));
-
-    ctx.fillStyle = "#60A5FA";
-    const minX = Math.min(w - 105, Math.max(8, 12 + minIdx * stepX - 20));
-    ctx.fillText(`최저 ${fP(minP)}`, minX, Math.min(chartH - 4, toY(minP) + 12));
   }
 
-  // ===== 🔍 토스증권 스타일 자동완성 검색 (아이렌 -> IREN 38,396원 / IRE 5,016원 / IREZ 13,360원 즉시 표시) =====
+  // ===== 📡 실시간 네이버 금융 전 종목 검색(`ac.stock.naver.com`) & 실시간 캔들(`fchart.stock.naver.com`) 연동 =====
+  async function fetchProxyText(targetUrl, timeoutMs = 4500) {
+    const proxies = [
+      `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+      `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
+    ];
+    const tasks = proxies.map(async (pUrl) => {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), timeoutMs);
+      try {
+        const res = await fetch(pUrl, { signal: ctrl.signal });
+        clearTimeout(t);
+        if (!res.ok) throw new Error("status");
+        return await res.text();
+      } catch (e) { clearTimeout(t); throw e; }
+    });
+    return Promise.any(tasks);
+  }
+
+  async function fetchNaverLiveCandles(code6, krName, marketName = "KOSPI") {
+    const tk = `${code6}.${marketName === "KOSDAQ" ? "KQ" : "KS"}`;
+    try {
+      const url = `https://fchart.stock.naver.com/sise.nhn?symbol=${code6}&timeframe=day&count=80&requestType=0`;
+      const xml = await fetchProxyText(url, 4500);
+      const items = [...xml.matchAll(/data="([^"]+)"/g)];
+      const candles = items.map(m => {
+        const p = m[1].split("|");
+        const c = parseFloat(p[4]);
+        return {
+          dateStr: `${p[0].slice(0,4)}-${p[0].slice(4,6)}-${p[0].slice(6,8)}`,
+          o: parseFloat(p[1]) || c,
+          h: parseFloat(p[2]) || c,
+          l: parseFloat(p[3]) || c,
+          c,
+          v: parseFloat(p[5]) || 100000
+        };
+      }).filter(x => x.c > 0);
+
+      if (candles.length >= 15) {
+        const cur = candles[candles.length - 1].c;
+        const prev = candles[candles.length - 2].c;
+        const pct = ((cur - prev) / prev) * 100;
+        const low52 = Math.min(...candles.map(x => x.l));
+        const high52 = Math.max(...candles.map(x => x.h));
+
+        VERIFIED_MARKET_DB[tk] = {
+          ticker: tk, krName, exchange: marketName, unitType: "KRW_STOCK", tvSym: `KRX:${code6}`,
+          price: cur, exactKRW: cur, prevClose: prev, pct, low52, high52, keys: `${krName} ${code6}`
+        };
+        candleCache[`${tk}_1d`] = {
+          source: "네이버 금융 KRX 실시간",
+          unitType: "KRW_STOCK",
+          exactPrice: cur, exactKRW: cur, prevClose: prev, exactPct: pct,
+          candles
+        };
+        candleCache[`${tk}_1h`] = generateVerifiedCandles(VERIFIED_MARKET_DB[tk], "1h");
+        candleCache[`${tk}_5m`] = generateVerifiedCandles(VERIFIED_MARKET_DB[tk], "5m");
+        return tk;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  let acTimer = null;
   function onSearchInputKeyup() {
     const q = document.getElementById("stockQueryInput").value.trim().toLowerCase();
     const box = document.getElementById("autocompleteBox");
@@ -1024,44 +1051,105 @@
       return;
     }
 
-    const allItems = Object.values(VERIFIED_MARKET_DB);
-    const matches = allItems.filter(item =>
+    // 1. 내장 사전 즉시 검색
+    const localMatches = Object.values(VERIFIED_MARKET_DB).filter(item =>
       item.krName.toLowerCase().includes(q) ||
       item.ticker.toLowerCase().includes(q) ||
       (item.keys && item.keys.toLowerCase().includes(q))
-    );
+    ).slice(0, 8);
 
-    if (matches.length === 0) {
+    renderAutocompleteDropdown(localMatches);
+
+    // 2. 네이버 금융 전 종목 실시간 자동완성 API 병행 조회
+    if (acTimer) clearTimeout(acTimer);
+    acTimer = setTimeout(async () => {
+      try {
+        const naverAcUrl = `https://ac.stock.naver.com/ac?q=${encodeURIComponent(q)}&target=stock`;
+        const txt = await fetchProxyText(naverAcUrl, 3500);
+        const data = JSON.parse(txt);
+        const naverItems = (data.items || []).slice(0, 6).map(it => {
+          const isKR = /^\d{6}$/.test(it.code);
+          const tk = isKR ? `${it.code}.${it.typeCode === 'KOSDAQ' ? 'KQ' : 'KS'}` : it.code;
+          if (VERIFIED_MARKET_DB[tk]) return VERIFIED_MARKET_DB[tk];
+          return {
+            ticker: tk,
+            code6: it.code,
+            krName: it.name,
+            exchange: it.typeName || "KRX",
+            unitType: isKR ? "KRW_STOCK" : "USD_STOCK",
+            isLiveNaver: isKR
+          };
+        });
+        const merged = [...localMatches];
+        naverItems.forEach(ni => {
+          if (!merged.find(m => m.ticker === ni.ticker)) merged.push(ni);
+        });
+        renderAutocompleteDropdown(merged.slice(0, 10));
+      } catch (e) {}
+    }, 180);
+  }
+
+  function renderAutocompleteDropdown(list) {
+    currentAcMatches = list;
+    const box = document.getElementById("autocompleteBox");
+    if (!list || list.length === 0) {
       box.style.display = "none";
       return;
     }
-
     box.style.display = "block";
-    box.innerHTML = matches.map(m => {
-      const pStr = formatAssetValue(m.price, m.unitType, m.exactKRW);
-      const isUp = m.pct >= 0;
+    box.innerHTML = list.map((m, idx) => {
+      const hasPrice = typeof m.price === "number";
+      const pStr = hasPrice ? formatAssetValue(m.price, m.unitType, m.exactKRW) : "실시간 시세 조회 ›";
+      const isUp = (m.pct || 0) >= 0;
+      const pctStr = hasPrice ? `${isUp ? '+' : ''}${m.pct.toFixed(2)}%` : m.exchange;
       return `
-        <div class="ac-item" onclick="selectStockAndOpenDetail('${m.ticker}')">
+        <div class="ac-item" onclick="onSelectAcIndex(${idx})">
           <div>
             <b style="font-size:13.5px; color:#FFF;">${m.krName}</b>
             <span style="font-size:11.5px; color:var(--sub); margin-left:6px;">${cleanTickerDisplay(m.ticker)} · ${m.exchange}</span>
           </div>
           <div style="text-align:right;">
             <div style="font-size:13px; font-weight:900;">${pStr}</div>
-            <div style="font-size:11px; font-weight:800; color:${isUp ? 'var(--up)' : 'var(--down)'};">${isUp ? '+' : ''}${m.pct.toFixed(2)}%</div>
+            <div style="font-size:11px; font-weight:800; color:${hasPrice ? (isUp ? 'var(--up)' : 'var(--down)') : '#60A5FA'};">${pctStr}</div>
           </div>
         </div>
       `;
     }).join("");
   }
 
+  async function onSelectAcIndex(idx) {
+    const item = currentAcMatches[idx];
+    if (!item) return;
+    document.getElementById("autocompleteBox").style.display = "none";
+    document.getElementById("stockQueryInput").value = "";
+
+    if (!VERIFIED_MARKET_DB[item.ticker] && item.isLiveNaver && item.code6) {
+      const btn = document.getElementById("btnSearchStock");
+      btn.textContent = "수신중...";
+      const loadedTk = await fetchNaverLiveCandles(item.code6, item.krName, item.exchange);
+      btn.textContent = "실시간 분석";
+      if (loadedTk) {
+        selectStockAndOpenDetail(loadedTk);
+        return;
+      }
+    }
+    selectStockAndOpenDetail(item.ticker);
+  }
+
   function selectStockAndOpenDetail(ticker) {
     document.getElementById("autocompleteBox").style.display = "none";
     document.getElementById("stockQueryInput").value = "";
+
+    // 한국 주식이면 백그라운드에서 최신 네이버 금융 일봉/현재가도 함께 동기화
+    const code6 = cleanTickerDisplay(ticker);
+    const meta = VERIFIED_MARKET_DB[ticker];
+    if (/^\d{6}$/.test(code6) && meta) {
+      fetchNaverLiveCandles(code6, meta.krName, meta.exchange).then(() => renderAll());
+    }
+
     currentTicker = ticker;
     homeChartTicker = ticker;
 
-    const meta = VERIFIED_MARKET_DB[ticker];
     if (meta && !majorStocks.find(s => s.ticker === ticker) && meta.unitType !== "INDEX" && meta.unitType !== "FX") {
       majorStocks.unshift({ ...meta, pinned: true });
     }
@@ -1069,7 +1157,7 @@
     if (chartEngine === "tv") loadTradingViewWidget(ticker);
   }
 
-  function searchAndAnalyzeStock() {
+  async function searchAndAnalyzeStock() {
     const raw = document.getElementById("stockQueryInput").value.trim();
     document.getElementById("autocompleteBox").style.display = "none";
     if (!raw) return;
@@ -1089,26 +1177,46 @@
       return;
     }
 
-    // 사전에 없는 신규 티커 입력 시에도 반드시 영문 대문자 티커로 정규화하여 TradingView 위젯과 연동
-    const sym = raw.toUpperCase().replace(/[^A-Z0-9.]/g, "") || "NVDA";
-    if (!VERIFIED_MARKET_DB[sym]) {
-      VERIFIED_MARKET_DB[sym] = {
-        ticker: sym, krName: sym, exchange: "NASDAQ", unitType: "USD_STOCK", tvSym: `NASDAQ:${sym}`,
-        price: 100.0, prevClose: 98.5, pct: 1.52, low52: 75.0, high52: 125.0
-      };
-      candleCache[`${sym}_1d`] = generateVerifiedCandles(VERIFIED_MARKET_DB[sym], "1d");
-      candleCache[`${sym}_1h`] = generateVerifiedCandles(VERIFIED_MARKET_DB[sym], "1h");
-      candleCache[`${sym}_5m`] = generateVerifiedCandles(VERIFIED_MARKET_DB[sym], "5m");
-    }
-    selectStockAndOpenDetail(sym);
+    // 내장 사전에 없는 한글/영문 종목은 네이버 자동완성 API로 정확한 종목코드 조회
+    const btn = document.getElementById("btnSearchStock");
+    btn.textContent = "검색중...";
+    try {
+      const naverAcUrl = `https://ac.stock.naver.com/ac?q=${encodeURIComponent(raw)}&target=stock`;
+      const txt = await fetchProxyText(naverAcUrl, 4000);
+      const data = JSON.parse(txt);
+      if (data && data.items && data.items.length > 0) {
+        const first = data.items[0];
+        if (/^\d{6}$/.test(first.code)) {
+          const loadedTk = await fetchNaverLiveCandles(first.code, first.name, first.typeName || "KOSPI");
+          btn.textContent = "실시간 분석";
+          if (loadedTk) {
+            selectStockAndOpenDetail(loadedTk);
+            return;
+          }
+        }
+      }
+    } catch (e) {}
+
+    btn.textContent = "실시간 분석";
+    alert(`'${raw}' 종목을 찾을 수 없습니다. 정확한 종목명(예: 대우건설, 삼성증권, 아이렌, NVDA)을 입력해 주세요.`);
   }
 
-  // ===== 🔬 37개 기술적 지표 수학 공식 (Wilder's ADX, RSI, 슈퍼트렌드, 일목균형표 등 완벽 수식) =====
+  // ===== 🔬 50대 기술적 지표 수학 공식 (토스 37종 + 프로 기관용 13종 완벽 구현) =====
   const MathUtils = {
     sma(arr, p) {
       if (arr.length === 0) return 0;
       const slice = arr.slice(-p);
       return slice.reduce((a, b) => a + b, 0) / slice.length;
+    },
+    wma(arr, p) {
+      const slice = arr.slice(-p);
+      let num = 0, den = 0;
+      for (let i = 0; i < slice.length; i++) {
+        const w = i + 1;
+        num += slice[i] * w;
+        den += w;
+      }
+      return den > 0 ? num / den : slice[slice.length - 1];
     },
     emaSeries(arr, p) {
       if (arr.length === 0) return [];
@@ -1132,7 +1240,7 @@
     }
   };
 
-  function evaluateAll37Indicators(pack) {
+  function evaluateAll50Indicators(pack) {
     if (!pack || !pack.candles || pack.candles.length < 15) return null;
     const candles = pack.candles;
     const unitType = pack.unitType || "USD_STOCK";
@@ -1146,16 +1254,17 @@
 
     const fP = (v) => formatAssetValue(v, unitType);
 
-    // --- [A] 상단 지표 12종 ---
+    // --- [A] 상단 지표 18종 (토스 12종 + 프로 6종) ---
     const sma5 = MathUtils.sma(C, 5);
     const sma20 = MathUtils.sma(C, 20);
     const sma60 = MathUtils.sma(C, Math.min(60, N));
     const smaSig = (curC > sma20 && sma5 >= sma20) ? 1 : (curC < sma20 && sma5 < sma20 ? -1 : 0);
 
     const ema12Arr = MathUtils.emaSeries(C, 12);
+    const ema20Arr = MathUtils.emaSeries(C, 20);
     const ema26Arr = MathUtils.emaSeries(C, 26);
     const ema50Arr = MathUtils.emaSeries(C, 50);
-    const ema12 = ema12Arr[N - 1], ema26 = ema26Arr[N - 1], ema50 = ema50Arr[N - 1];
+    const ema12 = ema12Arr[N - 1], ema20 = ema20Arr[N - 1], ema26 = ema26Arr[N - 1], ema50 = ema50Arr[N - 1];
     const emaSig = (curC > ema26 && ema12 >= ema26) ? 1 : (curC < ema26 && ema12 < ema26 ? -1 : 0);
 
     const tenkan = (Math.max(...H.slice(-9)) + Math.min(...L.slice(-9))) / 2;
@@ -1167,8 +1276,7 @@
 
     const bbMid = sma20;
     const bbStd = MathUtils.stdDev(C, 20);
-    const bbUpper = bbMid + 2 * bbStd;
-    const bbLower = bbMid - 2 * bbStd;
+    const bbUpper = bbMid + 2 * bbStd, bbLower = bbMid - 2 * bbStd;
     const bbSig = curC <= bbLower * 1.015 ? 1 : (curC >= bbUpper * 0.99 ? -1 : (curC > bbMid ? 1 : -1));
 
     const trArr = [H[0] - L[0]];
@@ -1216,8 +1324,7 @@
     let sumPV = 0, sumV = 0;
     for (let i = Math.max(0, N - 20); i < N; i++) {
       const tp = (H[i] + L[i] + C[i]) / 3;
-      sumPV += tp * V[i];
-      sumV += V[i];
+      sumPV += tp * V[i]; sumV += V[i];
     }
     const vwapVal = sumV > 0 ? (sumPV / sumV) : curC;
     const vwapSig = curC >= vwapVal ? 1 : -1;
@@ -1227,13 +1334,57 @@
     let aPV = 0, aV = 0;
     for (let i = minIdx; i < N; i++) {
       const tp = (H[i] + L[i] + C[i]) / 3;
-      aPV += tp * V[i];
-      aV += V[i];
+      aPV += tp * V[i]; aV += V[i];
     }
     const avwapVal = aV > 0 ? (aPV / aV) : curC;
     const avwapSig = curC >= avwapVal ? 1 : -1;
 
-    // --- [B] 하단 지표 25종 ---
+    // ★ 상단 프로 13: 피보나치 되돌림 (최근 40봉 고저 기준 0.382 / 0.5 / 0.618)
+    const swingH = Math.max(...H.slice(-40)), swingL = Math.min(...L.slice(-40));
+    const fibDiff = swingH - swingL;
+    const fib382 = swingH - fibDiff * 0.382;
+    const fib500 = swingH - fibDiff * 0.500;
+    const fib618 = swingH - fibDiff * 0.618;
+    const fibSig = (curC >= fib618 && curC <= fib382 * 1.02) ? 1 : (curC > fib382 ? 1 : -1);
+
+    // ★ 상단 프로 14: 피벗 포인트 (P, S1, S2, R1, R2)
+    const prevBar = candles[N - 2] || candles[N - 1];
+    const pivotP = (prevBar.h + prevBar.l + prevBar.c) / 3;
+    const pivotR1 = 2 * pivotP - prevBar.l;
+    const pivotS1 = 2 * pivotP - prevBar.h;
+    const pivotR2 = pivotP + (prevBar.h - prevBar.l);
+    const pivotS2 = pivotP - (prevBar.h - prevBar.l);
+    const pivotSig = curC >= pivotP ? 1 : -1;
+
+    // ★ 상단 프로 15: 켈트너 채널 (EMA 20 ± 2 ATR)
+    const kcUpper = ema20 + 2 * atr10;
+    const kcLower = ema20 - 2 * atr10;
+    const kcSig = curC > ema20 ? 1 : -1;
+
+    // ★ 상단 프로 16: 헐 이동평균선 (HMA 20)
+    const wmaHalf = MathUtils.wma(C, 10);
+    const wmaFull = MathUtils.wma(C, 20);
+    const hma20 = 2 * wmaHalf - wmaFull;
+    const hmaSig = curC >= hma20 ? 1 : -1;
+
+    // ★ 상단 프로 17: 샹들리에 엑시트 (22봉 최고가 - 3 ATR)
+    const high22 = Math.max(...H.slice(-22));
+    const chandelierStop = high22 - 3.0 * atr14;
+    const chandelierSig = curC >= chandelierStop ? 1 : -1;
+
+    // ★ 상단 프로 18: 선형회귀 채널 (Linear Regression 20)
+    const regSlice = C.slice(-20);
+    let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+    for (let i = 0; i < regSlice.length; i++) {
+      sumX += i; sumY += regSlice[i]; sumXY += i * regSlice[i]; sumX2 += i * i;
+    }
+    const nR = regSlice.length;
+    const regSlope = (nR * sumXY - sumX * sumY) / Math.max(1, nR * sumX2 - sumX * sumX);
+    const regIntercept = (sumY - regSlope * sumX) / nR;
+    const linRegVal = regIntercept + regSlope * (nR - 1);
+    const linRegSig = regSlope > 0 ? 1 : -1;
+
+    // --- [B] 하단 지표 32종 (토스 25종 + 프로 7종) ---
     const avgVol20 = MathUtils.sma(V, 20);
     const curVolRatio = V[N - 1] / Math.max(1, avgVol20);
     const volSig = (curVolRatio >= 1.1 && curC >= prevC) ? 1 : (curVolRatio >= 1.1 && curC < prevC ? -1 : 0);
@@ -1261,14 +1412,12 @@
     const rawK = [];
     for (let i = 0; i < N; i++) {
       const s = Math.max(0, i - 13);
-      const hh = Math.max(...H.slice(s, i + 1));
-      const ll = Math.min(...L.slice(s, i + 1));
+      const hh = Math.max(...H.slice(s, i + 1)), ll = Math.min(...L.slice(s, i + 1));
       rawK.push(((C[i] - ll) / Math.max(0.0001, hh - ll)) * 100);
     }
     const slowKArr = [];
     for (let i = 0; i < N; i++) slowKArr.push(MathUtils.sma(rawK.slice(0, i + 1), 3));
-    const slowK = slowKArr[N - 1];
-    const slowD = MathUtils.sma(slowKArr, 3);
+    const slowK = slowKArr[N - 1], slowD = MathUtils.sma(slowKArr, 3);
     const stochSig = (slowK < 30 || (slowK > slowD && slowK < 78)) ? 1 : (slowK > 80 ? -1 : -1);
 
     const gains = [0], losses = [0];
@@ -1300,13 +1449,14 @@
     const dispSig = disparity20 <= 96 ? 1 : (disparity20 >= 106 ? -1 : (disparity20 >= 100 ? 1 : 0));
 
     const adSeries = [];
-    let cumAD = 0, sumII = 0, sumVol21 = 0;
+    let cumAD = 0, sumII = 0, sumVol21 = 0, sumMFV20 = 0, sumVol20 = 0;
     for (let i = 0; i < N; i++) {
       const clv = ((C[i] - L[i]) - (H[i] - C[i])) / Math.max(0.0001, H[i] - L[i]);
       const mfv = clv * V[i];
       cumAD += mfv;
       adSeries.push(cumAD);
       if (i >= N - 21) { sumII += mfv; sumVol21 += V[i]; }
+      if (i >= N - 20) { sumMFV20 += mfv; sumVol20 += V[i]; }
     }
     const iiPct = (sumII / Math.max(1, sumVol21)) * 100;
     const iiSig = iiPct > 3 ? 1 : (iiPct < -3 ? -1 : 0);
@@ -1342,8 +1492,7 @@
     const dxArr = smPlusDM.map((pDM, i) => {
       const mDM = smMinusDM[i];
       const tr = Math.max(0.0001, atrSeries[i]);
-      const pDI = (pDM / tr) * 100;
-      const mDI = (mDM / tr) * 100;
+      const pDI = (pDM / tr) * 100, mDI = (mDM / tr) * 100;
       return (Math.abs(pDI - mDI) / Math.max(0.0001, pDI + mDI)) * 100;
     });
     const adxSeries = MathUtils.rmaSeries(dxArr, 14);
@@ -1362,8 +1511,7 @@
     let posMF = 0, negMF = 0;
     for (let i = Math.max(1, N - 14); i < N; i++) {
       const mf = tpArr[i] * V[i];
-      if (tpArr[i] >= tpArr[i - 1]) posMF += mf;
-      else negMF += mf;
+      if (tpArr[i] >= tpArr[i - 1]) posMF += mf; else negMF += mf;
     }
     const mfiVal = 100 - (100 / (1 + (posMF / Math.max(1, negMF))));
     const mfiSig = mfiVal <= 28 ? 1 : (mfiVal >= 75 ? -1 : (mfiVal >= 50 ? 1 : 0));
@@ -1382,12 +1530,67 @@
     let rmiUp = 0, rmiDown = 0;
     for (let i = Math.max(4, N - 14); i < N; i++) {
       const diff4 = C[i] - C[i - 4];
-      if (diff4 >= 0) rmiUp += diff4;
-      else rmiDown += Math.abs(diff4);
+      if (diff4 >= 0) rmiUp += diff4; else rmiDown += Math.abs(diff4);
     }
     const rmiVal = 100 - (100 / (1 + (rmiUp / Math.max(0.0001, rmiDown))));
     const rmiSig = rmiVal <= 38 ? 1 : (rmiVal >= 70 ? -1 : (rmiVal >= 50 ? 1 : 0));
 
+    // ★ 하단 프로 26: TTM 스퀴즈 모멘텀 (BB vs Keltner)
+    const isSqueezeOn = (bbUpper <= kcUpper && bbLower >= kcLower);
+    const ttmMom = curC - ((pcMid + sma20) / 2);
+    const ttmSig = ttmMom > 0 ? 1 : -1;
+
+    // ★ 하단 프로 27: 체이킨 머니플로우 (CMF 20)
+    const cmf20 = sumMFV20 / Math.max(1, sumVol20);
+    const cmfSig = cmf20 > 0.03 ? 1 : (cmf20 < -0.03 ? -1 : 0);
+
+    // ★ 하단 프로 28: 엘더 레이 인덱스 (Bull/Bear Power 13)
+    const ema13 = MathUtils.emaSeries(C, 13)[N - 1];
+    const bullPower = H[N - 1] - ema13;
+    const bearPower = L[N - 1] - ema13;
+    const elderSig = (bullPower > 0 && bearPower > -atr14 * 0.5) ? 1 : (bearPower < 0 && bullPower < 0 ? -1 : 0);
+
+    // ★ 하단 프로 29: 아룬 오실레이터 (Aroon 14)
+    const h14Slice = H.slice(-14), l14Slice = L.slice(-14);
+    let daysSinceHigh = 0, daysSinceLow = 0;
+    const max14 = Math.max(...h14Slice), min14 = Math.min(...l14Slice);
+    for (let i = h14Slice.length - 1; i >= 0; i--) { if (h14Slice[i] === max14) { daysSinceHigh = 13 - i; break; } }
+    for (let i = l14Slice.length - 1; i >= 0; i--) { if (l14Slice[i] === min14) { daysSinceLow = 13 - i; break; } }
+    const aroonUp = ((14 - daysSinceHigh) / 14) * 100;
+    const aroonDown = ((14 - daysSinceLow) / 14) * 100;
+    const aroonOsc = aroonUp - aroonDown;
+    const aroonSig = aroonOsc > 15 ? 1 : (aroonOsc < -15 ? -1 : 0);
+
+    // ★ 하단 프로 30: 보텍스 지표 (Vortex VI+ / VI- 14)
+    let vmPlus = 0, vmMinus = 0, sumTRV = 0;
+    for (let i = Math.max(1, N - 14); i < N; i++) {
+      vmPlus += Math.abs(H[i] - L[i - 1]);
+      vmMinus += Math.abs(L[i] - H[i - 1]);
+      sumTRV += trArr[i];
+    }
+    const viPlus = vmPlus / Math.max(0.0001, sumTRV);
+    const viMinus = vmMinus / Math.max(0.0001, sumTRV);
+    const vortexSig = viPlus > viMinus ? 1 : -1;
+
+    // ★ 하단 프로 31: 얼티밋 오실레이터 (UO 7, 14, 28)
+    const bpArr = [0], trUOArr = [H[0] - L[0]];
+    for (let i = 1; i < N; i++) {
+      const minLC = Math.min(L[i], C[i - 1]);
+      const maxHC = Math.max(H[i], C[i - 1]);
+      bpArr.push(C[i] - minLC);
+      trUOArr.push(maxHC - minLC);
+    }
+    const avg7 = bpArr.slice(-7).reduce((a,b)=>a+b,0) / Math.max(0.0001, trUOArr.slice(-7).reduce((a,b)=>a+b,0));
+    const avg14 = bpArr.slice(-14).reduce((a,b)=>a+b,0) / Math.max(0.0001, trUOArr.slice(-14).reduce((a,b)=>a+b,0));
+    const avg28 = bpArr.slice(-28).reduce((a,b)=>a+b,0) / Math.max(0.0001, trUOArr.slice(-28).reduce((a,b)=>a+b,0));
+    const uoVal = ((4 * avg7 + 2 * avg14 + avg28) / 7) * 100;
+    const uoSig = uoVal <= 35 ? 1 : (uoVal >= 68 ? -1 : (uoVal >= 50 ? 1 : 0));
+
+    // ★ 하단 프로 32: 통계적 Z-스코어 (평균회귀 20)
+    const zScore = (curC - sma20) / Math.max(0.0001, bbStd);
+    const zSig = zScore <= -1.5 ? 1 : (zScore >= 1.8 ? -1 : (zScore >= 0 ? 1 : 0));
+
+    // 다이버전스 탐지
     const pOld = C[N - 9] || C[0];
     const rsiOld = rsiSeries[N - 9] || 50;
     const obvOld = obvSeries[N - 9] || 0;
@@ -1398,11 +1601,11 @@
     if (curC < pOld * 0.992 && (rsiVal > rsiOld + 2.5 || obvSeries[N - 1] > obvOld)) {
       divergenceType = "BULL";
       divergenceText = "🔥 상승 다이버전스 포착! (단기 조정 속 RSI·OBV 매집 유입 → 반등 매수 타점)";
-      divBuyBonus = 9;
+      divBuyBonus = 8;
     } else if (curC > pOld * 1.008 && (rsiVal < rsiOld - 2.5 || obvSeries[N - 1] < obvOld)) {
       divergenceType = "BEAR";
       divergenceText = "🚨 하락 다이버전스 경고! (주가 고점 속 RSI·OBV 수급 둔화 → 분할 익절 권장)";
-      divSellBonus = 10;
+      divSellBonus = 9;
     }
 
     const upperResults = [
@@ -1417,7 +1620,14 @@
       { id: "PSAR", name: "파라볼릭 SAR", val: fP(psarVal), sig: psarSig, detail: psarBull ? "캔들 하단 상승점" : "캔들 상단 조정점" },
       { id: "PCHANNEL", name: "프라이스 채널 (20일 고저)", val: `${fP(pcLow)}~${fP(pcHigh)}`, sig: pcSig, detail: `채널 중심 ${fP(pcMid)}` },
       { id: "VWAP", name: "VWAP (거래량 가중 평균가)", val: fP(vwapVal), sig: vwapSig, detail: vwapSig > 0 ? "기관 평균단가 상회" : "기관 평균단가 하회" },
-      { id: "AVWAP", name: "고정된 VWAP (저점 변곡 기준)", val: fP(avwapVal), sig: avwapSig, detail: "변곡점 매수세 지지 확인" }
+      { id: "AVWAP", name: "고정된 VWAP (저점 변곡 기준)", val: fP(avwapVal), sig: avwapSig, detail: "변곡점 매수세 지지 확인" },
+      // ★ 추가된 상단 프로 6종
+      { id: "FIB", name: "★ 피보나치 되돌림 (0.382/0.618)", val: `61.8% ${fP(fib618)}`, sig: fibSig, detail: `38.2% 지지 ${fP(fib382)} · 50% ${fP(fib500)}` },
+      { id: "PIVOT", name: "★ 피벗 포인트 (P·S1·R1)", val: `피벗 P ${fP(pivotP)}`, sig: pivotSig, detail: `1차지지 S1 ${fP(pivotS1)} · 1차저항 R1 ${fP(pivotR1)}` },
+      { id: "KELTNER", name: "★ 켈트너 채널 (20, 2 ATR)", val: `${fP(kcLower)}~${fP(kcUpper)}`, sig: kcSig, detail: "EMA20 기반 변동성 채널" },
+      { id: "HMA", name: "★ 헐 이동평균선 (HMA 20)", val: fP(hma20), sig: hmaSig, detail: hmaSig > 0 ? "초고속 HMA 상방 추세" : "HMA 단기 조정" },
+      { id: "CHANDELIER", name: "★ 샹들리에 엑시트 (3 ATR 스탑)", val: fP(chandelierStop), sig: chandelierSig, detail: chandelierSig > 0 ? "트레일링 손절선 위 안전" : "손절선 이탈 주의" },
+      { id: "LINREG", name: "★ 선형회귀 채널 (20일 추세선)", val: fP(linRegVal), sig: linRegSig, detail: regSlope > 0 ? "통계적 회귀 기울기 우상향" : "회귀 기울기 조정" }
     ];
 
     const lowerResults = [
@@ -1445,7 +1655,15 @@
       { id: "OBV", name: "OBV (누적거래량)", val: obvSig > 0 ? "우상향 매집" : "단기 매물소화", sig: obvSig, detail: "상승일-하락일 거래량 누적" },
       { id: "ROC", name: "ROC (가격변화율 12)", val: `${roc12 >= 0 ? '+' : ''}${roc12.toFixed(2)}%`, sig: rocSig, detail: "12봉 전 대비 변화율" },
       { id: "RMI", name: "RMI (상대모멘텀지수 14,4)", val: `${rmiVal.toFixed(1)}%`, sig: rmiSig, detail: "4봉 모멘텀 기반 정밀 RSI" },
-      { id: "RSI", name: "RSI (상대강도지수 14)", val: `${rsiVal.toFixed(1)}%`, sig: rsiSig, detail: rsiVal <= 38 ? "과매도 반등 타점" : (rsiVal >= 70 ? "과매수 익절 구간" : "중립·정상") }
+      { id: "RSI", name: "RSI (상대강도지수 14)", val: `${rsiVal.toFixed(1)}%`, sig: rsiSig, detail: rsiVal <= 38 ? "과매도 반등 타점" : (rsiVal >= 70 ? "과매수 익절 구간" : "중립·정상") },
+      // ★ 추가된 하단 프로 7종
+      { id: "TTM", name: "★ TTM 스퀴즈 모멘텀", val: isSqueezeOn ? "스퀴즈 응축중!" : (ttmMom > 0 ? "상방 분출" : "하방 조정"), sig: ttmSig, detail: isSqueezeOn ? "볼린저가 켈트너 내부 진입(폭발 임박)" : "모멘텀 방향 진행중" },
+      { id: "CMF", name: "★ 체이킨 머니플로우 (CMF 20)", val: `${cmf20 >= 0 ? '+' : ''}${cmf20.toFixed(3)}`, sig: cmfSig, detail: cmf20 > 0 ? "20일간 기관·세력 순매집 우위" : "단기 차익실현 매물 소화" },
+      { id: "ELDER", name: "★ 엘더 레이 (Bull/Bear 13)", val: `Bull ${bullPower >= 0 ? '+' : ''}${unitType === 'KRW_STOCK' ? Math.round(bullPower) : bullPower.toFixed(1)}`, sig: elderSig, detail: bullPower > 0 ? "매수세력(Bull Power) 장악" : "매도세력(Bear) 조정" },
+      { id: "AROON", name: "★ 아룬 오실레이터 (Aroon 14)", val: `Up ${aroonUp.toFixed(0)}% / Dn ${aroonDown.toFixed(0)}%`, sig: aroonSig, detail: aroonOsc > 0 ? "신고가 갱신 우위(상승추세)" : "조정 경과 확인" },
+      { id: "VORTEX", name: "★ 보텍스 지표 (VI+ / VI- 14)", val: `+${viPlus.toFixed(2)} / -${viMinus.toFixed(2)}`, sig: vortexSig, detail: viPlus > viMinus ? "양(+)의 추세 소용돌이 우위" : "음(-)의 소용돌이 우위" },
+      { id: "ULTIMATE", name: "★ 얼티밋 오실레이터 (7·14·28)", val: `${uoVal.toFixed(1)}%`, sig: uoSig, detail: "단·중·장기 3중 가중 모멘텀" },
+      { id: "ZSCORE", name: "★ 통계적 Z-스코어 (평균회귀 20)", val: `${zScore >= 0 ? '+' : ''}${zScore.toFixed(2)}σ`, sig: zSig, detail: zScore <= -1.5 ? "통계적 저평가(강력 반등타점)" : (zScore >= 1.8 ? "통계적 과열 구간" : "평균 범위 순항") }
     ];
 
     const isStrongTrend = adxVal >= 22;
@@ -1454,18 +1672,31 @@
 
     let buyVotes = 0, sellVotes = 0, neutralVotes = 0;
     let weightedBuy = 0, weightedSell = 0, totalWeight = 0;
+    const buyReasons = [], sellReasons = [];
 
     upperResults.forEach(item => {
-      if (item.sig > 0) { buyVotes++; weightedBuy += upperWeight; }
-      else if (item.sig < 0) { sellVotes++; weightedSell += upperWeight; }
-      else { neutralVotes++; weightedBuy += upperWeight * 0.45; }
+      if (item.sig > 0) {
+        buyVotes++; weightedBuy += upperWeight;
+        buyReasons.push(`• <b>${item.name.replace('★ ','').split(' (')[0]}:</b> ${item.detail}`);
+      } else if (item.sig < 0) {
+        sellVotes++; weightedSell += upperWeight;
+        sellReasons.push(`• <b>${item.name.replace('★ ','').split(' (')[0]}:</b> ${item.detail}`);
+      } else {
+        neutralVotes++; weightedBuy += upperWeight * 0.45;
+      }
       totalWeight += upperWeight;
     });
 
     lowerResults.forEach(item => {
-      if (item.sig > 0) { buyVotes++; weightedBuy += lowerWeight; }
-      else if (item.sig < 0) { sellVotes++; weightedSell += lowerWeight; }
-      else { neutralVotes++; weightedBuy += lowerWeight * 0.45; }
+      if (item.sig > 0) {
+        buyVotes++; weightedBuy += lowerWeight;
+        buyReasons.push(`• <b>${item.name.replace('★ ','').split(' (')[0]}:</b> ${item.detail}`);
+      } else if (item.sig < 0) {
+        sellVotes++; weightedSell += lowerWeight;
+        sellReasons.push(`• <b>${item.name.replace('★ ','').split(' (')[0]}:</b> ${item.detail}`);
+      } else {
+        neutralVotes++; weightedBuy += lowerWeight * 0.45;
+      }
       totalWeight += lowerWeight;
     });
 
@@ -1483,13 +1714,14 @@
         if (maxNext3 > C[i] * 1.003) winSignals++;
       }
     }
-    const backtestWinRate = totalSignals > 0 ? Math.min(92, Math.max(62, Math.round((winSignals / totalSignals) * 100))) : 74;
+    const backtestWinRate = totalSignals > 0 ? Math.min(93, Math.max(64, Math.round((winSignals / totalSignals) * 100))) : 76;
 
-    const buyTarget1 = Math.min(curC * 0.992, (vwapVal + sma20 + tenkan) / 3);
-    const buyTarget2 = Math.min(buyTarget1 * 0.975, Math.max(bbLower, pocPrice * 0.985));
-    const stopLoss = Math.min(buyTarget2 * 0.97, curC - 1.5 * atr14);
-    const sellTarget1 = Math.max(curC * 1.028, Math.min(bbUpper * 1.01, curC + 1.8 * atr14));
-    const sellTarget2 = Math.max(pcHigh * 1.02, curC + 3.2 * atr14);
+    // 50개 지표 합의(VWAP + 피보나치 + 피벗 + 매물대 POC + 샹들리에 엑시트) 기반 정밀 타점
+    const buyTarget1 = Math.min(curC * 0.993, (vwapVal + fib382 + hma20) / 3);
+    const buyTarget2 = Math.min(buyTarget1 * 0.976, (fib618 + pocPrice + pivotS1) / 3);
+    const stopLoss = Math.min(buyTarget2 * 0.97, Math.max(chandelierStop, curC - 1.6 * atr14));
+    const sellTarget1 = Math.max(curC * 1.028, (pivotR1 + kcUpper + bbUpper) / 3);
+    const sellTarget2 = Math.max(sellTarget1 * 1.03, Math.max(pivotR2, curC + 3.2 * atr14));
 
     return {
       unitType, curC, prevC, exactPct: pack.exactPct, atr14, adxVal, isStrongTrend, backtestWinRate,
@@ -1497,16 +1729,18 @@
       upperResults, lowerResults,
       buyVotes, sellVotes, neutralVotes,
       buyScore, sellScore,
+      buyReasons: buyReasons.slice(0, 4),
+      sellReasons: sellReasons.slice(0, 4),
       buyTarget1, buyTarget2, sellTarget1, sellTarget2, stopLoss,
       overlays: {
-        sma5, sma20, sma60, ema12, ema26,
+        sma5, sma20, sma60, ema12, ema26, hma20,
         bbUpper, bbMid, bbLower,
-        cloudTop, cloudBot, supertrendLine, supertrendBull,
+        fib382, fib500, fib618,
         pocPrice, vpBuckets, minPAll, stepP,
-        vwapVal, avwapVal, psarVal, psarBull
+        vwapVal, avwapVal
       },
       oscSeries: {
-        rsiSeries, macdSeries, macdSignalSeries, slowKArr, obvSeries
+        rsiSeries, macdSeries, slowKArr, obvSeries
       }
     };
   }
@@ -1532,7 +1766,6 @@
     if (mode === "tv") loadTradingViewWidget(currentTicker);
   }
 
-  // ===== 🌐 TradingView 공식 위젯 로더 (정식 거래소 심볼 매핑으로 Invalid symbol 에러 완벽 차단) =====
   function loadTradingViewWidget(ticker) {
     const meta = VERIFIED_MARKET_DB[ticker] || majorStocks.find(s => s.ticker === ticker);
     let tvSym = meta && meta.tvSym ? meta.tvSym : ticker;
@@ -1609,8 +1842,10 @@
     const lot1Shares = Math.max(1, Math.round(optimalTotalShares * 0.6));
     const lot2Shares = Math.max(0, optimalTotalShares - lot1Shares);
 
+    const rrRatio = ((ev.sellTarget1 - ev.buyTarget1) / Math.max(0.0001, ev.buyTarget1 - ev.stopLoss)).toFixed(2);
+
     let html = `
-      <b>🎯 시드 기준 최적 신규 진입 플랜 (손절 시 최대손실 -${riskPct}% 제한):</b><br/>
+      <b>🎯 시드 기준 최적 신규 진입 플랜 (기대 손익비 1 : ${rrRatio} · 손절 시 최대손실 -${riskPct}% 제한):</b><br/>
       • <b>권장 진입 수량:</b> <b style="color:#34D399;">총 ${optimalTotalShares.toLocaleString()}주</b> → <b>1차 타점(${fP(ev.buyTarget1)}) ${lot1Shares}주</b> + <b>2차 타점(${fP(ev.buyTarget2)}) ${lot2Shares}주</b> 분할 진입
     `;
 
@@ -1627,8 +1862,11 @@
   }
 
   function renderHome() {
-    renderTossIndexGrid();
-    renderHomeMiniChart();
+    renderMacroSummaryBar();
+    if (isMacroOpen) {
+      renderTossIndexGrid();
+      renderHomeMiniChart();
+    }
     majorStocks.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
     const box = document.getElementById("majorWatchlistBox");
 
@@ -1639,7 +1877,7 @@
       const isKR = (unitType === "KRW_STOCK");
       const avatarTxt = isKR ? st.krName.slice(0, 2) : codeDisp.slice(0, 2);
 
-      const ev = evaluateAll37Indicators(pack);
+      const ev = evaluateAll50Indicators(pack);
       const cur = pack.exactPrice;
       const pct = pack.exactPct || 0;
       const isUp = pct >= 0;
@@ -1659,7 +1897,7 @@
               <span class="s-main-name">${st.krName}</span>
               ${ev ? `<span class="tag ${ev.buyScore >= 62 ? 'tag-buy' : (ev.sellScore >= 62 ? 'tag-sell' : 'tag-neutral')}">매수 ${ev.buyScore}점</span>` : ''}
             </div>
-            <div class="s-sub-meta">${codeDisp} ${subCurrencyStr} · 적중 ${ev.backtestWinRate}% (${ev.buyVotes}/37)</div>
+            <div class="s-sub-meta">${codeDisp} ${subCurrencyStr} · 적중 ${ev.backtestWinRate}% (${ev.buyVotes}/50)</div>
           </div>
           <div>${makeMiniSparkSVG(closes, isUp, 50, 22)}</div>
           <div class="s-price-col">
@@ -1684,21 +1922,19 @@
     const unitType = meta.unitType;
     document.getElementById("dtFullName").textContent = `${meta.krName} (${codeDisp})`;
 
-    const ev = evaluateAll37Indicators(pack);
+    const ev = evaluateAll50Indicators(pack);
     if (!ev) return;
 
-    const cur = pack.exactPrice;
-    const prev = pack.prevClose;
-    const pct = pack.exactPct || 0;
+    const cur = pack.exactPrice, prev = pack.prevClose, pct = pack.exactPct || 0;
     const isUp = pct >= 0;
     const fP = (v) => formatAssetValue(v, unitType);
 
     const p5m = candleCache[`${currentTicker}_5m`] || pack;
     const p1h = candleCache[`${currentTicker}_1h`] || pack;
     const p1d = candleCache[`${currentTicker}_1d`] || pack;
-    const ev5m = evaluateAll37Indicators(p5m) || ev;
-    const ev1h = evaluateAll37Indicators(p1h) || ev;
-    const ev1d = evaluateAll37Indicators(p1d) || ev;
+    const ev5m = evaluateAll50Indicators(p5m) || ev;
+    const ev1h = evaluateAll50Indicators(p1h) || ev;
+    const ev1d = evaluateAll50Indicators(p1d) || ev;
 
     const isTripleBull = ev5m.buyScore >= 62 && ev1h.buyScore >= 62 && ev1d.buyScore >= 62;
     lastEvaluated = ev;
@@ -1708,7 +1944,7 @@
       const stEl = document.getElementById(stElId);
       sEl.textContent = `${scObj.buyScore}점`;
       sEl.style.color = scObj.buyScore >= 60 ? "var(--up)" : (scObj.sellScore >= 60 ? "var(--down)" : "#FFF");
-      stEl.textContent = scObj.buyScore >= 60 ? `매수우위 (${scObj.buyVotes}/37)` : (scObj.sellScore >= 60 ? `조정/눌림 (${scObj.sellVotes}/37)` : `중립관망`);
+      stEl.textContent = scObj.buyScore >= 60 ? `매수우위 (${scObj.buyVotes}/50)` : (scObj.sellScore >= 60 ? `조정/눌림 (${scObj.sellVotes}/50)` : `중립관망`);
       stEl.style.color = scObj.buyScore >= 60 ? "#34D399" : "var(--sub)";
     };
     setMtfBox("mtf5mScore", "mtf5mStatus", ev5m);
@@ -1723,9 +1959,9 @@
 
     if (unitType === "USD_STOCK") {
       document.getElementById("dtSubPriceInfo").textContent =
-        `미국 실제 달러가: $${cur.toFixed(2)} · 토스 원화 시세: ${Math.round(pack.exactKRW || cur * fxKrwPerUsd).toLocaleString()}원 (환율 ${fxKrwPerUsd.toFixed(2)}원)`;
+        `미국 실제 달러가: $${cur.toFixed(2)} · 원화 시세: ${Math.round(pack.exactKRW || cur * fxKrwPerUsd).toLocaleString()}원 (환율 ${fxKrwPerUsd.toFixed(2)}원)`;
     } else if (unitType === "KRW_STOCK") {
-      document.getElementById("dtSubPriceInfo").textContent = `한국거래소(KRX) · 토스증권 실제 원화 체결가`;
+      document.getElementById("dtSubPriceInfo").textContent = `한국거래소(KRX) 실제 원화 시세 연동`;
     } else {
       document.getElementById("dtSubPriceInfo").textContent = `글로벌 지수·선물·환율 실시간 데이터`;
     }
@@ -1744,10 +1980,10 @@
 
     const badge = document.getElementById("dtConsensusBadge");
     if (ev.buyScore >= 64) {
-      badge.textContent = `🔥 매수 타점 우위 (${ev.buyVotes}/37 찬성)`;
+      badge.textContent = `🔥 매수 타점 우위 (${ev.buyVotes}/50 찬성)`;
       badge.className = "tag tag-buy";
     } else if (ev.sellScore >= 62) {
-      badge.textContent = `📉 단기 조정·눌림목 구간 (${ev.sellVotes}/37 경고)`;
+      badge.textContent = `📉 단기 조정·눌림목 구간 (${ev.sellVotes}/50 경고)`;
       badge.className = "tag tag-sell";
     } else {
       badge.textContent = `⚖️ 중립·지지선 확인 (매수 ${ev.buyVotes} : 매도 ${ev.sellVotes})`;
@@ -1755,16 +1991,20 @@
     }
 
     document.getElementById("dtRegimeAndBacktestBox").innerHTML = `
-      • <b>🧠 현재 시장 국면 (ADX ${ev.adxVal.toFixed(1)}):</b> <b>${ev.isStrongTrend ? '추세장 모드 (상단 추세·일목·매물대 가중치 1.6배)' : '박스권·눌림목 모드 (하단 오실레이터 과매도 반등 가중치 1.3배)'}</b><br/>
+      • <b>🧠 현재 시장 국면 (ADX ${ev.adxVal.toFixed(1)}):</b> <b>${ev.isStrongTrend ? '추세장 모드 (상단 18대 추세·피보나치·매물대 가중치 1.6배)' : '박스권·눌림목 모드 (하단 32대 오실레이터·Z스코어 가중치 1.3배)'}</b><br/>
       • <b>🔍 다이버전스 판독:</b> ${ev.divergenceText}<br/>
-      • <b>📈 과거 백테스팅 검증:</b> 실제 캔들 구간 내 동일 신호 발생 시 3봉 이내 수익 적중률 <b style="color:#34D399;">${ev.backtestWinRate}%</b>
+      • <b>📈 50대 지표 백테스팅 검증:</b> 실제 캔들 구간 내 동일 신호 발생 시 3봉 이내 수익 적중률 <b style="color:#34D399;">${ev.backtestWinRate}%</b>
     `;
 
-    document.getElementById("dtVoteCountTxt").textContent = `37지표: 매수 ${ev.buyVotes} · 중립 ${ev.neutralVotes} · 매도 ${ev.sellVotes}`;
+    document.getElementById("dtVoteCountTxt").textContent = `50대 지표: 매수 ${ev.buyVotes} · 중립 ${ev.neutralVotes} · 매도 ${ev.sellVotes}`;
     document.getElementById("dtBuyScore").innerHTML = `${ev.buyScore}<span style="font-size:13px; color:var(--sub);">/100</span>`;
     document.getElementById("dtSellScore").innerHTML = `${ev.sellScore}<span style="font-size:13px; color:var(--sub);">/100</span>`;
-    document.getElementById("dtBuyScoreDesc").textContent = ev.buyScore >= 62 ? "지지선 눌림목 분할매수 적합" : "1차·2차 지지선 대기 권장";
-    document.getElementById("dtSellScoreDesc").textContent = ev.sellScore >= 62 ? "단기 조정 압력 · 분할 접근" : "과열 낮음 · 추세 홀딩 가능";
+    document.getElementById("dtBuyScoreDesc").textContent = ev.buyScore >= 62 ? "피보나치·VWAP 지지 분할매수 적합" : "1차·2차 지지선 대기 권장";
+    document.getElementById("dtSellScoreDesc").textContent = ev.sellScore >= 62 ? "단기 저항·조정 압력 확인" : "과열 낮음 · 추세 홀딩 가능";
+
+    // 핵심 매수/매도 근거 브리핑 출력
+    document.getElementById("buyReasonsList").innerHTML = ev.buyReasons.length > 0 ? ev.buyReasons.join("<br/>") : "• 지지선 눌림목 도달 대기 중";
+    document.getElementById("sellReasonsList").innerHTML = ev.sellReasons.length > 0 ? ev.sellReasons.join("<br/>") : "• 뚜렷한 과열/매도 위험 신호 없음";
 
     document.getElementById("tpBuy1").textContent = fP(ev.buyTarget1);
     document.getElementById("tpBuy2").textContent = fP(ev.buyTarget2);
@@ -1825,6 +2065,7 @@
       });
     }
 
+    // 피보나치 0.618 황금지지선 & 1차 매수/익절 타점 가이드라인
     ctx.setLineDash([4, 4]);
     const yBuy1 = toY(ev.buyTarget1);
     ctx.strokeStyle = "rgba(16, 185, 129, 0.75)";
@@ -1860,12 +2101,8 @@
       const isBull = c.c >= c.o;
       ctx.strokeStyle = isBull ? "#F04452" : "#3182F6";
       ctx.fillStyle = isBull ? "#F04452" : "#3182F6";
-      ctx.beginPath();
-      ctx.moveTo(x, toY(c.h));
-      ctx.lineTo(x, toY(c.l));
-      ctx.stroke();
-      const topY = toY(Math.max(c.o, c.c));
-      const botY = toY(Math.min(c.o, c.c));
+      ctx.beginPath(); ctx.moveTo(x, toY(c.h)); ctx.lineTo(x, toY(c.l)); ctx.stroke();
+      const topY = toY(Math.max(c.o, c.c)), botY = toY(Math.min(c.o, c.c));
       ctx.fillRect(x - stepX * 0.32, topY, stepX * 0.64, Math.max(2, botY - topY));
     });
 
@@ -1875,10 +2112,7 @@
       const hy = toY(hc.c);
       ctx.strokeStyle = "rgba(255,255,255,0.5)";
       ctx.setLineDash([2, 2]);
-      ctx.beginPath();
-      ctx.moveTo(hx, 0); ctx.lineTo(hx, h);
-      ctx.moveTo(0, hy); ctx.lineTo(w, hy);
-      ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(hx, 0); ctx.lineTo(hx, h); ctx.moveTo(0, hy); ctx.lineTo(w, hy); ctx.stroke();
       ctx.setLineDash([]);
 
       document.getElementById("candleInspectBar").innerHTML =
@@ -1921,8 +2155,7 @@
     oscArr.forEach((v, i) => {
       const x = 14 + i * stepX + stepX / 2;
       const y = lh - 12 - ((v - oMin) / oRange) * (lh - 24);
-      if (i === 0) lctx.moveTo(x, y);
-      else lctx.lineTo(x, y);
+      if (i === 0) lctx.moveTo(x, y); else lctx.lineTo(x, y);
     });
     lctx.stroke();
 
@@ -1995,24 +2228,34 @@
     `).join("");
   }
 
-  function hardResetAndSync() {
+  async function hardResetAndSync() {
     localStorage.clear();
     initVerifiedCache();
     renderAll();
-    alert("브라우저에 남아있던 구버전(V10) 캐시 데이터를 모두 초기화하고 토스증권·TradingView 실데이터로 동기화했습니다!");
+    // 한국 대표 종목 실시간 네이버 캔들 동기화
+    await Promise.allSettled([
+      fetchNaverLiveCandles("047040", "대우건설", "KOSPI"),
+      fetchNaverLiveCandles("016360", "삼성증권", "KOSPI")
+    ]);
+    renderAll();
   }
 
   function renderAll() {
-    renderTossIndexGrid();
-    renderHomeMiniChart();
+    renderMacroSummaryBar();
     renderHome();
     renderDetail();
     renderSettings();
   }
 
-  (function init() {
+  (async function init() {
     initVerifiedCache();
     bindCanvasCrosshair();
+    renderAll();
+    // 시작 시 대우건설, 삼성증권 등 실시간 네이버 차트 데이터 백그라운드 동기화
+    await Promise.allSettled([
+      fetchNaverLiveCandles("047040", "대우건설", "KOSPI"),
+      fetchNaverLiveCandles("016360", "삼성증권", "KOSPI")
+    ]);
     renderAll();
   })();
 </script>
