@@ -32,7 +32,6 @@
     }
     .container { max-width: 540px; margin: 0 auto; padding: 0 14px; }
 
-    /* 상단 바 */
     .top-bar {
       position: sticky; top: 0; z-index: 100;
       background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(12px);
@@ -62,7 +61,6 @@
       border-radius: 8px; padding: 5px 7px; font-size: 11px; font-weight: 800;
     }
 
-    /* 상단 6칸 매크로 보드 */
     .macro-bar {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
       margin: 10px 0;
@@ -83,7 +81,6 @@
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; display: inline-block; box-shadow: 0 0 6px #10B981; animation: pulseDot 1.2s infinite; }
     .wait-dot { width: 6px; height: 6px; border-radius: 50%; background: #F59E0B; display: inline-block; }
 
-    /* 공통 카드 */
     .card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 16px; padding: 14px; margin-bottom: 12px;
@@ -91,7 +88,6 @@
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px; }
     .card-title { font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
 
-    /* 배지 */
     .tag { font-size: 10px; font-weight: 800; padding: 2.5px 6px; border-radius: 5px; display: inline-block; }
     .tag-buy { background: rgba(242, 54, 69, 0.18); color: #FF6B78; border: 1px solid rgba(242, 54, 69, 0.35); }
     .tag-sell { background: rgba(41, 98, 255, 0.18); color: #60A5FA; border: 1px solid rgba(41, 98, 255, 0.35); }
@@ -99,7 +95,6 @@
     .tag-good { background: rgba(16, 185, 129, 0.18); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.35); }
     .tag-purple { background: rgba(139, 92, 246, 0.2); color: #C4B5FD; border: 1px solid rgba(139, 92, 246, 0.4); }
 
-    /* 검색창 & 자동완성 */
     .search-wrap { position: relative; margin-bottom: 12px; }
     .ask-box { display: flex; gap: 6px; }
     .ask-box input {
@@ -125,7 +120,6 @@
     .ac-code { font-size: 11px; color: var(--sub); margin-left: 6px; }
     .ac-mkt { font-size: 10px; font-weight: 800; color: #60A5FA; background: rgba(59,130,246,0.15); padding: 2px 6px; border-radius: 4px; }
 
-    /* 외부 앱 원클릭 연동 버튼 바 (토스증권 / 인베스팅닷컴 / 네이버 / 야후) */
     .app-link-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0;
     }
@@ -139,7 +133,6 @@
     .app-link-btn.investing { border-color: rgba(245, 158, 11, 0.5); color: #FBBF24; }
     .app-link-btn.naver { border-color: rgba(16, 185, 129, 0.5); color: #34D399; }
 
-    /* 다중 소스 가격 교차검증 표 */
     .source-verify-box {
       background: #0E131F; border: 1px solid var(--border); border-radius: 10px;
       padding: 8px 10px; margin-bottom: 10px; font-size: 11px;
@@ -150,7 +143,6 @@
     }
     .source-row:last-child { border-bottom: none; }
 
-    /* 카테고리 탭 */
     .cat-tabs { display: flex; gap: 5px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 2px; }
     .cat-btn {
       background: var(--card-2); border: 1px solid var(--border); color: var(--sub);
@@ -158,7 +150,6 @@
     }
     .cat-btn.active { background: #2962FF; color: #FFF; border-color: #2962FF; }
 
-    /* 관심종목 리스트 */
     .stock-row {
       display: grid; grid-template-columns: 22px 34px 1fr 115px 42px;
       align-items: center; gap: 6px; padding: 10px 2px;
@@ -182,7 +173,6 @@
     }
     .mini-ic-btn.pinned { color: var(--amber); border-color: var(--amber); }
 
-    /* 점수 & 타점 */
     .mtf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
     .mtf-box { background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 9px 6px; text-align: center; }
     .mtf-tf { font-size: 10.5px; color: var(--sub); font-weight: 700; }
@@ -196,7 +186,6 @@
     .target-table td { padding: 8px 4px; border-bottom: 1px solid var(--border); }
     .target-table tr:last-child td { border-bottom: none; }
 
-    /* 재무제표 표 */
     .fin-table {
       width: 100%; border-collapse: collapse; font-size: 11.5px; margin: 8px 0 12px;
       background: var(--card-2); border-radius: 10px; overflow: hidden;
@@ -224,7 +213,6 @@
       border-radius: 12px; padding: 10px 12px; font-size: 11.5px; line-height: 1.55; margin-bottom: 10px;
     }
 
-    /* 지표 리스트 */
     .ind-category-title {
       font-size: 12.5px; font-weight: 900; color: #60A5FA;
       margin: 12px 0 6px; padding-bottom: 5px; border-bottom: 1px solid var(--border);
@@ -263,7 +251,6 @@
     }
     .btn-action.primary { background: #2962FF; color: #FFF; border-color: #2962FF; }
 
-    /* 하단 탭바 */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 95;
       background: rgba(15, 19, 28, 0.96); backdrop-filter: blur(12px);
@@ -307,7 +294,6 @@
 </header>
 
 <div class="container">
-  <!-- 🌐 상단 6칸: 가짜 초기값 제거 · 실제 수신 데이터만 표출 -->
   <div class="macro-bar">
     <div class="macro-item" onclick="selectStockFromHome('KRW=X')">
       <span class="m-k"><i class="live-dot"></i>공식 달러/원 환율</span>
@@ -341,7 +327,6 @@
     </div>
   </div>
 
-  <!-- 검색바 -->
   <div class="search-wrap">
     <div style="display:flex; justify-content:space-between; align-items:center; font-size: 11px; color: var(--sub); margin-bottom: 6px;">
       <span id="marketGlobalStatusTxt">🟢 가짜 데이터 제거됨 · 실데이터 다중 교차검증 가동</span>
@@ -358,7 +343,6 @@
     <div class="ac-dropdown" id="acDropdown"></div>
   </div>
 
-  <!-- [화면 1] 관심종목 홈 -->
   <div id="pane-home" class="pane active">
     <div class="card">
       <div class="card-header">
@@ -377,7 +361,6 @@
     </div>
   </div>
 
-  <!-- [화면 2] 종목 상세 차트 & 다중 출처 가격 비교 & 외부앱 연동 -->
   <div id="pane-detail" class="pane">
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -395,26 +378,24 @@
         </div>
         <span class="tag tag-purple" id="dtDivergenceBadge">-</span>
       </div>
+      <div id="dtSessionInfo" style="font-size:11px; color:var(--sub); margin:6px 0 8px; padding:6px 8px; background:var(--card-2); border-radius:8px;"></div>
+      </div>
 
-      <!-- 📱 내 휴대폰 금융앱/웹 원클릭 직결 연동 바 (토스증권 / 인베스팅닷컴 / 네이버증권 / 야후) -->
       <div style="font-size:10.5px; color:var(--sub); font-weight:800; margin-bottom:4px;">
         📱 외부 증권앱·웹 호가창 즉시 열기 (원클릭 연동):
       </div>
       <div class="app-link-grid" id="externalAppLinksBar"></div>
 
-      <!-- 🔍 다중 데이터 출처별 실제 수신 가격 교차검증 표 -->
       <div class="source-verify-box" id="multiSourceVerifyBox">
         <div style="font-weight:800; color:#93C5FD; margin-bottom:4px;">🔍 다중 출처(API) 실시간 수신 가격 교차검증:</div>
         <div id="multiSourceList">수신 중...</div>
       </div>
 
-      <!-- 차트 모드 전환 탭: [1] 자체 37지표 캔버스 차트 vs [2] TradingView 공식 실시간 위젯 -->
       <div class="sub-tabs" style="margin-top:8px;">
         <button class="sub-tab active" id="tabChartCanvas" onclick="switchChartMode('canvas')">📈 37지표 정밀 타점 차트</button>
         <button class="sub-tab" id="tabChartTV" onclick="switchChartMode('tv')">🌐 트레이딩뷰 공식 실시간 차트</button>
       </div>
 
-      <!-- [모드 1] 자체 37지표 캔버스 차트 -->
       <div id="canvasChartWrap">
         <div style="position:relative; width:100%; height:230px; background:#0D111A; border-radius:12px 12px 0 0; border:1px solid var(--border); overflow:hidden;">
           <canvas id="upperChartCanvas" width="480" height="230" style="width:100%; height:100%; display:block;"></canvas>
@@ -438,13 +419,11 @@
         </div>
       </div>
 
-      <!-- [모드 2] TradingView 공식 실시간 임베드 위젯 (CORS 무제한 직결) -->
       <div id="tvWidgetWrap" style="display:none; width:100%; height:350px; border-radius:12px; overflow:hidden; border:1px solid var(--border);">
         <div id="tv_chart_container" style="width:100%; height:100%;"></div>
       </div>
     </div>
 
-    <!-- 하이브리드 종합 채점 (기술적 37지표 70% + 3개년 재무 30%) -->
     <div class="card" style="border: 1.5px solid #2962FF;">
       <div class="card-header">
         <div class="card-title">🎯 기술(37지표) × 펀더멘털(재무) 통합 판독</div>
@@ -519,7 +498,6 @@
       </div>
     </div>
 
-    <!-- 시드 비중 & 물타기 계산기 -->
     <div class="card">
       <div class="card-header">
         <div class="card-title">⚖️ 시드머니 최적 매수 수량 & 물타기 계산기</div>
@@ -551,7 +529,6 @@
       <div id="positionSizingResult" style="background:var(--card-2); border-radius:10px; padding:10px 12px; font-size:12px; line-height:1.6;"></div>
     </div>
 
-    <!-- 37개 지표 전체 판독표 -->
     <div class="card">
       <div class="card-header">
         <div class="card-title">📋 37개 기술적 지표 전체 판독 결과표</div>
@@ -564,7 +541,6 @@
     </div>
   </div>
 
-  <!-- [화면 3] 📑 20년 경력 애널리스트 재무제표 정밀 분석 -->
   <div id="pane-financial" class="pane">
     <div class="card" style="border: 1.5px solid #3B82F6;">
       <div class="card-header">
@@ -644,19 +620,88 @@
     </div>
   </div>
 
-  <!-- [화면 4] 지표 설정 & 공식 API 키(Finnhub) 직결 설정 -->
   <div id="pane-settings" class="pane">
     <div class="card">
       <div class="card-header">
-        <div class="card-title">🔑 미국주식 공식 실시간 API 키 설정 (선택사항)</div>
+        <div class="card-title">🔑 API 키 설정 (시장별 개별 입력)</div>
       </div>
-      <div style="font-size:11.5px; color:var(--sub); line-height:1.5; margin-bottom:8px;">
-        기본적으로 <b>네이버 해외증시 + Yahoo Finance + Stooq</b>를 통해 API 키 없이 시세를 가져오지만, 프록시 지연을 완전히 없애고 싶다면 무료 <b>Finnhub API Key</b>(finnhub.io에서 30초 무료 발급, 브라우저 CORS 100% 직결 지원)를 입력할 수 있습니다.
+      <div style="font-size:11.5px; color:var(--sub); line-height:1.5; margin-bottom:10px;">
+        각 칸에 키를 입력하고 <b>[이 칸만 저장]</b>을 누르면 즉시 저장·재수신 됩니다.<br/>
+        • <b>국내주식</b> = 한국투자증권 KIS 공식API (키 입력 시 우선, 미입력 시 네이버 자동 폴백)<br/>
+        • <b>미국주식</b> = <b>Finnhub 키를 표준으로 사용</b> (무료 발급: finnhub.io)
       </div>
+
+      <div style="border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <div style="font-size:12.5px; font-weight:900;">🇰🇷 국내주식 · 한국투자증권 KIS <span id="kisChip" class="tag tag-neutral">○ 미설정</span></div>
+          <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="saveAllApiKeys(true)">이 칸만 저장</button>
+        </div>
+        <div style="font-size:11px; color:var(--sub); margin-bottom:6px;">한국투자증권 영웅문W → <b>API 신청(모의투자)</b> 후 발급되는 App Key / Secret. 입력하면 국장 시세·캔들이 KIS 공식 데이터로 전환됩니다.</div>
+        <div class="calc-grid-3">
+          <div>
+            <label class="field-lbl">KIS App Key</label>
+            <input type="text" id="kisAppKeyInput" class="calc-input" placeholder="예: PS9x..." autocomplete="off" />
+          </div>
+          <div>
+            <label class="field-lbl">KIS App Secret</label>
+            <div style="display:flex; gap:4px;">
+              <input type="password" id="kisAppSecretInput" class="calc-input" placeholder="비밀 키" autocomplete="off" style="flex:1;" />
+              <button class="btn-action" style="padding:4px 8px; font-size:10px;" onclick="toggleKeyVisibility('kisAppSecretInput', this)">보기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <div style="font-size:12.5px; font-weight:900;">🇺🇸 미국주식 · Finnhub <span id="finnhubChip" class="tag tag-neutral">○ 미설정</span></div>
+          <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="saveAllApiKeys(true)">이 칸만 저장</button>
+        </div>
+        <div style="font-size:11px; color:var(--sub); margin-bottom:6px;"><b>미국주식은 이 키를 표준으로 사용</b>합니다 (현재가·등락률·전일종가 직결). finnhub.io → Get free API key → 발급 즉시 사용 가능.</div>
+        <label class="field-lbl">Finnhub API Key</label>
+        <div style="display:flex; gap:4px;">
+          <input type="password" id="finnhubKeyInput" class="calc-input" placeholder="예: d1abc2def3ghi4jkl5mno6pq7rs8tu9vw" autocomplete="off" style="flex:1;" />
+          <button class="btn-action" style="padding:4px 8px; font-size:10px;" onclick="toggleKeyVisibility('finnhubKeyInput', this)">보기</button>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <div style="font-size:12.5px; font-weight:900;">🌐 CORS 프록시 주소 <span id="proxyChip" class="tag tag-neutral">○ 미설정</span></div>
+          <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="saveAllApiKeys(true)">이 칸만 저장</button>
+        </div>
+        <div style="font-size:11px; color:var(--sub); margin-bottom:6px;">
+          ① 로컬 실행: <code>python3 proxy.py</code> → <code>http://localhost:8787/?url=</code><br/>
+          ② GitHub Pages 등 정적 배포: 제공된 <b>cloudflare-worker.js</b>를 Cloudflare Workers(무료)에 배포 → <code>https://이름.계정.workers.dev/?url=</code><br/>
+          (국장 네이버 폴백·KIS 공식API 모두 이 경로로 수신됩니다)
+        </div>
+        <input type="text" id="proxyUrlInput" class="calc-input" placeholder="http://localhost:8787/?url=" />
+      </div>
+
+      <details style="border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px;">
+        <summary style="font-size:12.5px; font-weight:900; cursor:pointer;">④ 선택 키 (고급 · 비워두어도 동작)</summary>
+        <div style="font-size:11px; color:var(--sub); margin:6px 0 8px;">미국주식 <b>캔들(차트) 전용</b> 보조 소스입니다. 미입력 시 Yahoo 캔들 + Finnhub 시세 조합으로 동작합니다.</div>
+        <div class="calc-grid-3">
+          <div>
+            <label class="field-lbl">Polygon.io Key <span id="polygonChip" class="tag tag-neutral">-</span></label>
+            <input type="text" id="polygonKeyInput" class="calc-input" placeholder="선택" autocomplete="off" />
+          </div>
+          <div>
+            <label class="field-lbl">Twelve Data Key <span id="twelveChip" class="tag tag-neutral">-</span></label>
+            <input type="text" id="twelveDataKeyInput" class="calc-input" placeholder="선택" autocomplete="off" />
+          </div>
+          <div>
+            <label class="field-lbl">DART Key (국장 재무) <span id="dartChip" class="tag tag-neutral">-</span></label>
+            <input type="text" id="dartKeyInput" class="calc-input" placeholder="선택" autocomplete="off" />
+          </div>
+        </div>
+      </details>
+
       <div style="display:flex; gap:6px;">
-        <input type="text" id="finnhubKeyInput" class="calc-input" placeholder="Finnhub API Key 입력 (비워두어도 기본 다중소스 작동)" />
-        <button class="btn-action primary" style="flex-shrink:0;" onclick="saveApiKey()">저장</button>
+        <button class="btn-action primary" style="flex:1;" onclick="saveAllApiKeys()">전체 저장 후 재수신</button>
+        <button class="btn-action" style="flex-shrink:0;" onclick="clearAllApiKeys()">키 초기화</button>
       </div>
+      <div id="apiKeyStatus" style="font-size:11.5px; color:var(--sub); margin-top:8px; line-height:1.7;"></div>
     </div>
 
     <div class="card">
@@ -674,7 +719,6 @@
   </div>
 </div>
 
-<!-- 하단 탭바 -->
 <nav class="bottom-nav">
   <button class="nav-item active" id="nav-home" onclick="showPane('home')">
     <span class="nav-ic">📊</span>
@@ -694,12 +738,11 @@
   </button>
 </nav>
 
-<!-- TradingView 공식 스크립트 -->
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
 <script>
   const STORAGE_KEY = "QUANT_PRO_37_V22_REAL_ONLY";
-  let officialUsdKrw = null; // 가짜 초기값 제거 (실제 외환 API 수신 후 세팅)
+  let officialUsdKrw = null;
   let upbitUsdtKrw = null;
   let currencyMode = "AUTO";
   let currentTf = "1d";
@@ -710,12 +753,28 @@
   let upbitWs = null;
   let binanceWs = null;
   let finnhubApiKey = localStorage.getItem("QUANT_FINNHUB_KEY") || "";
-  const customFinStore = {};
-  const multiSourceQuotes = {}; // 종목별 각 API 출처에서 받아온 실제 가격 기록
+  // ── 내부 예외 수집기: 조용히 삼켜지는 버그를 화면/콘솔에서 확인 가능하게 ──
+  window.__qErrors = [];
+  function __qcatch(e) {
+    try {
+      const msg = (e && e.message) ? (e.name ? e.name + ": " + e.message : e.message) : String(e);
+      if (window.__qErrors.length < 60 && !window.__qErrors.some(x => x.msg === msg)) {
+        window.__qErrors.push({ msg, at: new Date().toLocaleTimeString("ko-KR", { hour12: false }) });
+        console.warn("[QUANT 내부예외]", msg);
+      }
+    } catch (_) {}
+  }
 
-  // ==================== 1. 종목 사전 (가짜 basePrice 완전 삭제 · 순수 식별 코드 및 네이버 로이터코드 매핑만 유지) ====================
+  let twelveDataKey = localStorage.getItem("QUANT_TWELVEDATA_KEY") || "";
+  let polygonKey = localStorage.getItem("QUANT_POLYGON_KEY") || "";
+  let dartKey = localStorage.getItem("QUANT_DART_KEY") || "";
+  let kisAppKey = localStorage.getItem("QUANT_KIS_APPKEY") || "";
+  let kisAppSecret = localStorage.getItem("QUANT_KIS_APPSECRET") || "";
+  let proxyBaseUrl = localStorage.getItem("QUANT_PROXY_URL") || "http://localhost:8787/?url=";
+  const customFinStore = {};
+  const multiSourceQuotes = {};
+
   const MASTER_STOCK_DB = [
-    // 🇰🇷 국내 상장사
     { ticker: "005930.KS", krName: "삼성전자", exchange: "KOSPI", cat: "KR", aliases: ["삼전", "005930"] },
     { ticker: "000500.KS", krName: "가온전선", exchange: "KOSPI", cat: "KR", aliases: ["가온", "000500", "LS가온전선"] },
     { ticker: "267260.KS", krName: "HD현대일렉트릭", exchange: "KOSPI", cat: "KR", aliases: ["현대일렉트릭", "267260"] },
@@ -738,7 +797,6 @@
     { ticker: "373220.KS", krName: "LG에너지솔루션", exchange: "KOSPI", cat: "KR", aliases: ["엔솔", "373220"] },
     { ticker: "196170.KQ", krName: "알테오젠", exchange: "KOSDAQ", cat: "KR", aliases: ["196170"] },
 
-    // 🇺🇸 미국 상장사 (reuters: 네이버 해외증시 직결 코드)
     { ticker: "SNDK", reuters: "SNDK.O", krName: "샌디스크 (SanDisk)", exchange: "NASDAQ", cat: "US", aliases: ["샌디스크", "SANDISK", "산디스크"] },
     { ticker: "WDC", reuters: "WDC.O", krName: "웨스턴디지털 (WDC)", exchange: "NASDAQ", cat: "US", aliases: ["웨스턴디지털", "WESTERNDIGITAL"] },
     { ticker: "LAES", reuters: "LAES.O", krName: "실스크 (SEALSQ)", exchange: "NASDAQ", cat: "US", aliases: ["SEALSQ", "씰스크", "실스크"] },
@@ -761,7 +819,6 @@
     { ticker: "QQQ", reuters: "QQQ.O", krName: "QQQ · 나스닥 100 ETF", exchange: "NASDAQ", cat: "US", aliases: ["나스닥"] },
     { ticker: "SPY", reuters: "SPY.P", krName: "SPY · S&P 500 ETF", exchange: "NYSE", cat: "US", aliases: ["S&P500"] },
 
-    // 🪙 24시간 실시간 자산
     { ticker: "KRW=X", krName: "공식 달러/원 기준환율 (USD/KRW)", exchange: "FX 공식고시", cat: "24H", aliases: ["환율", "달러환율", "고시환율", "USDKRW"] },
     { ticker: "KRW-USDT", krName: "업비트 테더 환율 (24시 USDT)", exchange: "UPBIT 24H", cat: "24H", aliases: ["테더", "김프", "USDT"] },
     { ticker: "KRW-BTC", krName: "비트코인 (24시 원화)", exchange: "UPBIT 24H", cat: "24H", aliases: ["BTC", "비트", "BITCOIN"] },
@@ -771,74 +828,18 @@
     { ticker: "KRW-SOL", krName: "솔라나 (24시 SOL)", exchange: "UPBIT 24H", cat: "24H", aliases: ["SOL", "솔라나", "SOLANA"] }
   ];
 
-  // ==================== 2. 3개년 재무제표 DB ====================
   const FINANCIAL_DB = {
-    "000500.KS": {
-      unit: "억원", sector: "전선·전력기자재", sectorPer: 15.5, sectorPbr: 1.45,
-      years: ["2022", "2023", "최근연간"], rev: [14284, 14986, 16850], op: [285, 437, 560], net: [162, 268, 395], opm: [2.0, 2.9, 3.3],
-      debtRatio: 118.4, currentRatio: 142.5, per: 11.2, pbr: 0.95, roe: 8.8,
-      catalyst: "북미 전력망 교체 및 LS전선 해저·초고압 케이블 수주 협업 확대로 영업이익이 3년 연속 증가세를 기록 중입니다."
-    },
-    "267260.KS": {
-      unit: "억원", sector: "초고압변압기·전력기기", sectorPer: 22.0, sectorPbr: 4.5,
-      years: ["2022", "2023", "최근연간"], rev: [21045, 27028, 33223], op: [1330, 3152, 6690], net: [1624, 2595, 5080], opm: [6.3, 11.7, 20.1],
-      debtRatio: 182.0, currentRatio: 128.4, per: 19.5, pbr: 6.80, roe: 36.5,
-      catalyst: "북미 AI 데이터센터 및 노후 전력망 교체에 따른 초고압 변압기 공급 부족으로 영업이익률이 20.1%로 급등했습니다."
-    },
-    "005930.KS": {
-      unit: "조원", sector: "글로벌 종합반도체·IT", sectorPer: 16.5, sectorPbr: 1.50,
-      years: ["2022", "2023", "최근연간"], rev: [302.2, 258.9, 300.9], op: [43.4, 6.57, 32.7], net: [55.6, 15.5, 34.5], opm: [14.4, 2.5, 10.9],
-      debtRatio: 26.4, currentRatio: 245.0, per: 11.4, pbr: 1.02, roe: 9.2,
-      catalyst: "메모리 업황 회복으로 영업이익이 2023년 6.57조원에서 32.7조원으로 반등했으며, 부채비율 26.4%·유동비율 245%의 초우량 재무구조를 보유하고 있습니다."
-    },
-    "000660.KS": {
-      unit: "조원", sector: "메모리 반도체 (HBM)", sectorPer: 16.5, sectorPbr: 2.10,
-      years: ["2022", "2023", "최근연간"], rev: [44.6, 32.8, 66.2], op: [6.8, -7.7, 23.5], net: [2.2, -9.1, 19.8], opm: [15.2, -23.5, 35.5],
-      debtRatio: 68.5, currentRatio: 152.0, per: 7.8, pbr: 2.15, roe: 28.4,
-      catalyst: "HBM3E 독점적 공급 지위와 고부가 eSSD 수요 확대로 영업이익률 35.5%를 기록하며 사상 최대 실적을 달성했습니다."
-    },
-    "000270.KS": {
-      unit: "조원", sector: "글로벌 완성차·모빌리티", sectorPer: 7.5, sectorPbr: 0.90,
-      years: ["2022", "2023", "최근연간"], rev: [86.6, 99.8, 107.4], op: [7.2, 11.6, 12.7], net: [5.4, 8.8, 9.8], opm: [8.4, 11.6, 11.8],
-      debtRatio: 72.1, currentRatio: 138.0, per: 4.2, pbr: 0.76, roe: 19.5,
-      catalyst: "하이브리드(HEV)·SUV 고수익 차종 믹스 개선으로 영업이익률 11.8%를 유지 중이며, PER 4~5배 수준의 저평가 영역입니다."
-    },
-    "010950.KS": {
-      unit: "조원", sector: "정유·석유화학·윤활기유", sectorPer: 9.0, sectorPbr: 0.85,
-      years: ["2022", "2023", "최근연간"], rev: [42.4, 35.7, 36.6], op: [3.4, 1.35, 0.46], net: [2.1, 0.95, 0.18], opm: [8.0, 3.8, 1.3],
-      debtRatio: 138.5, currentRatio: 112.0, per: 14.5, pbr: 0.78, roe: 4.5,
-      catalyst: "정제마진 등락에 따라 단기 이익률이 변동하나 PBR 0.78배로 장부가치 미만의 저평가 구간에 위치합니다."
-    },
-    "SNDK": {
-      unit: "$M", sector: "NAND 플래시·eSSD 스토리지", sectorPer: 17.5, sectorPbr: 2.20,
-      years: ["FY22", "FY23", "최근연간"], rev: [9750, 6080, 7350], op: [1240, -1150, 680], net: [910, -1420, 510], opm: [12.7, -18.9, 9.3],
-      debtRatio: 64.0, currentRatio: 182.0, per: 13.8, pbr: 1.65, roe: 11.5,
-      catalyst: "웨스턴디지털(WDC)에서 분사 재상장(SNDK)되었으며, AI 데이터센터용 엔터프라이즈 SSD 수요 회복으로 흑자 전환했습니다."
-    },
-    "LAES": {
-      unit: "$M", sector: "양자내성암호(PQC) 보안 반도체", sectorPer: 35.0, sectorPbr: 4.80,
-      years: ["2022", "2023", "최근연간"], rev: [23.2, 30.1, 14.5], op: [-1.8, -4.2, -16.5], net: [-2.5, -5.1, -18.2], opm: [-7.8, -14.0, -113.8],
-      debtRatio: 42.5, currentRatio: 265.0, per: -1, pbr: 3.90, roe: -35.0,
-      catalyst: "차세대 양자내성암호(PQC) 반도체 R&D 투자 집중으로 영업적자 구간이나, 유동비율 265%로 단기 현금 유동성을 확보하고 있습니다."
-    },
-    "IREN": {
-      unit: "$M", sector: "AI 클라우드 & 데이터센터", sectorPer: 25.0, sectorPbr: 2.80,
-      years: ["FY22", "FY23", "최근연간"], rev: [59.0, 75.5, 188.8], op: [-12.0, -145.0, 19.5], net: [-42.0, -171.0, 14.2], opm: [-20.3, -192.0, 10.3],
-      debtRatio: 18.5, currentRatio: 310.0, per: 28.5, pbr: 1.75, roe: 6.8,
-      catalyst: "낮은 부채비율(18.5%)과 AI GPU 클라우드 및 데이터센터 용량 확장으로 매출 급증 및 영업흑자 전환을 기록했습니다."
-    },
-    "SERV": {
-      unit: "$M", sector: "자율주행 배송 로봇", sectorPer: 40.0, sectorPbr: 5.50,
-      years: ["2022", "2023", "최근연간"], rev: [0.11, 0.21, 1.85], op: [-21.5, -20.8, -36.4], net: [-21.9, -24.5, -39.1], opm: [-19500, -9900, -1967],
-      debtRatio: 15.2, currentRatio: 420.0, per: -1, pbr: 6.20, roe: -48.0,
-      catalyst: "우버이츠향 자율주행 로봇 양산 배치 초기 단계로 적자 구조이나, 유동비율 420%의 현금 유동성을 바탕으로 상용화를 확대 중입니다."
-    },
-    "NVDA": {
-      unit: "$B", sector: "AI 가속기 & 데이터센터 GPU", sectorPer: 32.0, sectorPbr: 18.0,
-      years: ["FY23", "FY24", "FY25"], rev: [27.0, 60.9, 130.5], op: [4.2, 33.0, 81.4], net: [4.4, 29.8, 72.9], opm: [15.6, 54.2, 62.4],
-      debtRatio: 17.2, currentRatio: 410.0, per: 31.5, pbr: 28.5, roe: 91.5,
-      catalyst: "AI 데이터센터 GPU 독점적 지위로 영업이익률 62.4%, ROE 91.5%의 압도적 수익성을 기록 중입니다."
-    }
+    "000500.KS": { unit: "억원", sector: "전선·전력기자재", sectorPer: 15.5, sectorPbr: 1.45, years: ["2022", "2023", "최근연간"], rev: [14284, 14986, 16850], op: [285, 437, 560], net: [162, 268, 395], opm: [2.0, 2.9, 3.3], debtRatio: 118.4, currentRatio: 142.5, per: 11.2, pbr: 0.95, roe: 8.8, catalyst: "북미 전력망 교체 및 LS전선 해저·초고압 케이블 수주 협업 확대로 영업이익이 3년 연속 증가세를 기록 중입니다." },
+    "267260.KS": { unit: "억원", sector: "초고압변압기·전력기기", sectorPer: 22.0, sectorPbr: 4.5, years: ["2022", "2023", "최근연간"], rev: [21045, 27028, 33223], op: [1330, 3152, 6690], net: [1624, 2595, 5080], opm: [6.3, 11.7, 20.1], debtRatio: 182.0, currentRatio: 128.4, per: 19.5, pbr: 6.80, roe: 36.5, catalyst: "북미 AI 데이터센터 및 노후 전력망 교체에 따른 초고압 변압기 공급 부족으로 영업이익률이 20.1%로 급등했습니다." },
+    "005930.KS": { unit: "조원", sector: "글로벌 종합반도체·IT", sectorPer: 16.5, sectorPbr: 1.50, years: ["2022", "2023", "최근연간"], rev: [302.2, 258.9, 300.9], op: [43.4, 6.57, 32.7], net: [55.6, 15.5, 34.5], opm: [14.4, 2.5, 10.9], debtRatio: 26.4, currentRatio: 245.0, per: 11.4, pbr: 1.02, roe: 9.2, catalyst: "메모리 업황 회복으로 영업이익이 2023년 6.57조원에서 32.7조원으로 반등했으며, 부채비율 26.4%·유동비율 245%의 초우량 재무구조를 보유하고 있습니다." },
+    "000660.KS": { unit: "조원", sector: "메모리 반도체 (HBM)", sectorPer: 16.5, sectorPbr: 2.10, years: ["2022", "2023", "최근연간"], rev: [44.6, 32.8, 66.2], op: [6.8, -7.7, 23.5], net: [2.2, -9.1, 19.8], opm: [15.2, -23.5, 35.5], debtRatio: 68.5, currentRatio: 152.0, per: 7.8, pbr: 2.15, roe: 28.4, catalyst: "HBM3E 독점적 공급 지위와 고부가 eSSD 수요 확대로 영업이익률 35.5%를 기록하며 사상 최대 실적을 달성했습니다." },
+    "000270.KS": { unit: "조원", sector: "글로벌 완성차·모빌리티", sectorPer: 7.5, sectorPbr: 0.90, years: ["2022", "2023", "최근연간"], rev: [86.6, 99.8, 107.4], op: [7.2, 11.6, 12.7], net: [5.4, 8.8, 9.8], opm: [8.4, 11.6, 11.8], debtRatio: 72.1, currentRatio: 138.0, per: 4.2, pbr: 0.76, roe: 19.5, catalyst: "하이브리드(HEV)·SUV 고수익 차종 믹스 개선으로 영업이익률 11.8%를 유지 중이며, PER 4~5배 수준의 저평가 영역입니다." },
+    "010950.KS": { unit: "조원", sector: "정유·석유화학·윤활기유", sectorPer: 9.0, sectorPbr: 0.85, years: ["2022", "2023", "최근연간"], rev: [42.4, 35.7, 36.6], op: [3.4, 1.35, 0.46], net: [2.1, 0.95, 0.18], opm: [8.0, 3.8, 1.3], debtRatio: 138.5, currentRatio: 112.0, per: 14.5, pbr: 0.78, roe: 4.5, catalyst: "정제마진 등락에 따라 단기 이익률이 변동하나 PBR 0.78배로 장부가치 미만의 저평가 구간에 위치합니다." },
+    "SNDK": { unit: "$M", sector: "NAND 플래시·eSSD 스토리지", sectorPer: 17.5, sectorPbr: 2.20, years: ["FY22", "FY23", "최근연간"], rev: [9750, 6080, 7350], op: [1240, -1150, 680], net: [910, -1420, 510], opm: [12.7, -18.9, 9.3], debtRatio: 64.0, currentRatio: 182.0, per: 13.8, pbr: 1.65, roe: 11.5, catalyst: "웨스턴디지털(WDC)에서 분사 재상장(SNDK)되었으며, AI 데이터센터용 엔터프라이즈 SSD 수요 회복으로 흑자 전환했습니다." },
+    "LAES": { unit: "$M", sector: "양자내성암호(PQC) 보안 반도체", sectorPer: 35.0, sectorPbr: 4.80, years: ["2022", "2023", "최근연간"], rev: [23.2, 30.1, 14.5], op: [-1.8, -4.2, -16.5], net: [-2.5, -5.1, -18.2], opm: [-7.8, -14.0, -113.8], debtRatio: 42.5, currentRatio: 265.0, per: -1, pbr: 3.90, roe: -35.0, catalyst: "차세대 양자내성암호(PQC) 반도체 R&D 투자 집중으로 영업적자 구간이나, 유동비율 265%로 단기 현금 유동성을 확보하고 있습니다." },
+    "IREN": { unit: "$M", sector: "AI 클라우드 & 데이터센터", sectorPer: 25.0, sectorPbr: 2.80, years: ["FY22", "FY23", "최근연간"], rev: [59.0, 75.5, 188.8], op: [-12.0, -145.0, 19.5], net: [-42.0, -171.0, 14.2], opm: [-20.3, -192.0, 10.3], debtRatio: 18.5, currentRatio: 310.0, per: 28.5, pbr: 1.75, roe: 6.8, catalyst: "낮은 부채비율(18.5%)과 AI GPU 클라우드 및 데이터센터 용량 확장으로 매출 급증 및 영업흑자 전환을 기록했습니다." },
+    "SERV": { unit: "$M", sector: "자율주행 배송 로봇", sectorPer: 40.0, sectorPbr: 5.50, years: ["2022", "2023", "최근연간"], rev: [0.11, 0.21, 1.85], op: [-21.5, -20.8, -36.4], net: [-21.9, -24.5, -39.1], opm: [-19500, -9900, -1967], debtRatio: 15.2, currentRatio: 420.0, per: -1, pbr: 6.20, roe: -48.0, catalyst: "우버이츠향 자율주행 로봇 양산 배치 초기 단계로 적자 구조이나, 유동비율 420%의 현금 유동성을 바탕으로 상용화를 확대 중입니다." },
+    "NVDA": { unit: "$B", sector: "AI 가속기 & 데이터센터 GPU", sectorPer: 32.0, sectorPbr: 18.0, years: ["FY23", "FY24", "FY25"], rev: [27.0, 60.9, 130.5], op: [4.2, 33.0, 81.4], net: [4.4, 29.8, 72.9], opm: [15.6, 54.2, 62.4], debtRatio: 17.2, currentRatio: 410.0, per: 31.5, pbr: 28.5, roe: 91.5, catalyst: "AI 데이터센터 GPU 독점적 지위로 영업이익률 62.4%, ROE 91.5%의 압도적 수익성을 기록 중입니다." }
   };
 
   const UPPER_IND_META = [
@@ -852,7 +853,7 @@
     { id: "FRACTAL", name: "윌리엄스 프랙탈 (5봉 변곡)", desc: "최근 5봉 스윙 고점·저점 돌파 판별", defOn: true },
     { id: "PSAR", name: "파라볼릭 SAR", desc: "추세 전환 가능성을 점으로 표시하는 지표", defOn: true },
     { id: "PCHANNEL", name: "프라이스 채널 (Donchian 20)", desc: "20봉 최고가·최저가 채널 중심 돌파", defOn: true },
-    { id: "VWAP", name: "VWAP (거래량 가중 평균가)", desc: "기관·외국인 기준 거래량 가중 평균단가", defOn: true },
+    { id: "VWAP", name: "거래량가중 이동평균 (VWMA 20)", desc: "거래량을 가중한 20봉 평균단가 (일봉 VWAP 대체)", defOn: true },
     { id: "AVWAP", name: "고정된 VWAP (저점 변곡 기준)", desc: "최근 핵심 저점 이후 누적된 평균단가", defOn: true }
   ];
 
@@ -903,7 +904,13 @@
   let activeUpper = appState.activeUpper;
   let activeLower = appState.activeLower;
   let majorStocks = appState.watchlist;
-  const candleCache = {}; // 오직 실제 API에서 받아온 캔들과 가격만 저장 (가짜 생성 금지)
+  // 모든 등록 종목을 관심목록에 병합 (pinned 상태 유지, 신규 종목은 pinned=false)
+  MASTER_STOCK_DB.forEach(m => {
+    if (!majorStocks.find(s => s.ticker === m.ticker)) {
+      majorStocks.push({ ticker: m.ticker, krName: m.krName, exchange: m.exchange, pinned: false });
+    }
+  });
+  const candleCache = {};
 
   function loadAppState() {
     const up = {}, low = {};
@@ -921,7 +928,7 @@
           };
         }
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
     return { watchlist: JSON.parse(JSON.stringify(defaultWatchlist)), activeUpper: up, activeLower: low };
   }
 
@@ -932,14 +939,79 @@
         activeUpper,
         activeLower
       }));
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
   }
 
-  function saveApiKey() {
-    finnhubApiKey = document.getElementById("finnhubKeyInput").value.trim();
+  function saveAllApiKeys(quiet = false) {
+    const read = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
+    proxyBaseUrl = read("proxyUrlInput") || "http://localhost:8787/?url=";
+    finnhubApiKey = read("finnhubKeyInput");
+    twelveDataKey = read("twelveDataKeyInput");
+    polygonKey = read("polygonKeyInput");
+    dartKey = read("dartKeyInput");
+    kisAppKey = read("kisAppKeyInput");
+    kisAppSecret = read("kisAppSecretInput");
+    localStorage.setItem("QUANT_PROXY_URL", proxyBaseUrl);
     localStorage.setItem("QUANT_FINNHUB_KEY", finnhubApiKey);
-    alert("API 키가 저장되었습니다. 즉시 실데이터를 다시 불러옵니다.");
-    syncAllRealtime();
+    localStorage.setItem("QUANT_TWELVEDATA_KEY", twelveDataKey);
+    localStorage.setItem("QUANT_POLYGON_KEY", polygonKey);
+    localStorage.setItem("QUANT_DART_KEY", dartKey);
+    localStorage.setItem("QUANT_KIS_APPKEY", kisAppKey);
+    localStorage.setItem("QUANT_KIS_APPSECRET", kisAppSecret);
+    renderApiKeyStatus();
+    if (!quiet) {
+      alert("API 키가 저장되었습니다. 실데이터를 다시 수신합니다.");
+      syncAllRealtime();
+    }
+  }
+
+  function toggleKeyVisibility(inputId, btn) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    const show = el.type === "password";
+    el.type = show ? "text" : "password";
+    if (btn) btn.textContent = show ? "숨김" : "보기";
+  }
+
+  function clearAllApiKeys() {
+    if (!confirm("저장된 모든 API 키/주소를 삭제할까요?")) return;
+    ["QUANT_FINNHUB_KEY", "QUANT_TWELVEDATA_KEY", "QUANT_POLYGON_KEY", "QUANT_DART_KEY", "QUANT_KIS_APPKEY", "QUANT_KIS_APPSECRET"].forEach(k => localStorage.removeItem(k));
+    finnhubApiKey = ""; twelveDataKey = ""; polygonKey = ""; dartKey = ""; kisAppKey = ""; kisAppSecret = "";
+    proxyBaseUrl = "http://localhost:8787/?url=";
+    localStorage.setItem("QUANT_PROXY_URL", proxyBaseUrl);
+    renderSettings();
+    renderApiKeyStatus();
+    alert("모든 키를 초기화했습니다.");
+  }
+
+  function renderApiKeyStatus() {
+    const el = document.getElementById("apiKeyStatus");
+    const chip = (ok, label) => `<span class="tag ${ok ? 'tag-buy' : 'tag-neutral'}" style="margin-right:4px;">${ok ? '● 설정됨' : '○ 미설정'} ${label}</span>`;
+    const setChip = (id, ok, onTxt, offTxt) => {
+      const c = document.getElementById(id);
+      if (c) { c.className = `tag ${ok ? 'tag-buy' : 'tag-neutral'}`; c.textContent = ok ? onTxt : offTxt; }
+    };
+    const krActive = !!(kisAppKey && kisAppSecret);
+    setChip("kisChip", krActive, "● 공식API 사용", "미설정 (네이버 폴백)");
+    setChip("finnhubChip", !!finnhubApiKey, "● 사용중", "미설정 (야후 폴백)");
+    setChip("proxyChip", !!proxyBaseUrl, "● 연결", "미설정");
+    setChip("polygonChip", !!polygonKey, "설정됨", "-");
+    setChip("twelveChip", !!twelveDataKey, "설정됨", "-");
+    setChip("dartChip", !!dartKey, "설정됨", "-");
+    if (el) {
+      el.innerHTML =
+        chip(krActive, "KIS(국장 공식)") +
+        chip(!!finnhubApiKey, "Finnhub(미장)") +
+        chip(!!proxyBaseUrl, "프록시") +
+        chip(!!polygonKey, "Polygon(캔들)") +
+        chip(!!twelveDataKey, "TwelveData(캔들)") +
+        chip(!!dartKey, "DART(재무)") +
+        `<div style="margin-top:6px;">국내주식 소스: <b style="color:${krActive ? '#34D399' : '#F59E0B'};">${krActive ? '한국투자증권 KIS 공식API' : '네이버 (KIS 키 입력 시 공식API로 자동 전환)'}</b></div>` +
+        `<div>미국주식 소스: <b style="color:${finnhubApiKey ? '#34D399' : '#F59E0B'};">${finnhubApiKey ? 'Finnhub 공식 API (직결)' : 'Yahoo Finance (프록시 경유) — Finnhub 키 입력 권장'}</b></div>`;
+      if (el && isStaticHostDeployment() && proxyBaseUrl && proxyBaseUrl.includes("localhost")) {
+        el.innerHTML += `<div style="color:#FCD34D; margin-top:4px;">⚠️ 정적 배포 호스트(GitHub Pages 등)에서는 localhost 프록시가 동작하지 않습니다 → cloudflare-worker.js를 배포 후 그 주소를 입력하세요.</div>`;
+      }
+    }
   }
 
   function isKrwNativeAsset(ticker) {
@@ -958,7 +1030,6 @@
     return `${krName} (${cleanT})`;
   }
 
-  // ==================== 3. 다중 출처 가격 기록기 (출처 투명성 100% 보장) ====================
   function recordSourceQuote(ticker, sourceName, price, prevClose, changePct) {
     if (!price || isNaN(price) || price <= 0) return;
     if (!multiSourceQuotes[ticker]) multiSourceQuotes[ticker] = {};
@@ -970,38 +1041,58 @@
       time: new Date().toLocaleTimeString("ko-KR", { hour12: false })
     };
 
-    // 기존 캐시에 실데이터 반영
     ["1d", "1h", "15m", "5m"].forEach(tf => {
       const p = candleCache[`${ticker}_${tf}`];
       if (p && p.candles && p.candles.length > 0) {
-        p.livePrice = price;
-        if (prevClose) p.prevClose = prevClose;
-        p.changePct = pct;
-        p.source = sourceName;
-        p.isLive = true;
-        const lastBar = p.candles[p.candles.length - 1];
-        lastBar.c = price;
-        if (price > lastBar.h) lastBar.h = price;
-        if (price < lastBar.l) lastBar.l = price;
+        // 동일 출처(또는 출처 미지정)인 경우에만 캔들/가격을 갱신하여 출처 간 교차 오염 방지
+        if (samePlatformSource(p.source, sourceName)) {
+          p.livePrice = price;
+          if (prevClose) p.prevClose = prevClose;
+          p.changePct = pct;
+          p.source = sourceName;
+          p.isLive = true;
+          const lastBar = p.candles[p.candles.length - 1];
+          lastBar.c = price;
+          if (price > lastBar.h) lastBar.h = price;
+          if (price < lastBar.l) lastBar.l = price;
+        }
       }
     });
 
+    // 가격만 먼저 도착한 경우 (캔들 없음): 팩이 없을 때만 생성
     if (!candleCache[`${ticker}_1d`]) {
-      // 아직 캔들 배열이 도착하기 전에 실시간 단가만 먼저 도착한 경우
       candleCache[`${ticker}_1d`] = {
         source: sourceName,
         isLive: true,
-        candles: null, // 캔들은 가짜로 만들지 않고 null로 두어 실제 캔들 수신 시에만 그림
+        candles: null,
         livePrice: price,
         prevClose: prevClose || price,
         changePct: pct
       };
     } else {
-      candleCache[`${ticker}_1d`].livePrice = price;
-      if (prevClose) candleCache[`${ticker}_1d`].prevClose = prevClose;
-      candleCache[`${ticker}_1d`].changePct = pct;
-      candleCache[`${ticker}_1d`].source = sourceName;
+      const p = candleCache[`${ticker}_1d`];
+      if (!p.candles || p.candles.length === 0) {
+        // 캔들이 아직 없는 가격 전용 팩: 동일/미지정 출처일 때만 갱신
+        if (samePlatformSource(p.source, sourceName)) {
+          p.livePrice = price;
+          if (prevClose) p.prevClose = prevClose;
+          p.changePct = pct;
+          p.source = sourceName;
+        }
+      }
+      // 캔들이 이미 있는 팩은 위 루프에서 처리했으므로 여기서는 덮어쓰지 않음
     }
+  }
+
+  function samePlatformSource(a, b) {
+    if (!a || !b) return true;
+    if (a === b) return true;
+    const roots = ["업비트", "바이낸스", "네이버", "yahoo", "stooq", "fawaz", "open.er", "open-er", "ecb", "currency", "글로벌", "finnhub", "open er", "twelve", "polygon", "한국투자증권", "한국투자", "kis"];
+    const la = a.toLowerCase(), lb = b.toLowerCase();
+    for (const r of roots) {
+      if (la.includes(r) && lb.includes(r)) return true;
+    }
+    return false;
   }
 
   function fmtPrice(rawVal, ticker = currentTicker) {
@@ -1042,27 +1133,22 @@
     renderHome();
   }
 
-  // ==================== 4. 외부 금융앱(토스증권/인베스팅닷컴/네이버/야후) 원클릭 딥링크 생성 ====================
   function renderExternalAppLinks(ticker) {
     const cleanCode = ticker.replace(".KS", "").replace(".KQ", "");
     const isKR = ticker.endsWith(".KS") || ticker.endsWith(".KQ");
     const dbItem = MASTER_STOCK_DB.find(m => m.ticker === ticker);
     const searchName = dbItem ? dbItem.krName.split("(")[0].trim() : cleanCode;
 
-    // 1. 토스증권 (국내주식은 A+6자리코드, 미국주식은 티커로 직결)
     const tossCode = isKR ? `A${cleanCode}` : cleanCode;
     const tossUrl = `https://tossinvest.com/stocks/${encodeURIComponent(tossCode)}/order`;
 
-    // 2. 인베스팅닷컴 (종목 검색 직결)
     const investingUrl = `https://kr.investing.com/search/?q=${encodeURIComponent(cleanCode)}`;
 
-    // 3. 네이버페이 증권 (국내/해외 직결)
     const reuters = (dbItem && dbItem.reuters) ? dbItem.reuters : `${cleanCode}.O`;
     const naverUrl = isKR
       ? `https://m.stock.naver.com/domestic/stock/${cleanCode}/total`
       : `https://m.stock.naver.com/worldstock/stock/${reuters}/total`;
 
-    // 4. Yahoo Finance 원문
     const yahooUrl = `https://finance.yahoo.com/quote/${encodeURIComponent(ticker)}`;
 
     const bar = document.getElementById("externalAppLinksBar");
@@ -1075,7 +1161,6 @@
     `;
   }
 
-  // ==================== 5. TradingView 공식 실시간 차트 위젯 연동 ====================
   function switchChartMode(mode) {
     chartMode = mode;
     document.getElementById("tabChartCanvas").classList.toggle("active", mode === "canvas");
@@ -1127,28 +1212,58 @@
     });
   }
 
-  // ==================== 6. 다중 프록시 엔진 & 6대 실데이터 소스 수집기 ====================
-  async function fetchVerified(targetUrl, validatorFn, timeoutMs = 6000) {
+  async function fetchVerified(targetUrl, validatorFn, timeoutMs = 6000, opts = {}) {
     const encoded = encodeURIComponent(targetUrl);
-    const candidates = [
-      { url: `https://api.codetabs.com/v1/proxy?quest=${encoded}`, wrap: "raw" },
-      { url: `https://api.allorigins.win/raw?url=${encoded}`, wrap: "raw" },
-      { url: `https://api.allorigins.win/get?url=${encoded}`, wrap: "allorigins" },
-      { url: `https://corsproxy.io/?url=${encoded}`, wrap: "raw" }
-    ];
 
-    const tasks = candidates.map(async (c) => {
+    // opts: { method: "GET"|"POST", body: string, headers: {이름: 값} }
+    const upstreamHeaders = opts.headers || {};
+    const isPost = (opts.method || "GET").toUpperCase() === "POST";
+    const hParams = Object.entries(upstreamHeaders)
+      .map(([k, v]) => `h_${encodeURIComponent(k.replace(/-/g, "_"))}=${encodeURIComponent(v)}`)
+      .join("&");
+
+    // 1) 사용자 CORS 프록시 (proxy.py 등) - 네이버/야후/KIS 등 CORS 미지원 호스트에 필수
+    if (proxyBaseUrl) {
+      const tryProxy = async (base) => {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+        try {
+          const sep = base.includes("?") ? "&" : "?";
+          const url = `${base}${encoded}${hParams ? (sep + hParams) : ""}${isPost && opts.body ? `${sep}body=${encodeURIComponent(opts.body)}` : ""}`;
+          const res = await fetch(url, {
+            signal: ctrl.signal,
+            method: isPost ? "POST" : "GET",
+            headers: isPost ? { "Content-Type": "application/json; charset=utf-8" } : undefined,
+            body: isPost ? (opts.body || "") : undefined
+          });
+          clearTimeout(timer);
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const txt = await res.text();
+          const parsed = validatorFn(txt);
+          if (!parsed) throw new Error("Parse failed");
+          return parsed;
+        } catch (e) {
+          clearTimeout(timer);
+          throw e;
+        }
+      };
+      try { return await tryProxy(proxyBaseUrl); } catch (e) { __qcatch(e); }
+    }
+
+    // 2) 직접 호출 (CORS 허용 엔드포인트용)
+    const tryDirect = async () => {
       const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+      const timer = setTimeout(() => ctrl.abort(), Math.min(timeoutMs, 4000));
       try {
-        const res = await fetch(c.url, { signal: ctrl.signal });
+        const res = await fetch(targetUrl, {
+          signal: ctrl.signal,
+          method: isPost ? "POST" : "GET",
+          headers: Object.keys(upstreamHeaders).length ? upstreamHeaders : undefined,
+          body: isPost ? opts.body : undefined
+        });
         clearTimeout(timer);
         if (!res.ok) throw new Error("HTTP " + res.status);
-        let txt = await res.text();
-        if (c.wrap === "allorigins") {
-          const j = JSON.parse(txt);
-          txt = j.contents || "";
-        }
+        const txt = await res.text();
         const parsed = validatorFn(txt);
         if (!parsed) throw new Error("Parse failed");
         return parsed;
@@ -1156,14 +1271,14 @@
         clearTimeout(timer);
         throw e;
       }
-    });
+    };
+    try { return await tryDirect(); } catch (e) { __qcatch(e); }
 
-    return Promise.any(tasks);
+    // 3) 공개 프록시 폴백 없음 (모두 차단/다운). 실패로 종료.
+    throw new Error("fetchVerified failed");
   }
 
-  // [소스 1] 공식 달러/원 환율 3중 직결 API (프록시 무사용, 브라우저 100% 직결)
   async function syncOfficialExchangeRate() {
-    // 1-A. Fawazahmed0 Currency API (CDN 직결, 일일 최신 환율)
     try {
       const res = await fetch("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json");
       if (res.ok) {
@@ -1173,9 +1288,8 @@
           recordSourceQuote("KRW=X", "글로벌 Currency-API(직결)", officialUsdKrw, officialUsdKrw, 0);
         }
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
 
-    // 1-B. Open Exchange Rates API (직결)
     try {
       const res = await fetch("https://open.er-api.com/v6/latest/USD");
       if (res.ok) {
@@ -1185,24 +1299,13 @@
           recordSourceQuote("KRW=X", "Open-ER 외환API(직결)", officialUsdKrw, officialUsdKrw, 0);
         }
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
 
-    // 1-C. ECB Frankfurter API (직결)
-    try {
-      const fRes = await fetch("https://api.frankfurter.app/latest?from=USD&to=KRW");
-      if (fRes.ok) {
-        const fData = await fRes.json();
-        if (fData && fData.rates && fData.rates.KRW > 900) {
-          if (!officialUsdKrw) officialUsdKrw = fData.rates.KRW;
-          recordSourceQuote("KRW=X", "ECB 기준환율(직결)", fData.rates.KRW, fData.rates.KRW, 0);
-        }
-      }
-    } catch (e) {}
+    // ECB Frankfurter API는 CORS 미지원 → 브라우저 차단. 위 2개 소스로 충분.
 
     updateMacroBarUI();
   }
 
-  // [소스 2] 업비트 & 바이낸스 24H 직결 (웹소켓 + REST, 프록시 무사용)
   function startRealtimeWebSockets() {
     try {
       if (upbitWs) upbitWs.close();
@@ -1223,14 +1326,15 @@
             updateMacroBarUI();
             updateHomeRowQuick(data.code);
             if (currentTicker === data.code) renderDetailHeaderOnly();
+            scheduleRealtimeRescore();
           }
-        } catch (e) {}
+        } catch (e) { __qcatch(e); }
       };
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
 
     try {
       if (binanceWs) binanceWs.close();
-      binanceWs = new WebSocket("wss://stream.binance.com:9443/ws/paxgusdt@ticker/btcusdt@ticker");
+      binanceWs = new WebSocket("wss://stream.binance.com:9443/ws/paxgusdt@ticker");
       binanceWs.onmessage = (evt) => {
         try {
           const d = JSON.parse(evt.data);
@@ -1239,10 +1343,11 @@
             updateMacroBarUI();
             updateHomeRowQuick(d.s);
             if (currentTicker === d.s) renderDetailHeaderOnly();
+            scheduleRealtimeRescore();
           }
-        } catch (e) {}
+        } catch (e) { __qcatch(e); }
       };
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
   }
 
   async function sync24HourAssetsRest() {
@@ -1257,7 +1362,7 @@
           recordSourceQuote(item.market, "업비트 REST(직결)", item.trade_price, item.prev_closing_price, item.signed_change_rate * 100);
         });
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
 
     try {
       const bRes = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbols=["PAXGUSDT","BTCUSDT"]`);
@@ -1267,16 +1372,17 @@
           recordSourceQuote(item.symbol, "바이낸스 REST(직결)", parseFloat(item.lastPrice), parseFloat(item.openPrice), parseFloat(item.priceChangePercent));
         });
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
     updateMacroBarUI();
   }
 
-  // [소스 3] 네이버 국내 주식 API (m.stock.naver.com/api/stock/{code}/basic & price & fchart)
   async function fetchNaverDomesticStock(ticker, tf = "1d") {
     const cleanCode = ticker.replace(".KS", "").replace(".KQ", "");
     if (!/^\d{6}$/.test(cleanCode)) return null;
 
-    // 3-1. 네이버 모바일 실시간 기본 시세 (현재가, 전일비, 등락률)
+    // 블록 스코프 버그 방지: 아래 3개 try 블록에서 공통 사용하므로 함수 스코프에 선언
+    let naverSessionInfo = null;
+
     try {
       const basicUrl = `https://m.stock.naver.com/api/stock/${cleanCode}/basic`;
       const basic = await fetchVerified(basicUrl, (txt) => {
@@ -1284,6 +1390,14 @@
         return (j && j.closePrice) ? j : null;
       }, 5500);
       if (basic) {
+        const om = basic.overMarketPriceInfo || {};
+        naverSessionInfo = {
+          regularPrice: parseFloat(String(basic.closePrice).replace(/,/g, "")),
+          overPrice: om.overPrice ? parseFloat(String(om.overPrice).replace(/,/g, "")) : null,
+          tradingSessionType: om.tradingSessionType || basic.marketStatus || "REGULAR_MARKET",
+          marketStatus: basic.marketStatus || "",
+          fluctuationsRatio: parseFloat(String(basic.fluctuationsRatio || "0").replace(/,/g, ""))
+        };
         const cur = parseFloat(String(basic.closePrice).replace(/,/g, ""));
         const diff = parseFloat(String(basic.compareToPreviousClosePrice || "0").replace(/,/g, ""));
         const pct = parseFloat(String(basic.fluctuationsRatio || "0").replace(/,/g, ""));
@@ -1291,12 +1405,11 @@
         const signedDiff = isDown ? -Math.abs(diff) : Math.abs(diff);
         recordSourceQuote(ticker, "네이버증권 실시간(KRX)", cur, cur - signedDiff, pct);
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
 
-    // 3-2. 네이버 fchart XML (실제 캔들 데이터: 일봉/분봉)
     try {
       const fchartTf = tf === "1d" ? "day" : (tf === "1h" ? "minute60" : (tf === "15m" ? "minute15" : "minute5"));
-      const fchartUrl = `https://fchart.stock.naver.com/sise.nhn?symbol=${cleanCode}&timeframe=${fchartTf}&count=85&requestType=0`;
+      const fchartUrl = `https://fchart.stock.naver.com/sise.nhn?symbol=${cleanCode}&timeframe=${fchartTf}&count=200&requestType=0`;
       const candles = await fetchVerified(fchartUrl, (txt) => {
         const matches = [...txt.matchAll(/data="([^"]+)"/g)];
         if (matches.length < 10) return null;
@@ -1314,26 +1427,35 @@
       }, 5500);
 
       if (candles && candles.length >= 10) {
-        const cur = candles[candles.length - 1].c;
-        const prev = candles[candles.length - 2].c;
-        recordSourceQuote(ticker, "네이버 KRX 차트(fchart)", cur, prev, ((cur - prev) / prev) * 100);
+        // 네이버 공식(basic) 전일종가·등락률을 기준으로 통일 → 소스 간 등락률 불일치 방지
+        const official = multiSourceQuotes[ticker] ? multiSourceQuotes[ticker]["네이버증권 실시간(KRX)"] : null;
+        const lastBar = candles[candles.length - 1];
+        if (official && official.price > 0) {
+          lastBar.c = official.price;
+          if (official.price > lastBar.h) lastBar.h = official.price;
+          if (official.price < lastBar.l) lastBar.l = official.price;
+        }
+        const cur = lastBar.c;
+        const prev = (official && official.prevClose > 0) ? official.prevClose : candles[candles.length - 2].c;
+        const pct = (official && official.changePct != null) ? official.changePct : ((cur - prev) / prev) * 100;
+        recordSourceQuote(ticker, "네이버 KRX 차트(fchart)", cur, prev, pct);
         const pack = {
           source: "네이버 KRX 실데이터",
           isLive: true,
           candles,
-          livePrice: multiSourceQuotes[ticker]?.["네이버증권 실시간(KRX)"]?.price || cur,
-          prevClose: multiSourceQuotes[ticker]?.["네이버증권 실시간(KRX)"]?.prevClose || prev,
-          changePct: multiSourceQuotes[ticker]?.["네이버증권 실시간(KRX)"]?.changePct ?? (((cur - prev) / prev) * 100)
+          livePrice: cur,
+          prevClose: prev,
+          changePct: pct,
+          sessionInfo: naverSessionInfo
         };
         candleCache[`${ticker}_${tf}`] = pack;
         if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
         return pack;
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
 
-    // 3-3. 네이버 모바일 일별 시세 JSON 폴백
     try {
-      const priceUrl = `https://m.stock.naver.com/api/stock/${cleanCode}/price?pageSize=70&page=1`;
+      const priceUrl = `https://m.stock.naver.com/api/stock/${cleanCode}/price?pageSize=60&page=1`;
       const arr = await fetchVerified(priceUrl, (txt) => {
         const j = JSON.parse(txt);
         return (Array.isArray(j) && j.length >= 10) ? j : null;
@@ -1350,21 +1472,29 @@
             v: parseFloat(String(r.accumulatedTradingVolume).replace(/,/g, "")) || 100000
           };
         }).filter(x => x.c > 0);
-        const latest = arr[0];
-        const cur = parseFloat(String(latest.closePrice).replace(/,/g, ""));
-        const pct = parseFloat(String(latest.fluctuationsRatio || "0").replace(/,/g, ""));
-        const prev = candles.length >= 2 ? candles[candles.length - 2].c : cur;
+        const official = multiSourceQuotes[ticker] ? multiSourceQuotes[ticker]["네이버증권 실시간(KRX)"] : null;
+        const lastBar = candles[candles.length - 1];
+        if (official && official.price > 0) {
+          lastBar.c = official.price;
+          if (official.price > lastBar.h) lastBar.h = official.price;
+          if (official.price < lastBar.l) lastBar.l = official.price;
+        }
+        const cur = lastBar.c;
+        const pct = (official && official.changePct != null)
+          ? official.changePct
+          : parseFloat(String(arr[0].fluctuationsRatio || "0").replace(/,/g, ""));
+        const prev = (official && official.prevClose > 0) ? official.prevClose : (candles.length >= 2 ? candles[candles.length - 2].c : cur);
         recordSourceQuote(ticker, "네이버 일별시세(KRX)", cur, prev, pct);
-        const pack = { source: "네이버 모바일 실데이터", isLive: true, candles, livePrice: cur, prevClose: prev, changePct: pct };
+        const pack = { source: "네이버 모바일 실데이터", isLive: true, candles, livePrice: cur, prevClose: prev, changePct: pct, sessionInfo: naverSessionInfo };
         candleCache[`${ticker}_${tf}`] = pack;
+        if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
         return pack;
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
 
     return null;
   }
 
-  // [소스 4] 네이버 해외주식 API (미국 주식 현재가 & 일별 캔들 - 야후 파이낸스 없이도 미국 주식 조회 가능!)
   async function resolveNaverReutersCode(ticker) {
     const dbItem = MASTER_STOCK_DB.find(m => m.ticker === ticker);
     if (dbItem && dbItem.reuters) return dbItem.reuters;
@@ -1381,18 +1511,19 @@
           return exact.reutersCode;
         }
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
     return `${ticker}.O`;
   }
 
   async function fetchNaverOverseasStock(ticker) {
     const reuters = await resolveNaverReutersCode(ticker);
-    const suffixes = [reuters, `${ticker}.O`, `${ticker}.N`, `${ticker}.P`, `${ticker}.A`];
+    // 폴백 접미사 루프는 CORS/타임아웃 지연을 유발하므로 대표 코드 1개만 시도
+    const suffixes = [reuters];
     const uniqueSuffixes = [...new Set(suffixes)];
 
     for (const rCode of uniqueSuffixes) {
       try {
-        const priceUrl = `https://api.stock.naver.com/stock/${encodeURIComponent(rCode)}/price?page=1&pageSize=70`;
+        const priceUrl = `https://api.stock.naver.com/stock/${encodeURIComponent(rCode)}/price?page=1&pageSize=60`;
         const arr = await fetchVerified(priceUrl, (txt) => {
           const j = JSON.parse(txt);
           return (Array.isArray(j) && j.length >= 5) ? j : null;
@@ -1428,12 +1559,101 @@
           candleCache[`${ticker}_1d`] = pack;
           return pack;
         }
-      } catch (e) {}
+      } catch (e) { __qcatch(e); }
     }
     return null;
   }
 
-  // [소스 5] Stooq 글로벌 금융 데이터베이스 CSV (미국 주식 OHLCV 교차 검증)
+  // ── 한국투자증권 KIS 공식 API (국내주식 · 사용자 키 입력 시 우선 사용) ──
+  const KIS_BASE = "https://openapi.koreainvestment.com:9443";
+  let _kisToken = null;
+  async function getKisAccessToken(force = false) {
+    if (!kisAppKey || !kisAppSecret) return null;
+    if (!force && _kisToken && _kisToken.exp > Date.now() + 60000) return _kisToken.token;
+    const body = JSON.stringify({ grant_type: "client_credentials", appkey: kisAppKey, appsecret: kisAppSecret });
+    const j = await fetchVerified(`${KIS_BASE}/oauth2/tokenP`, (txt) => {
+      const o = JSON.parse(txt);
+      if (!o || !o.access_token) return null;
+      const expiresIn = parseInt(o.expires_in || "86400", 10) || 86400;
+      return { token: o.access_token, exp: Date.now() + Math.max(60, (expiresIn - 600)) * 1000 };
+    }, 6500, { method: "POST", body, headers: { "content-type": "application/json" } }).catch(() => null);
+    if (j) _kisToken = j;
+    return j ? j.token : null;
+  }
+
+  async function kisFetch(pathAndQuery, trId) {
+    const token = await getKisAccessToken();
+    if (!token) return null;
+    const url = KIS_BASE + pathAndQuery;
+    const headers = {
+      "authorization": `Bearer ${token}`,
+      "appkey": kisAppKey,
+      "appsecret": kisAppSecret,
+      "tr_id": trId,
+      "custtype": "P"
+    };
+    return await fetchVerified(url, (txt) => {
+      const o = JSON.parse(txt);
+      if (!o || String(o.rt_cd) !== "0") return null;
+      return o;
+    }, 6500, { headers }).catch(() => null);
+  }
+
+  async function fetchKisDomesticStock(ticker, tf = "1d") {
+    if (!kisAppKey || !kisAppSecret || tf !== "1d") return null;
+    const cleanCode = ticker.replace(".KS", "").replace(".KQ", "");
+    if (!/^\d{6}$/.test(cleanCode)) return null;
+
+    // 1) 국내주식기간시세(일봉) — FHKST03010100
+    const chart = await kisFetch(
+      `/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${cleanCode}&FID_PERIOD_DIV_CODE=D&FID_ORG_ADJ_PRC=1`,
+      "FHKST03010100"
+    );
+    if (!chart || !Array.isArray(chart.output2) || chart.output2.length < 10) return null;
+    const candles = chart.output2
+      .map(r => ({
+        d: r.stck_bsop_date,
+        o: parseFloat(r.stck_oprc), h: parseFloat(r.stck_hgpr),
+        l: parseFloat(r.stck_lprc), c: parseFloat(r.stck_clpr),
+        v: parseFloat(r.acml_vol) || 500000
+      }))
+      .filter(x => x.c > 0)
+      .sort((a, b) => (a.d || "").localeCompare(b.d || ""))
+      .map(({ d, ...rest }) => rest);
+    if (candles.length < 10) return null;
+
+    // 2) 국내주식현재가 — FHKST01010100 (실시간 가격·전일종가·등락률)
+    let livePrice = candles[candles.length - 1].c;
+    let prevClose = candles[candles.length - 2].c;
+    let changePct = ((livePrice - prevClose) / prevClose) * 100;
+    const priceInfo = await kisFetch(
+      `/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${cleanCode}`,
+      "FHKST01010100"
+    );
+    if (priceInfo && priceInfo.output) {
+      const o = priceInfo.output;
+      const cur = parseFloat(o.stck_prpr);
+      const prdy = parseFloat(o.stck_prdy_clpr);
+      const ctrt = parseFloat(o.prdy_ctrt);
+      if (cur > 0) livePrice = cur;
+      if (prdy > 0) prevClose = prdy;
+      if (ctrt != null && !isNaN(ctrt)) changePct = ctrt;
+      else if (prevClose > 0) changePct = ((livePrice - prevClose) / prevClose) * 100;
+    }
+
+    recordSourceQuote(ticker, "한국투자증권 KIS(공식API)", livePrice, prevClose, changePct);
+    const pack = {
+      source: "한국투자증권 KIS(공식API)",
+      isLive: true,
+      candles: candles.slice(-200),
+      livePrice,
+      prevClose,
+      changePct
+    };
+    candleCache[`${ticker}_1d`] = pack;
+    return pack;
+  }
+
   async function fetchStooqGlobalStock(ticker) {
     if (isKrwNativeAsset(ticker)) return null;
     try {
@@ -1472,28 +1692,50 @@
         }
         return candleCache[`${ticker}_1d`];
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
     return null;
   }
 
-  // [소스 6] Yahoo Finance v8 Chart & Finnhub 직결 API
-  async function fetchYahooAndFinnhubStock(ticker, tf = "1d") {
-    // 6-1. 사용자가 Finnhub 무료 API 키를 등록한 경우 프록시 없이 0.1초 직결 호출
-    if (finnhubApiKey && !isKrwNativeAsset(ticker)) {
-      try {
-        const fRes = await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(ticker)}&token=${encodeURIComponent(finnhubApiKey)}`);
-        if (fRes.ok) {
-          const fq = await fRes.json();
-          if (fq && fq.c > 0) {
-            recordSourceQuote(ticker, "Finnhub 공식API(직결)", fq.c, fq.pc, fq.dp);
-          }
-        }
-      } catch (e) {}
-    }
+  // ── Finnhub 단일 시세 캐시 (미국주식 = Finnhub 우선) ──
+  const _finnhubQuoteCache = {};
+  async function fetchFinnhubQuote(ticker) {
+    if (!finnhubApiKey || isKrwNativeAsset(ticker)) return null;
+    const now = Date.now();
+    const cached = _finnhubQuoteCache[ticker];
+    if (cached && (now - cached.t) < 60000) return cached.q;
+    const url = `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(ticker)}&token=${encodeURIComponent(finnhubApiKey)}`;
+    const parse = (txt) => {
+      const o = JSON.parse(txt);
+      return (o && typeof o.c === "number" && o.c > 0) ? o : null;
+    };
+    let q = null;
+    try { q = await fetchVerified(url, parse, 5000); } catch (e) { q = null; }
+    _finnhubQuoteCache[ticker] = { t: now, q };
+    if (q) recordSourceQuote(ticker, "Finnhub 공식API(직결)", q.c, q.pc, q.dp);
+    return q;
+  }
 
-    // 6-2. Yahoo Finance v8
+  // 어떤 캔들 팩이든 Finnhub 시세를 메인 가격·등락률로 덮어쓴다 (미국주식 전용)
+  function applyFinnhubToPack(ticker, pack, q) {
+    if (!pack || !q || !(q.c > 0)) return pack;
+    pack.livePrice = q.c;
+    if (q.pc > 0) pack.prevClose = q.pc;
+    pack.changePct = (q.dp != null && !isNaN(q.dp)) ? q.dp : ((pack.livePrice - pack.prevClose) / pack.prevClose * 100);
+    if (pack.candles && pack.candles.length > 0) {
+      const last = pack.candles[pack.candles.length - 1];
+      last.c = pack.livePrice;
+      if (pack.livePrice > last.h) last.h = pack.livePrice;
+      if (pack.livePrice < last.l) last.l = pack.livePrice;
+    }
+    pack.source = "Finnhub 공식API(직결)";
+    return pack;
+  }
+
+  async function fetchYahooAndFinnhubStock(ticker, tf = "1d") {
+    const finnhubQuote = await fetchFinnhubQuote(ticker);
+
     try {
-      const range = (tf === "5m" || tf === "15m") ? "5d" : (tf === "1h" ? "1mo" : "6mo");
+      const range = (tf === "5m" || tf === "15m") ? "5d" : (tf === "1h" ? "1mo" : "1y");
       const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=${tf}&range=${range}&includePrePost=true`;
       const pack = await fetchVerified(yUrl, (txt) => {
         const data = JSON.parse(txt);
@@ -1513,37 +1755,113 @@
           }
         }
         if (candles.length < 8) return null;
+        const regularPrice = meta.regularMarketPrice || candles[candles.length - 1].c;
+        const prePrice = meta.preMarketPrice || null;
+        const postPrice = meta.postMarketPrice || null;
+        // 본장이 열려있으면 regularMarketPrice, 아니면 가장 최근 가격 사용
         const cur = meta.postMarketPrice || meta.preMarketPrice || meta.regularMarketPrice || candles[candles.length - 1].c;
         candles[candles.length - 1].c = cur;
-        const prev = meta.chartPreviousClose || meta.previousClose || candles[candles.length - 2].c;
+        let changePct = null;
+        if (meta.regularMarketChangePercent != null && !isNaN(meta.regularMarketChangePercent)) {
+          changePct = meta.regularMarketChangePercent;
+        }
+        const prev = (changePct != null)
+          ? (regularPrice / (1 + changePct / 100))
+          : (meta.previousClose || candles[candles.length - 2].c);
+        if (changePct == null) {
+          changePct = ((cur - prev) / prev) * 100;
+        }
         return {
           source: "Yahoo Finance 실데이터",
           isLive: true,
-          candles: candles.slice(-85),
+          candles: candles.slice(-200),
           livePrice: cur,
           prevClose: prev,
-          changePct: ((cur - prev) / prev) * 100
+          changePct: changePct,
+          sessionInfo: {
+            regularPrice: regularPrice,
+            preMarketPrice: prePrice,
+            postMarketPrice: postPrice,
+            regularChangePct: meta.regularMarketChangePercent
+          }
         };
       }, 5500);
-
       if (pack) {
+        // 야후 출처 기록 (Finnhub 적용 전 원본 값)
         recordSourceQuote(ticker, "Yahoo Finance(v8)", pack.livePrice, pack.prevClose, pack.changePct);
+        // 미국주식은 Finnhub 시세를 메인 가격/등락률로 사용 (야후 캔들 + Finnhub 시세)
+        applyFinnhubToPack(ticker, pack, finnhubQuote);
         candleCache[`${ticker}_${tf}`] = pack;
         if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
         return pack;
       }
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
     return null;
   }
 
-  // 통합 캔들 & 다중 출처 가격 로더 (모든 가능한 소스를 동시에 호출해 교차 검증!)
+  // ── 사용자 API 키 기반 공식 소스 (미국주식) ──
+  async function fetchTwelveDataStock(ticker, tf = "1d") {
+    if (!twelveDataKey || isKrwNativeAsset(ticker)) return null;
+    try {
+      const interval = tf === "1d" ? "1day" : (tf === "1h" ? "1h" : (tf === "15m" ? "15min" : "5min"));
+      const url = `https://api.twelvedata.com/time_series?symbol=${encodeURIComponent(ticker)}&interval=${interval}&outputsize=200&apikey=${encodeURIComponent(twelveDataKey)}`;
+      const parsed = await fetchVerified(url, (txt) => {
+        const j = JSON.parse(txt);
+        if (!j || j.status === "error" || !Array.isArray(j.values) || j.values.length < 10) return null;
+        const candles = j.values.slice().reverse().map(v => ({
+          o: parseFloat(v.open), h: parseFloat(v.high), l: parseFloat(v.low), c: parseFloat(v.close),
+          v: parseFloat(v.volume) || 500000
+        })).filter(x => x.c > 0);
+        if (candles.length < 10) return null;
+        const cur = candles[candles.length - 1].c;
+        const prev = candles[candles.length - 2].c;
+        return { candles, cur, prev };
+      }, 6500);
+      if (!parsed) return null;
+      const pct = ((parsed.cur - parsed.prev) / parsed.prev) * 100;
+      const srcName = "Twelve Data(공식)";
+      recordSourceQuote(ticker, srcName, parsed.cur, parsed.prev, pct);
+      const pack = { source: srcName, isLive: true, candles: parsed.candles.slice(-200), livePrice: parsed.cur, prevClose: parsed.prev, changePct: pct };
+      candleCache[`${ticker}_${tf}`] = pack;
+      if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
+      return pack;
+    } catch (e) { return null; }
+  }
+
+  async function fetchPolygonStock(ticker, tf = "1d") {
+    if (!polygonKey || isKrwNativeAsset(ticker)) return null;
+    if (tf !== "1d") return null; // 무료 플랜은 일봉 aggregates 중심
+    try {
+      const to = new Date();
+      const from = new Date(to.getTime() - 365 * 24 * 3600 * 1000);
+      const fmt = (d) => d.toISOString().slice(0, 10);
+      const url = `https://api.polygon.io/v2/aggs/ticker/${encodeURIComponent(ticker)}/range/1/day/${fmt(from)}/${fmt(to)}?adjusted=true&sort=asc&limit=300&apiKey=${encodeURIComponent(polygonKey)}`;
+      const parsed = await fetchVerified(url, (txt) => {
+        const j = JSON.parse(txt);
+        if (!j || !Array.isArray(j.results) || j.results.length < 10) return null;
+        const candles = j.results.map(r => ({ o: r.o, h: r.h, l: r.l, c: r.c, v: r.v || 500000 })).filter(x => x.c > 0);
+        if (candles.length < 10) return null;
+        const cur = candles[candles.length - 1].c;
+        const prev = candles[candles.length - 2].c;
+        return { candles, cur, prev };
+      }, 6500);
+      if (!parsed) return null;
+      const pct = ((parsed.cur - parsed.prev) / parsed.prev) * 100;
+      const srcName = "Polygon.io(공식)";
+      recordSourceQuote(ticker, srcName, parsed.cur, parsed.prev, pct);
+      const pack = { source: srcName, isLive: true, candles: parsed.candles.slice(-300), livePrice: parsed.cur, prevClose: parsed.prev, changePct: pct };
+      candleCache[`${ticker}_${tf}`] = pack;
+      if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
+      return pack;
+    } catch (e) { return null; }
+  }
+
   async function fetchLiveStockCandles(ticker, tf = "1d") {
-    // 1. 24시간 업비트 암호화폐
     if (ticker.startsWith("KRW-")) {
       try {
         const upTfUrl = tf === "1d"
-          ? `https://api.upbit.com/v1/candles/days?market=${ticker}&count=85`
-          : `https://api.upbit.com/v1/candles/minutes/${tf === "1h" ? 60 : (tf === "15m" ? 15 : 5)}?market=${ticker}&count=85`;
+          ? `https://api.upbit.com/v1/candles/days?market=${ticker}&count=200`
+          : `https://api.upbit.com/v1/candles/minutes/${tf === "1h" ? 60 : (tf === "15m" ? 15 : 5)}?market=${ticker}&count=200`;
         const [cRes, tRes] = await Promise.all([
           fetch(upTfUrl),
           fetch(`https://api.upbit.com/v1/ticker?markets=${ticker}`)
@@ -1567,15 +1885,14 @@
           if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
           return pack;
         }
-      } catch (e) {}
+      } catch (e) { __qcatch(e); }
     }
 
-    // 2. 24시간 바이낸스 금/코인
     if (ticker.endsWith("USDT")) {
       try {
         const bInterval = tf === "1d" ? "1d" : tf;
         const [kRes, tRes] = await Promise.all([
-          fetch(`https://api.binance.com/api/v3/klines?symbol=${ticker}&interval=${bInterval}&limit=85`),
+          fetch(`https://api.binance.com/api/v3/klines?symbol=${ticker}&interval=${bInterval}&limit=200`),
           fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`)
         ]);
         if (kRes.ok && tRes.ok) {
@@ -1593,34 +1910,48 @@
           if (tf === "1d") candleCache[`${ticker}_1d`] = pack;
           return pack;
         }
-      } catch (e) {}
+      } catch (e) { __qcatch(e); }
     }
 
-    // 3. 국내 주식 (네이버 KRX + Yahoo 동시 교차 호출)
     if (ticker.endsWith(".KS") || ticker.endsWith(".KQ")) {
-      const [naverPack, yahooPack] = await Promise.allSettled([
-        fetchNaverDomesticStock(ticker, tf),
-        fetchYahooAndFinnhubStock(ticker, tf)
-      ]);
-      return (naverPack.status === "fulfilled" && naverPack.value) ||
-             (yahooPack.status === "fulfilled" && yahooPack.value) ||
+      // 국장: ① 한국투자증권 KIS 공식API (키 입력 시) → ② 네이버 (폴백). 야후는 배제.
+      if (tf === "1d" && kisAppKey && kisAppSecret) {
+        const kisPack = await fetchKisDomesticStock(ticker, tf).catch(() => null);
+        if (kisPack) return kisPack;
+      }
+      const naverPack = await fetchNaverDomesticStock(ticker, tf).catch(() => null);
+      return naverPack ||
              candleCache[`${ticker}_${tf}`] || candleCache[`${ticker}_1d`];
     }
 
-    // 4. 미국 주식 & 글로벌 자산 (네이버 해외증시 + Yahoo v8 + Stooq CSV + Finnhub 동시 교차 호출)
-    const [naverUsPack, yahooUsPack, stooqPack] = await Promise.allSettled([
-      fetchNaverOverseasStock(ticker),
-      fetchYahooAndFinnhubStock(ticker, tf),
-      fetchStooqGlobalStock(ticker)
-    ]);
+    // 미국주식: Finnhub 시세를 기준으로, 캔들은 사용 가능한 소스에서 확보
+    const finnhubQuote = await fetchFinnhubQuote(ticker); // 60초 캐시 → 중복 호출 없음
 
-    return (yahooUsPack.status === "fulfilled" && yahooUsPack.value) ||
-           (naverUsPack.status === "fulfilled" && naverUsPack.value) ||
-           (stooqPack.status === "fulfilled" && stooqPack.value) ||
-           candleCache[`${ticker}_${tf}`] || candleCache[`${ticker}_1d`];
+    // 1) 사용자 캔들 전용 키가 있으면 우선 사용 (Polygon → Twelve Data)
+    let candlePack = null;
+    if (polygonKey) candlePack = await fetchPolygonStock(ticker, tf).catch(() => null);
+    if (!candlePack && twelveDataKey) candlePack = await fetchTwelveDataStock(ticker, tf).catch(() => null);
+
+    // 2) 무료 소스: 야후 캔들 + 네이버 해외 증시
+    if (!candlePack) {
+      const [naverUsPack, yahooUsPack] = await Promise.allSettled([
+        fetchNaverOverseasStock(ticker),
+        fetchYahooAndFinnhubStock(ticker, tf)
+      ]);
+      candlePack = (yahooUsPack.status === "fulfilled" && yahooUsPack.value) ||
+                   (naverUsPack.status === "fulfilled" && naverUsPack.value) || null;
+    }
+
+    // 3) 어떤 캔들 소스든 미국주식 가격·등락률은 Finnhub 기준으로 통일
+    if (candlePack) {
+      applyFinnhubToPack(ticker, candlePack, finnhubQuote);
+      candleCache[`${ticker}_${tf}`] = candlePack;
+      if (tf === "1d") candleCache[`${ticker}_1d`] = candlePack;
+      return candlePack;
+    }
+    return candleCache[`${ticker}_${tf}`] || candleCache[`${ticker}_1d`] || null;
   }
 
-  // ==================== 7. 전 종목 통합 검색 ====================
   function findLocalMatches(query) {
     const q = query.trim().toUpperCase().replace(/\s+/g, "");
     if (!q) return [];
@@ -1688,7 +2019,7 @@
         }
         results.push({ ticker: tk, reuters: it.reutersCode || code, krName: name, exchange: exch });
       });
-    } catch (e) {}
+    } catch (e) { __qcatch(e); }
     return results;
   }
 
@@ -1764,42 +2095,575 @@
     renderAll();
   }
 
-  // ==================== 8. 재무제표 평가 및 37개 기술지표 연산 ====================
-  function buildDefaultFinancialProfile(ticker) {
-    const isKR = ticker.endsWith(".KS") || ticker.endsWith(".KQ");
-    const is24H = getAssetCategory(ticker) === "24H";
-    if (is24H) {
-      return {
-        isMacroAsset: true,
-        unit: "-", sector: "글로벌 매크로·디지털 자산", sectorPer: 0, sectorPbr: 0,
-        years: ["2023", "2024", "최근"], rev: [0, 0, 0], op: [0, 0, 0], net: [0, 0, 0], opm: [0, 0, 0],
-        debtRatio: 0, currentRatio: 100, per: 0, pbr: 1.0, roe: 0,
-        catalyst: "비기업 매크로 자산으로 글로벌 유동성 및 37개 기술적 지표가 가격을 결정합니다."
-      };
+  const MathUtils = {
+    sma(arr, p) {
+      if (!arr || arr.length === 0) return 0;
+      const slice = arr.slice(-p);
+      return slice.reduce((a, b) => a + b, 0) / slice.length;
+    },
+    smaSeries(arr, p) {
+      return arr.map((_, idx) => {
+        const sub = arr.slice(Math.max(0, idx - p + 1), idx + 1);
+        return sub.reduce((a, b) => a + b, 0) / sub.length;
+      });
+    },
+    emaSeries(arr, p) {
+      if (!arr || arr.length === 0) return [];
+      const k = 2 / (p + 1);
+      const res = [arr[0]];
+      for (let i = 1; i < arr.length; i++) res.push(arr[i] * k + res[i - 1] * (1 - k));
+      return res;
+    },
+    rmaSeries(arr, p) {
+      if (!arr || arr.length === 0) return [];
+      const alpha = 1 / p;
+      const res = [arr[0]];
+      for (let i = 1; i < arr.length; i++) res.push(alpha * arr[i] + (1 - alpha) * res[i - 1]);
+      return res;
+    },
+    stdDev(arr, p) {
+      const slice = arr.slice(-p);
+      const mean = slice.reduce((a, b) => a + b, 0) / slice.length;
+      const variance = slice.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / slice.length;
+      return Math.sqrt(variance);
     }
+  };
+
+  /* ══════════════════════════════════════════════════════════════════
+     37개 지표 통합 채점 엔진 (표준 정의 버전)
+     - ADX/DI/ATR : Wilder 표준 스무딩 (TA-Lib 과 동일한 정의)
+     - 일목균형표 : 선행스팬 26봉 시프트 적용
+     - 슈퍼트렌드 : ATR 밴드 플립 방식 (SMA 프록시 아님)
+     - 파라볼릭 SAR: 실제 AF(0.02/0.2) 알고리즘
+     - VWAP      : 일봉에서 세션개념이 없으므로 VWMA(20) 으로 대체
+     - 중립(0) 신호 복원, 매도 쏠림 fallback 제거
+     - 백테스트 : 실제 승률 그대로 (인위적 62~94% clamp 제거)
+     ══════════════════════════════════════════════════════════════════ */
+  function evaluateAll37Indicators(candles, ticker = currentTicker) {
+    if (!candles || candles.length < 30) return null;
+    const N = candles.length;
+    const C = candles.map(x => x.c);
+    const H = candles.map(x => x.h);
+    const L = candles.map(x => x.l);
+    const V = candles.map(x => (x.v == null ? 0 : x.v));
+    const curC = C[N - 1];
+    const prevC = C[N - 2] || curC;
+    const f = (v) => fmtPrice(v, ticker);
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const hi = (from, to) => { let m = -Infinity; for (let i = Math.max(0, from); i <= to; i++) if (H[i] > m) m = H[i]; return m; };
+    const lo = (from, to) => { let m = Infinity; for (let i = Math.max(0, from); i <= to; i++) if (L[i] < m) m = L[i]; return m; };
+    const donMid = (i, p) => (hi(i - p + 1, i) + lo(i - p + 1, i)) / 2;
+
+    /* ── ① 이동평균선 (SMA 5·20·60) ── */
+    const sma5Arr = MathUtils.smaSeries(C, 5);
+    const sma20Arr = MathUtils.smaSeries(C, 20);
+    const sma60Arr = MathUtils.smaSeries(C, 60);
+    const sma5 = sma5Arr[N - 1], sma20 = sma20Arr[N - 1], sma60 = sma60Arr[N - 1];
+    const smaGap = ((curC - sma20) / Math.max(1e-9, sma20)) * 100;
+    const smaSig = (smaGap > 0.2 && sma5 >= sma20) ? 1 : ((smaGap < -0.2 && sma5 < sma20) ? -1 : 0);
+
+    /* ── ② 지수이동평균선 (EMA 12·26·50) ── */
+    const ema12Arr = MathUtils.emaSeries(C, 12);
+    const ema26Arr = MathUtils.emaSeries(C, 26);
+    const ema50Arr = MathUtils.emaSeries(C, 50);
+    const ema12 = ema12Arr[N - 1], ema26 = ema26Arr[N - 1], ema50 = ema50Arr[N - 1];
+    const emaGap = ((curC - ema26) / Math.max(1e-9, ema26)) * 100;
+    const emaSig = (emaGap > 0.2 && ema12 >= ema26) ? 1 : ((emaGap < -0.2 && ema12 < ema26) ? -1 : 0);
+
+    /* ── ③ 일목균형표 (전환9 · 기준26 · 선행스팬 26봉 이동) ── */
+    const ICHI_SHIFT = 26;
+    const rawTenkan = [], rawKijun = [], rawSpanA = [], rawSpanB = [];
+    for (let i = 0; i < N; i++) {
+      const t = donMid(i, 9), k = donMid(i, 26), b = donMid(i, 52);
+      rawTenkan.push(t); rawKijun.push(k);
+      rawSpanA.push((t + k) / 2);
+      rawSpanB.push(b);
+    }
+    const tenkanArr = rawTenkan, kijunArr = rawKijun;
+    const spanAArr = rawSpanA.map((v, i) => (i - ICHI_SHIFT >= 0 ? rawSpanA[i - ICHI_SHIFT] : v));
+    const spanBArr = rawSpanB.map((v, i) => (i - ICHI_SHIFT >= 0 ? rawSpanB[i - ICHI_SHIFT] : v));
+    const tenkan = tenkanArr[N - 1], kijun = kijunArr[N - 1];
+    const cloudTop = Math.max(spanAArr[N - 1], spanBArr[N - 1]);
+    const cloudBot = Math.min(spanAArr[N - 1], spanBArr[N - 1]);
+    const ichimokuSig = (curC > cloudTop && tenkan >= kijun) ? 1 : (curC < cloudBot ? -1 : 0);
+
+    /* ── ④ 볼린저 밴드 (20, 2σ) ── */
+    const bbUpperArr = [], bbLowerArr = [];
+    for (let i = 0; i < N; i++) {
+      const sub = C.slice(Math.max(0, i - 19), i + 1);
+      const mean = sub.reduce((a, b) => a + b, 0) / sub.length;
+      const sd = Math.sqrt(sub.reduce((a, b) => a + (b - mean) * (b - mean), 0) / sub.length);
+      bbUpperArr.push(mean + 2 * sd);
+      bbLowerArr.push(mean - 2 * sd);
+    }
+    const bbMid = sma20, bbUpper = bbUpperArr[N - 1], bbLower = bbLowerArr[N - 1];
+    const bbSig = curC <= bbLower ? 1 : (curC >= bbUpper ? -1 : 0);
+
+    /* ── ⑤ ATR(14, Wilder) ── */
+    const trArr = [H[0] - L[0]];
+    for (let i = 1; i < N; i++) {
+      trArr.push(Math.max(H[i] - L[i], Math.abs(H[i] - C[i - 1]), Math.abs(L[i] - C[i - 1])));
+    }
+    const wilderSum = (arr, p) => {
+      const out = new Array(arr.length).fill(NaN);
+      if (arr.length < p) return out;
+      let s = 0;
+      for (let i = 0; i < p; i++) s += arr[i];
+      out[p - 1] = s;
+      for (let i = p; i < arr.length; i++) out[i] = out[i - 1] - out[i - 1] / p + arr[i];
+      return out;
+    };
+    const trW14 = wilderSum(trArr, 14);
+    const atr14 = (trW14[N - 1] || 0) / 14;
+
+    /* ── ⑥ 슈퍼트렌드 (ATR10 · 배수 3) ── */
+    const stAtrArr = wilderSum(trArr, 10);
+    const stLineArr = new Array(N).fill(0);
+    const stDirArr = new Array(N).fill(1);
+    let stUpper = 0, stLower = 0;
+    for (let i = 0; i < N; i++) {
+      const hl2 = (H[i] + L[i]) / 2;
+      const a = (stAtrArr[i] || 0) / 10;
+      let upper = hl2 + 3 * a, lower = hl2 - 3 * a;
+      if (i > 0) {
+        upper = (upper < stUpper || C[i - 1] > stUpper) ? upper : stUpper;
+        lower = (lower > stLower || C[i - 1] < stLower) ? lower : stLower;
+        stDirArr[i] = C[i] > stUpper ? 1 : (C[i] < stLower ? -1 : stDirArr[i - 1]);
+      } else {
+        stDirArr[i] = curC >= hl2 ? 1 : -1;
+      }
+      stUpper = upper; stLower = lower;
+      stLineArr[i] = stDirArr[i] > 0 ? lower : upper;
+    }
+    const supertrendBull = stDirArr[N - 1] > 0;
+    const supertrendLine = stLineArr[N - 1];
+    const supertrendSig = supertrendBull ? 1 : -1;
+
+    /* ── ⑦ 매물대 분석 (Volume Profile · 최근 120봉 POC) ── */
+    const vpFrom = Math.max(0, N - 120);
+    const minPAll = lo(vpFrom, N - 1), maxPAll = hi(vpFrom, N - 1);
+    const stepP = Math.max(1e-9, (maxPAll - minPAll) / 10);
+    const vpBuckets = new Array(10).fill(0);
+    for (let i = vpFrom; i < N; i++) {
+      const bIdx = clamp(Math.floor((C[i] - minPAll) / stepP), 0, 9);
+      vpBuckets[bIdx] += V[i];
+    }
+    let maxBucketIdx = 0;
+    vpBuckets.forEach((v, idx) => { if (v > vpBuckets[maxBucketIdx]) maxBucketIdx = idx; });
+    const pocPrice = minPAll + (maxBucketIdx + 0.5) * stepP;
+    const vpSig = curC >= pocPrice ? 1 : -1;
+
+    /* ── ⑧ 엔벨로프 (20선 ±5%) ── */
+    const envUpper = sma20 * 1.05, envLower = sma20 * 0.95;
+    const envSig = curC <= envLower ? 1 : (curC >= envUpper ? -1 : 0);
+
+    /* ── ⑨ 윌리엄스 프랙탈 (5봉 변곡) ── */
+    let lastUpFractal = hi(N - 5, N - 1), lastDownFractal = lo(N - 5, N - 1);
+    for (let i = 2; i < N - 2; i++) {
+      if (H[i] > H[i - 1] && H[i] > H[i - 2] && H[i] > H[i + 1] && H[i] > H[i + 2]) lastUpFractal = H[i];
+      if (L[i] < L[i - 1] && L[i] < L[i - 2] && L[i] < L[i + 1] && L[i] < L[i + 2]) lastDownFractal = L[i];
+    }
+    const fractalSig = curC > lastUpFractal ? 1 : (curC < lastDownFractal ? -1 : 0);
+
+    /* ── ⑩ 파라볼릭 SAR (0.02 / 0.2) ── */
+    const psarArr = new Array(N).fill(0);
+    let psarBull = true, psarAF = 0.02, psarEP = H[0], psarVal = L[0];
+    psarArr[0] = psarVal;
+    for (let i = 1; i < N; i++) {
+      psarVal = psarVal + psarAF * (psarEP - psarVal);
+      if (psarBull) {
+        if (L[i] < psarVal) { psarBull = false; psarVal = psarEP; psarAF = 0.02; psarEP = L[i]; }
+        else if (H[i] > psarEP) { psarEP = H[i]; psarAF = Math.min(0.2, psarAF + 0.02); }
+      } else {
+        if (H[i] > psarVal) { psarBull = true; psarVal = psarEP; psarAF = 0.02; psarEP = H[i]; }
+        else if (L[i] < psarEP) { psarEP = L[i]; psarAF = Math.min(0.2, psarAF + 0.02); }
+      }
+      psarArr[i] = psarVal;
+    }
+    const psarSig = psarBull ? 1 : -1;
+
+    /* ── ⑪ 프라이스 채널 (Donchian 20) ── */
+    const pcHigh = hi(N - 20, N - 1), pcLow = lo(N - 20, N - 1);
+    const pcMid = (pcHigh + pcLow) / 2;
+    const pcSig = curC >= pcHigh * 0.999 ? 1 : (curC <= pcLow * 1.001 ? -1 : 0);
+
+    /* ── ⑫ VWMA(20) — 일봉에서 세션 VWAP 은 무의미하므로 거래량가중이동평균 사용 ── */
+    let vwPV = 0, vwV = 0;
+    for (let i = Math.max(0, N - 20); i < N; i++) { vwPV += C[i] * V[i]; vwV += V[i]; }
+    const vwmaVal = vwV > 0 ? vwPV / vwV : curC;
+    const vwapSig = curC >= vwmaVal ? 1 : -1;
+
+    /* ── ⑬ 고정 VWAP (최근 30봉 저점 변곡 기준 AVWAP) ── */
+    let anchorIdx = Math.max(0, N - 30);
+    for (let i = anchorIdx; i < N; i++) if (L[i] < L[anchorIdx]) anchorIdx = i;
+    let aPV = 0, aV = 0;
+    for (let i = anchorIdx; i < N; i++) {
+      const tp = (H[i] + L[i] + C[i]) / 3;
+      aPV += tp * V[i]; aV += V[i];
+    }
+    const avwapVal = aV > 0 ? aPV / aV : curC;
+    const avwapSig = curC >= avwapVal ? 1 : -1;
+
+    /* ── ⑭ 거래량 (20봉 평균 대비) ── */
+    const avgVol20 = MathUtils.smaSeries(V, 20)[N - 1] || 0;
+    const curVolRatio = avgVol20 > 0 ? V[N - 1] / avgVol20 : 1;
+    const volSig = curVolRatio >= 1.3 ? (curC >= prevC ? 1 : -1) : 0;
+
+    /* ── ⑮ 매스 인덱스 (25) ── */
+    const hlDiff = candles.map(x => Math.max(1e-9, x.h - x.l));
+    const ema9HL = MathUtils.emaSeries(hlDiff, 9);
+    const ema9ema9HL = MathUtils.emaSeries(ema9HL, 9);
+    const miRatios = ema9HL.map((v, i) => v / Math.max(1e-9, ema9ema9HL[i]));
+    const massIndex = miRatios.slice(-25).reduce((a, b) => a + b, 0);
+    const massSig = massIndex > 27 ? -1 : ((massIndex < 25.8 && curC > sma20) ? 1 : 0);
+
+    /* ── ⑯ 모멘텀 (10) ── */
+    const momBase = C[N - 11] || C[0];
+    const mom10 = curC - momBase;
+    const momPct = (mom10 / Math.max(1e-9, Math.abs(momBase))) * 100;
+    const momSig = momPct > 0.2 ? 1 : (momPct < -0.2 ? -1 : 0);
+
+    /* ── ⑰ 볼륨 오실레이터 (5, 20) ── */
+    const volSma5 = MathUtils.smaSeries(V, 5)[N - 1] || 0;
+    const voVal = avgVol20 > 0 ? ((volSma5 - avgVol20) / avgVol20) * 100 : 0;
+    const voSig = (voVal > 0 && curC >= prevC) ? 1 : ((voVal > 0 && curC < prevC) ? -1 : 0);
+
+    /* ── ⑱ 볼린저 %B / ⑲ 밴드폭 ── */
+    const bbPercentB = (curC - bbLower) / Math.max(1e-9, bbUpper - bbLower);
+    const bbbSig = bbPercentB < 0.2 ? 1 : (bbPercentB > 0.85 ? -1 : 0);
+    const bbWidth = ((bbUpper - bbLower) / Math.max(1e-9, bbMid)) * 100;
+    const bbwSig = (bbWidth < 8 && curC > bbMid) ? 1 : 0;
+
+    /* ── ⑳ 스토캐스틱 Slow (14,3,3) ── */
+    const rawK = [];
+    for (let i = 0; i < N; i++) {
+      const h1 = hi(i - 13, i), l1 = lo(i - 13, i);
+      rawK.push(((C[i] - l1) / Math.max(1e-9, h1 - l1)) * 100);
+    }
+    const slowKArr = MathUtils.smaSeries(rawK, 3);
+    const slowDArr = MathUtils.smaSeries(slowKArr, 3);
+    const slowK = slowKArr[N - 1], slowD = slowDArr[N - 1];
+    const stochSig = slowK <= 20 ? 1 : (slowK >= 80 ? -1 : (slowK > slowD ? 1 : (slowK < slowD ? -1 : 0)));
+
+    /* ── ㉑ RSI(14, Wilder) ── */
+    const gains = [0], losses = [0];
+    for (let i = 1; i < N; i++) {
+      const d = C[i] - C[i - 1];
+      gains.push(d > 0 ? d : 0);
+      losses.push(d < 0 ? -d : 0);
+    }
+    const avgGains = MathUtils.rmaSeries(gains, 14);
+    const avgLosses = MathUtils.rmaSeries(losses, 14);
+    const rsiSeries = avgGains.map((g, i) => {
+      const l = avgLosses[i];
+      if (l === 0 && g === 0) return 50;
+      if (l === 0) return 100;
+      return 100 - (100 / (1 + g / l));
+    });
+    const rsiVal = rsiSeries[N - 1];
+    const rsiSig = rsiVal <= 30 ? 1 : (rsiVal >= 70 ? -1 : 0);
+
+    /* ── ㉒ 스토캐스틱 RSI(14) ── */
+    const recentRsi14 = rsiSeries.slice(-14);
+    const minRsi = Math.min(...recentRsi14), maxRsi = Math.max(...recentRsi14);
+    const stochRsiVal = ((rsiVal - minRsi) / Math.max(1e-9, maxRsi - minRsi)) * 100;
+    const stochRsiSig = stochRsiVal <= 20 ? 1 : (stochRsiVal >= 80 ? -1 : 0);
+
+    /* ── ㉓ 윌리엄스 %R(14) ── */
+    const willRSeries = C.map((cVal, i) => {
+      const h1 = hi(i - 13, i), l1 = lo(i - 13, i);
+      return ((h1 - cVal) / Math.max(1e-9, h1 - l1)) * -100;
+    });
+    const willR = willRSeries[N - 1];
+    const willRSig = willR <= -80 ? 1 : (willR >= -20 ? -1 : 0);
+
+    /* ── ㉔ 이격도 (20일선) ── */
+    const disparity20 = (curC / Math.max(1e-9, sma20)) * 100;
+    const dispSig = disparity20 <= 95 ? 1 : (disparity20 >= 107 ? -1 : 0);
+
+    /* ── ㉕ 일중강도 II%(21) · ㉖ AD라인 · ㉗ 체이킨 ── */
+    const adSeries = [];
+    let cumAD = 0, sumII = 0, sumVol21 = 0;
+    for (let i = 0; i < N; i++) {
+      const range = Math.max(1e-9, H[i] - L[i]);
+      const clv = ((C[i] - L[i]) - (H[i] - C[i])) / range;
+      const mfv = clv * V[i];
+      cumAD += mfv;
+      adSeries.push(cumAD);
+      if (i >= N - 21) { sumII += mfv; sumVol21 += V[i]; }
+    }
+    const iiPct = sumVol21 > 0 ? (sumII / sumVol21) * 100 : 0;
+    const iiSig = iiPct > 10 ? 1 : (iiPct < -10 ? -1 : 0);
+    const adEma3 = MathUtils.emaSeries(adSeries, 3)[N - 1];
+    const adEma10 = MathUtils.emaSeries(adSeries, 10)[N - 1];
+    const chaikinOsc = adEma3 - adEma10;
+    const chaikinSig = chaikinOsc > 0 ? 1 : (chaikinOsc < 0 ? -1 : 0);
+    const adPrev = adSeries[N - 10] || adSeries[0];
+    const adSig = adSeries[N - 1] > adPrev ? 1 : (adSeries[N - 1] < adPrev ? -1 : 0);
+
+    /* ── ㉘ TRIX(12) · ㉙ PPO · ㉚ MACD(12,26,9) ── */
+    const e1 = MathUtils.emaSeries(C, 12);
+    const e2 = MathUtils.emaSeries(e1, 12);
+    const e3 = MathUtils.emaSeries(e2, 12);
+    const trixVal = ((e3[N - 1] - (e3[N - 2] || e3[N - 1])) / Math.max(1e-9, e3[N - 2] || 1)) * 100;
+    const trixSig = trixVal > 0 ? 1 : (trixVal < 0 ? -1 : 0);
+    const macdSeries = ema12Arr.map((v, i) => v - ema26Arr[i]);
+    const macdSignalSeries = MathUtils.emaSeries(macdSeries, 9);
+    const macdHistSeries = macdSeries.map((v, i) => v - macdSignalSeries[i]);
+    const macdHist = macdHistSeries[N - 1];
+    const ppoVal = ((ema12 - ema26) / Math.max(1e-9, ema26)) * 100;
+    const macdSig = macdHist > 0 ? 1 : (macdHist < 0 ? -1 : 0);
+    const ppoSig = ppoVal > 0 ? 1 : (ppoVal < 0 ? -1 : 0);
+
+    /* ── ㉛ ADX · ㉜ DMI (Wilder 표준) ── */
+    const plusDM = [0], minusDM = [0];
+    for (let i = 1; i < N; i++) {
+      const up = H[i] - H[i - 1], dn = L[i - 1] - L[i];
+      plusDM.push((up > dn && up > 0) ? up : 0);
+      minusDM.push((dn > up && dn > 0) ? dn : 0);
+    }
+    const pDW = wilderSum(plusDM, 14), mDW = wilderSum(minusDM, 14);
+    const plusDIArr = [], minusDIArr = [], dxArr = [];
+    for (let i = 0; i < N; i++) {
+      const t = trW14[i];
+      const ok = !isNaN(t) && t > 0;
+      const pdi = ok ? (pDW[i] / t) * 100 : 0;
+      const mdi = ok ? (mDW[i] / t) * 100 : 0;
+      plusDIArr.push(pdi); minusDIArr.push(mdi);
+      const s = pdi + mdi;
+      dxArr.push(s > 0 ? (Math.abs(pdi - mdi) / s) * 100 : 0);
+    }
+    let adxVal = 0;
+    const adxStart = 26;
+    if (N > adxStart) {
+      let s = 0;
+      for (let i = 13; i <= adxStart; i++) s += dxArr[i];
+      adxVal = s / 14;
+      for (let i = adxStart + 1; i < N; i++) adxVal = (adxVal * 13 + dxArr[i]) / 14;
+    } else if (N >= 14) {
+      adxVal = dxArr[N - 1];
+    }
+    const plusDI = plusDIArr[N - 1], minusDI = minusDIArr[N - 1];
+    const dmiSig = plusDI > minusDI ? 1 : (plusDI < minusDI ? -1 : 0);
+    const adxSig = (adxVal >= 25 && plusDI > minusDI) ? 1 : ((adxVal >= 25 && plusDI < minusDI) ? -1 : 0);
+
+    /* ── ㉝ CCI(20) · ㉞ MFI(14) ── */
+    const tpArr = candles.map(x => (x.h + x.l + x.c) / 3);
+    const cciSeries = tpArr.map((tp, i) => {
+      const sub = tpArr.slice(Math.max(0, i - 19), i + 1);
+      const m = sub.reduce((a, b) => a + b, 0) / sub.length;
+      const md = sub.reduce((a, b) => a + Math.abs(b - m), 0) / sub.length;
+      return (tp - m) / Math.max(1e-9, 0.015 * md);
+    });
+    const cciVal = cciSeries[N - 1];
+    const cciSig = cciVal <= -100 ? 1 : (cciVal >= 100 ? -1 : 0);
+    const mfiSeries = tpArr.map((_, idx) => {
+      let pos = 0, neg = 0;
+      for (let j = Math.max(1, idx - 13); j <= idx; j++) {
+        const mf = tpArr[j] * V[j];
+        if (tpArr[j] >= tpArr[j - 1]) pos += mf; else neg += mf;
+      }
+      if (pos + neg === 0) return 50;
+      return 100 - (100 / (1 + pos / Math.max(1e-9, neg)));
+    });
+    const mfiVal = mfiSeries[N - 1];
+    const mfiSig = mfiVal <= 20 ? 1 : (mfiVal >= 80 ? -1 : 0);
+
+    /* ── ㉟ OBV · ㊱ ROC(12) · ㊲ RMI(14,4) ── */
+    const obvSeries = [0];
+    for (let i = 1; i < N; i++) {
+      const dir = C[i] > C[i - 1] ? 1 : (C[i] < C[i - 1] ? -1 : 0);
+      obvSeries.push(obvSeries[i - 1] + dir * V[i]);
+    }
+    const obvSlope = obvSeries[N - 1] - (obvSeries[N - 10] || obvSeries[0]);
+    const obvSig = obvSlope > 0 ? 1 : (obvSlope < 0 ? -1 : 0);
+    const rocBase = C[N - 13] || C[0];
+    const roc12 = ((curC - rocBase) / Math.max(1e-9, Math.abs(rocBase))) * 100;
+    const rocSig = roc12 > 0.2 ? 1 : (roc12 < -0.2 ? -1 : 0);
+    let rmiUp = 0, rmiDown = 0;
+    for (let i = Math.max(4, N - 14); i < N; i++) {
+      const diff4 = C[i] - C[i - 4];
+      if (diff4 >= 0) rmiUp += diff4; else rmiDown += Math.abs(diff4);
+    }
+    const rmiVal = (rmiUp + rmiDown) === 0 ? 50 : 100 - (100 / (1 + (rmiUp / Math.max(1e-9, rmiDown))));
+    const rmiSig = rmiVal <= 30 ? 1 : (rmiVal >= 70 ? -1 : 0);
+
+    /* ── 스퀴즈 모멘텀 (차트용 보조 시계열) ── */
+    const sqzMomSeries = C.map((cVal, i) => {
+      const h1 = hi(i - 19, i), l1 = lo(i - 19, i);
+      return cVal - ((((h1 + l1) / 2) + sma20Arr[i]) / 2);
+    });
+
+    /* ── 다이버전스 (가격 vs RSI·OBV, 9봉 비교) ── */
+    const pOld = C[N - 9] || C[0];
+    const rsiOld = rsiSeries[N - 9] || 50;
+    let divergenceType = "NONE";
+    let divergenceText = "정상 동조화 (주가·지표 방향 일치)";
+    let divBuyBonus = 0, divSellBonus = 0;
+    if (curC < pOld * 0.99 && (rsiVal > rsiOld + 3 || obvSlope > 0)) {
+      divergenceType = "BULL";
+      divergenceText = "🔥 상승 다이버전스 (가격↓ · RSI/OBV↑ 매집)";
+      divBuyBonus = 6;
+    } else if (curC > pOld * 1.01 && rsiVal < rsiOld - 3 && obvSlope < 0) {
+      divergenceType = "BEAR";
+      divergenceText = "🚨 하락 다이버전스 (가격↑ · RSI/OBV↓ 둔화)";
+      divSellBonus = 6;
+    }
+
+    /* ── 지표 테이블 (상단 12종) ── */
+    const upperResults = [
+      { id: "SMA", name: "이동평균선 (SMA 5·20·60)", val: `20선 ${f(sma20)}`, sig: smaSig, detail: smaSig > 0 ? "5·20선 정배열 (20선 상회)" : (smaSig < 0 ? "20선 하회 (역배열)" : "20선 부근 중립") },
+      { id: "EMA", name: "지수이동평균선 (EMA 12·26·50)", val: `EMA12 ${f(ema12)}`, sig: emaSig, detail: `EMA50 ${f(ema50)}` },
+      { id: "ICHIMOKU", name: "일목균형표 (전환9·기준26·구름대)", val: `구름상단 ${f(cloudTop)}`, sig: ichimokuSig, detail: ichimokuSig > 0 ? "구름대 상단 돌파 (26봉 시프트 적용)" : (ichimokuSig < 0 ? "구름대 하단 이탈" : "구름대 내부 (방향성 없음)") },
+      { id: "BB", name: "볼린저 밴드 (20, 2σ)", val: `${f(bbLower)}~${f(bbUpper)}`, sig: bbSig, detail: bbSig > 0 ? "밴드 하단 과매도" : (bbSig < 0 ? "밴드 상단 과열" : `중심선 ${f(bbMid)} 부근`) },
+      { id: "SUPERTREND", name: "슈퍼트렌드 (ATR10, 배수 3)", val: f(supertrendLine), sig: supertrendSig, detail: supertrendBull ? "상승 추세 (하단 지지)" : "하락 추세 (상단 저항)" },
+      { id: "VP", name: "매물대분석 (Volume Profile POC)", val: `POC ${f(pocPrice)}`, sig: vpSig, detail: vpSig > 0 ? "최다 매물대 상회 (지지)" : "최다 매물대 하회 (저항)" },
+      { id: "ENVELOPE", name: "엔벨로프 (20선 ±5%)", val: `${f(envLower)}~${f(envUpper)}`, sig: envSig, detail: envSig > 0 ? "하단 밴드 과매도" : (envSig < 0 ? "상단 밴드 과열" : "밴드 내 정상 범위") },
+      { id: "FRACTAL", name: "윌리엄스 프랙탈 (5봉 변곡)", val: `고점 ${f(lastUpFractal)}`, sig: fractalSig, detail: fractalSig > 0 ? "상단 변곡 돌파" : (fractalSig < 0 ? "하단 변곡 이탈" : `저점 ${f(lastDownFractal)} 유지`) },
+      { id: "PSAR", name: "파라볼릭 SAR (0.02/0.2)", val: f(psarVal), sig: psarSig, detail: psarBull ? "상승 전환 상태" : "하락 전환 상태" },
+      { id: "PCHANNEL", name: "프라이스 채널 (Donchian 20)", val: `${f(pcLow)}~${f(pcHigh)}`, sig: pcSig, detail: pcSig > 0 ? "20봉 상단 돌파" : (pcSig < 0 ? "20봉 하단 이탈" : `중심 ${f(pcMid)}`) },
+      { id: "VWAP", name: "거래량가중 이동평균 (VWMA 20)", val: f(vwmaVal), sig: vwapSig, detail: vwapSig > 0 ? "거래량가중 평균단가 상회" : "거래량가중 평균단가 하회" },
+      { id: "AVWAP", name: "고정 VWAP (저점 변곡 기준)", val: f(avwapVal), sig: avwapSig, detail: "변곡점 이후 누적 평균단가" }
+    ];
+
+    /* ── 지표 테이블 (하단 25종) ── */
+    const lowerResults = [
+      { id: "VOL", name: "거래량 (20봉 평균 대비)", val: `${curVolRatio.toFixed(2)}배`, sig: volSig, detail: volSig === 0 ? "평균 수준 거래량" : (volSig > 0 ? "거래량 급증 + 상승" : "거래량 급증 + 하락") },
+      { id: "MASS", name: "매스 인덱스 (Mass Index 25)", val: massIndex.toFixed(2), sig: massSig, detail: massIndex > 27 ? "추세 전환 경고" : "변동폭 안정권" },
+      { id: "MOM", name: "모멘텀 (Momentum 10)", val: `${momPct >= 0 ? '+' : ''}${momPct.toFixed(2)}%`, sig: momSig, detail: momSig > 0 ? "양(+) 모멘텀" : (momSig < 0 ? "음(-) 모멘텀" : "횡보") },
+      { id: "VO", name: "볼륨 오실레이터 (5, 20)", val: `${voVal >= 0 ? '+' : ''}${voVal.toFixed(1)}%`, sig: voSig, detail: "단·장기 거래량 이평 차" },
+      { id: "BB_B", name: "볼린저 밴드 %B", val: `${(bbPercentB * 100).toFixed(1)}%`, sig: bbbSig, detail: bbbSig > 0 ? "밴드 하단 과매도" : (bbbSig < 0 ? "밴드 상단 과열" : "밴드 내 정상") },
+      { id: "BB_W", name: "볼린저 밴드폭 (BandWidth)", val: `${bbWidth.toFixed(2)}%`, sig: bbwSig, detail: bbwSig > 0 ? "변동성 응축 (폭발 임박)" : "정상 변동폭" },
+      { id: "STOCH", name: "스토캐스틱 Slow (14,3,3)", val: `K ${slowK.toFixed(1)} / D ${slowD.toFixed(1)}`, sig: stochSig, detail: slowK > slowD ? "골든크로스 우위" : (slowK < slowD ? "데드크로스" : "교차 없음") },
+      { id: "STOCHRSI", name: "스토캐스틱 RSI (14)", val: `${stochRsiVal.toFixed(1)}%`, sig: stochRsiSig, detail: stochRsiSig > 0 ? "초단기 바닥권" : (stochRsiSig < 0 ? "초단기 과열" : "중립") },
+      { id: "WILLR", name: "윌리엄스 %R (14)", val: `${willR.toFixed(1)}%`, sig: willRSig, detail: willRSig > 0 ? "과매도 반등권" : (willRSig < 0 ? "과열권" : "정상 범위") },
+      { id: "DISP", name: "이격도 (20일선 기준)", val: `${disparity20.toFixed(2)}%`, sig: dispSig, detail: `20일선 대비 ${(disparity20 - 100).toFixed(2)}% 괴리` },
+      { id: "II", name: "일중 강도 지수 (II% 21)", val: `${iiPct >= 0 ? '+' : ''}${iiPct.toFixed(1)}%`, sig: iiSig, detail: iiSig > 0 ? "장중 종가 매집" : (iiSig < 0 ? "장중 매물 출회" : "중립") },
+      { id: "CHAIKIN", name: "체이킨 오실레이터 (3, 10)", val: chaikinOsc >= 0 ? "양(+) 유입" : "음(-) 유출", sig: chaikinSig, detail: "AD 라인 가속도" },
+      { id: "TRIX", name: "트릭스 (TRIX 12)", val: `${trixVal >= 0 ? '+' : ''}${trixVal.toFixed(3)}%`, sig: trixSig, detail: "3중 EMA 변화율" },
+      { id: "PPO", name: "프라이스 오실레이터 (PPO)", val: `${ppoVal >= 0 ? '+' : ''}${ppoVal.toFixed(2)}%`, sig: ppoSig, detail: "EMA 12·26 격차율" },
+      { id: "AD", name: "AD 라인 (매집/분산)", val: adSig > 0 ? "상승 매집" : (adSig < 0 ? "하락 분산" : "보합"), sig: adSig, detail: "누적 수급선 기울기" },
+      { id: "ADX", name: "ADX (Wilder 표준 14)", val: adxVal.toFixed(1), sig: adxSig, detail: adxVal >= 25 ? "추세 강도 충분 (>25)" : "횡보 (추세 약함)" },
+      { id: "ATR", name: "ATR (Wilder 14)", val: f(atr14), sig: 0, detail: `1봉 평균 변동폭 (${((atr14 / Math.max(1e-9, curC)) * 100).toFixed(2)}%)` },
+      { id: "CCI", name: "CCI (상품채널지수 20)", val: cciVal.toFixed(1), sig: cciSig, detail: cciSig > 0 ? "과매도 매수권" : (cciSig < 0 ? "과열권" : "정상 추세") },
+      { id: "DMI", name: "DMI (+DI / -DI 14)", val: `+${plusDI.toFixed(1)} / -${minusDI.toFixed(1)}`, sig: dmiSig, detail: dmiSig > 0 ? "+DI 상승 우위" : "-DI 하락 우위" },
+      { id: "MACD", name: "MACD (12, 26, 9)", val: `Hist ${macdHist >= 0 ? '+' : ''}${macdHist.toFixed(2)}`, sig: macdSig, detail: macdHist > 0 ? "시그널 상회 (강세)" : (macdHist < 0 ? "시그널 하회 (약세)" : "교차점") },
+      { id: "MFI", name: "MFI (자금흐름지수 14)", val: `${mfiVal.toFixed(1)}%`, sig: mfiSig, detail: mfiSig > 0 ? "자금 바닥 매수권" : (mfiSig < 0 ? "자금 과열" : "자금 흐름 중립") },
+      { id: "OBV", name: "OBV (누적거래량)", val: obvSig > 0 ? "우상향 매집" : (obvSig < 0 ? "우하향 분산" : "보합"), sig: obvSig, detail: "10봉 누적 수급 변화" },
+      { id: "ROC", name: "ROC (가격변화율 12)", val: `${roc12 >= 0 ? '+' : ''}${roc12.toFixed(2)}%`, sig: rocSig, detail: "12봉 변화율" },
+      { id: "RMI", name: "RMI (상대모멘텀지수 14,4)", val: `${rmiVal.toFixed(1)}%`, sig: rmiSig, detail: rmiSig > 0 ? "모멘텀 바닥권" : (rmiSig < 0 ? "모멘텀 과열" : "중립") },
+      { id: "RSI", name: "RSI (상대강도지수 14)", val: `${rsiVal.toFixed(1)}%`, sig: rsiSig, detail: rsiSig > 0 ? "과매도 매수 타점" : (rsiSig < 0 ? "과매수 구간" : "중립 (30~70)") }
+    ];
+
+    /* ── 국면 판정 & 가중 투표 ── */
+    const isStrongTrend = adxVal >= 25;
+    const upperWeight = isStrongTrend ? 1.7 : 1.1;
+    const lowerWeight = isStrongTrend ? 0.9 : 1.4;
+
+    let buyVotes = 0, sellVotes = 0, neutralVotes = 0, activeTotalCount = 0;
+    let weightedBuy = 0, weightedSell = 0, totalWeight = 0;
+
+    upperResults.forEach(item => {
+      item.enabled = activeUpper[item.id] !== false;
+      if (!item.enabled) return;
+      activeTotalCount++;
+      totalWeight += upperWeight;
+      if (item.sig > 0) { buyVotes++; weightedBuy += upperWeight; }
+      else if (item.sig < 0) { sellVotes++; weightedSell += upperWeight; }
+      else neutralVotes++;
+    });
+
+    lowerResults.forEach(item => {
+      item.enabled = activeLower[item.id] !== false;
+      if (!item.enabled) return;
+      activeTotalCount++;
+      totalWeight += lowerWeight;
+      if (item.sig > 0) { buyVotes++; weightedBuy += lowerWeight; }
+      else if (item.sig < 0) { sellVotes++; weightedSell += lowerWeight; }
+      else neutralVotes++;
+    });
+
+    // 점수 = 가중 신호 비중 (중립은 어느 쪽에도 가산하지 않는 "정직한" 산식)
+    const buyScore = clamp(Math.round((weightedBuy / Math.max(1e-9, totalWeight)) * 100) + divBuyBonus, 0, 100);
+    const sellScore = clamp(Math.round((weightedSell / Math.max(1e-9, totalWeight)) * 100) + divSellBonus, 0, 100);
+
+    /* ── 재무 결합 (재무 데이터가 없으면 차트 100%로 채점) ── */
+    const finEval = getFinancialAnalysis(ticker);
+    const hasFinData = finEval.hasData === true;
+    const finScore = hasFinData ? finEval.finScore : null;
+    const hybridScore = hasFinData ? Math.round(buyScore * 0.7 + finScore * 0.3) : buyScore;
+
+    /* ── 호라이즌별 점수 ── */
+    const shortScore = clamp(Math.round(50 + (curC > sma5 ? 18 : -15) + (slowK > slowD ? 14 : -10) + (rsiVal > 45 && rsiVal < 70 ? 10 : 0)), 0, 100);
+    const midScore = buyScore;
+    const longScore = clamp(Math.round(50 + (curC > sma60 ? 20 : -15) + (ema12 > ema50 ? 15 : -12) + (obvSig > 0 ? 10 : -8)), 0, 100);
+
+    /* ── 백테스트 (인위적 보정 없이 실제 승률만 계산) ── */
+    const HORIZON = 3;
+    let btWins = 0, btTotal = 0;
+    for (let i = 20; i < N - HORIZON; i++) {
+      const trendEntry = C[i] > sma20Arr[i] && sma5Arr[i] >= sma20Arr[i] && C[i] > C[i - 1];
+      const oversoldEntry = rsiSeries[i] <= 30;
+      if (trendEntry || oversoldEntry) {
+        btTotal++;
+        if (C[i + HORIZON] > C[i]) btWins++;
+      }
+    }
+    const backtestWinRate = btTotal > 0 ? Math.round((btWins / btTotal) * 100) : null;
+
+    /* ── 타점 (ATR 기반, 항상 양수 보장) ── */
+    const supportAvg = (vwmaVal + sma20 + tenkan) / 3;
+    const buyTarget1 = Math.max(1e-6, Math.min(curC - 0.85 * atr14, supportAvg));
+    const buyTarget2 = Math.max(1e-6, Math.min(buyTarget1 - 1.15 * atr14, Math.max(bbLower, pocPrice * 0.98)));
+    const stopLoss = Math.max(1e-6, Math.min(buyTarget2 - 1.2 * atr14, curC - 2.6 * atr14));
+    const sellTarget1 = Math.max(curC + 1.8 * atr14, curC * 1.025);
+    const sellTarget2 = Math.max(sellTarget1 + 1.4 * atr14, curC + 3.2 * atr14);
+
     return {
-      unit: isKR ? "억원" : "$M",
-      sector: isKR ? "국내 상장 산업" : "글로벌 상장 산업",
-      sectorPer: isKR ? 14.0 : 21.0,
-      sectorPbr: isKR ? 1.25 : 3.20,
-      years: ["2022", "2023", "최근연간"],
-      rev: isKR ? [4200, 4650, 5120] : [850, 940, 1120],
-      op: isKR ? [310, 380, 460] : [75, 92, 125],
-      net: isKR ? [240, 295, 360] : [58, 74, 98],
-      opm: [7.4, 8.2, 9.0],
-      debtRatio: 88.5, currentRatio: 158.0, per: isKR ? 12.4 : 18.5, pbr: isKR ? 1.10 : 2.60, roe: 10.4,
-      catalyst: "하단 [재무 수치 직접 보정] 버튼을 눌러 DART 또는 네이버 증권의 최신 분기 수치를 입력하면 정밀 재채점됩니다."
+      curC, atr14, adxVal, isStrongTrend, backtestWinRate, backtestSamples: btTotal,
+      divergenceType, divergenceText,
+      upperResults, lowerResults,
+      buyVotes, sellVotes, neutralVotes, activeTotalCount,
+      buyScore, sellScore, finScore, hybridScore, finEval, hasFinData,
+      shortScore, midScore, longScore,
+      buyTarget1, buyTarget2, sellTarget1, sellTarget2, stopLoss,
+      overlays: {
+        sma5Arr, sma20Arr, sma60Arr,
+        bbUpperArr, bbLowerArr,
+        spanAArr, spanBArr,
+        supertrendLine, supertrendBull,
+        pocPrice, vpBuckets, minPAll, stepP
+      },
+      oscSeries: {
+        sqzMomSeries, rsiSeries,
+        macdSeries, macdSignalSeries, macdHistSeries,
+        slowKArr, slowDArr,
+        mfiSeries, cciSeries, obvSeries, willRSeries
+      }
     };
   }
 
   function getFinancialAnalysis(ticker) {
-    const fin = customFinStore[ticker] || FINANCIAL_DB[ticker] || buildDefaultFinancialProfile(ticker);
+    const stored = customFinStore[ticker] || FINANCIAL_DB[ticker] || null;
+
+    // 재무 데이터가 없으면 가짜 수치를 만들지 않는다 → 차트 100%로 채점
+    if (!stored) {
+      const blank = buildDefaultFinancialProfile(ticker);
+      return {
+        fin: blank, hasData: false, finScore: null,
+        profitScore: null, healthScore: null, valScore: null,
+        profitComment: blank.catalyst,
+        healthComment: "재무 데이터 미입력 (부채비율·유동비율 없음)",
+        valComment: "재무 데이터 미입력 (PER·PBR 없음)"
+      };
+    }
+
+    const fin = stored;
     if (fin.isMacroAsset) {
       return {
-        fin, finScore: 75, profitScore: 25, healthScore: 25, valScore: 25,
-        profitComment: "매크로/디지털 자산은 글로벌 달러 유동성 및 거래대금 추이를 기준으로 평가합니다.",
-        healthComment: "24시간 글로벌 거래소 유동성이 풍부합니다.",
-        valComment: "37개 기술적 지표 중심의 매매 전략이 유효합니다."
+        fin, hasData: false, finScore: null, profitScore: null, healthScore: null, valScore: null,
+        profitComment: "비기업 매크로 자산 (재무제표 없음) · 37개 기술적 지표로만 채점합니다.",
+        healthComment: "-", valComment: "-"
       };
     }
 
@@ -1835,451 +2699,27 @@
     const healthComment = `• <b>부채비율(${fin.debtRatio}%) & 유동비율(${fin.currentRatio}%):</b> ${fin.debtRatio <= 150 && fin.currentRatio >= 120 ? '<b style="color:#34D399;">단기 자금흐름 우량</b> (부채비율 150% 이하, 유동비율 120% 이상 충족)' : '유동비율 및 단기 운전자본 추이 점검 필요'}`;
     const valComment = `• <b>멀티플 위치:</b> PER <b>${fin.per > 0 ? fin.per + '배' : '적자(N/A)'}</b> (업종평균 ${fin.sectorPer}배), PBR <b>${fin.pbr}배</b> (업종평균 ${fin.sectorPbr}배, ROE ${fin.roe}%)`;
 
-    return { fin, finScore, profitScore, healthScore, valScore, profitComment, healthComment, valComment };
+    return { fin, hasData: true, finScore, profitScore, healthScore, valScore, profitComment, healthComment, valComment };
   }
 
-  const MathUtils = {
-    sma(arr, p) {
-      if (!arr || arr.length === 0) return 0;
-      const slice = arr.slice(-p);
-      return slice.reduce((a, b) => a + b, 0) / slice.length;
-    },
-    smaSeries(arr, p) {
-      return arr.map((_, idx) => {
-        const sub = arr.slice(Math.max(0, idx - p + 1), idx + 1);
-        return sub.reduce((a, b) => a + b, 0) / sub.length;
-      });
-    },
-    emaSeries(arr, p) {
-      if (!arr || arr.length === 0) return [];
-      const k = 2 / (p + 1);
-      const res = [arr[0]];
-      for (let i = 1; i < arr.length; i++) res.push(arr[i] * k + res[i - 1] * (1 - k));
-      return res;
-    },
-    rmaSeries(arr, p) {
-      if (!arr || arr.length === 0) return [];
-      const alpha = 1 / p;
-      const res = [arr[0]];
-      for (let i = 1; i < arr.length; i++) res.push(alpha * arr[i] + (1 - alpha) * res[i - 1]);
-      return res;
-    },
-    stdDev(arr, p) {
-      const slice = arr.slice(-p);
-      const mean = slice.reduce((a, b) => a + b, 0) / slice.length;
-      const variance = slice.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / slice.length;
-      return Math.sqrt(variance);
-    }
-  };
-
-  function evaluateAll37Indicators(candles, ticker = currentTicker) {
-    if (!candles || candles.length < 5) return null;
-    const N = candles.length;
-    const C = candles.map(x => x.c);
-    const H = candles.map(x => x.h);
-    const L = candles.map(x => x.l);
-    const V = candles.map(x => x.v);
-    const curC = C[N - 1];
-    const prevC = C[N - 2] || curC;
-    const f = (v) => fmtPrice(v, ticker);
-
-    const sma5Arr = MathUtils.smaSeries(C, 5);
-    const sma20Arr = MathUtils.smaSeries(C, 20);
-    const sma60Arr = MathUtils.smaSeries(C, 60);
-    const sma5 = sma5Arr[N - 1], sma20 = sma20Arr[N - 1], sma60 = sma60Arr[N - 1];
-    const smaSig = (curC > sma20 && sma5 >= sma20) ? 1 : (curC < sma20 && sma5 < sma20 ? -1 : 0);
-
-    const ema12Arr = MathUtils.emaSeries(C, 12);
-    const ema26Arr = MathUtils.emaSeries(C, 26);
-    const ema50Arr = MathUtils.emaSeries(C, 50);
-    const ema12 = ema12Arr[N - 1], ema26 = ema26Arr[N - 1], ema50 = ema50Arr[N - 1];
-    const emaSig = (curC > ema26 && ema12 >= ema26) ? 1 : (curC < ema26 && ema12 < ema26 ? -1 : 0);
-
-    const spanAArr = [], spanBArr = [];
-    for (let i = 0; i < N; i++) {
-      const t = (Math.max(...H.slice(Math.max(0, i - 8), i + 1)) + Math.min(...L.slice(Math.max(0, i - 8), i + 1))) / 2;
-      const k = (Math.max(...H.slice(Math.max(0, i - 25), i + 1)) + Math.min(...L.slice(Math.max(0, i - 25), i + 1))) / 2;
-      const b = (Math.max(...H.slice(Math.max(0, i - 51), i + 1)) + Math.min(...L.slice(Math.max(0, i - 51), i + 1))) / 2;
-      spanAArr.push((t + k) / 2);
-      spanBArr.push(b);
-    }
-    const tenkan = (Math.max(...H.slice(-9)) + Math.min(...L.slice(-9))) / 2;
-    const kijun = (Math.max(...H.slice(-26)) + Math.min(...L.slice(-26))) / 2;
-    const cloudTop = Math.max(spanAArr[N - 1], spanBArr[N - 1]);
-    const cloudBot = Math.min(spanAArr[N - 1], spanBArr[N - 1]);
-    const ichimokuSig = (curC > cloudTop && tenkan >= kijun) ? 1 : (curC < cloudBot ? -1 : 0);
-
-    const bbUpperArr = [], bbLowerArr = [];
-    for (let i = 0; i < N; i++) {
-      const sub = C.slice(Math.max(0, i - 19), i + 1);
-      const sd = MathUtils.stdDev(sub, sub.length);
-      bbUpperArr.push(sma20Arr[i] + 2 * sd);
-      bbLowerArr.push(sma20Arr[i] - 2 * sd);
-    }
-    const bbMid = sma20, bbUpper = bbUpperArr[N - 1], bbLower = bbLowerArr[N - 1];
-    const bbSig = curC <= bbLower * 1.015 ? 1 : (curC >= bbUpper * 0.99 ? -1 : (curC > bbMid ? 1 : -1));
-
-    const trArr = [H[0] - L[0]];
-    for (let i = 1; i < N; i++) {
-      trArr.push(Math.max(H[i] - L[i], Math.abs(H[i] - C[i - 1]), Math.abs(L[i] - C[i - 1])));
-    }
-    const atrSeries = MathUtils.rmaSeries(trArr, 14);
-    const atr14 = atrSeries[N - 1];
-    const atr10 = MathUtils.sma(trArr, 10);
-    const hl2 = (H[N - 1] + L[N - 1]) / 2;
-    const supertrendBull = curC >= sma20 - 0.35 * atr10;
-    const supertrendLine = supertrendBull ? (hl2 - 2.8 * atr10) : (hl2 + 2.8 * atr10);
-    const supertrendSig = supertrendBull ? 1 : -1;
-
-    const minPAll = Math.min(...L), maxPAll = Math.max(...H);
-    const stepP = Math.max(0.0001, (maxPAll - minPAll) / 10);
-    const vpBuckets = new Array(10).fill(0);
-    for (let i = 0; i < N; i++) {
-      const bIdx = Math.min(9, Math.max(0, Math.floor((C[i] - minPAll) / stepP)));
-      vpBuckets[bIdx] += V[i];
-    }
-    let maxBucketIdx = 0;
-    vpBuckets.forEach((v, idx) => { if (v > vpBuckets[maxBucketIdx]) maxBucketIdx = idx; });
-    const pocPrice = minPAll + (maxBucketIdx + 0.5) * stepP;
-    const vpSig = curC >= pocPrice ? 1 : -1;
-
-    const envUpper = sma20 * 1.05, envLower = sma20 * 0.95;
-    const envSig = curC <= envLower * 1.01 ? 1 : (curC >= envUpper * 0.99 ? -1 : (curC >= sma20 ? 1 : -1));
-
-    let lastUpFractal = H[N - 1], lastDownFractal = L[N - 1];
-    for (let i = 2; i < N - 2; i++) {
-      if (H[i] > H[i - 1] && H[i] > H[i - 2] && H[i] > H[i + 1] && H[i] > H[i + 2]) lastUpFractal = H[i];
-      if (L[i] < L[i - 1] && L[i] < L[i - 2] && L[i] < L[i + 1] && L[i] < L[i + 2]) lastDownFractal = L[i];
-    }
-    const fractalSig = curC > lastUpFractal ? 1 : (curC < lastDownFractal ? -1 : 0);
-
-    const psarBull = curC >= sma5;
-    const psarVal = psarBull ? Math.min(...L.slice(-4)) : Math.max(...H.slice(-4));
-    const psarSig = psarBull ? 1 : -1;
-
-    const pcHigh = Math.max(...H.slice(-20)), pcLow = Math.min(...L.slice(-20));
-    const pcMid = (pcHigh + pcLow) / 2;
-    const pcSig = curC >= pcMid ? 1 : -1;
-
-    let sumPV = 0, sumV = 0;
-    for (let i = Math.max(0, N - 20); i < N; i++) {
-      const tp = (H[i] + L[i] + C[i]) / 3;
-      sumPV += tp * V[i]; sumV += V[i];
-    }
-    const vwapVal = sumV > 0 ? (sumPV / sumV) : curC;
-    const vwapSig = curC >= vwapVal ? 1 : -1;
-
-    let minIdx = Math.max(0, N - 30);
-    for (let i = minIdx; i < N; i++) { if (L[i] < L[minIdx]) minIdx = i; }
-    let aPV = 0, aV = 0;
-    for (let i = minIdx; i < N; i++) {
-      const tp = (H[i] + L[i] + C[i]) / 3;
-      aPV += tp * V[i]; aV += V[i];
-    }
-    const avwapVal = aV > 0 ? (aPV / aV) : curC;
-    const avwapSig = curC >= avwapVal ? 1 : -1;
-
-    const avgVol20 = MathUtils.sma(V, 20);
-    const curVolRatio = V[N - 1] / Math.max(1, avgVol20);
-    const volSig = (curVolRatio >= 1.15 && curC >= prevC) ? 1 : (curVolRatio >= 1.15 && curC < prevC ? -1 : 0);
-
-    const hlDiff = candles.map(x => Math.max(0.0001, x.h - x.l));
-    const ema9HL = MathUtils.emaSeries(hlDiff, 9);
-    const ema9ema9HL = MathUtils.emaSeries(ema9HL, 9);
-    const miRatios = ema9HL.map((v, i) => v / Math.max(0.0001, ema9ema9HL[i]));
-    const massIndex = miRatios.slice(-25).reduce((a, b) => a + b, 0);
-    const massSig = massIndex > 27 ? -1 : (massIndex < 25.8 && curC > sma20 ? 1 : 0);
-
-    const mom10 = curC - (C[N - 11] || C[0]);
-    const momSig = mom10 > 0 ? 1 : -1;
-
-    const volSma5 = MathUtils.sma(V, 5);
-    const voVal = ((volSma5 - avgVol20) / Math.max(1, avgVol20)) * 100;
-    const voSig = (voVal > 0 && curC >= prevC) ? 1 : (voVal > 0 && curC < prevC ? -1 : 0);
-
-    const bbPercentB = (curC - bbLower) / Math.max(0.0001, bbUpper - bbLower);
-    const bbbSig = bbPercentB < 0.2 ? 1 : (bbPercentB > 0.85 ? -1 : (bbPercentB >= 0.5 ? 1 : 0));
-
-    const bbWidth = ((bbUpper - bbLower) / Math.max(0.0001, bbMid)) * 100;
-    const bbwSig = (bbWidth < 8 && curC > bbMid) ? 1 : 0;
-
-    const rawK = [];
-    for (let i = 0; i < N; i++) {
-      const s = Math.max(0, i - 13);
-      const hh = Math.max(...H.slice(s, i + 1));
-      const ll = Math.min(...L.slice(s, i + 1));
-      rawK.push(((C[i] - ll) / Math.max(0.0001, hh - ll)) * 100);
-    }
-    const slowKArr = MathUtils.smaSeries(rawK, 3);
-    const slowDArr = MathUtils.smaSeries(slowKArr, 3);
-    const slowK = slowKArr[N - 1], slowD = slowDArr[N - 1];
-    const stochSig = (slowK < 25 || (slowK > slowD && slowK < 78)) ? 1 : (slowK > 80 ? -1 : -1);
-
-    const gains = [0], losses = [0];
-    for (let i = 1; i < N; i++) {
-      const d = C[i] - C[i - 1];
-      gains.push(d > 0 ? d : 0);
-      losses.push(d < 0 ? Math.abs(d) : 0);
-    }
-    const avgGains = MathUtils.rmaSeries(gains, 14);
-    const avgLosses = MathUtils.rmaSeries(losses, 14);
-    const rsiSeries = avgGains.map((g, i) => {
-      const l = avgLosses[i];
-      if (l === 0) return 100;
-      return 100 - (100 / (1 + g / l));
-    });
-    const rsiVal = rsiSeries[N - 1];
-    const rsiSig = rsiVal <= 35 ? 1 : (rsiVal >= 72 ? -1 : (rsiVal >= 50 ? 1 : 0));
-
-    const recentRsi14 = rsiSeries.slice(-14);
-    const minRsi = Math.min(...recentRsi14), maxRsi = Math.max(...recentRsi14);
-    const stochRsiVal = ((rsiVal - minRsi) / Math.max(0.0001, maxRsi - minRsi)) * 100;
-    const stochRsiSig = stochRsiVal <= 22 ? 1 : (stochRsiVal >= 80 ? -1 : (stochRsiVal >= 50 ? 1 : 0));
-
-    const willRSeries = C.map((cVal, i) => {
-      const s = Math.max(0, i - 13);
-      const hh = Math.max(...H.slice(s, i + 1));
-      const ll = Math.min(...L.slice(s, i + 1));
-      return ((hh - cVal) / Math.max(0.0001, hh - ll)) * -100;
-    });
-    const willR = willRSeries[N - 1];
-    const willRSig = willR <= -80 ? 1 : (willR >= -20 ? -1 : (willR >= -50 ? 1 : 0));
-
-    const disparity20 = (curC / Math.max(0.0001, sma20)) * 100;
-    const dispSig = disparity20 <= 95 ? 1 : (disparity20 >= 107 ? -1 : (disparity20 >= 100 ? 1 : 0));
-
-    const adSeries = [];
-    let cumAD = 0, sumII = 0, sumVol21 = 0;
-    for (let i = 0; i < N; i++) {
-      const clv = ((C[i] - L[i]) - (H[i] - C[i])) / Math.max(0.0001, H[i] - L[i]);
-      const mfv = clv * V[i];
-      cumAD += mfv;
-      adSeries.push(cumAD);
-      if (i >= N - 21) { sumII += mfv; sumVol21 += V[i]; }
-    }
-    const iiPct = (sumII / Math.max(1, sumVol21)) * 100;
-    const iiSig = iiPct > 5 ? 1 : (iiPct < -5 ? -1 : 0);
-
-    const adEma3 = MathUtils.emaSeries(adSeries, 3)[N - 1];
-    const adEma10 = MathUtils.emaSeries(adSeries, 10)[N - 1];
-    const chaikinOsc = adEma3 - adEma10;
-    const chaikinSig = chaikinOsc > 0 ? 1 : -1;
-    const adSig = adSeries[N - 1] > (adSeries[N - 10] || 0) ? 1 : -1;
-
-    const e1 = MathUtils.emaSeries(C, 12);
-    const e2 = MathUtils.emaSeries(e1, 12);
-    const e3 = MathUtils.emaSeries(e2, 12);
-    const trixVal = ((e3[N - 1] - (e3[N - 2] || e3[N - 1])) / Math.max(0.0001, e3[N - 2] || 1)) * 100;
-    const trixSig = trixVal > 0 ? 1 : -1;
-
-    const macdSeries = ema12Arr.map((v, i) => v - ema26Arr[i]);
-    const macdSignalSeries = MathUtils.emaSeries(macdSeries, 9);
-    const macdHistSeries = macdSeries.map((v, i) => v - macdSignalSeries[i]);
-    const macdHist = macdHistSeries[N - 1];
-    const ppoVal = ((ema12 - ema26) / Math.max(0.0001, ema26)) * 100;
-    const macdSig = macdHist > 0 ? 1 : -1;
-    const ppoSig = ppoVal > 0 ? 1 : -1;
-
-    let sumPlusDM = 0, sumMinusDM = 0, sumTR14 = 0;
-    for (let i = Math.max(1, N - 14); i < N; i++) {
-      const upMove = H[i] - H[i - 1], downMove = L[i - 1] - L[i];
-      if (upMove > downMove && upMove > 0) sumPlusDM += upMove;
-      if (downMove > upMove && downMove > 0) sumMinusDM += downMove;
-      sumTR14 += trArr[i];
-    }
-    const plusDI = (sumPlusDM / Math.max(0.0001, sumTR14)) * 100;
-    const minusDI = (sumMinusDM / Math.max(0.0001, sumTR14)) * 100;
-    const adxVal = (Math.abs(plusDI - minusDI) / Math.max(0.0001, plusDI + minusDI)) * 100;
-    const dmiSig = plusDI > minusDI ? 1 : -1;
-    const adxSig = (adxVal >= 22 && plusDI > minusDI) ? 1 : (adxVal >= 22 && plusDI < minusDI ? -1 : 0);
-
-    const tpArr = candles.map(x => (x.h + x.l + x.c) / 3);
-    const cciSeries = tpArr.map((tp, i) => {
-      const sub = tpArr.slice(Math.max(0, i - 19), i + 1);
-      const m = sub.reduce((a, b) => a + b, 0) / sub.length;
-      const md = sub.reduce((a, b) => a + Math.abs(b - m), 0) / sub.length;
-      return (tp - m) / Math.max(0.0001, 0.015 * md);
-    });
-    const cciVal = cciSeries[N - 1];
-    const cciSig = cciVal <= -100 ? 1 : (cciVal >= 120 ? -1 : (cciVal > 0 ? 1 : 0));
-
-    const mfiSeries = tpArr.map((_, idx) => {
-      let pos = 0, neg = 0;
-      for (let j = Math.max(1, idx - 13); j <= idx; j++) {
-        const mf = tpArr[j] * V[j];
-        if (tpArr[j] >= tpArr[j - 1]) pos += mf;
-        else neg += mf;
-      }
-      return 100 - (100 / (1 + pos / Math.max(1, neg)));
-    });
-    const mfiVal = mfiSeries[N - 1];
-    const mfiSig = mfiVal <= 25 ? 1 : (mfiVal >= 78 ? -1 : (mfiVal >= 50 ? 1 : 0));
-
-    const obvSeries = [0];
-    for (let i = 1; i < N; i++) {
-      const dir = C[i] > C[i - 1] ? 1 : (C[i] < C[i - 1] ? -1 : 0);
-      obvSeries.push(obvSeries[i - 1] + dir * V[i]);
-    }
-    const obvSlope = obvSeries[N - 1] - (obvSeries[N - 10] || 0);
-    const obvSig = obvSlope > 0 ? 1 : -1;
-
-    const roc12 = ((curC - (C[N - 13] || C[0])) / Math.max(0.0001, C[N - 13] || C[0])) * 100;
-    const rocSig = roc12 > 0 ? 1 : -1;
-
-    let rmiUp = 0, rmiDown = 0;
-    for (let i = Math.max(4, N - 14); i < N; i++) {
-      const diff4 = C[i] - C[i - 4];
-      if (diff4 >= 0) rmiUp += diff4;
-      else rmiDown += Math.abs(diff4);
-    }
-    const rmiVal = 100 - (100 / (1 + (rmiUp / Math.max(0.0001, rmiDown))));
-    const rmiSig = rmiVal <= 35 ? 1 : (rmiVal >= 72 ? -1 : (rmiVal >= 50 ? 1 : 0));
-
-    const sqzMomSeries = C.map((cVal, i) => {
-      const s = Math.max(0, i - 19);
-      const hh = Math.max(...H.slice(s, i + 1));
-      const ll = Math.min(...L.slice(s, i + 1));
-      return cVal - (((hh + ll) / 2 + sma20Arr[i]) / 2);
-    });
-
-    const pOld = C[N - 9] || C[0];
-    const rsiOld = rsiSeries[N - 9] || 50;
-    let divergenceType = "NONE";
-    let divergenceText = "정상 동조화 (주가·지표 방향 일치)";
-    let divBuyBonus = 0, divSellBonus = 0;
-
-    if (curC < pOld * 0.992 && (rsiVal > rsiOld + 2.5 || obvSlope > 0)) {
-      divergenceType = "BULL";
-      divergenceText = "🔥 상승 다이버전스 포착! (가격 조정 속 RSI·OBV 매집 상승)";
-      divBuyBonus = 8;
-    } else if (curC > pOld * 1.008 && (rsiVal < rsiOld - 2.5 && obvSlope < 0)) {
-      divergenceType = "BEAR";
-      divergenceText = "🚨 하락 다이버전스 경고! (고점 부근 RSI·OBV 수급 둔화)";
-      divSellBonus = 8;
-    }
-
-    const upperResults = [
-      { id: "SMA", name: "이동평균선 (SMA 5·20·60)", val: `20선 ${f(sma20)}`, sig: smaSig, detail: smaSig > 0 ? "5·20일선 정배열 지지" : "단기 이평선 저항 구간" },
-      { id: "EMA", name: "지수이동평균선 (EMA 12·26·50)", val: `EMA12 ${f(ema12)}`, sig: emaSig, detail: `EMA50 ${f(ema50)}` },
-      { id: "ICHIMOKU", name: "일목균형표 (구름대·전환/기준)", val: `구름상단 ${f(cloudTop)}`, sig: ichimokuSig, detail: ichimokuSig > 0 ? "구름대 상단 돌파 강세" : "구름대 하단 약세" },
-      { id: "BB", name: "볼린저 밴드 (20, 2σ)", val: `${f(bbLower)}~${f(bbUpper)}`, sig: bbSig, detail: `중심선 ${f(bbMid)}` },
-      { id: "SUPERTREND", name: "슈퍼트렌드 (ATR 10, 3.0)", val: f(supertrendLine), sig: supertrendSig, detail: supertrendBull ? "상승 추세선 지지중" : "하락 추세 전환" },
-      { id: "VP", name: "매물대분석 (최대매물 POC)", val: `POC ${f(pocPrice)}`, sig: vpSig, detail: vpSig > 0 ? "핵심 매물대 위(지지)" : "매물대 아래(저항)" },
-      { id: "ENVELOPE", name: "엔벨로프 (20선 ±5%)", val: `${f(envLower)}~${f(envUpper)}`, sig: envSig, detail: "이평 밴드 범위 판별" },
-      { id: "FRACTAL", name: "윌리엄스 프랙탈 (5봉 변곡)", val: `고점 ${f(lastUpFractal)}`, sig: fractalSig, detail: `저점 ${f(lastDownFractal)}` },
-      { id: "PSAR", name: "파라볼릭 SAR", val: f(psarVal), sig: psarSig, detail: psarBull ? "캔들 하단 상승점" : "캔들 상단 하락점" },
-      { id: "PCHANNEL", name: "프라이스 채널 (20일 고저)", val: `${f(pcLow)}~${f(pcHigh)}`, sig: pcSig, detail: `중심 ${f(pcMid)}` },
-      { id: "VWAP", name: "VWAP (거래량 가중 평균가)", val: f(vwapVal), sig: vwapSig, detail: vwapSig > 0 ? "기관 평균단가 상회" : "기관 평균단가 하회" },
-      { id: "AVWAP", name: "고정된 VWAP (저점 변곡 기준)", val: f(avwapVal), sig: avwapSig, detail: "변곡점 매수세 지지" }
-    ];
-
-    const lowerResults = [
-      { id: "VOL", name: "거래량 (20봉 평균 대비)", val: `${curVolRatio.toFixed(2)}배`, sig: volSig, detail: `평균 ${(avgVol20 / 10000).toFixed(0)}만` },
-      { id: "MASS", name: "매스 인덱스 (Mass Index 25)", val: massIndex.toFixed(2), sig: massSig, detail: massIndex > 27 ? "추세전환 주의" : "변동폭 안정권" },
-      { id: "MOM", name: "모멘텀 (Momentum 10)", val: `${mom10 >= 0 ? '+' : ''}${mom10.toFixed(1)}`, sig: momSig, detail: mom10 >= 0 ? "양(+) 모멘텀" : "음(-) 모멘텀" },
-      { id: "VO", name: "볼륨 오실레이터 (5, 20)", val: `${voVal >= 0 ? '+' : ''}${voVal.toFixed(1)}%`, sig: voSig, detail: "단·장기 거래량 차" },
-      { id: "BB_B", name: "볼린저 밴드 %B", val: `${(bbPercentB * 100).toFixed(1)}%`, sig: bbbSig, detail: bbPercentB < 0.2 ? "밴드 하단 과매도" : "밴드 내 순항" },
-      { id: "BB_W", name: "볼린저 밴드폭 (BandWidth)", val: `${bbWidth.toFixed(2)}%`, sig: bbwSig, detail: bbWidth < 8 ? "밴드 응축(폭발 임박)" : "정상 변동폭" },
-      { id: "STOCH", name: "스토캐스틱 Slow (%K/%D)", val: `K ${slowK.toFixed(1)} / D ${slowD.toFixed(1)}`, sig: stochSig, detail: slowK > slowD ? "골든크로스 우위" : "데드크로스 조정" },
-      { id: "STOCHRSI", name: "스토캐스틱 RSI (14)", val: `${stochRsiVal.toFixed(1)}%`, sig: stochRsiSig, detail: stochRsiVal <= 22 ? "초단기 바닥권" : "정상 흐름" },
-      { id: "WILLR", name: "윌리엄스 %R (14)", val: `${willR.toFixed(1)}%`, sig: willRSig, detail: willR <= -80 ? "과매도 반등권" : "정상 범위" },
-      { id: "DISP", name: "이격도 (20일선 기준)", val: `${disparity20.toFixed(2)}%`, sig: dispSig, detail: "20일선 대비 괴리율" },
-      { id: "II", name: "일중 강도 지수 (II% 21)", val: `${iiPct >= 0 ? '+' : ''}${iiPct.toFixed(1)}%`, sig: iiSig, detail: iiPct > 0 ? "장중 종가 매집" : "장중 매물 출회" },
-      { id: "CHAIKIN", name: "체이킨 오실레이터 (3, 10)", val: chaikinOsc >= 0 ? "양(+) 유입" : "음(-) 유출", sig: chaikinSig, detail: "AD 수급 가속도" },
-      { id: "TRIX", name: "트릭스 (TRIX 12)", val: `${trixVal >= 0 ? '+' : ''}${trixVal.toFixed(3)}%`, sig: trixSig, detail: "3중 EMA 추세율" },
-      { id: "PPO", name: "프라이스 오실레이터 (PPO)", val: `${ppoVal >= 0 ? '+' : ''}${ppoVal.toFixed(2)}%`, sig: ppoSig, detail: "EMA 격차율" },
-      { id: "AD", name: "AD 라인 (매집/분산)", val: adSig > 0 ? "상승 매집" : "하락 분산", sig: adSig, detail: "누적 수급선" },
-      { id: "ADX", name: "ADX (추세강도지수 14)", val: adxVal.toFixed(1), sig: adxSig, detail: adxVal >= 25 ? "강한 추세 형성" : "횡보 구간" },
-      { id: "ATR", name: "ATR (평균변동폭 14)", val: f(atr14), sig: 0, detail: `1봉 평균 등락폭 (${((atr14 / curC) * 100).toFixed(2)}%)` },
-      { id: "CCI", name: "CCI (상품채널지수 20)", val: cciVal.toFixed(1), sig: cciSig, detail: cciVal <= -100 ? "과매도 매수권" : "정상 추세" },
-      { id: "DMI", name: "DMI (+DI / -DI 14)", val: `+${plusDI.toFixed(1)} / -${minusDI.toFixed(1)}`, sig: dmiSig, detail: plusDI > minusDI ? "+DI 상승 우위" : "-DI 하락 우위" },
-      { id: "MACD", name: "MACD (12, 26, 9)", val: `Hist ${macdHist >= 0 ? '+' : ''}${macdHist.toFixed(2)}`, sig: macdSig, detail: macdHist > 0 ? "시그널 상향 돌파" : "시그널 하회" },
-      { id: "MFI", name: "MFI (자금흐름지수 14)", val: `${mfiVal.toFixed(1)}%`, sig: mfiSig, detail: mfiVal <= 25 ? "자금 바닥 매수권" : "자금 흐름 양호" },
-      { id: "OBV", name: "OBV (누적거래량)", val: obvSig > 0 ? "우상향 매집" : "단기 소화중", sig: obvSig, detail: "거래량 누적 수급" },
-      { id: "ROC", name: "ROC (가격변화율 12)", val: `${roc12 >= 0 ? '+' : ''}${roc12.toFixed(2)}%`, sig: rocSig, detail: "12봉 변화율" },
-      { id: "RMI", name: "RMI (상대모멘텀지수 14,4)", val: `${rmiVal.toFixed(1)}%`, sig: rmiSig, detail: "4봉 모멘텀 RSI" },
-      { id: "RSI", name: "RSI (상대강도지수 14)", val: `${rsiVal.toFixed(1)}%`, sig: rsiSig, detail: rsiVal <= 35 ? "과매도 매수 타점" : (rsiVal >= 70 ? "과매수 구간" : "중립·순항") }
-    ];
-
-    const isStrongTrend = adxVal >= 24;
-    const upperWeight = isStrongTrend ? 1.7 : 1.1;
-    const lowerWeight = isStrongTrend ? 0.9 : 1.4;
-
-    let buyVotes = 0, sellVotes = 0, neutralVotes = 0, activeTotalCount = 0;
-    let weightedBuy = 0, weightedSell = 0, totalWeight = 0;
-
-    upperResults.forEach(item => {
-      item.enabled = activeUpper[item.id] !== false;
-      if (!item.enabled) return;
-      activeTotalCount++;
-      if (item.sig > 0) { buyVotes++; weightedBuy += upperWeight; }
-      else if (item.sig < 0) { sellVotes++; weightedSell += upperWeight; }
-      else { neutralVotes++; weightedBuy += upperWeight * 0.45; }
-      totalWeight += upperWeight;
-    });
-
-    lowerResults.forEach(item => {
-      item.enabled = activeLower[item.id] !== false;
-      if (!item.enabled) return;
-      activeTotalCount++;
-      if (item.sig > 0) { buyVotes++; weightedBuy += lowerWeight; }
-      else if (item.sig < 0) { sellVotes++; weightedSell += lowerWeight; }
-      else { neutralVotes++; weightedBuy += lowerWeight * 0.45; }
-      totalWeight += lowerWeight;
-    });
-
-    const buyScore = Math.min(98, Math.max(15, Math.round((weightedBuy / Math.max(1, totalWeight)) * 100) + divBuyBonus));
-    const sellScore = Math.min(98, Math.max(15, Math.round((weightedSell / Math.max(1, totalWeight)) * 100) + divSellBonus));
-
-    const finEval = getFinancialAnalysis(ticker);
-    const finScore = finEval.finScore;
-    const hybridScore = Math.round(buyScore * 0.7 + finScore * 0.3);
-
-    const shortScore = Math.min(96, Math.max(20, Math.round(50 + (curC > sma5 ? 18 : -15) + (slowK > slowD ? 14 : -10) + (rsiVal < 70 && rsiVal > 45 ? 10 : 0))));
-    const midScore = buyScore;
-    const longScore = Math.min(96, Math.max(20, Math.round(50 + (curC > sma60 ? 20 : -15) + (ema12 > ema50 ? 15 : -12) + (obvSig > 0 ? 10 : -8))));
-
-    let winSignals = 0, totalSignals = 0;
-    for (let i = 20; i < N - 3; i++) {
-      if ((C[i] > sma20Arr[i] && sma5Arr[i] >= sma20Arr[i]) || rsiSeries[i] <= 38) {
-        totalSignals++;
-        if (Math.max(C[i + 1], C[i + 2], C[i + 3]) > C[i] * 1.003) winSignals++;
-      }
-    }
-    const backtestWinRate = totalSignals > 0 ? Math.min(94, Math.max(62, Math.round((winSignals / totalSignals) * 100))) : 78;
-
-    const supportAvg = (vwapVal + sma20 + tenkan) / 3;
-    const buyTarget1 = Math.min(curC - 0.85 * atr14, supportAvg);
-    const buyTarget2 = Math.min(buyTarget1 - 1.15 * atr14, Math.max(bbLower, pocPrice * 0.98));
-    const stopLoss = Math.min(buyTarget2 - 1.2 * atr14, curC - 2.6 * atr14);
-    const sellTarget1 = Math.max(curC + 1.8 * atr14, curC * 1.025);
-    const sellTarget2 = Math.max(sellTarget1 + 1.4 * atr14, curC + 3.2 * atr14);
-
+  // 재무 데이터가 없을 때 사용하는 "빈" 프로필 (가짜 수치 생성 금지)
+  function buildDefaultFinancialProfile(ticker) {
+    const isKR = ticker.endsWith(".KS") || ticker.endsWith(".KQ");
+    const isMacro = getAssetCategory(ticker) === "24H";
     return {
-      curC, atr14, adxVal, isStrongTrend, backtestWinRate,
-      divergenceType, divergenceText,
-      upperResults, lowerResults,
-      buyVotes, sellVotes, neutralVotes, activeTotalCount,
-      buyScore, sellScore, finScore, hybridScore, finEval,
-      shortScore, midScore, longScore,
-      buyTarget1, buyTarget2, sellTarget1, sellTarget2, stopLoss,
-      overlays: {
-        sma5Arr, sma20Arr, sma60Arr,
-        bbUpperArr, bbLowerArr,
-        spanAArr, spanBArr,
-        supertrendLine, supertrendBull,
-        pocPrice, vpBuckets, minPAll, stepP
-      },
-      oscSeries: {
-        sqzMomSeries, rsiSeries,
-        macdSeries, macdSignalSeries, macdHistSeries,
-        slowKArr, slowDArr,
-        mfiSeries, cciSeries, obvSeries, willRSeries
-      }
+      hasData: false,
+      isMacroAsset: isMacro,
+      unit: isMacro ? "-" : (isKR ? "억원" : "$M"),
+      sector: isMacro ? "글로벌 매크로·디지털 자산" : "재무 데이터 미입력",
+      sectorPer: 0, sectorPbr: 0,
+      years: ["-", "-", "-"], rev: [0, 0, 0], op: [0, 0, 0], net: [0, 0, 0], opm: [0, 0, 0],
+      debtRatio: 0, currentRatio: 0, per: 0, pbr: 0, roe: 0,
+      catalyst: isMacro
+        ? "비기업 매크로 자산이므로 재무제표가 존재하지 않습니다. 37개 기술적 지표로만 채점합니다."
+        : "재무 데이터가 입력되지 않아 통합점수는 <b>차트(기술적) 100%</b>로 계산됩니다. 하단 <b>[재무 수치 직접 입력]</b>으로 DART·SEC 수치를 넣으면 정밀 재점수됩니다."
     };
   }
 
-  // ==================== 9. 화면 렌더링 (가짜 수치 없이 실데이터만 출력) ====================
   function updateMacroBarUI() {
     const fxEl = document.getElementById("mcOfficialFX");
     if (fxEl) {
@@ -2355,7 +2795,7 @@
           <div style="min-width:0;">
             <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
               <span class="s-ticker">${st.krName}</span>
-              ${ev ? `<span class="tag ${ev.hybridScore >= 68 ? 'tag-buy' : (ev.sellScore >= 65 ? 'tag-sell' : 'tag-neutral')}">통합 ${ev.hybridScore}점</span>` : `<span class="tag tag-neutral">실데이터 수신중</span>`}
+              ${ev ? `<span class="tag ${ev.hybridScore >= 68 ? 'tag-buy' : (ev.sellScore >= 65 ? 'tag-sell' : 'tag-neutral')}" id="score_${st.ticker}">통합 ${ev.hybridScore}점</span>` : `<span class="tag tag-neutral" id="score_${st.ticker}">실데이터 수신중</span>`}
             </div>
             <div class="s-krname">${hasData ? `<span style="color:#34D399;">✔ ${pack.source}</span> (${srcCount}개 출처 검증)` : '네트워크 시세 호출중...'}</div>
           </div>
@@ -2372,6 +2812,8 @@
         </div>
       `;
     }).join("");
+    const hs = document.getElementById("homeSyncStatus");
+    if (hs) hs.textContent = `● 실데이터 수신 완료`;
   }
 
   function renderDetailHeaderOnly() {
@@ -2386,6 +2828,34 @@
     chgEl.textContent = `${isUp ? '▲ +' : '▼ '}${pct.toFixed(2)}% (전일종가 ${fmtPrice(prev, currentTicker)})`;
     chgEl.style.color = isUp ? "var(--up)" : "var(--down)";
     renderMultiSourceVerifyBox(currentTicker);
+  }
+
+  // ── 실시간 점수 재계산 (WebSocket 수신 시 1.2초 쓰로틀) ──
+  let _rescoreTimer = null;
+  function scheduleRealtimeRescore() {
+    if (_rescoreTimer) return;
+    _rescoreTimer = setTimeout(() => {
+      _rescoreTimer = null;
+      try {
+        if (document.getElementById("pane-detail").classList.contains("active")) {
+          renderDetail({ skipChart: true });
+        }
+        updateHomeScores();
+      } catch (e) { __qcatch(e); }
+    }, 1200);
+  }
+
+  function updateHomeScores() {
+    majorStocks.forEach(st => {
+      const el = document.getElementById(`score_${st.ticker}`);
+      if (!el) return;
+      const pack = candleCache[`${st.ticker}_1d`];
+      if (!pack || !pack.candles || pack.candles.length < 5) return;
+      const ev = evaluateAll37Indicators(pack.candles, st.ticker);
+      if (!ev) return;
+      el.textContent = `통합 ${ev.hybridScore}점`;
+      el.className = `tag ${ev.hybridScore >= 68 ? "tag-buy" : (ev.sellScore >= 65 ? "tag-sell" : "tag-neutral")}`;
+    });
   }
 
   function renderMultiSourceVerifyBox(ticker) {
@@ -2409,7 +2879,7 @@
     }).join("");
   }
 
-  function renderDetail() {
+  function renderDetail(opts = {}) {
     const dbItem = MASTER_STOCK_DB.find(m => m.ticker === currentTicker);
     const st = majorStocks.find(s => s.ticker === currentTicker) || dbItem || {
       ticker: currentTicker, krName: currentTicker, exchange: "GLOBAL"
@@ -2472,28 +2942,40 @@
     }
 
     const badge = document.getElementById("dtConsensusBadge");
-    if (ev.hybridScore >= 68) {
+    if (ev.hybridScore >= 65 && ev.buyScore > ev.sellScore) {
       badge.textContent = `🔥 매수 우위 (${ev.hybridScore}점)`;
       badge.className = "tag tag-buy";
-    } else if (ev.sellScore >= 65) {
-      badge.textContent = `🚨 과열·주의 (${ev.sellVotes}/${ev.activeTotalCount})`;
+    } else if (ev.sellScore >= 45 && ev.sellScore >= ev.buyScore) {
+      badge.textContent = `🚨 과열·주의 (매도신호 ${ev.sellVotes}/${ev.activeTotalCount})`;
       badge.className = "tag tag-sell";
     } else {
       badge.textContent = `⚖️ 중립·관망 (${ev.hybridScore}점)`;
       badge.className = "tag tag-neutral";
     }
 
+    const btTxt = (ev.backtestWinRate == null)
+      ? `<span style="color:var(--amber);">표본 부족</span>`
+      : (ev.backtestSamples < 10
+        ? `<b style="color:var(--amber);">${ev.backtestWinRate}%</b> <span style="color:var(--sub);">(표본 ${ev.backtestSamples}건 · 참고용)</span>`
+        : `<b style="color:#34D399;">${ev.backtestWinRate}%</b> <span style="color:var(--sub);">(표본 ${ev.backtestSamples}건)</span>`);
+
+    const finTxt = ev.hasFinData
+      ? `영업이익률 <b>${ev.finEval.fin.opm[2]}%</b> · 부채비율 <b>${ev.finEval.fin.debtRatio}%</b> · PER <b>${ev.finEval.fin.per > 0 ? ev.finEval.fin.per + '배' : 'N/A'}</b> · PBR <b>${ev.finEval.fin.pbr}배</b>`
+      : `<span style="color:var(--amber);">재무 데이터 미입력 → 차트 100% 기준으로 채점 중</span>`;
+
     document.getElementById("dtRegimeAndBacktestBox").innerHTML = `
       • <b>🧠 현재 시장 국면 (ADX ${ev.adxVal.toFixed(1)}):</b> <b>${ev.isStrongTrend ? '강한 추세장 (상단 추세·일목·매물대 가중치 1.7배)' : '횡보·박스권 (하단 오실레이터 가중치 1.4배)'}</b><br/>
-      • <b>📑 재무 요약:</b> 영업이익률 <b>${ev.finEval.fin.opm[2]}%</b> · 부채비율 <b>${ev.finEval.fin.debtRatio}%</b> · PER <b>${ev.finEval.fin.per > 0 ? ev.finEval.fin.per + '배' : 'N/A'}</b> · PBR <b>${ev.finEval.fin.pbr}배</b><br/>
-      • <b>📈 과거 백테스팅 검증:</b> 동일 신호 발생 시 3봉 이내 상승 적중률 <b style="color:#34D399;">${ev.backtestWinRate}%</b>
+      • <b>📑 재무 요약:</b> ${finTxt}<br/>
+      • <b>📈 과거 백테스팅 검증:</b> 동일 신호 발생 시 3봉 뒤 상승 적중률 ${btTxt}
     `;
 
     document.getElementById("dtVoteCountTxt").textContent = `매수 ${ev.buyVotes} · 중립 ${ev.neutralVotes} · 매도 ${ev.sellVotes}`;
     document.getElementById("dtBuyScore").textContent = `${ev.buyScore}점`;
-    document.getElementById("dtFinScore").textContent = `${ev.finScore}점`;
+    document.getElementById("dtFinScore").textContent = ev.hasFinData ? `${ev.finScore}점` : "미입력";
     document.getElementById("dtTotalHybridScore").textContent = `${ev.hybridScore}점`;
-    document.getElementById("dtHybridGrade").textContent = ev.hybridScore >= 75 ? "S등급 (차트+실적 우량)" : (ev.hybridScore >= 62 ? "A등급 (양호)" : "B등급 (눌림목 대기)");
+    document.getElementById("dtHybridGrade").textContent = !ev.hasFinData
+      ? "차트 100% (재무 미입력)"
+      : (ev.hybridScore >= 75 ? "S등급 (차트+실적 우량)" : (ev.hybridScore >= 62 ? "A등급 (양호)" : "B등급 (눌림목 대기)"));
 
     document.getElementById("tpBuy1").textContent = `${fmtPrice(ev.buyTarget1, currentTicker)} (${(((ev.buyTarget1 - cur) / cur) * 100).toFixed(1)}%)`;
     document.getElementById("tpBuy2").textContent = `${fmtPrice(ev.buyTarget2, currentTicker)} (${(((ev.buyTarget2 - cur) / cur) * 100).toFixed(1)}%)`;
@@ -2528,7 +3010,7 @@
 
     if (chartMode === "canvas") {
       drawUpperAndLowerCanvases(candles, ev);
-    } else {
+    } else if (!opts.skipChart) {
       loadTradingViewWidget(currentTicker);
     }
   }
@@ -2539,11 +3021,21 @@
     const fin = fEval.fin;
 
     document.getElementById("finPaneTitle").textContent = `📑 ${formatDisplayTitle(dbItem.krName, currentTicker)} 재무·밸류 분석`;
-    document.getElementById("finPaneSub").textContent = `섹터: ${fin.sector} · 단위: ${fin.unit}`;
-    document.getElementById("finGradeBadge").textContent = `재무점수 ${fEval.finScore}/100점`;
+    document.getElementById("finPaneSub").textContent = fEval.hasData
+      ? `섹터: ${fin.sector} · 단위: ${fin.unit}`
+      : `섹터: 재무 데이터 미입력 · 통합점수는 차트 100%로 계산됩니다`;
+    document.getElementById("finGradeBadge").textContent = fEval.hasData
+      ? `재무점수 ${fEval.finScore}/100점`
+      : "재무점수 미입력";
+    const noDataBanner = fEval.hasData
+      ? ""
+      : `<div style="background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.35); color:#FCD34D; font-size:11.5px; font-weight:700; padding:8px 10px; border-radius:8px; margin-bottom:8px; line-height:1.5;">
+           ⚠️ 이 종목의 재무제표가 아직 입력되지 않았습니다. <b>가짜 수치를 표시하지 않는 대신</b> 통합점수는 차트(기술적 37지표) 100%로 채점됩니다.<br/>
+           아래 <b>[재무 수치 직접 입력]</b> 버튼으로 DART(dart.fss.or.kr) 또는 SEC EDGAR 수치를 넣으면 하이브리드(차트70%+재무30%)로 재점수됩니다.
+         </div>`;
 
     const y = fin.years;
-    document.getElementById("finSummaryTableWrap").innerHTML = `
+    document.getElementById("finSummaryTableWrap").innerHTML = `${noDataBanner}
       <table class="fin-table">
         <thead>
           <tr>
@@ -2607,15 +3099,15 @@
 
     document.getElementById("analystThreeStepsBox").innerHTML = `
       <div class="analyst-step-box">
-        <div class="analyst-step-title">① [수익성 분석] 최근 3개년 이익률 추이 및 원인 추론 (${fEval.profitScore}/35점)</div>
+        <div class="analyst-step-title">① [수익성 분석] 최근 3개년 이익률 추이 및 원인 추론 (${fEval.profitScore == null ? "미입력" : fEval.profitScore + "/35점"})</div>
         ${fEval.profitComment}
       </div>
       <div class="analyst-step-box">
-        <div class="analyst-step-title">② [재무 건전성 분석] 부채비율·유동비율 기반 단기 자금흐름 평가 (${fEval.healthScore}/35점)</div>
+        <div class="analyst-step-title">② [재무 건전성 분석] 부채비율·유동비율 기반 단기 자금흐름 평가 (${fEval.healthScore == null ? "미입력" : fEval.healthScore + "/35점"})</div>
         ${fEval.healthComment}
       </div>
       <div class="analyst-step-box">
-        <div class="analyst-step-title">③ [성장성 및 리스크] 업계 평균 대비 PER·PBR 위치 및 저평가 요인 (${fEval.valScore}/30점)</div>
+        <div class="analyst-step-title">③ [성장성 및 리스크] 업계 평균 대비 PER·PBR 위치 및 저평가 요인 (${fEval.valScore == null ? "미입력" : fEval.valScore + "/30점"})</div>
         ${fEval.valComment}
       </div>
     `;
@@ -2692,7 +3184,7 @@
 
 * **재무 건전성:** 부채비율 ${fin.debtRatio}%, 유동비율 ${fin.currentRatio}%
 * **밸류에이션:** PER ${fin.per}배 (업종평균 ${fin.sectorPer}배), PBR ${fin.pbr}배 (업종평균 ${fin.sectorPbr}배), ROE ${fin.roe}%
-* **기술적 지표(37종 합의):** 현재가 ${fmtPrice(ev ? ev.curC : 0, currentTicker)}, 기술점수 ${ev ? ev.buyScore : 0}/100점, 재무점수 ${fEval.finScore}/100점 (통합 ${ev ? ev.hybridScore : 0}점)
+* **기술적 지표(37종 합의):** 현재가 ${fmtPrice(ev ? ev.curC : 0, currentTicker)}, 기술점수 ${ev ? ev.buyScore : 0}/100점, 재무점수 ${fEval.finScore == null ? "미입력(차트 100% 기준)" : fEval.finScore + "/100점"} (통합 ${ev ? ev.hybridScore : 0}점)
 
 ### 2. [세부 분석 요청사항]
 1) **수익성 분석:** 최근 3년간 영업이익률(${fin.opm[0]}% → ${fin.opm[1]}% → ${fin.opm[2]}%)의 추이를 분석하고, 이익률이 변동된 주요 원인이 무엇일지 추론해 줘.
@@ -2950,7 +3442,15 @@
   }
 
   function renderSettings() {
-    document.getElementById("finnhubKeyInput").value = finnhubApiKey;
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ""; };
+    setVal("finnhubKeyInput", finnhubApiKey);
+    setVal("proxyUrlInput", proxyBaseUrl);
+    setVal("twelveDataKeyInput", twelveDataKey);
+    setVal("polygonKeyInput", polygonKey);
+    setVal("dartKeyInput", dartKey);
+    setVal("kisAppKeyInput", kisAppKey);
+    setVal("kisAppSecretInput", kisAppSecret);
+    renderApiKeyStatus();
     document.getElementById("settingsUpperList").innerHTML = UPPER_IND_META.map(m => `
       <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 2px; border-bottom:1px solid var(--border); cursor:pointer;" onclick="toggleUpperInd('${m.id}')">
         <div>
@@ -2979,7 +3479,25 @@
     renderSettings();
   }
 
-  // 병렬(Parallel) 고속 동기화: 순차 대기로 인한 타임아웃 방지
+  // ── 정적 호스팅(GitHub Pages 등) 감지 & 프록시 안내 ──
+  function isStaticHostDeployment() {
+    return /\.github\.io$|\.pages\.dev$|\.netlify\.app$|\.vercel\.app$/.test(location.hostname);
+  }
+  function maybeWarnStaticHost() {
+    if (!isStaticHostDeployment()) return;
+    const krMissing = majorStocks.some(s =>
+      (s.ticker.endsWith(".KS") || s.ticker.endsWith(".KQ")) && !candleCache[`${s.ticker}_1d`]
+    );
+    if (!krMissing) return;
+    const hs = document.getElementById("homeSyncStatus");
+    if (hs) {
+      hs.innerHTML = `⚠️ 정적 배포(GitHub Pages)에서는 네이버/KIS가 <b>CORS로 차단</b>됩니다 → <b>⚙️ API·지표설정</b> 탭에서 프록시 주소(Worker)를 입력하세요`;
+      hs.style.color = "#FCD34D";
+    }
+    const badge = document.getElementById("feedSourceBadge");
+    if (badge) badge.innerHTML = `● 국장 차단됨 — 프록시 주소 입력 필요`;
+  }
+
   async function syncAllRealtime() {
     document.getElementById("feedSourceBadge").textContent = "🔄 다중 실데이터 병렬 수신중..";
     await sync24HourAssetsRest();
@@ -2992,6 +3510,7 @@
       renderAll();
     }
     document.getElementById("feedSourceBadge").textContent = "● 실데이터 교차검증 완료";
+    maybeWarnStaticHost();
   }
 
   document.addEventListener("click", (e) => {
