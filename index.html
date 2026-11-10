@@ -6,31 +6,60 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="퀀트프로 V22" />
-  <title>QUANT PRO 37 V22 · 100% 실데이터 교차검증 & 외부앱 연동</title>
+  <title>QUANT PRO 45 V22 · 100% 실데이터 교차검증 & 퀀트 타점</title>
+  <!-- Google Material Symbols & Pretendard Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <style>
     :root {
-      --bg: #0B0E14;
-      --card: #131722;
-      --card-2: #1A1F2E;
-      --border: #242B3D;
-      --text: #F1F5F9;
-      --sub: #8B95A5;
-      --up: #F23645;
-      --down: #2962FF;
+      --bg: #090C12;
+      --card: #111622;
+      --card-2: #171E2E;
+      --card-hover: #1C2436;
+      --border: #232B3E;
+      --border-light: rgba(59, 130, 246, 0.25);
+      --text: #F3F6FB;
+      --sub: #8B98AD;
+      --sub-light: #A3B1C6;
+      --up: #FF4757;
+      --up-soft: rgba(255, 71, 87, 0.14);
+      --down: #2E6BFF;
+      --down-soft: rgba(46, 107, 255, 0.14);
       --green: #10B981;
+      --green-soft: rgba(16, 185, 129, 0.14);
       --amber: #F59E0B;
+      --amber-soft: rgba(245, 158, 11, 0.14);
       --purple: #8B5CF6;
+      --purple-soft: rgba(139, 92, 246, 0.14);
+      --primary: #3B82F6;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0;
       padding: env(safe-area-inset-top, 10px) 0 calc(env(safe-area-inset-bottom, 20px) + 78px);
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
       background-color: var(--bg);
       color: var(--text);
       overflow-x: hidden;
+      letter-spacing: -0.2px;
+      line-height: 1.5;
     }
-    .container { max-width: 540px; margin: 0 auto; padding: 0 14px; }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: 500;
+      font-style: normal;
+      font-size: 19px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: -4px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 550px; margin: 0 auto; padding: 0 14px; }
 
     .top-bar {
       position: sticky; top: 0; z-index: 100;
@@ -277,7 +306,7 @@
 <header class="top-bar">
   <div class="brand-logo" onclick="showPane('home')">
     <span class="logo-circle"></span>
-    <span>QUANT PRO 37</span>
+    <span>QUANT PRO 45</span>
     <span class="pro-tag">V22 실데이터 직결</span>
   </div>
   <div class="top-actions">
@@ -331,8 +360,8 @@
 
   <div class="search-wrap">
     <div style="display:flex; justify-content:space-between; align-items:center; font-size: 11px; color: var(--sub); margin-bottom: 6px;">
-      <span id="marketGlobalStatusTxt">🟢 가짜 데이터 제거됨 · 실데이터 다중 교차검증 가동</span>
-      <span id="feedSourceBadge" style="color:var(--green); font-weight:800; cursor:pointer;" onclick="syncAllRealtime()">🔄 전체 실데이터 재수신</span>
+      <span id="marketGlobalStatusTxt" style="display:flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:14px; color:#10B981;">verified</span> 100% 실데이터 다중 교차검증 가동</span>
+      <span id="feedSourceBadge" style="color:var(--green); font-weight:800; cursor:pointer; display:flex; align-items:center; gap:3px;" onclick="syncAllRealtime()"><span class="material-symbols-outlined" style="font-size:14px;">sync</span> 전체 재수신</span>
     </div>
 
     <div class="ask-box">
@@ -340,7 +369,7 @@
         placeholder="종목명/티커 검색 (예: 가온전선, 샌디스크, SNDK, 실스크, 아이렌, 삼성전자)"
         oninput="onSearchInput()"
         onkeydown="if(event.key==='Enter') searchAndAnalyzeStock()" />
-      <button id="btnSearchStock" onclick="searchAndAnalyzeStock()">분석</button>
+      <button id="btnSearchStock" onclick="searchAndAnalyzeStock()" style="display:flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:16px;">search</span>분석</button>
     </div>
     <div class="ac-dropdown" id="acDropdown"></div>
   </div>
@@ -348,15 +377,15 @@
   <div id="pane-home" class="pane active">
     <div class="card">
       <div class="card-header">
-        <div class="card-title">📊 실시간 검증 시세 & 37지표·재무 보드</div>
+        <div class="card-title"><span class="material-symbols-outlined" style="font-size:18px; color:var(--primary);">dashboard</span> 실시간 검증 시세 & 45지표·재무 보드</div>
         <span style="font-size:10.5px; color:var(--green); font-weight:800;" id="homeSyncStatus">● 실데이터 수신중</span>
       </div>
 
       <div class="cat-tabs">
         <button class="cat-btn active" id="cat-ALL" onclick="setCategoryFilter('ALL')">전체보기</button>
-        <button class="cat-btn" id="cat-KR" onclick="setCategoryFilter('KR')">🇰🇷 국내주식</button>
-        <button class="cat-btn" id="cat-US" onclick="setCategoryFilter('US')">🇺🇸 미국주식</button>
-        <button class="cat-btn" id="cat-24H" onclick="setCategoryFilter('24H')">🪙 24시 코인·금·환율</button>
+        <button class="cat-btn" id="cat-KR" onclick="setCategoryFilter('KR')"><span style="font-size:10px; font-weight:900; background:rgba(59,130,246,0.2); padding:1px 4px; border-radius:3px; margin-right:3px; color:#93C5FD;">KR</span> 국내주식</button>
+        <button class="cat-btn" id="cat-US" onclick="setCategoryFilter('US')"><span style="font-size:10px; font-weight:900; background:rgba(239,68,68,0.2); padding:1px 4px; border-radius:3px; margin-right:3px; color:#FCA5A5;">US</span> 미국주식</button>
+        <button class="cat-btn" id="cat-24H" onclick="setCategoryFilter('24H')"><span class="material-symbols-outlined" style="font-size:13px; vertical-align:-2px; color:#F59E0B;">currency_bitcoin</span> 24시 코인·금·환율</button>
       </div>
 
       <div id="majorWatchlistBox"></div>
@@ -381,21 +410,20 @@
         <span class="tag tag-purple" id="dtDivergenceBadge">-</span>
       </div>
       <div id="dtSessionInfo" style="font-size:11px; color:var(--sub); margin:6px 0 8px; padding:6px 8px; background:var(--card-2); border-radius:8px;"></div>
-      </div>
 
-      <div style="font-size:10.5px; color:var(--sub); font-weight:800; margin-bottom:4px;">
-        📱 외부 증권앱·웹 호가창 즉시 열기 (원클릭 연동):
+      <div style="font-size:10.5px; color:var(--sub); font-weight:800; margin:8px 0 4px; display:flex; align-items:center; gap:4px;">
+        <span class="material-symbols-outlined" style="font-size:15px; color:var(--primary);">open_in_new</span> 외부 증권앱·웹 호가창 즉시 열기 (원클릭 연동):
       </div>
       <div class="app-link-grid" id="externalAppLinksBar"></div>
 
       <div class="source-verify-box" id="multiSourceVerifyBox">
-        <div style="font-weight:800; color:#93C5FD; margin-bottom:4px;">🔍 다중 출처(API) 실시간 수신 가격 교차검증:</div>
+        <div style="font-weight:800; color:#93C5FD; margin-bottom:4px; display:flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:15px; color:#93C5FD;">verified_user</span> 다중 출처(API) 실시간 가격 교차검증:</div>
         <div id="multiSourceList">수신 중...</div>
       </div>
 
       <div class="sub-tabs" style="margin-top:8px;">
-        <button class="sub-tab active" id="tabChartCanvas" onclick="switchChartMode('canvas')">📈 37지표 정밀 타점 차트</button>
-        <button class="sub-tab" id="tabChartTV" onclick="switchChartMode('tv')">🌐 트레이딩뷰 공식 실시간 차트</button>
+        <button class="sub-tab active" id="tabChartCanvas" onclick="switchChartMode('canvas')"><span class="material-symbols-outlined" style="font-size:15px; vertical-align:-2px;">candlestick_chart</span> 45지표 정밀 타점 차트</button>
+        <button class="sub-tab" id="tabChartTV" onclick="switchChartMode('tv')"><span class="material-symbols-outlined" style="font-size:15px; vertical-align:-2px;">show_chart</span> 트레이딩뷰 실시간 차트</button>
       </div>
 
       <div id="canvasChartWrap">
@@ -413,6 +441,12 @@
             <option value="RSI">RSI (상대강도지수 14)</option>
             <option value="MACD">MACD (12,26,9 히스토그램)</option>
             <option value="STOCH">스토캐스틱 Slow (14,3,3)</option>
+            <option value="UO">얼티밋 오실레이터 (UO 7·14·28)</option>
+            <option value="CMO">샨드 모멘텀 (CMO 14)</option>
+            <option value="VI">볼텍스 지표 (Vortex VI+ / VI-)</option>
+            <option value="ERAY">엘더 레이 (Elder Ray Bull/Bear)</option>
+            <option value="FISHER">피셔 트랜스폼 (Fisher 10)</option>
+            <option value="COPPOCK">커폭 커브 (Coppock 10·14·11)</option>
             <option value="MFI">MFI (자금흐름지수 14)</option>
             <option value="CCI">CCI (상품채널지수 20)</option>
             <option value="OBV">OBV (누적거래량)</option>
@@ -428,7 +462,7 @@
 
     <div class="card" style="border: 1.5px solid #2962FF;">
       <div class="card-header">
-        <div class="card-title">🎯 기술(37지표) × 펀더멘털(재무) 통합 판독</div>
+        <div class="card-title"><span class="material-symbols-outlined" style="font-size:19px; color:var(--primary);">query_stats</span> 기술(45지표) × 펀더멘털(재무) 통합 판독</div>
         <span style="font-size:11px; color:var(--sub);" id="dtVoteCountTxt">매수 0 · 중립 0 · 매도 0</span>
       </div>
 
@@ -436,7 +470,7 @@
         <div class="score-box">
           <div style="font-size:10.5px; color:var(--sub); font-weight:700;">차트 기술점수(70%)</div>
           <div class="score-num" style="color:var(--up);" id="dtBuyScore">-</div>
-          <div style="font-size:10px; font-weight:700; color:var(--sub);">37지표 합의</div>
+          <div style="font-size:10px; font-weight:700; color:var(--sub);">45지표 합의</div>
         </div>
         <div class="score-box">
           <div style="font-size:10.5px; color:var(--sub); font-weight:700;">재무 펀더멘털(30%)</div>
@@ -452,17 +486,17 @@
 
       <div class="mtf-grid">
         <div class="mtf-box">
-          <div class="mtf-tf">⚡ 단기 모멘텀 (5봉)</div>
+          <div class="mtf-tf" style="display:flex; align-items:center; justify-content:center; gap:3px;"><span class="material-symbols-outlined" style="font-size:14px; color:#F59E0B;">bolt</span>단기 모멘텀 (5봉)</div>
           <div class="mtf-score" id="mtfShortScore">-</div>
           <div class="mtf-st" id="mtfShortStatus">-</div>
         </div>
         <div class="mtf-box">
-          <div class="mtf-tf">🌊 중기 스윙 (20봉)</div>
+          <div class="mtf-tf" style="display:flex; align-items:center; justify-content:center; gap:3px;"><span class="material-symbols-outlined" style="font-size:14px; color:#38BDF8;">waves</span>중기 스윙 (20봉)</div>
           <div class="mtf-score" id="mtfMidScore">-</div>
           <div class="mtf-st" id="mtfMidStatus">-</div>
         </div>
         <div class="mtf-box">
-          <div class="mtf-tf">🏔️ 장기 대추세 (60봉)</div>
+          <div class="mtf-tf" style="display:flex; align-items:center; justify-content:center; gap:3px;"><span class="material-symbols-outlined" style="font-size:14px; color:#A855F7;">trending_up</span>장기 대추세 (60봉)</div>
           <div class="mtf-score" id="mtfLongScore">-</div>
           <div class="mtf-st" id="mtfLongStatus">-</div>
         </div>
@@ -470,39 +504,61 @@
 
       <div class="regime-box" id="dtRegimeAndBacktestBox"></div>
 
+      <div id="dtTradeActionBanner" style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.35); border-radius:10px; padding:9px 11px; margin-bottom:8px;">
+        <div id="dtTradeActionTitle" style="font-size:12.5px; font-weight:900; color:#34D399;">⏳ 실전 매매 전략 판독 중...</div>
+        <div id="dtTradeActionDesc" style="font-size:11px; color:#CBD5E1; margin-top:3px; line-height:1.45;">37개 지표와 지지·저항 클러스터를 계산하고 있습니다.</div>
+      </div>
+
       <table class="target-table">
         <tbody>
           <tr>
-            <td><span class="tag tag-good">1차 매수타점</span> <b>단기 눌림목 지지선 (-0.9 ATR · VWAP/전환선)</b></td>
+            <td>
+              <span class="tag tag-good">1차 매수타점</span>
+              <b id="tpBuy1Desc">단기 눌림목 지지선</b>
+            </td>
             <td style="text-align:right; font-weight:900; color:#34D399;" id="tpBuy1">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-good">2차 매수타점</span> <b>핵심 매물대(POC)·볼린저하단 (-2.0 ATR)</b></td>
+            <td>
+              <span class="tag tag-good">2차 매수타점</span>
+              <b id="tpBuy2Desc">핵심 매물대(POC)·볼린저하단</b>
+            </td>
             <td style="text-align:right; font-weight:900; color:#34D399;" id="tpBuy2">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-buy">1차 익절타점</span> <b>단기 저항선 (+1.8 ATR / 볼린저상단)</b></td>
+            <td>
+              <span class="tag tag-buy">1차 익절타점</span>
+              <b id="tpSell1Desc">단기 저항 클러스터</b>
+            </td>
             <td style="text-align:right; font-weight:900; color:var(--up);" id="tpSell1">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-buy">2차 익절타점</span> <b>추세 상단 목표 (+3.2 ATR 돌파)</b></td>
+            <td>
+              <span class="tag tag-buy">2차 익절타점</span>
+              <b id="tpSell2Desc">추세 확장 목표치</b>
+            </td>
             <td style="text-align:right; font-weight:900; color:var(--up);" id="tpSell2">-</td>
           </tr>
           <tr>
-            <td><span class="tag tag-sell">칼손절 라인</span> <b>슈퍼트렌드·ATR 하단 이탈 (-1.6 ATR)</b></td>
+            <td>
+              <span class="tag tag-sell">칼손절 라인</span>
+              <b id="tpStopDesc">슈퍼트렌드·구조적 지지 이탈</b>
+            </td>
             <td style="text-align:right; font-weight:900; color:#60A5FA;" id="tpStopLoss">-</td>
           </tr>
         </tbody>
       </table>
 
+      <div id="dtFibPivotBox" style="background:var(--card-2); border:1px solid var(--border); border-radius:9px; padding:8px 10px; margin-top:8px; font-size:11px; color:var(--sub); line-height:1.6;"></div>
+
       <div style="margin-top:10px;">
-        <button class="btn-action primary" style="width:100%;" onclick="showPane('financial')">📑 3개년 재무제표 & 20년 애널리스트 리포트 열기</button>
+        <button class="btn-action primary" style="width:100%; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="showPane('financial')"><span class="material-symbols-outlined" style="font-size:16px;">description</span> 3개년 재무제표 & 20년 애널리스트 리포트 열기</button>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title">⚖️ 시드머니 최적 매수 수량 & 물타기 계산기</div>
+        <div class="card-title"><span class="material-symbols-outlined" style="font-size:18px; color:var(--primary);">calculate</span> 시드머니 최적 분할매수 & 물타기 계산기</div>
       </div>
       <div class="calc-grid">
         <div>
@@ -533,12 +589,12 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title">📋 37개 기술적 지표 전체 판독 결과표</div>
-        <button class="btn-action" onclick="showPane('settings')">⚙️ 지표·API 설정</button>
+        <div class="card-title"><span class="material-symbols-outlined" style="font-size:18px; color:var(--primary);">fact_check</span> 45개 기술적 지표 전체 판독 결과표</div>
+        <button class="btn-action" onclick="showPane('settings')" style="display:flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:14px;">tune</span> 지표·API 설정</button>
       </div>
-      <div class="ind-category-title">📈 상단 지표 (12종 · 추세/일목/볼린저/매물대/VWAP)</div>
+      <div class="ind-category-title" style="display:flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:16px;">candlestick_chart</span> 상단 지표 (14종 · 추세/일목/볼린저/켈트너/헐/매물대/VWAP)</div>
       <div id="upperIndicatorsTable"></div>
-      <div class="ind-category-title" style="margin-top:16px;">📊 하단 지표 (25종 · 오실레이터/수급/모멘텀/강도)</div>
+      <div class="ind-category-title" style="margin-top:16px; display:flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:16px;">stacked_line_chart</span> 하단 지표 (31종 · 오실레이터/수급/모멘텀/강도)</div>
       <div id="lowerIndicatorsTable"></div>
     </div>
   </div>
@@ -547,7 +603,7 @@
     <div class="card" style="border: 1.5px solid #3B82F6;">
       <div class="card-header">
         <div>
-          <div class="card-title" id="finPaneTitle">📑 기업 재무제표 & 애널리스트 정밀 진단</div>
+          <div class="card-title" id="finPaneTitle" style="display:flex; align-items:center; gap:6px;"><span class="material-symbols-outlined" style="font-size:20px; color:var(--primary);">description</span> 기업 재무제표 & 애널리스트 정밀 진단</div>
           <div style="font-size:11px; color:var(--sub); margin-top:2px;" id="finPaneSub">DART 전자공시 · 네이버 증권 · SEC EDGAR 기준</div>
         </div>
         <span class="tag tag-good" id="finGradeBadge">재무점수 산출중</span>
@@ -570,8 +626,8 @@
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;" id="finCrossCheckLinks"></div>
       <div style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button class="btn-action primary" style="flex:1;" onclick="copyAnalystPrompt()">📋 20년 애널리스트 심층질문 + 마크다운 표 복사</button>
-        <button class="btn-action" onclick="toggleCustomFinEditor()">✏️ 재무 수치 직접 보정</button>
+        <button class="btn-action primary" style="flex:1; display:flex; align-items:center; justify-content:center; gap:4px;" onclick="copyAnalystPrompt()"><span class="material-symbols-outlined" style="font-size:15px;">content_copy</span> 20년 애널리스트 심층질문 + 마크다운 표 복사</button>
+        <button class="btn-action" onclick="toggleCustomFinEditor()" style="display:flex; align-items:center; justify-content:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:15px;">edit_note</span> 재무 수치 직접 보정</button>
       </div>
 
       <div id="customFinEditorBox" style="display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--border);">
@@ -625,7 +681,7 @@
   <div id="pane-settings" class="pane">
     <div class="card">
       <div class="card-header">
-        <div class="card-title">🔑 API 키 설정 (시장별 개별 입력)</div>
+        <div class="card-title"><span class="material-symbols-outlined" style="font-size:18px; color:var(--primary);">key</span> API 키 설정 (시장별 개별 입력)</div>
       </div>
       <div style="font-size:11.5px; color:var(--sub); line-height:1.5; margin-bottom:10px;">
         각 칸에 키를 입력하고 <b>[이 칸만 저장]</b>을 누르면 즉시 저장·재수신 됩니다.<br/>
@@ -635,7 +691,7 @@
 
       <div style="border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-          <div style="font-size:12.5px; font-weight:900;">🇰🇷 국내주식 · 한국투자증권 KIS <span id="kisChip" class="tag tag-neutral">○ 미설정</span></div>
+          <div style="font-size:12.5px; font-weight:900;"><span style="font-size:10px; font-weight:900; background:rgba(59,130,246,0.2); padding:1px 4px; border-radius:3px; margin-right:3px; color:#93C5FD;">KR</span> 국내주식 · 한국투자증권 KIS <span id="kisChip" class="tag tag-neutral">○ 미설정</span></div>
           <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="saveAllApiKeys(true)">이 칸만 저장</button>
         </div>
         <div style="font-size:11px; color:var(--sub); margin-bottom:6px;">한국투자증권 영웅문W → <b>API 신청(모의투자)</b> 후 발급되는 App Key / Secret. 입력하면 국장 시세·캔들이 KIS 공식 데이터로 전환됩니다.</div>
@@ -656,7 +712,7 @@
 
       <div style="border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-          <div style="font-size:12.5px; font-weight:900;">🇺🇸 미국주식 · Finnhub <span id="finnhubChip" class="tag tag-neutral">○ 미설정</span></div>
+          <div style="font-size:12.5px; font-weight:900;"><span style="font-size:10px; font-weight:900; background:rgba(239,68,68,0.2); padding:1px 4px; border-radius:3px; margin-right:3px; color:#FCA5A5;">US</span> 미국주식 · Finnhub <span id="finnhubChip" class="tag tag-neutral">○ 미설정</span></div>
           <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="saveAllApiKeys(true)">이 칸만 저장</button>
         </div>
         <div style="font-size:11px; color:var(--sub); margin-bottom:6px;"><b>미국주식은 이 키를 표준으로 사용</b>합니다 (현재가·등락률·전일종가 직결). finnhub.io → Get free API key → 발급 즉시 사용 가능.</div>
@@ -669,7 +725,7 @@
 
       <div style="border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-          <div style="font-size:12.5px; font-weight:900;">🌐 CORS 프록시 주소 <span id="proxyChip" class="tag tag-neutral">○ 미설정</span></div>
+          <div style="font-size:12.5px; font-weight:900;"><span class="material-symbols-outlined" style="font-size:15px; vertical-align:-3px; color:var(--primary);">dns</span> CORS 프록시 주소 <span id="proxyChip" class="tag tag-neutral">○ 미설정</span></div>
           <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="saveAllApiKeys(true)">이 칸만 저장</button>
         </div>
         <div style="font-size:11px; color:var(--sub); margin-bottom:6px;">
@@ -708,12 +764,12 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title">⚙️ 차트 및 채점 지표 설정 (37종)</div>
-        <button onclick="resetIndicatorSettings()" style="background:none; border:none; color:#60A5FA; font-size:12px; font-weight:800; cursor:pointer;">전체 켜기</button>
+        <div class="card-title"><span class="material-symbols-outlined" style="font-size:18px; color:var(--primary);">tune</span> 차트 및 채점 지표 설정 (45종)</div>
+        <button onclick="resetIndicatorSettings()" style="background:none; border:none; color:#60A5FA; font-size:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:2px;"><span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> 전체 켜기</button>
       </div>
       <div class="sub-tabs">
-        <button class="sub-tab active" id="btnSetUpper" onclick="switchSettingTab('upper')">상단 지표 (12)</button>
-        <button class="sub-tab" id="btnSetLower" onclick="switchSettingTab('lower')">하단 지표 (25)</button>
+        <button class="sub-tab active" id="btnSetUpper" onclick="switchSettingTab('upper')">상단 지표 (14)</button>
+        <button class="sub-tab" id="btnSetLower" onclick="switchSettingTab('lower')">하단 지표 (31)</button>
       </div>
       <div id="settingsUpperList"></div>
       <div id="settingsLowerList" style="display:none;"></div>
@@ -723,19 +779,19 @@
 
 <nav class="bottom-nav">
   <button class="nav-item active" id="nav-home" onclick="showPane('home')">
-    <span class="nav-ic">📊</span>
+    <span class="material-symbols-outlined nav-ic">dashboard</span>
     <span>관심종목</span>
   </button>
   <button class="nav-item" id="nav-detail" onclick="showPane('detail')">
-    <span class="nav-ic">🎯</span>
-    <span>37지표·타점</span>
+    <span class="material-symbols-outlined nav-ic">query_stats</span>
+    <span>45지표·타점</span>
   </button>
   <button class="nav-item" id="nav-financial" onclick="showPane('financial')">
-    <span class="nav-ic">📑</span>
+    <span class="material-symbols-outlined nav-ic">description</span>
     <span>재무·애널리스트</span>
   </button>
   <button class="nav-item" id="nav-settings" onclick="showPane('settings')">
-    <span class="nav-ic">⚙️</span>
+    <span class="material-symbols-outlined nav-ic">tune</span>
     <span>API·지표설정</span>
   </button>
 </nav>
@@ -743,7 +799,7 @@
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
 <script>
-  const STORAGE_KEY = "QUANT_PRO_37_V22_REAL_ONLY";
+  const STORAGE_KEY = "QUANT_PRO_45_V22_REAL_ONLY";
   let officialUsdKrw = null;
   let upbitUsdtKrw = null;
   let currencyMode = "AUTO";
@@ -849,6 +905,8 @@
     { id: "EMA", name: "지수이동평균선 (EMA 12·26·50)", desc: "최근 가격에 가중치를 둔 이동평균선", defOn: true },
     { id: "ICHIMOKU", name: "일목균형표 (전환9·기준26·구름대)", desc: "전환·기준선 및 구름대 돌파 판독", defOn: true },
     { id: "BB", name: "볼린저 밴드 (20, 2σ)", desc: "주가 변동성 상·하단 밴드 지지 및 저항", defOn: true },
+    { id: "KC", name: "켈트너 채널 (Keltner 20, 2 ATR)", desc: "EMA20 중심선 및 ATR 변동폭 2배수 상·하단 채널", defOn: true },
+    { id: "HMA", name: "헐 이동평균선 (HMA 20)", desc: "Alan Hull의 가중이평 기반 초저지연(Zero-lag) 추세선", defOn: true },
     { id: "SUPERTREND", name: "슈퍼트렌드 (ATR 10, 배수 3)", desc: "ATR 변동폭 기반 추세 추종 및 손절선", defOn: true },
     { id: "VP", name: "매물대분석 (Volume Profile POC)", desc: "가격대별 최다 거래량 집중 매물대(POC)", defOn: true },
     { id: "ENVELOPE", name: "엔벨로프 (20일선 ±5%)", desc: "20일 이평선 상하 5% 괴리 밴드", defOn: true },
@@ -869,6 +927,12 @@
     { id: "STOCH", name: "스토캐스틱 Slow (14,3,3)", desc: "%K와 %D 골든크로스 및 과매도 판별", defOn: true },
     { id: "STOCHRSI", name: "스토캐스틱 RSI (14)", desc: "RSI에 스토캐스틱을 결합한 민감 지표", defOn: true },
     { id: "WILLR", name: "윌리엄스 %R (14)", desc: "-80% 이하 과매도 바닥 및 -20% 과열", defOn: true },
+    { id: "UO", name: "얼티밋 오실레이터 (UO 7·14·28)", desc: "Larry Williams 다중주기 매수압력 가중 지표", defOn: true },
+    { id: "CMO", name: "샨드 모멘텀 (CMO 14)", desc: "Tushar Chande 상하 변동폭 기반 순수 모멘텀 (-100~+100)", defOn: true },
+    { id: "VI", name: "볼텍스 지표 (Vortex VI+ / VI- 14)", desc: "소용돌이 흐름 기반 상승/하락 추세 교차 및 강도 판별", defOn: true },
+    { id: "ERAY", name: "엘더 레이 지수 (Elder Ray Bull/Bear 13)", desc: "황소파워(H-EMA) 및 곰파워(L-EMA) 수급 강도", defOn: true },
+    { id: "FISHER", name: "피셔 트랜스폼 (Fisher Transform 10)", desc: "John Ehlers 가격 정규분포 변환 초민감 변곡점 탐지기", defOn: true },
+    { id: "COPPOCK", name: "커폭 커브 (Coppock Curve 10,14,11)", desc: "기관 투자자용 장기 거시 모멘텀 바닥 탈출 감지기", defOn: true },
     { id: "DISP", name: "이격도 (20일선 기준)", desc: "20일 이동평균선 대비 괴리 백분율", defOn: true },
     { id: "II", name: "일중 강도 지수 (II% 21)", desc: "종가 위치와 거래량을 결합한 매집 강도", defOn: true },
     { id: "CHAIKIN", name: "체이킨 오실레이터 (3, 10)", desc: "AD라인의 단기·장기 자금 유입 모멘텀", defOn: true },
@@ -902,6 +966,7 @@
     { ticker: "PAXGUSDT", krName: "국제 금 시세 (24시 Gold)", exchange: "BINANCE 24H", pinned: false }
   ];
 
+  const evaluateAllIndicators = evaluateAll37Indicators;
   let appState = loadAppState();
   let activeUpper = appState.activeUpper;
   let activeLower = appState.activeLower;
@@ -1011,7 +1076,7 @@
         `<div style="margin-top:6px;">국내주식 소스: <b style="color:${krActive ? '#34D399' : '#F59E0B'};">${krActive ? '한국투자증권 KIS 공식API' : '네이버 (KIS 키 입력 시 공식API로 자동 전환)'}</b></div>` +
         `<div>미국주식 소스: <b style="color:${finnhubApiKey ? '#34D399' : '#F59E0B'};">${finnhubApiKey ? 'Finnhub 공식 API (직결)' : 'Yahoo Finance (프록시 경유) — Finnhub 키 입력 권장'}</b></div>`;
       if (el && isStaticHostDeployment() && proxyBaseUrl && proxyBaseUrl.includes("localhost")) {
-        el.innerHTML += `<div style="color:#FCD34D; margin-top:4px;">⚠️ 정적 배포 호스트(GitHub Pages 등)에서는 localhost 프록시가 동작하지 않습니다 → cloudflare-worker.js를 배포 후 그 주소를 입력하세요.</div>`;
+        el.innerHTML += `<div style="color:#FCD34D; margin-top:4px;"><span class="material-symbols-outlined" style="font-size:14px; color:#FCD34D; vertical-align:-2px;">warning</span> 정적 배포 호스트(GitHub Pages 등)에서는 localhost 프록시가 동작하지 않습니다 → cloudflare-worker.js를 배포 후 그 주소를 입력하세요.</div>`;
       }
     }
   }
@@ -1106,15 +1171,18 @@
     }
     const isKRW = isKrwNativeAsset(ticker);
 
+    const fmtKrwNum = (v) => v < 1 ? v.toFixed(4) : (v < 100 ? v.toFixed(2) : Math.round(v).toLocaleString());
+    const fmtUsdNum = (v) => v < 1 ? v.toFixed(4) : v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
     if (currencyMode === "AUTO") {
-      if (isKRW) return `${Math.round(rawVal).toLocaleString()}원`;
-      return `$${rawVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (isKRW) return `${fmtKrwNum(rawVal)}원`;
+      return `$${fmtUsdNum(rawVal)}`;
     } else if (currencyMode === "KRW") {
       const krw = isKRW ? rawVal : rawVal * fx;
-      return `${Math.round(krw).toLocaleString()}원`;
+      return `${fmtKrwNum(krw)}원`;
     } else {
       const usd = isKRW ? (rawVal / fx) : rawVal;
-      return `$${usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      return `$${fmtUsdNum(usd)}`;
     }
   }
 
@@ -1156,10 +1224,10 @@
     const bar = document.getElementById("externalAppLinksBar");
     if (!bar) return;
     bar.innerHTML = `
-      <a href="${tossUrl}" target="_blank" rel="noopener" class="app-link-btn toss">🔵 토스증권 열기</a>
-      <a href="${investingUrl}" target="_blank" rel="noopener" class="app-link-btn investing">🟠 인베스팅닷컴</a>
-      <a href="${naverUrl}" target="_blank" rel="noopener" class="app-link-btn naver">🟢 네이버증권</a>
-      <a href="${yahooUrl}" target="_blank" rel="noopener" class="app-link-btn">🟣 야후파이낸스</a>
+      <a href="${tossUrl}" target="_blank" rel="noopener" class="app-link-btn toss" style="display:flex; align-items:center; justify-content:center; gap:4px;"><span style="font-size:9.5px; font-weight:900; background:#2563EB; color:#FFF; padding:1px 3px; border-radius:3px;">TOSS</span> 토스증권</a>
+      <a href="${investingUrl}" target="_blank" rel="noopener" class="app-link-btn investing" style="display:flex; align-items:center; justify-content:center; gap:4px;"><span style="font-size:9.5px; font-weight:900; background:#EA580C; color:#FFF; padding:1px 3px; border-radius:3px;">INV</span> 인베스팅닷컴</a>
+      <a href="${naverUrl}" target="_blank" rel="noopener" class="app-link-btn naver" style="display:flex; align-items:center; justify-content:center; gap:4px;"><span style="font-size:9.5px; font-weight:900; background:#10B981; color:#FFF; padding:1px 3px; border-radius:3px;">NAVER</span> 네이버증권</a>
+      <a href="${yahooUrl}" target="_blank" rel="noopener" class="app-link-btn" style="display:flex; align-items:center; justify-content:center; gap:4px;"><span style="font-size:9.5px; font-weight:900; background:#7C3AED; color:#FFF; padding:1px 3px; border-radius:3px;">YF</span> 야후파이낸스</a>
     `;
   }
 
@@ -1992,7 +2060,7 @@
     if (!list || list.length === 0) { dd.style.display = "none"; return; }
     dd.style.display = "block";
     dd.innerHTML = list.map(item => `
-      <div class="ac-item" onclick="selectAutocompleteItem('${item.ticker}', '${item.krName.replace(/'/g, "")}', '${item.exchange}', '${item.reuters || ""}')">
+      <div class="ac-item" onclick="selectAutocompleteItem('${item.ticker}', '${item.krName.replace(/["']/g, "")}', '${item.exchange}', '${item.reuters || ""}')">
         <div>
           <span class="ac-name">${item.krName}</span>
           <span class="ac-code">${item.ticker.replace(".KS", "").replace(".KQ", "")}</span>
@@ -2111,6 +2179,22 @@
         return sub.reduce((a, b) => a + b, 0) / sub.length;
       });
     },
+    wmaSeries(arr, p) {
+      if (!arr || arr.length === 0) return [];
+      const weightSum = (p * (p + 1)) / 2;
+      return arr.map((_, idx) => {
+        if (idx < p - 1) {
+          const subLen = idx + 1;
+          const subSum = (subLen * (subLen + 1)) / 2;
+          let s = 0;
+          for (let i = 0; i < subLen; i++) s += arr[idx - subLen + 1 + i] * (i + 1);
+          return s / subSum;
+        }
+        let s = 0;
+        for (let i = 0; i < p; i++) s += arr[idx - p + 1 + i] * (i + 1);
+        return s / weightSum;
+      });
+    },
     emaSeries(arr, p) {
       if (!arr || arr.length === 0) return [];
       const k = 2 / (p + 1);
@@ -2144,6 +2228,7 @@
      - 백테스트 : 실제 승률 그대로 (인위적 62~94% clamp 제거)
      ══════════════════════════════════════════════════════════════════ */
   function evaluateAll37Indicators(candles, ticker = currentTicker) {
+  /* Alias for 45 indicators engine */
     if (!candles || candles.length < 30) return null;
     const N = candles.length;
     const C = candles.map(x => x.c);
@@ -2307,6 +2392,29 @@
     }
     const avwapVal = aV > 0 ? aPV / aV : curC;
     const avwapSig = curC >= avwapVal ? 1 : -1;
+
+    /* ── ⑬ 켈트너 채널 (Keltner Channels: EMA20 ± 2 * ATR10) ── */
+    const ema20Arr = MathUtils.emaSeries(C, 20);
+    const curEma20 = ema20Arr[N - 1];
+    const kcUpperArr = [], kcLowerArr = [];
+    for (let i = 0; i < N; i++) {
+      const a = (stAtrArr[i] || 0) / 10;
+      kcUpperArr.push(ema20Arr[i] + 2 * a);
+      kcLowerArr.push(ema20Arr[i] - 2 * a);
+    }
+    const kcUpper = kcUpperArr[N - 1];
+    const kcLower = kcLowerArr[N - 1];
+    const kcMid = curEma20;
+    const kcSig = curC > kcUpper ? 1 : (curC < kcLower ? -1 : (curC >= kcMid ? 1 : -1));
+
+    /* ── ⑭ 헐 이동평균선 (HMA 20: Alan Hull Zero-lag WMA) ── */
+    const wma10Arr = MathUtils.wmaSeries(C, 10);
+    const wma20Arr = MathUtils.wmaSeries(C, 20);
+    const hmaDiffArr = wma10Arr.map((v, i) => 2 * v - wma20Arr[i]);
+    const hmaSeries = MathUtils.wmaSeries(hmaDiffArr, 4);
+    const curHma = hmaSeries[N - 1];
+    const prevHma = hmaSeries[N - 2] || curHma;
+    const hmaSig = (curC > curHma && curHma >= prevHma) ? 1 : ((curC < curHma && curHma <= prevHma) ? -1 : 0);
 
     /* ── ⑭ 거래량 (20봉 평균 대비) ── */
     const avgVol20 = MathUtils.smaSeries(V, 20)[N - 1] || 0;
@@ -2492,6 +2600,111 @@
     const rmiVal = (rmiUp + rmiDown) === 0 ? 50 : 100 - (100 / (1 + (rmiUp / Math.max(1e-9, rmiDown))));
     const rmiSig = rmiVal <= 30 ? 1 : (rmiVal >= 70 ? -1 : 0);
 
+    /* ── ⑯ 얼티밋 오실레이터 (Larry Williams Ultimate Oscillator: 7, 14, 28) ── */
+    const bpArr = [0], trWilliamsArr = [0];
+    for (let i = 1; i < N; i++) {
+      const minLc = Math.min(L[i], C[i - 1]);
+      const maxHc = Math.max(H[i], C[i - 1]);
+      bpArr.push(C[i] - minLc);
+      trWilliamsArr.push(maxHc - minLc);
+    }
+    const sumBP = (p, endIdx) => {
+      let s = 0;
+      for (let j = Math.max(0, endIdx - p + 1); j <= endIdx; j++) s += bpArr[j];
+      return s;
+    };
+    const sumTRW = (p, endIdx) => {
+      let s = 0;
+      for (let j = Math.max(0, endIdx - p + 1); j <= endIdx; j++) s += trWilliamsArr[j];
+      return s;
+    };
+    const uoSeries = [];
+    for (let i = 0; i < N; i++) {
+      const b7 = sumBP(7, i), t7 = sumTRW(7, i);
+      const b14 = sumBP(14, i), t14 = sumTRW(14, i);
+      const b28 = sumBP(28, i), t28 = sumTRW(28, i);
+      const a7 = t7 > 0 ? b7 / t7 : 0.5;
+      const a14 = t14 > 0 ? b14 / t14 : 0.5;
+      const a28 = t28 > 0 ? b28 / t28 : 0.5;
+      const uo = 100 * ((4 * a7) + (2 * a14) + (1 * a28)) / 7;
+      uoSeries.push(uo);
+    }
+    const uoVal = uoSeries[N - 1];
+    const uoSig = uoVal <= 35 ? 1 : (uoVal >= 65 ? -1 : (uoVal > 50 ? 1 : -1));
+
+    /* ── ⑰ 샨드 모멘텀 오실레이터 (Tushar Chande CMO: 14) ── */
+    const cmoSeries = [];
+    for (let i = 0; i < N; i++) {
+      let sumUp = 0, sumDn = 0;
+      for (let j = Math.max(1, i - 13); j <= i; j++) {
+        const diff = C[j] - C[j - 1];
+        if (diff > 0) sumUp += diff;
+        else sumDn += Math.abs(diff);
+      }
+      const denom = sumUp + sumDn;
+      const cmo = denom > 0 ? ((sumUp - sumDn) / denom) * 100 : 0;
+      cmoSeries.push(cmo);
+    }
+    const cmoVal = cmoSeries[N - 1];
+    const cmoSig = cmoVal <= -45 ? 1 : (cmoVal >= 45 ? -1 : (cmoVal > 0 ? 1 : -1));
+
+    /* ── ⑱ 볼텍스 지표 (Vortex Indicator: VI+ / VI- 14) ── */
+    const viPlusSeries = [], viMinusSeries = [];
+    for (let i = 0; i < N; i++) {
+      let vmP = 0, vmM = 0, sumTR = 0;
+      for (let j = Math.max(1, i - 13); j <= i; j++) {
+        vmP += Math.abs(H[j] - L[j - 1]);
+        vmM += Math.abs(L[j] - H[j - 1]);
+        sumTR += trArr[j];
+      }
+      const safeTR = Math.max(1e-9, sumTR);
+      viPlusSeries.push(vmP / safeTR);
+      viMinusSeries.push(vmM / safeTR);
+    }
+    const curViPlus = viPlusSeries[N - 1];
+    const curViMinus = viMinusSeries[N - 1];
+    const viSig = curViPlus > curViMinus ? 1 : -1;
+
+    /* ── ⑲ 엘더 레이 지수 (Elder Ray Index: Bull/Bear Power 13) ── */
+    const ema13Arr = MathUtils.emaSeries(C, 13);
+    const erayBullSeries = H.map((hVal, i) => hVal - ema13Arr[i]);
+    const erayBearSeries = L.map((lVal, i) => lVal - ema13Arr[i]);
+    const curBullPower = erayBullSeries[N - 1];
+    const curBearPower = erayBearSeries[N - 1];
+    const eraySig = (curBullPower > 0 && curBearPower > -0.5 * atr14) ? 1 : ((curBullPower < 0 && curBearPower < 0) ? -1 : 0);
+
+    /* ── ⑳ 피셔 트랜스폼 (Ehlers Fisher Transform: 10) ── */
+    const fisherSeries = [];
+    let prevFishX = 0, prevFish = 0;
+    for (let i = 0; i < N; i++) {
+      const h10 = hi(i - 9, i), l10 = lo(i - 9, i);
+      const med = (H[i] + L[i]) / 2;
+      const rng = Math.max(1e-9, h10 - l10);
+      let rawX = 0.33 * 2 * ((med - l10) / rng - 0.5) + 0.67 * prevFishX;
+      rawX = clamp(rawX, -0.999, 0.999);
+      prevFishX = rawX;
+      const fish = 0.5 * Math.log((1 + rawX) / Math.max(1e-9, 1 - rawX)) + 0.5 * prevFish;
+      prevFish = fish;
+      fisherSeries.push(fish);
+    }
+    const curFisher = fisherSeries[N - 1];
+    const prevFisher = fisherSeries[N - 2] || curFisher;
+    const fisherSig = (curFisher > 0 && curFisher >= prevFisher) ? 1 : ((curFisher < 0 && curFisher <= prevFisher) ? -1 : 0);
+
+    /* ── ㉑ 커폭 커브 (Coppock Curve: WMA 10 of ROC14 + ROC11) ── */
+    const sumRocArr = [];
+    for (let i = 0; i < N; i++) {
+      const base14 = C[Math.max(0, i - 14)];
+      const base11 = C[Math.max(0, i - 11)];
+      const roc14Val = ((C[i] - base14) / Math.max(1e-9, base14)) * 100;
+      const roc11Val = ((C[i] - base11) / Math.max(1e-9, base11)) * 100;
+      sumRocArr.push(roc14Val + roc11Val);
+    }
+    const coppockSeries = MathUtils.wmaSeries(sumRocArr, 10);
+    const curCoppock = coppockSeries[N - 1];
+    const prevCoppock = coppockSeries[N - 2] || curCoppock;
+    const coppockSig = curCoppock > 0 ? 1 : (curCoppock < 0 && curCoppock > prevCoppock ? 1 : -1);
+
     /* ── 스퀴즈 모멘텀 (차트용 보조 시계열) ── */
     const sqzMomSeries = C.map((cVal, i) => {
       const h1 = hi(i - 19, i), l1 = lo(i - 19, i);
@@ -2506,11 +2719,11 @@
     let divBuyBonus = 0, divSellBonus = 0;
     if (curC < pOld * 0.99 && (rsiVal > rsiOld + 3 || obvSlope > 0)) {
       divergenceType = "BULL";
-      divergenceText = "🔥 상승 다이버전스 (가격↓ · RSI/OBV↑ 매집)";
+      divergenceText = "상승 다이버전스 (가격↓ · RSI/OBV↑ 매집)";
       divBuyBonus = 6;
     } else if (curC > pOld * 1.01 && rsiVal < rsiOld - 3 && obvSlope < 0) {
       divergenceType = "BEAR";
-      divergenceText = "🚨 하락 다이버전스 (가격↑ · RSI/OBV↓ 둔화)";
+      divergenceText = "하락 다이버전스 (가격↑ · RSI/OBV↓ 둔화)";
       divSellBonus = 6;
     }
 
@@ -2520,6 +2733,8 @@
       { id: "EMA", name: "지수이동평균선 (EMA 12·26·50)", val: `EMA12 ${f(ema12)}`, sig: emaSig, detail: `EMA50 ${f(ema50)}` },
       { id: "ICHIMOKU", name: "일목균형표 (전환9·기준26·구름대)", val: `구름상단 ${f(cloudTop)}`, sig: ichimokuSig, detail: ichimokuSig > 0 ? "구름대 상단 돌파 (26봉 시프트 적용)" : (ichimokuSig < 0 ? "구름대 하단 이탈" : "구름대 내부 (방향성 없음)") },
       { id: "BB", name: "볼린저 밴드 (20, 2σ)", val: `${f(bbLower)}~${f(bbUpper)}`, sig: bbSig, detail: bbSig > 0 ? "밴드 하단 과매도" : (bbSig < 0 ? "밴드 상단 과열" : `중심선 ${f(bbMid)} 부근`) },
+      { id: "KC", name: "켈트너 채널 (Keltner 20, 2 ATR)", val: `${f(kcLower)}~${f(kcUpper)}`, sig: kcSig, detail: curC > kcUpper ? "상단 채널 돌파 (모멘텀 가속)" : (curC < kcLower ? "하단 채널 이탈 (과매도 반등)" : `중심선 ${f(kcMid)} 지지`) },
+      { id: "HMA", name: "헐 이동평균선 (HMA 20)", val: f(curHma), sig: hmaSig, detail: hmaSig > 0 ? "초저지연 우상향 지속 (매수)" : (hmaSig < 0 ? "우하향 꺾임 (매도)" : "중립 추세") },
       { id: "SUPERTREND", name: "슈퍼트렌드 (ATR10, 배수 3)", val: f(supertrendLine), sig: supertrendSig, detail: supertrendBull ? "상승 추세 (하단 지지)" : "하락 추세 (상단 저항)" },
       { id: "VP", name: "매물대분석 (Volume Profile POC)", val: `POC ${f(pocPrice)}`, sig: vpSig, detail: vpSig > 0 ? "최다 매물대 상회 (지지)" : "최다 매물대 하회 (저항)" },
       { id: "ENVELOPE", name: "엔벨로프 (20선 ±5%)", val: `${f(envLower)}~${f(envUpper)}`, sig: envSig, detail: envSig > 0 ? "하단 밴드 과매도" : (envSig < 0 ? "상단 밴드 과열" : "밴드 내 정상 범위") },
@@ -2541,6 +2756,12 @@
       { id: "STOCH", name: "스토캐스틱 Slow (14,3,3)", val: `K ${slowK.toFixed(1)} / D ${slowD.toFixed(1)}`, sig: stochSig, detail: slowK > slowD ? "골든크로스 우위" : (slowK < slowD ? "데드크로스" : "교차 없음") },
       { id: "STOCHRSI", name: "스토캐스틱 RSI (14)", val: `${stochRsiVal.toFixed(1)}%`, sig: stochRsiSig, detail: stochRsiSig > 0 ? "초단기 바닥권" : (stochRsiSig < 0 ? "초단기 과열" : "중립") },
       { id: "WILLR", name: "윌리엄스 %R (14)", val: `${willR.toFixed(1)}%`, sig: willRSig, detail: willRSig > 0 ? "과매도 반등권" : (willRSig < 0 ? "과열권" : "정상 범위") },
+      { id: "UO", name: "얼티밋 오실레이터 (UO 7·14·28)", val: uoVal.toFixed(1), sig: uoSig, detail: uoVal <= 35 ? "과매도 바닥 반등권 (매수)" : (uoVal >= 65 ? "과매수 과열권 (경계)" : (uoVal > 50 ? "다주기 매수압력 우위" : "매도압력 우세")) },
+      { id: "CMO", name: "샨드 모멘텀 (CMO 14)", val: `${cmoVal >= 0 ? '+' : ''}${cmoVal.toFixed(1)}`, sig: cmoSig, detail: cmoVal <= -45 ? "과매도 침체권 (매수)" : (cmoVal >= 45 ? "과열권 (차익실현)" : (cmoVal > 0 ? "상승 가속도" : "하락 가속도")) },
+      { id: "VI", name: "볼텍스 지표 (VI+ / VI- 14)", val: `+${curViPlus.toFixed(2)} / -${curViMinus.toFixed(2)}`, sig: viSig, detail: viSig > 0 ? "+VI 우세 (상승 소용돌이 추세)" : "-VI 우세 (하락 소용돌이 추세)" },
+      { id: "ERAY", name: "엘더 레이 (Elder Ray 13)", val: `Bull ${curBullPower >= 0 ? '+' : ''}${f(curBullPower)}`, sig: eraySig, detail: eraySig > 0 ? "황소파워 우위 & 곰파워 진정" : (eraySig < 0 ? "곰파워 지배 (하락압력)" : "수급 균형") },
+      { id: "FISHER", name: "피셔 트랜스폼 (Fisher 10)", val: `${curFisher >= 0 ? '+' : ''}${curFisher.toFixed(2)}`, sig: fisherSig, detail: curFisher > 0 ? "정규분포 상방 변곡" : "정규분포 하방 변곡" },
+      { id: "COPPOCK", name: "커폭 커브 (Coppock 10,14,11)", val: `${curCoppock >= 0 ? '+' : ''}${curCoppock.toFixed(2)}`, sig: coppockSig, detail: curCoppock > 0 ? "장기 거시 상승추세선" : (coppockSig > 0 ? "바닥권 상승전환 신호 (기관 매집)" : "하락 모멘텀 지속") },
       { id: "DISP", name: "이격도 (20일선 기준)", val: `${disparity20.toFixed(2)}%`, sig: dispSig, detail: `20일선 대비 ${(disparity20 - 100).toFixed(2)}% 괴리` },
       { id: "II", name: "일중 강도 지수 (II% 21)", val: `${iiPct >= 0 ? '+' : ''}${iiPct.toFixed(1)}%`, sig: iiSig, detail: iiSig > 0 ? "장중 종가 매집" : (iiSig < 0 ? "장중 매물 출회" : "중립") },
       { id: "CHAIKIN", name: "체이킨 오실레이터 (3, 10)", val: chaikinOsc >= 0 ? "양(+) 유입" : "음(-) 유출", sig: chaikinSig, detail: "AD 라인 가속도" },
@@ -2602,38 +2823,279 @@
     const midScore = buyScore;
     const longScore = clamp(Math.round(50 + (curC > sma60 ? 20 : -15) + (ema12 > ema50 ? 15 : -12) + (obvSig > 0 ? 10 : -8)), 0, 100);
 
-    /* ── 백테스트 (인위적 보정 없이 실제 승률만 계산) ── */
-    const HORIZON = 3;
-    let btWins = 0, btTotal = 0;
+    /* ── 백테스트 (인위적 보정 없이 실제 승률·손익비·기대수익률 계산) ── */
+    const HORIZON = 5;
+    let btWins = 0, btTotal = 0, btWinGainSum = 0, btLossSum = 0, btLosses = 0;
     for (let i = 20; i < N - HORIZON; i++) {
       const trendEntry = C[i] > sma20Arr[i] && sma5Arr[i] >= sma20Arr[i] && C[i] > C[i - 1];
-      const oversoldEntry = rsiSeries[i] <= 30;
+      const oversoldEntry = rsiSeries[i] <= 32 || C[i] <= bbLowerArr[i];
       if (trendEntry || oversoldEntry) {
         btTotal++;
-        if (C[i + HORIZON] > C[i]) btWins++;
+        const retPct = ((C[i + HORIZON] - C[i]) / Math.max(1e-9, C[i])) * 100;
+        if (retPct > 0) { btWins++; btWinGainSum += retPct; }
+        else { btLosses++; btLossSum += Math.abs(retPct); }
       }
     }
     const backtestWinRate = btTotal > 0 ? Math.round((btWins / btTotal) * 100) : null;
+    const btAvgWin = btWins > 0 ? +(btWinGainSum / btWins).toFixed(2) : 0;
+    const btAvgLoss = btLosses > 0 ? +(btLossSum / btLosses).toFixed(2) : 0;
+    const btExpectancy = btTotal > 0
+      ? +(((btWins / btTotal) * btAvgWin) - ((btLosses / btTotal) * btAvgLoss)).toFixed(2)
+      : 0;
 
-    /* ── 타점 (ATR 기반, 항상 양수 보장) ── */
-    const supportAvg = (vwmaVal + sma20 + tenkan) / 3;
-    const buyTarget1 = Math.max(1e-6, Math.min(curC - 0.85 * atr14, supportAvg));
-    const buyTarget2 = Math.max(1e-6, Math.min(buyTarget1 - 1.15 * atr14, Math.max(bbLower, pocPrice * 0.98)));
-    const stopLoss = Math.max(1e-6, Math.min(buyTarget2 - 1.2 * atr14, curC - 2.6 * atr14));
-    const sellTarget1 = Math.max(curC + 1.8 * atr14, curC * 1.025);
-    const sellTarget2 = Math.max(sellTarget1 + 1.4 * atr14, curC + 3.2 * atr14);
+    /* ── 피보나치 되돌림 (최근 60봉 스윙 고점·저점) & 전통 피봇 포인트 (전일 봉 기준) ── */
+    const swLookback = Math.min(60, N);
+    const swingHigh60 = hi(N - swLookback, N - 1);
+    const swingLow60 = lo(N - swLookback, N - 1);
+    const swingRange = Math.max(1e-9, swingHigh60 - swingLow60);
+    const fib382 = swingHigh60 - swingRange * 0.382;
+    const fib500 = swingHigh60 - swingRange * 0.500;
+    const fib618 = swingHigh60 - swingRange * 0.618;
+    const fibExt1272 = swingLow60 + swingRange * 1.272;
+    const fibExt1618 = swingLow60 + swingRange * 1.618;
+
+    const prevBar = candles[Math.max(0, N - 2)];
+    const pivotP = (prevBar.h + prevBar.l + prevBar.c) / 3;
+    const pivotS1 = 2 * pivotP - prevBar.h;
+    const pivotS2 = pivotP - (prevBar.h - prevBar.l);
+    const pivotR1 = 2 * pivotP - prevBar.l;
+    const pivotR2 = pivotP + (prevBar.h - prevBar.l);
+
+    /* ── 호가단위(Tick Size) 보정 함수 (KRX 2023~ 표준 호가단위 반영) ── */
+    const roundToTick = (price) => {
+      if (!price || price <= 0) return 0;
+      const isKRStock = ticker.endsWith(".KS") || ticker.endsWith(".KQ") || /^\d{6}$/.test(ticker);
+      if (isKRStock) {
+        const p = Math.round(price);
+        let tick = 1;
+        if (p < 2000) tick = 1;
+        else if (p < 5000) tick = 5;
+        else if (p < 20000) tick = 10;
+        else if (p < 50000) tick = 50;
+        else if (p < 200000) tick = 100;
+        else if (p < 500000) tick = 500;
+        else tick = 1000;
+        return Math.max(tick, Math.round(p / tick) * tick);
+      }
+      if (ticker.startsWith("KRW-")) {
+        if (price >= 2000000) return Math.round(price / 1000) * 1000;
+        if (price >= 1000000) return Math.round(price / 500) * 500;
+        if (price >= 500000) return Math.round(price / 100) * 100;
+        if (price >= 100000) return Math.round(price / 50) * 50;
+        if (price >= 10000) return Math.round(price / 10) * 10;
+        if (price >= 1000) return Math.round(price);
+        return +price.toFixed(2);
+      }
+      return price >= 1 ? +price.toFixed(2) : +price.toFixed(4);
+    };
+
+    /* ── 다중 지표 컨플루언스(Confluence) 기반 매수·익절·칼손절 타점 엔진 ── */
+    const safeAtr = atr14 > 0 ? atr14 : curC * 0.018;
+
+    // 1) 모든 실제 기술적 후보 레벨 수집 (현재가 위치에 따라 지지/저항 역할 자동 구분)
+    const lblRole = (price, supLbl, resLbl) => price <= curC ? supLbl : resLbl;
+    const rawLevels = [
+      { name: "SMA20(중심선)", price: sma20, weight: 1.4 },
+      { name: "SMA60(수급선)", price: sma60, weight: 1.3 },
+      { name: "EMA26", price: ema26, weight: 1.1 },
+      { name: "EMA50", price: ema50, weight: 1.2 },
+      { name: "일목전환선(9)", price: tenkan, weight: 1.1 },
+      { name: "일목기준선(26)", price: kijun, weight: 1.4 },
+      { name: "구름대상단", price: cloudTop, weight: 1.4 },
+      { name: "구름대하단", price: cloudBot, weight: 1.4 },
+      { name: "볼린저상단(2σ)", price: bbUpper, weight: 1.5 },
+      { name: lblRole(bbLower, "볼린저하단(-2σ)", "볼린저하단 복귀선"), price: bbLower, weight: 1.5 },
+      { name: "KC상단(켈트너)", price: kcUpper, weight: 1.5 },
+      { name: lblRole(kcLower, "KC하단(켈트너지지)", "KC하단(켈트너)"), price: kcLower, weight: 1.5 },
+      { name: "HMA20(헐이평선)", price: curHma, weight: 1.4 },
+      { name: lblRole(supertrendLine, "슈퍼트렌드 지지", "슈퍼트렌드 저항"), price: supertrendLine, weight: 1.6 },
+      { name: "매물대POC(최대거래량)", price: pocPrice, weight: 1.7 },
+      { name: "VWMA20(거래량가중)", price: vwmaVal, weight: 1.3 },
+      { name: "고정AVWAP(변곡점)", price: avwapVal, weight: 1.4 },
+      { name: lblRole(envLower, "엔벨로프하단(-5%)", "엔벨로프하단 저항"), price: envLower, weight: 1.2 },
+      { name: "엔벨로프상단(+5%)", price: envUpper, weight: 1.2 },
+      { name: lblRole(lastUpFractal, "프랙탈 돌파지지", "프랙탈고점(5봉)"), price: lastUpFractal, weight: 1.3 },
+      { name: lblRole(lastDownFractal, "프랙탈저점(5봉)", "직전지지→저항전환"), price: lastDownFractal, weight: 1.3 },
+      { name: "파라볼릭SAR", price: psarVal, weight: 1.1 },
+      { name: "돈치안상단(20봉고점)", price: pcHigh, weight: 1.5 },
+      { name: lblRole(pcLow, "돈치안하단(20봉저점)", "20봉저점 회복선"), price: pcLow, weight: 1.4 },
+      { name: "피보나치38.2%", price: fib382, weight: 1.3 },
+      { name: "피보나치50.0%", price: fib500, weight: 1.3 },
+      { name: "피보나치61.8%(황금비)", price: fib618, weight: 1.6 },
+      { name: "피보나치확장127.2%", price: fibExt1272, weight: 1.3 },
+      { name: "피보나치확장161.8%", price: fibExt1618, weight: 1.4 },
+      { name: lblRole(pivotS1, "피봇지지S1", "피봇S1 저항전환"), price: pivotS1, weight: 1.2 },
+      { name: lblRole(pivotS2, "피봇지지S2", "피봇S2 저항전환"), price: pivotS2, weight: 1.2 },
+      { name: lblRole(pivotR1, "피봇R1 돌파지지", "피봇저항R1"), price: pivotR1, weight: 1.2 },
+      { name: lblRole(pivotR2, "피봇R2 돌파지지", "피봇저항R2"), price: pivotR2, weight: 1.2 }
+    ].filter(lv => lv.price > 0 && isFinite(lv.price));
+
+    // 2) 현재가 아래 지지 후보 / 현재가 위 저항 후보 분류 및 0.85*ATR 반경 클러스터링
+    const clusterRadius = Math.max(safeAtr * 0.65, curC * 0.008);
+    const buildClusters = (candidates) => {
+      const sorted = [...candidates].sort((a, b) => a.price - b.price);
+      const clusters = [];
+      sorted.forEach(item => {
+        const last = clusters[clusters.length - 1];
+        if (last && Math.abs(item.price - last.center) <= clusterRadius) {
+          const newW = last.totalWeight + item.weight;
+          last.center = (last.center * last.totalWeight + item.price * item.weight) / newW;
+          last.totalWeight = newW;
+          if (!last.names.includes(item.name)) last.names.push(item.name);
+        } else {
+          clusters.push({
+            center: item.price,
+            totalWeight: item.weight,
+            names: [item.name]
+          });
+        }
+      });
+      return clusters;
+    };
+
+    // 현재가 기준 유효 지지선 (현재가의 82% ~ 99.6% 사이)
+    const supportCandidates = rawLevels.filter(lv => lv.price <= curC * 0.996 && lv.price >= curC * 0.80);
+    const supportClusters = buildClusters(supportCandidates).sort((a, b) => b.center - a.center); // 현재가에서 가까운 순
+
+    // 현재가 기준 유효 저항선 (현재가의 100.5% ~ 130% 사이)
+    const resistCandidates = rawLevels.filter(lv => lv.price >= curC * 1.005 && lv.price <= curC * 1.35);
+    const resistClusters = buildClusters(resistCandidates).sort((a, b) => a.center - b.center); // 현재가에서 가까운 순
+
+    // 3) 1차 매수타점 (단기 눌림목 컨플루언스 지지)
+    let rawBuy1 = curC - 0.85 * safeAtr;
+    let buy1Reasons = [];
+    const nearSup = supportClusters.find(c => c.center <= curC * 0.995 && c.center >= curC - 1.5 * safeAtr) || supportClusters[0];
+    if (nearSup) {
+      rawBuy1 = (nearSup.center * 0.7) + ((curC - 0.75 * safeAtr) * 0.3);
+      buy1Reasons = nearSup.names.slice(0, 3);
+    } else {
+      buy1Reasons = ["ATR(-0.85배) 단기눌림", "VWMA20"];
+    }
+    rawBuy1 = clamp(rawBuy1, curC - 1.8 * safeAtr, curC * 0.995);
+
+    // 4) 2차 매수타점 (핵심 매물대 POC · 볼린저하단 · 피보나치61.8% 중첩 지지)
+    let rawBuy2 = rawBuy1 - 1.2 * safeAtr;
+    let buy2Reasons = [];
+    const deepSup = supportClusters.find(c => c.center < rawBuy1 * 0.992 && c.center >= curC - 3.4 * safeAtr);
+    if (deepSup) {
+      rawBuy2 = (deepSup.center * 0.75) + ((rawBuy1 - 1.15 * safeAtr) * 0.25);
+      buy2Reasons = deepSup.names.slice(0, 3);
+    } else {
+      buy2Reasons = ["볼린저하단(-2σ)", "피보나치61.8%", "ATR(-2.0배)"];
+    }
+    rawBuy2 = clamp(rawBuy2, curC - 3.6 * safeAtr, rawBuy1 * 0.988);
+
+    // 5) 칼손절 라인 (실제 슈퍼트렌드 하단 · 프랙탈 저점 · 2차 매수가 하단 이탈)
+    const structuralFloors = [
+      supertrendBull ? supertrendLine : null,
+      lastDownFractal < rawBuy2 ? lastDownFractal : null,
+      pcLow < rawBuy2 ? pcLow : null,
+      cloudBot < rawBuy2 ? cloudBot : null,
+      pivotS2 < rawBuy2 ? pivotS2 : null
+    ].filter(v => v != null && v > curC * 0.75 && v < rawBuy2);
+
+    let rawStop = rawBuy2 - 0.95 * safeAtr;
+    let stopReasons = [];
+    if (structuralFloors.length > 0) {
+      const nearestFloor = Math.max(...structuralFloors);
+      rawStop = nearestFloor - 0.25 * safeAtr; // 지지선 살짝 아래(휩소 방지 버퍼 0.25 ATR)
+      if (supertrendBull && Math.abs(nearestFloor - supertrendLine) < 1e-4) stopReasons.push("슈퍼트렌드 하단이탈");
+      if (Math.abs(nearestFloor - lastDownFractal) < 1e-4) stopReasons.push("5봉 프랙탈저점 붕괴");
+      if (Math.abs(nearestFloor - pcLow) < 1e-4) stopReasons.push("20봉 돈치안 저점이탈");
+      if (stopReasons.length === 0) stopReasons.push("핵심 구조적 지지선 이탈");
+      stopReasons.push("-0.25 ATR 휩소버퍼");
+    } else {
+      stopReasons = ["2차타점 -1.0 ATR 이탈", supertrendBull ? "슈퍼트렌드 지지이탈" : "변동성 손절선"];
+    }
+    rawStop = clamp(rawStop, curC * 0.78, rawBuy2 * 0.985);
+
+    // 6) 1차 익절타점 (실제 볼린저상단 · 프랙탈고점 · 피봇R1 · 돈치안상단 저항 컨플루언스)
+    let rawSell1 = curC + 1.65 * safeAtr;
+    let sell1Reasons = [];
+    const nearRes = resistClusters.find(c => c.center >= curC * 1.012 && c.center <= curC + 2.8 * safeAtr) || resistClusters[0];
+    if (nearRes) {
+      rawSell1 = (nearRes.center * 0.75) + ((curC + 1.6 * safeAtr) * 0.25);
+      sell1Reasons = nearRes.names.slice(0, 3);
+    } else {
+      sell1Reasons = ["볼린저상단(2σ)", "피봇R1", "ATR(+1.8배)"];
+    }
+    rawSell1 = Math.max(curC * 1.015, rawSell1);
+
+    // 7) 2차 익절타점 (전고점 돌파 · 피보나치 확장 127.2%/161.8% · 피봇R2 · 추세 목표치)
+    let rawSell2 = rawSell1 + 1.5 * safeAtr;
+    let sell2Reasons = [];
+    const highRes = resistClusters.find(c => c.center > rawSell1 * 1.012);
+    if (highRes) {
+      rawSell2 = Math.max(highRes.center, rawSell1 + 1.1 * safeAtr);
+      sell2Reasons = highRes.names.slice(0, 3);
+    } else {
+      rawSell2 = Math.max(rawSell1 + 1.5 * safeAtr, fibExt1272 > rawSell1 ? Math.min(fibExt1272, curC + 4.2 * safeAtr) : curC + 3.2 * safeAtr);
+      sell2Reasons = ["피보나치확장(127.2%)", "추세채널 상단(+3.2 ATR)"];
+    }
+    rawSell2 = Math.max(rawSell1 * 1.015, rawSell2);
+
+    // 호가단위 정밀 보정
+    const buyTarget1 = roundToTick(rawBuy1);
+    const buyTarget2 = roundToTick(Math.min(rawBuy2, buyTarget1 * 0.99));
+    const stopLoss = roundToTick(Math.min(rawStop, buyTarget2 * 0.99));
+    const sellTarget1 = roundToTick(rawSell1);
+    const sellTarget2 = roundToTick(Math.max(rawSell2, sellTarget1 * 1.01));
+
+    // 8) 손익비 (Risk:Reward Ratio) & 켈리 공식(Half-Kelly) 권장 비중 & 진입 신호 판단
+    const entryRef = buyTarget1;
+    const riskPerUnit = Math.max(1e-6, entryRef - stopLoss);
+    const reward1PerUnit = Math.max(0, sellTarget1 - entryRef);
+    const reward2PerUnit = Math.max(0, sellTarget2 - entryRef);
+    const rrRatio1 = +(reward1PerUnit / riskPerUnit).toFixed(2);
+    const rrRatio2 = +(reward2PerUnit / riskPerUnit).toFixed(2);
+
+    // 현재가 즉시 진입 기준 손익비
+    const curRisk = Math.max(1e-6, curC - stopLoss);
+    const curReward1 = Math.max(0, sellTarget1 - curC);
+    const rrCurrent = +(curReward1 / curRisk).toFixed(2);
+
+    // Half-Kelly 비중 계산: f* = 0.5 * (p - (1-p)/b)
+    const winProb = clamp(((backtestWinRate != null ? backtestWinRate : hybridScore) / 100), 0.25, 0.85);
+    const bOdds = Math.max(0.5, rrRatio1);
+    const fullKelly = winProb - ((1 - winProb) / bOdds);
+    const halfKellyPct = clamp(Math.round(Math.max(0, fullKelly * 0.5) * 100), 5, 40);
+
+    // 액션 신호(Action Plan) 판정
+    let tradeAction = "WAIT_PULLBACK";
+    let tradeActionTitle = "눌림목 대기 (1차 매수타점 분할진입 권장)";
+    let tradeActionDesc = `현재가 대비 1차 지지선(${f(buyTarget1)}) 부근에서 손익비(1:${rrRatio1})가 극대화됩니다.`;
+    if (hybridScore >= 68 && buyScore > sellScore && rrCurrent >= 1.5 && rsiVal < 68) {
+      tradeAction = "ENTER_NOW";
+      tradeActionTitle = "추세·수급 우위 — 현재가~1차타점 분할 매수 적기";
+      tradeActionDesc = `45지표 매수우위(${buyVotes}표) + 현재가 진입 시에도 손익비 1:${rrCurrent} 확보 (권장비중 ${halfKellyPct}%)`;
+    } else if (sellScore >= 50 || rsiVal >= 72 || curC >= bbUpper) {
+      tradeAction = "OVERHEATED";
+      tradeActionTitle = "단기 과열·저항 구간 — 추격매수 금지 / 보유자 분할익절";
+      tradeActionDesc = `상단 저항(${sell1Reasons.join("·")}) 근접 또는 오실레이터 과열 상태입니다. 눌림목(${f(buyTarget1)})까지 대기하세요.`;
+    } else if (hybridScore < 42 && sellScore > buyScore) {
+      tradeAction = "AVOID_DOWNTREND";
+      tradeActionTitle = "하락 추세 우위 — 관망 및 보수적 대응";
+      tradeActionDesc = `하락 신호(${sellVotes}표)가 우세합니다. 성급한 물타기보다 추세 전환(슈퍼트렌드 ${f(supertrendLine)} 돌파) 확인이 안전합니다.`;
+    }
 
     return {
-      curC, atr14, adxVal, isStrongTrend, backtestWinRate, backtestSamples: btTotal,
+      curC, atr14, adxVal, isStrongTrend,
+      backtestWinRate, backtestSamples: btTotal, btAvgWin, btAvgLoss, btExpectancy,
       divergenceType, divergenceText,
       upperResults, lowerResults,
       buyVotes, sellVotes, neutralVotes, activeTotalCount,
       buyScore, sellScore, finScore, hybridScore, finEval, hasFinData,
       shortScore, midScore, longScore,
       buyTarget1, buyTarget2, sellTarget1, sellTarget2, stopLoss,
+      buy1Reasons, buy2Reasons, sell1Reasons, sell2Reasons, stopReasons,
+      rrRatio1, rrRatio2, rrCurrent, halfKellyPct,
+      tradeAction, tradeActionTitle, tradeActionDesc,
+      fibLevels: { swingHigh60, swingLow60, fib382, fib500, fib618, fibExt1272, fibExt1618 },
+      pivotLevels: { pivotP, pivotS1, pivotS2, pivotR1, pivotR2 },
       overlays: {
         sma5Arr, sma20Arr, sma60Arr,
         bbUpperArr, bbLowerArr,
+        kcUpperArr, kcLowerArr, hmaSeries,
         spanAArr, spanBArr,
         supertrendLine, supertrendBull,
         pocPrice, vpBuckets, minPAll, stepP
@@ -2642,6 +3104,8 @@
         sqzMomSeries, rsiSeries,
         macdSeries, macdSignalSeries, macdHistSeries,
         slowKArr, slowDArr,
+        uoSeries, cmoSeries, viPlusSeries, viMinusSeries,
+        erayBullSeries, erayBearSeries, fisherSeries, coppockSeries,
         mfiSeries, cciSeries, obvSeries, willRSeries
       }
     };
@@ -2797,14 +3261,16 @@
 
       return `
         <div class="stock-row" onclick="selectStockFromHome('${st.ticker}')">
-          <div style="font-size:11.5px; font-weight:800; color:var(--sub); text-align:center;">${st.pinned ? '📌' : idx + 1}</div>
+          <div style="font-size:11.5px; font-weight:800; color:var(--sub); text-align:center; min-width:18px;">
+            ${st.pinned ? '<span class="material-symbols-outlined" style="font-size:16px; color:#F59E0B; vertical-align:middle;">push_pin</span>' : idx + 1}
+          </div>
           <div class="s-avatar">${cleanCode.replace("KRW-", "").slice(0, 3)}</div>
           <div style="min-width:0;">
             <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
               <span class="s-ticker">${st.krName}</span>
-              ${ev ? `<span class="tag ${ev.hybridScore >= 68 ? 'tag-buy' : (ev.sellScore >= 65 ? 'tag-sell' : 'tag-neutral')}" id="score_${st.ticker}">통합 ${ev.hybridScore}점</span>` : (mqBest ? `<span class="tag tag-neutral" id="score_${st.ticker}">가격만 수신·점수 대기</span>` : `<span class="tag tag-neutral" id="score_${st.ticker}">실데이터 수신중</span>`)}
+              ${ev ? `<span class="tag ${ev.hybridScore >= 68 ? 'tag-buy' : (ev.sellScore >= 65 ? 'tag-sell' : 'tag-neutral')}" id="score_${st.ticker}">통합 ${ev.hybridScore}점</span>` : (mqBest ? `<span class="tag tag-neutral" id="score_${st.ticker}">가격 수신·분석 대기</span>` : `<span class="tag tag-neutral" id="score_${st.ticker}">실데이터 수신중</span>`)}
             </div>
-            <div class="s-krname">${hasData ? `<span style="color:#34D399;">✔ ${pack.source}</span> (${srcCount}개 출처 검증)` : (mqBest ? `<span style="color:#FBBF24;">✔ ${mqBest[0]}</span> (가격만 수신·캔들 대기)` : '네트워크 시세 호출중...')}</div>
+            <div class="s-krname">${hasData ? `<span style="color:#10B981; display:inline-flex; align-items:center; gap:2px;"><span class="material-symbols-outlined" style="font-size:12px;">check_circle</span>${pack.source}</span> <span style="color:var(--sub);">(${srcCount}개 출처)</span>` : (mqBest ? `<span style="color:#FBBF24; display:inline-flex; align-items:center; gap:2px;"><span class="material-symbols-outlined" style="font-size:12px;">check_circle</span>${mqBest[0]}</span> <span style="color:var(--sub);">(캔들 대기)</span>` : '네트워크 시세 호출중...')}</div>
           </div>
           <div class="s-price-col" id="row_price_${st.ticker}">
             <div class="s-price" id="val_price_${st.ticker}">${hasData ? fmtPrice(cur, st.ticker) : (mqBest ? fmtPrice(mqBest[1].price, st.ticker) : '수신중..')}</div>
@@ -2813,8 +3279,8 @@
             </div>
           </div>
           <div class="s-ctrl">
-            <button class="mini-ic-btn ${st.pinned ? 'pinned' : ''}" onclick="togglePinStock('${st.ticker}', event)">고정</button>
-            <button class="mini-ic-btn" onclick="removeWatchStock('${st.ticker}', event)">×</button>
+            <button class="mini-ic-btn ${st.pinned ? 'pinned' : ''}" onclick="togglePinStock('${st.ticker}', event)" title="${st.pinned ? '고정 해제' : '상단 고정'}"><span class="material-symbols-outlined" style="font-size:13px; vertical-align:-1px;">push_pin</span></button>
+            <button class="mini-ic-btn" onclick="removeWatchStock('${st.ticker}', event)" title="삭제"><span class="material-symbols-outlined" style="font-size:13px; vertical-align:-1px;">close</span></button>
           </div>
         </div>
       `;
@@ -2827,7 +3293,7 @@
         hs.textContent = `● 실데이터 수신 완료 (${got}/${tot})`;
         hs.style.color = "";
       } else {
-        hs.textContent = `⚠️ ${got}/${tot} 수신 — 누락 ${tot - got}개 (프록시·키 확인 후 재수신)`;
+        hs.textContent = `${got}/${tot} 수신 — 누락 ${tot - got}개 (프록시·키 확인 후 재수신)`;
         hs.style.color = "#FCD34D";
       }
     }
@@ -2928,7 +3394,7 @@
     if (!ev) return;
     lastEvaluated = ev;
 
-    document.getElementById("dtSourceMeta").innerHTML = `<b style="color:#34D399;">✔ ${pack.source}</b> · ${currentTf.toUpperCase()} (${candles.length}캔들 검증됨)`;
+    document.getElementById("dtSourceMeta").innerHTML = `<span class="material-symbols-outlined" style="font-size:13px; color:#10B981; vertical-align:-2px;">check_circle</span> <b style="color:#34D399;">${pack.source}</b> · ${currentTf.toUpperCase()} (${candles.length}캔들 검증됨)`;
     document.getElementById("dtMainPrice").textContent = fmtPrice(cur, currentTicker);
     const chgEl = document.getElementById("dtMainChange");
     chgEl.textContent = `${isUp ? '▲ +' : '▼ '}${pct.toFixed(2)}% (전일종가 ${fmtPrice(prev, currentTicker)})`;
@@ -2948,10 +3414,10 @@
 
     const divBadge = document.getElementById("dtDivergenceBadge");
     if (ev.divergenceType === "BULL") {
-      divBadge.textContent = "🔥 상승 다이버전스";
+      divBadge.textContent = "상승 다이버전스";
       divBadge.className = "tag tag-buy";
     } else if (ev.divergenceType === "BEAR") {
-      divBadge.textContent = "🚨 하락 다이버전스";
+      divBadge.textContent = "하락 다이버전스";
       divBadge.className = "tag tag-sell";
     } else {
       divBadge.textContent = "수급 동조화 정상";
@@ -2960,31 +3426,66 @@
 
     const badge = document.getElementById("dtConsensusBadge");
     if (ev.hybridScore >= 65 && ev.buyScore > ev.sellScore) {
-      badge.textContent = `🔥 매수 우위 (${ev.hybridScore}점)`;
+      badge.textContent = `매수 우위 (${ev.hybridScore}점)`;
       badge.className = "tag tag-buy";
     } else if (ev.sellScore >= 45 && ev.sellScore >= ev.buyScore) {
-      badge.textContent = `🚨 과열·주의 (매도신호 ${ev.sellVotes}/${ev.activeTotalCount})`;
+      badge.textContent = `과열·주의 (매도신호 ${ev.sellVotes}/${ev.activeTotalCount})`;
       badge.className = "tag tag-sell";
     } else {
-      badge.textContent = `⚖️ 중립·관망 (${ev.hybridScore}점)`;
+      badge.textContent = `중립·관망 (${ev.hybridScore}점)`;
       badge.className = "tag tag-neutral";
     }
 
     const btTxt = (ev.backtestWinRate == null)
       ? `<span style="color:var(--amber);">표본 부족</span>`
       : (ev.backtestSamples < 10
-        ? `<b style="color:var(--amber);">${ev.backtestWinRate}%</b> <span style="color:var(--sub);">(표본 ${ev.backtestSamples}건 · 참고용)</span>`
-        : `<b style="color:#34D399;">${ev.backtestWinRate}%</b> <span style="color:var(--sub);">(표본 ${ev.backtestSamples}건)</span>`);
+        ? `<b style="color:var(--amber);">${ev.backtestWinRate}%</b> <span style="color:var(--sub);">(표본 ${ev.backtestSamples}건 · 평균수익 +${ev.btAvgWin}% / 손실 -${ev.btAvgLoss}%)</span>`
+        : `<b style="color:#34D399;">${ev.backtestWinRate}%</b> <span style="color:var(--sub);">(표본 ${ev.backtestSamples}건 · 기대값 ${ev.btExpectancy >= 0 ? '+' : ''}${ev.btExpectancy}%)</span>`);
 
     const finTxt = ev.hasFinData
       ? `영업이익률 <b>${ev.finEval.fin.opm[2]}%</b> · 부채비율 <b>${ev.finEval.fin.debtRatio}%</b> · PER <b>${ev.finEval.fin.per > 0 ? ev.finEval.fin.per + '배' : 'N/A'}</b> · PBR <b>${ev.finEval.fin.pbr}배</b>`
       : `<span style="color:var(--amber);">재무 데이터 미입력 → 차트 100% 기준으로 채점 중</span>`;
 
     document.getElementById("dtRegimeAndBacktestBox").innerHTML = `
-      • <b>🧠 현재 시장 국면 (ADX ${ev.adxVal.toFixed(1)}):</b> <b>${ev.isStrongTrend ? '강한 추세장 (상단 추세·일목·매물대 가중치 1.7배)' : '횡보·박스권 (하단 오실레이터 가중치 1.4배)'}</b><br/>
-      • <b>📑 재무 요약:</b> ${finTxt}<br/>
-      • <b>📈 과거 백테스팅 검증:</b> 동일 신호 발생 시 3봉 뒤 상승 적중률 ${btTxt}
+      <div style="margin-bottom:3px; display:flex; align-items:flex-start; gap:4px;">
+        <span class="material-symbols-outlined" style="font-size:15px; color:var(--primary); flex-shrink:0; margin-top:2px;">psychology</span>
+        <div><b>현재 시장 국면 (ADX ${ev.adxVal.toFixed(1)}):</b> <b>${ev.isStrongTrend ? '강한 추세장 (상단 추세·일목·매물대 가중치 1.7배)' : '횡보·박스권 (하단 오실레이터 가중치 1.4배)'}</b></div>
+      </div>
+      <div style="margin-bottom:3px; display:flex; align-items:flex-start; gap:4px;">
+        <span class="material-symbols-outlined" style="font-size:15px; color:var(--green); flex-shrink:0; margin-top:2px;">balance</span>
+        <div><b>손익비 (Risk:Reward) & 켈리 비중:</b> 1차타점 진입 시 <b style="color:#34D399;">1 : ${ev.rrRatio1}</b> (2차익절 시 <b style="color:#34D399;">1 : ${ev.rrRatio2}</b>) · Half-Kelly 권장비중 <b>${ev.halfKellyPct}%</b></div>
+      </div>
+      <div style="margin-bottom:3px; display:flex; align-items:flex-start; gap:4px;">
+        <span class="material-symbols-outlined" style="font-size:15px; color:#38BDF8; flex-shrink:0; margin-top:2px;">description</span>
+        <div><b>재무 요약:</b> ${finTxt}</div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:4px;">
+        <span class="material-symbols-outlined" style="font-size:15px; color:#A78BFA; flex-shrink:0; margin-top:2px;">history</span>
+        <div><b>과거 백테스팅 검증 (5봉 보유):</b> 동일 신호 발생 시 상승 적중률 ${btTxt}</div>
+      </div>
     `;
+
+    // 실전 매매 액션 플랜 배너 업데이트
+    const actBanner = document.getElementById("dtTradeActionBanner");
+    const actTitle = document.getElementById("dtTradeActionTitle");
+    const actDesc = document.getElementById("dtTradeActionDesc");
+    if (actBanner && actTitle && actDesc) {
+      actTitle.textContent = ev.tradeActionTitle;
+      actDesc.textContent = ev.tradeActionDesc;
+      if (ev.tradeAction === "ENTER_NOW") {
+        actBanner.style.background = "rgba(16,185,129,0.12)";
+        actBanner.style.borderColor = "rgba(16,185,129,0.45)";
+        actTitle.style.color = "#34D399";
+      } else if (ev.tradeAction === "OVERHEATED" || ev.tradeAction === "AVOID_DOWNTREND") {
+        actBanner.style.background = "rgba(242,54,69,0.12)";
+        actBanner.style.borderColor = "rgba(242,54,69,0.45)";
+        actTitle.style.color = "#FF6B78";
+      } else {
+        actBanner.style.background = "rgba(245,158,11,0.12)";
+        actBanner.style.borderColor = "rgba(245,158,11,0.45)";
+        actTitle.style.color = "#FCD34D";
+      }
+    }
 
     document.getElementById("dtVoteCountTxt").textContent = `매수 ${ev.buyVotes} · 중립 ${ev.neutralVotes} · 매도 ${ev.sellVotes}`;
     document.getElementById("dtBuyScore").textContent = `${ev.buyScore}점`;
@@ -2994,11 +3495,43 @@
       ? "차트 100% (재무 미입력)"
       : (ev.hybridScore >= 75 ? "S등급 (차트+실적 우량)" : (ev.hybridScore >= 62 ? "A등급 (양호)" : "B등급 (눌림목 대기)"));
 
+    // 실제 작동한 컨플루언스 지표명을 타점 근거로 표시
+    const b1Desc = document.getElementById("tpBuy1Desc");
+    const b2Desc = document.getElementById("tpBuy2Desc");
+    const s1Desc = document.getElementById("tpSell1Desc");
+    const s2Desc = document.getElementById("tpSell2Desc");
+    const stDesc = document.getElementById("tpStopDesc");
+    if (b1Desc) b1Desc.textContent = `지지 클러스터 (${ev.buy1Reasons.join(" + ")})`;
+    if (b2Desc) b2Desc.textContent = `핵심 바닥지지 (${ev.buy2Reasons.join(" + ")})`;
+    if (s1Desc) s1Desc.textContent = `1차 저항구간 (${ev.sell1Reasons.join(" + ")})`;
+    if (s2Desc) s2Desc.textContent = `추세 확장목표 (${ev.sell2Reasons.join(" + ")})`;
+    if (stDesc) stDesc.textContent = `손절 기준선 (${ev.stopReasons.join(" · ")})`;
+
     document.getElementById("tpBuy1").textContent = `${fmtPrice(ev.buyTarget1, currentTicker)} (${(((ev.buyTarget1 - cur) / cur) * 100).toFixed(1)}%)`;
     document.getElementById("tpBuy2").textContent = `${fmtPrice(ev.buyTarget2, currentTicker)} (${(((ev.buyTarget2 - cur) / cur) * 100).toFixed(1)}%)`;
-    document.getElementById("tpSell1").textContent = `${fmtPrice(ev.sellTarget1, currentTicker)} (+${(((ev.sellTarget1 - cur) / cur) * 100).toFixed(1)}%)`;
-    document.getElementById("tpSell2").textContent = `${fmtPrice(ev.sellTarget2, currentTicker)} (+${(((ev.sellTarget2 - cur) / cur) * 100).toFixed(1)}%)`;
+    document.getElementById("tpSell1").textContent = `${fmtPrice(ev.sellTarget1, currentTicker)} (+${(((ev.sellTarget1 - cur) / cur) * 100).toFixed(1)}% · R:R 1:${ev.rrRatio1})`;
+    document.getElementById("tpSell2").textContent = `${fmtPrice(ev.sellTarget2, currentTicker)} (+${(((ev.sellTarget2 - cur) / cur) * 100).toFixed(1)}% · R:R 1:${ev.rrRatio2})`;
     document.getElementById("tpStopLoss").textContent = `${fmtPrice(ev.stopLoss, currentTicker)} (${(((ev.stopLoss - cur) / cur) * 100).toFixed(1)}%)`;
+
+    // 피보나치 되돌림 & 피봇 포인트 요약 박스 렌더링
+    const fpBox = document.getElementById("dtFibPivotBox");
+    if (fpBox && ev.fibLevels && ev.pivotLevels) {
+      const fb = ev.fibLevels, pv = ev.pivotLevels;
+      fpBox.innerHTML = `
+        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
+          <span class="material-symbols-outlined" style="font-size:14px; color:#CBD5E1;">square_foot</span>
+          <span><b>60봉 피보나치:</b> 38.2% <b style="color:#E2E8F0;">${fmtPrice(fb.fib382, currentTicker)}</b> · 50% <b style="color:#E2E8F0;">${fmtPrice(fb.fib500, currentTicker)}</b> · 61.8%(황금비) <b style="color:#34D399;">${fmtPrice(fb.fib618, currentTicker)}</b> · 확장127.2% <b style="color:#FF6B78;">${fmtPrice(fb.fibExt1272, currentTicker)}</b></span>
+        </div>
+        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
+          <span class="material-symbols-outlined" style="font-size:14px; color:#60A5FA;">explore</span>
+          <span><b>전통 피봇:</b> S2 <b style="color:#60A5FA;">${fmtPrice(pv.pivotS2, currentTicker)}</b> · S1 <b style="color:#34D399;">${fmtPrice(pv.pivotS1, currentTicker)}</b> · <b>P ${fmtPrice(pv.pivotP, currentTicker)}</b> · R1 <b style="color:#FBBF24;">${fmtPrice(pv.pivotR1, currentTicker)}</b> · R2 <b style="color:#FF6B78;">${fmtPrice(pv.pivotR2, currentTicker)}</b></span>
+        </div>
+        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:4px; color:#94A3B8;">
+          <span class="material-symbols-outlined" style="font-size:14px; color:#A78BFA;">inventory_2</span>
+          <span><b>최대 매물대(POC):</b> <b style="color:#A78BFA;">${fmtPrice(ev.overlays.pocPrice, currentTicker)}</b> · <b>슈퍼트렌드:</b> <b style="color:${ev.overlays.supertrendBull ? '#34D399' : '#FF6B78'};">${fmtPrice(ev.overlays.supertrendLine, currentTicker)} (${ev.overlays.supertrendBull ? '상승지지' : '하락저항'})</b></span>
+        </div>
+      `;
+    }
 
     calcPositionSizing();
 
@@ -3037,7 +3570,7 @@
     const fEval = getFinancialAnalysis(currentTicker);
     const fin = fEval.fin;
 
-    document.getElementById("finPaneTitle").textContent = `📑 ${formatDisplayTitle(dbItem.krName, currentTicker)} 재무·밸류 분석`;
+    document.getElementById("finPaneTitle").textContent = `<span class='material-symbols-outlined' style='font-size:18px; vertical-align:-3px; margin-right:4px;'>description</span>${formatDisplayTitle(dbItem.krName, currentTicker)} 재무·밸류 분석`;
     document.getElementById("finPaneSub").textContent = fEval.hasData
       ? `섹터: ${fin.sector} · 단위: ${fin.unit}`
       : `섹터: 재무 데이터 미입력 · 통합점수는 차트 100%로 계산됩니다`;
@@ -3047,7 +3580,7 @@
     const noDataBanner = fEval.hasData
       ? ""
       : `<div style="background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.35); color:#FCD34D; font-size:11.5px; font-weight:700; padding:8px 10px; border-radius:8px; margin-bottom:8px; line-height:1.5;">
-           ⚠️ 이 종목의 재무제표가 아직 입력되지 않았습니다. <b>가짜 수치를 표시하지 않는 대신</b> 통합점수는 차트(기술적 37지표) 100%로 채점됩니다.<br/>
+           <span class="material-symbols-outlined" style="font-size:14px; color:#FCD34D; vertical-align:-2px;">info</span> 이 종목의 재무제표가 아직 입력되지 않았습니다. <b>가짜 수치를 표시하지 않는 대신</b> 통합점수는 차트(기술적 45지표) 100%로 채점됩니다.<br/>
            아래 <b>[재무 수치 직접 입력]</b> 버튼으로 DART(dart.fss.or.kr) 또는 SEC EDGAR 수치를 넣으면 하이브리드(차트70%+재무30%)로 재점수됩니다.
          </div>`;
 
@@ -3140,10 +3673,10 @@
 
     document.getElementById("finCrossCheckLinks").innerHTML = `
       <a href="${link1}" target="_blank" rel="noopener" class="btn-action" style="text-align:center; text-decoration:none;">
-        🔗 ${isKR ? '네이버 증권 기업현황 원문' : 'Yahoo Finance 재무제표 원문'}
+        <span class='material-symbols-outlined' style='font-size:14px; vertical-align:-2px;'>link</span> ${isKR ? '네이버 증권 기업현황 원문' : 'Yahoo Finance 재무제표 원문'}
       </a>
       <a href="${link2}" target="_blank" rel="noopener" class="btn-action" style="text-align:center; text-decoration:none;">
-        🏛️ ${isKR ? '금감원 DART 전자공시 확인' : '미국 SEC EDGAR 공시 원문'}
+        <span class='material-symbols-outlined' style='font-size:14px; vertical-align:-2px;'>account_balance</span> ${isKR ? '금감원 DART 전자공시 확인' : '미국 SEC EDGAR 공시 원문'}
       </a>
     `;
 
@@ -3202,6 +3735,7 @@
 * **재무 건전성:** 부채비율 ${fin.debtRatio}%, 유동비율 ${fin.currentRatio}%
 * **밸류에이션:** PER ${fin.per}배 (업종평균 ${fin.sectorPer}배), PBR ${fin.pbr}배 (업종평균 ${fin.sectorPbr}배), ROE ${fin.roe}%
 * **기술적 지표(37종 합의):** 현재가 ${fmtPrice(ev ? ev.curC : 0, currentTicker)}, 기술점수 ${ev ? ev.buyScore : 0}/100점, 재무점수 ${fEval.finScore == null ? "미입력(차트 100% 기준)" : fEval.finScore + "/100점"} (통합 ${ev ? ev.hybridScore : 0}점)
+* **컨플루언스 타점:** 1차매수 ${ev ? fmtPrice(ev.buyTarget1, currentTicker) : '-'} (${ev ? ev.buy1Reasons.join('+') : '-'}), 2차매수 ${ev ? fmtPrice(ev.buyTarget2, currentTicker) : '-'}, 1차익절 ${ev ? fmtPrice(ev.sellTarget1, currentTicker) : '-'} (손익비 1:${ev ? ev.rrRatio1 : '-'}), 칼손절 ${ev ? fmtPrice(ev.stopLoss, currentTicker) : '-'}
 
 ### 2. [세부 분석 요청사항]
 1) **수익성 분석:** 최근 3년간 영업이익률(${fin.opm[0]}% → ${fin.opm[1]}% → ${fin.opm[2]}%)의 추이를 분석하고, 이익률이 변동된 주요 원인이 무엇일지 추론해 줘.
@@ -3209,7 +3743,7 @@
 3) **성장성 및 리스크:** 업계 평균(${fin.sector}) 대비 현재 PBR(${fin.pbr}배)과 PER(${fin.per}배)이 어떤 위치에 있는지, 저평가 요소가 있는지 설명해 줘.`;
 
     navigator.clipboard.writeText(mdPrompt).then(() => {
-      alert("📋 20년 경력 애널리스트 프롬프트와 마크다운 재무표가 복사되었습니다.");
+      alert("20년 경력 애널리스트 프롬프트와 마크다운 재무표가 복사되었습니다.");
     }).catch(() => {
       prompt("아래 프롬프트를 복사하세요:", mdPrompt);
     });
@@ -3226,7 +3760,7 @@
     const startIdx = candles.length - M;
     const slice = candles.slice(startIdx);
 
-    const minP = Math.min(...slice.map(x => x.l), ev.overlays.bbLowerArr[candles.length - 1], ev.buyTarget1) * 0.994;
+    const minP = Math.min(...slice.map(x => x.l), ev.overlays.bbLowerArr[candles.length - 1], ev.buyTarget1, ev.stopLoss) * 0.994;
     const maxP = Math.max(...slice.map(x => x.h), ev.overlays.bbUpperArr[candles.length - 1], ev.sellTarget1) * 1.006;
     const range = Math.max(0.0001, maxP - minP);
     const toY = (p) => h - 16 - ((p - minP) / range) * (h - 32);
@@ -3267,6 +3801,30 @@
       drawBand(ev.overlays.bbLowerArr);
     }
 
+    if (activeUpper.KC && ev.overlays.kcUpperArr) {
+      const drawKC = (arr) => {
+        ctx.strokeStyle = "rgba(52, 211, 153, 0.6)"; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        for (let i = 0; i < M; i++) {
+          const y = toY(arr[startIdx + i]);
+          if (i === 0) ctx.moveTo(toX(i), y); else ctx.lineTo(toX(i), y);
+        }
+        ctx.stroke(); ctx.setLineDash([]);
+      };
+      drawKC(ev.overlays.kcUpperArr);
+      drawKC(ev.overlays.kcLowerArr);
+    }
+
+    if (activeUpper.HMA && ev.overlays.hmaSeries) {
+      ctx.strokeStyle = "#06B6D4"; ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      for (let i = 0; i < M; i++) {
+        const y = toY(ev.overlays.hmaSeries[startIdx + i]);
+        if (i === 0) ctx.moveTo(toX(i), y); else ctx.lineTo(toX(i), y);
+      }
+      ctx.stroke();
+    }
+
     if (activeUpper.SMA) {
       const drawMA = (arr, col) => {
         ctx.strokeStyle = col; ctx.lineWidth = 1.4; ctx.beginPath();
@@ -3279,6 +3837,18 @@
       drawMA(ev.overlays.sma5Arr, "#F59E0B");
       drawMA(ev.overlays.sma20Arr, "#38BDF8");
       drawMA(ev.overlays.sma60Arr, "#A855F7");
+    }
+
+    // 매물대 POC 보조선 표시
+    if (activeUpper.VP && ev.overlays.pocPrice > 0) {
+      const yPoc = Math.min(h - 12, Math.max(12, toY(ev.overlays.pocPrice)));
+      ctx.strokeStyle = "rgba(167, 139, 250, 0.45)";
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([2, 3]);
+      ctx.beginPath(); ctx.moveTo(0, yPoc); ctx.lineTo(w, yPoc); ctx.stroke();
+      ctx.fillStyle = "#C4B5FD"; ctx.font = "700 9.5px sans-serif";
+      ctx.fillText(`POC ${fmtPrice(ev.overlays.pocPrice, currentTicker)}`, 8, Math.max(11, yPoc - 3));
+      ctx.setLineDash([]);
     }
 
     slice.forEach((c, i) => {
@@ -3294,17 +3864,23 @@
     });
 
     ctx.setLineDash([4, 4]);
-    const yBuy1 = Math.min(h - 10, Math.max(14, toY(ev.buyTarget1)));
+    const yBuy1 = Math.min(h - 18, Math.max(14, toY(ev.buyTarget1)));
     ctx.strokeStyle = "rgba(16, 185, 129, 0.85)";
     ctx.beginPath(); ctx.moveTo(0, yBuy1); ctx.lineTo(w, yBuy1); ctx.stroke();
     ctx.fillStyle = "#34D399"; ctx.font = "700 10px sans-serif";
-    ctx.fillText(`1차매수 ${fmtPrice(ev.buyTarget1, currentTicker)}`, w - 135, Math.min(h - 4, yBuy1 + 11));
+    ctx.fillText(`1차매수 ${fmtPrice(ev.buyTarget1, currentTicker)}`, w - 138, Math.min(h - 12, yBuy1 - 3));
+
+    const yStop = Math.min(h - 6, Math.max(22, toY(ev.stopLoss)));
+    ctx.strokeStyle = "rgba(96, 165, 250, 0.85)";
+    ctx.beginPath(); ctx.moveTo(0, yStop); ctx.lineTo(w, yStop); ctx.stroke();
+    ctx.fillStyle = "#60A5FA";
+    ctx.fillText(`칼손절 ${fmtPrice(ev.stopLoss, currentTicker)}`, w - 138, Math.min(h - 3, yStop + 10));
 
     const ySell1 = Math.min(h - 14, Math.max(12, toY(ev.sellTarget1)));
     ctx.strokeStyle = "rgba(242, 54, 69, 0.85)";
     ctx.beginPath(); ctx.moveTo(0, ySell1); ctx.lineTo(w, ySell1); ctx.stroke();
     ctx.fillStyle = "#FF6B78";
-    ctx.fillText(`1차익절 ${fmtPrice(ev.sellTarget1, currentTicker)}`, w - 135, Math.max(11, ySell1 - 4));
+    ctx.fillText(`1차익절 ${fmtPrice(ev.sellTarget1, currentTicker)}`, w - 138, Math.max(11, ySell1 - 4));
     ctx.setLineDash([]);
 
     const lCanvas = document.getElementById("lowerChartCanvas");
@@ -3319,6 +3895,12 @@
       RSI: ev.oscSeries.rsiSeries,
       MACD: ev.oscSeries.macdSeries,
       STOCH: ev.oscSeries.slowKArr,
+      UO: ev.oscSeries.uoSeries,
+      CMO: ev.oscSeries.cmoSeries,
+      VI: ev.oscSeries.viPlusSeries,
+      ERAY: ev.oscSeries.erayBullSeries,
+      FISHER: ev.oscSeries.fisherSeries,
+      COPPOCK: ev.oscSeries.coppockSeries,
       MFI: ev.oscSeries.mfiSeries,
       CCI: ev.oscSeries.cciSeries,
       OBV: ev.oscSeries.obvSeries,
@@ -3356,7 +3938,7 @@
   function calcPositionSizing() {
     if (!lastEvaluated) return;
     const ev = lastEvaluated;
-    const totalSeed = parseFloat(document.getElementById("myTotalSeed").value) || 10000000;
+    const rawSeedInput = parseFloat(document.getElementById("myTotalSeed").value) || 10000000;
     const riskPct = parseFloat(document.getElementById("myRiskPct").value) || 2.0;
     const avgP = parseFloat(document.getElementById("myAvgPrice").value);
     const holdQ = parseFloat(document.getElementById("myHoldQty").value) || 0;
@@ -3364,28 +3946,50 @@
     const box = document.getElementById("positionSizingResult");
 
     const isKRW = isKrwNativeAsset(currentTicker);
+    const fx = officialUsdKrw || 1385.0;
+    // 미국 주식인데 시드머니가 100만 이상(예: 기본값 10,000,000원)으로 입력된 경우 자동으로 환율 환산($) 처리
+    const isKrwSeedForUsdAsset = !isKRW && rawSeedInput >= 500000;
+    const effectiveSeed = isKrwSeedForUsdAsset ? (rawSeedInput / fx) : rawSeedInput;
+    const seedDisplay = isKrwSeedForUsdAsset
+      ? `${rawSeedInput.toLocaleString()}원 (≈ $${Math.round(effectiveSeed).toLocaleString()})`
+      : `${rawSeedInput.toLocaleString()}${isKRW ? '원' : '$'}`;
+
     const unitPrice = ev.buyTarget1;
     const stopPrice = ev.stopLoss;
     const riskPerShare = Math.max(unitPrice * 0.015, Math.abs(unitPrice - stopPrice));
-    const maxAllowedLoss = totalSeed * (riskPct / 100.0);
+    const maxAllowedLoss = effectiveSeed * (riskPct / 100.0);
     const isCrypto = currentTicker.startsWith("KRW-") || currentTicker.endsWith("USDT");
-    const rawOptimal = Math.min(totalSeed / Math.max(0.01, unitPrice), maxAllowedLoss / riskPerShare);
+    const rawOptimal = Math.min(effectiveSeed / Math.max(0.01, unitPrice), maxAllowedLoss / riskPerShare);
     const optimalTotalShares = isCrypto ? +(rawOptimal.toFixed(3)) : Math.max(1, Math.floor(rawOptimal));
-    const lot1 = isCrypto ? +(optimalTotalShares * 0.6).toFixed(3) : Math.max(1, Math.round(optimalTotalShares * 0.6));
+    const lot1 = isCrypto ? +(optimalTotalShares * 0.5).toFixed(3) : Math.max(1, Math.round(optimalTotalShares * 0.5));
     const lot2 = isCrypto ? +(optimalTotalShares - lot1).toFixed(3) : Math.max(0, optimalTotalShares - lot1);
     const unitLbl = isCrypto ? "개" : "주";
 
+    const avgEntryPrice = optimalTotalShares > 0
+      ? ((lot1 * ev.buyTarget1) + (lot2 * ev.buyTarget2)) / optimalTotalShares
+      : ev.buyTarget1;
+    const expProfit1 = Math.max(0, (ev.sellTarget1 - avgEntryPrice) * optimalTotalShares);
+    const maxLossAmt = Math.abs(avgEntryPrice - ev.stopLoss) * optimalTotalShares;
+
     let html = `
-      <b>🎯 시드(${totalSeed.toLocaleString()}${isKRW ? '원' : '$'}) 기준 최적 진입 수량 (최대손실 -${riskPct}% 제한):</b><br/>
-      • <b>총 권장 수량:</b> <b style="color:#34D399;">${optimalTotalShares.toLocaleString()}${unitLbl}</b> → <b>1차 타점(${fmtPrice(ev.buyTarget1, currentTicker)}) ${lot1.toLocaleString()}${unitLbl}</b> + <b>2차 타점(${fmtPrice(ev.buyTarget2, currentTicker)}) ${lot2.toLocaleString()}${unitLbl}</b> 분할매수
+      <div style="font-weight:900; color:#93C5FD; margin-bottom:6px; display:flex; align-items:center; gap:4px;">
+        <span class="material-symbols-outlined" style="font-size:16px; color:var(--primary);">calculate</span>
+        <span>시드(${seedDisplay}) 기준 최적 분할매수 플랜 (최대손실 -${riskPct}% 제한 · 손익비 1:${ev.rrRatio1})</span>
+      </div>
+      <div style="line-height:1.6;">
+        • <b>총 권장 수량:</b> <b style="color:#34D399;">${optimalTotalShares.toLocaleString()}${unitLbl}</b> (Half-Kelly 권장비중 ${ev.halfKellyPct}%)<br/>
+        • <b>분할 매수 타점:</b> <b>1차(${fmtPrice(ev.buyTarget1, currentTicker)}) ${lot1.toLocaleString()}${unitLbl}</b> + <b>2차(${fmtPrice(ev.buyTarget2, currentTicker)}) ${lot2.toLocaleString()}${unitLbl}</b><br/>
+        • <b>예상 손익 시뮬레이션:</b> 1차 익절 시 <b style="color:var(--up);">+${fmtPrice(expProfit1, currentTicker)}</b> / 칼손절 시 <b style="color:#60A5FA;">-${fmtPrice(maxLossAmt, currentTicker)}</b>
+      </div>
     `;
 
     if (!isNaN(avgP) && avgP > 0 && holdQ > 0) {
       const newTotalQty = holdQ + addQ;
       const newAvgP = ((avgP * holdQ) + (ev.buyTarget1 * addQ)) / newTotalQty;
       const targetProfit = (ev.sellTarget1 - newAvgP) * newTotalQty;
+      const breakEvenGap = (((ev.curC - newAvgP) / newAvgP) * 100).toFixed(2);
       html += `<br/><hr style="border:none; border-top:1px dashed var(--border); margin:6px 0;"/>
-        <b>💧 물타기 결과:</b> 새 평단가 <b style="color:#60A5FA;">${fmtPrice(newAvgP, currentTicker)}</b> (총 ${newTotalQty}${unitLbl}) · 1차 익절 시 <b style="color:var(--up);">+${fmtPrice(Math.max(0, targetProfit), currentTicker)}</b>
+        <div style='margin-top:6px; display:flex; align-items:center; gap:4px;'><span class='material-symbols-outlined' style='font-size:14px; color:#60A5FA;'>water_drop</span><b>물타기 시뮬레이션 결과:</b></div> 새 평단가 <b style="color:#60A5FA;">${fmtPrice(newAvgP, currentTicker)}</b> (총 ${newTotalQty}${unitLbl} · 현재가 대비 ${breakEvenGap >= 0 ? '+' : ''}${breakEvenGap}%) · 1차 익절 도달 시 <b style="color:var(--up);">${targetProfit >= 0 ? '+' : '-'}${fmtPrice(Math.abs(targetProfit), currentTicker)}</b>
       `;
     }
     box.innerHTML = html;
@@ -3510,7 +4114,7 @@
     if (hs) {
       const warn = document.createElement("div");
       warn.style.marginTop = "3px";
-      warn.innerHTML = `⚠️ 정적 배포(깃허브 Pages)에서는 네이버/KIS가 <b>CORS로 차단</b>됩니다 → <b>⚙️ API·지표설정</b> 탭에서 프록시 주소(Worker)를 입력하세요`;
+      warn.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px; color:#FCD34D; vertical-align:-2px;">warning</span> 정적 배포(깃허브 Pages)에서는 네이버/KIS가 <b>CORS로 차단</b>됩니다 → <b>API·지표설정</b> 탭에서 프록시 주소(Worker)를 입력하세요`;
       hs.appendChild(warn);
     }
     const badge = document.getElementById("feedSourceBadge");
@@ -3524,7 +4128,7 @@
     if (_syncInFlight) return;
     _syncInFlight = true;
     lastFullSyncAt = Date.now();
-    document.getElementById("feedSourceBadge").textContent = "🔄 다중 실데이터 병렬 수신중..";
+    document.getElementById("feedSourceBadge").textContent = "다중 실데이터 병렬 수신중..";
     await sync24HourAssetsRest();
 
     const allTargets = [...new Set([...majorStocks.map(s => s.ticker), "QQQ", "SPY"])];
@@ -3544,7 +4148,7 @@
       badge.textContent = "● 실데이터 교차검증 완료";
       badge.style.color = "var(--green)";
     } else {
-      badge.textContent = `⚠️ ${got}/${tot} 수신 — 미수신 ${tot - got}개 (프록시·키 확인)`;
+      badge.textContent = `${got}/${tot} 수신 — 미수신 ${tot - got}개 (프록시·키 확인)`;
       badge.style.color = "var(--amber)";
     }
     maybeWarnStaticHost();
@@ -3575,7 +4179,7 @@
     window.addEventListener("touchmove", (e) => {
       if (!armed) return;
       pull = e.touches[0].clientY - startY;
-      if (pull >= 70) { ready = true; show("🌐 손을 떼면 실데이터 재수신"); }
+      if (pull >= 70) { ready = true; show("손을 떼면 실데이터 전체 재수신"); }
       else if (pull > 10) show("↻ 아래로 당겨서 재수신");
       else hide();
     }, { passive: true });
@@ -3583,7 +4187,7 @@
       const doSync = armed && ready && pull >= 70;
       armed = false; ready = false; pull = 0;
       if (doSync && !_syncInFlight) {
-        show("🔄 실데이터 재수신 중...");
+        show("실데이터 동기화 중...");
         Promise.resolve(syncAllRealtime()).finally(hide);
       } else hide();
     }, { passive: true });
